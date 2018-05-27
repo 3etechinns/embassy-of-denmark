@@ -1,0 +1,28 @@
+extends ./layout.pug
+
+block main
+  .main-content.register
+    .register-form
+      form(action="/register" method="POST")
+        .tabs
+          .tabbed-pane
+            .sign-up.active sign up
+          .tabbed-pane
+            .sign-in sign in
+        .form-section
+          .form-header.display-4.mb-4 Create your embassy account
+          .form-group
+            label(for="email") Email
+            label.star *
+            input.form-control.form-control-sm(required type="email" placeholder="Email Address*" id="email" name="email")
+          .top-form-group
+            .form-group
+              label(for="password") Password
+              label.star *
+              input.form-control.form-control-sm(required type="password" placeholder="Password*" id="password" name="password")
+            .form-group
+              label(for="confirmPassword") Confirm Password
+              label.star *
+              input.form-control.form-control-sm(required type="password" placeholder="confirm password*" id="confirmPassword" name="confirmPassword")
+          .submit-button
+            button.btn.btn-primary.btn-lg.btn-block(type="submit") sign up

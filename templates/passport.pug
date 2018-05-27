@@ -1,0 +1,315 @@
+extends ./layout.pug
+
+block main
+  .main-content.passport
+    h5.display-5.my-4 Passport Application
+    .passport-form  
+      form(action="/forms/passport", method="post")
+        .form-section
+          .top-form-group
+            .form-group
+              label(for="applicationType") Application Type
+                label.star *
+              select.form-control.form-control-sm(required type="text" id="applicationType" name="applicationType")
+                option(value="new") New
+                option(value="renewal") Renewal
+                option(value="missing") Missing
+                option(value="stolen") Stolen
+                option(value="damaged") Damaged
+            .form-group
+              label(for="passportType") Passport Type
+                label.star *
+              select.form-control.form-control-sm(required type="text" id="passportType" name="passportType")
+                option(value="ordinary") Ordinary
+                
+            .form-group
+              label(for="applicationPriority") Application Priority
+                label.star *
+              select.form-control.form-control-sm(required type="text" id="applicationPriority" name="applicationPriority")
+                option Select one...
+                option(value="standard") Biometric Standard
+                option(value="express") Biometric Express
+                option(value="missing") Biometric Missing/Damaged
+                option(value="missing-express") Biometric Missing/Damaged Express
+        .form-section
+          .top-form-group
+            .form-group
+              label(for="surname") Surname
+              label.star *
+              input.form-control.form-control-sm(required type="text" id="surname" placeholder="Surname" name="surname")
+            .form-group
+              label(for="firstName") First name
+              label.star *
+              input.form-control.form-control-sm(required type="text" placeholder="First name" id="firstName" name="firstName")
+            .form-group
+              label(for="otherNames") Other names
+              input.form-control.form-control-sm(type="text" placeholder="Other names" id="otherNames" name="otherNames")
+          .bottom-form-group
+            .form-group
+              label(for="maidenName") Maiden name(s)
+              input.form-control.form-control-sm(type="text" placeholder="Maiden name(s)" id="maidenName" name="maidenName")
+            .form-group#affidavit
+              label(for="maidenName") If name has changed by Affidavit or Gazette Publication, provide previous name
+              input.form-control.form-control-sm(type="text" placeholder="Previous name if changed" id="maidenName" name="previousName")
+        .form-section
+          .top-form-group
+            .form-group
+              label(for="dateOfBirth") Date of birth
+              label.star *
+              input.form-control.form-control-sm(required type="date" id="dateOfBirth" name="dateOfBirth")
+            .form-group
+              label(for="gender" id="gender") Gender
+              label.star *
+              br
+              .form-check.form-check-inline
+                input.form-check-input.form-control-sm(required type="radio" id="male" name="gender" value="male")
+                label.form-check-label Male
+              .form-check.form-check-inline
+                input.form-check-input.form-control-sm(required type="radio" id="female" name="gender" value="femlae")
+                label.form-check-label Female
+            .form-group
+              label(for="placeOfBirth") City or town of birth
+                label.star *
+              input.form-control.form-control-sm(required type="text" placeholder="Birth city/town" id="placeOfBirth" name="placeOfBirth")
+          .bottom-form-group
+            .form-group
+              label(for="countryOfBirth") Country of birth
+                label.star *
+              select.form-control.form-control-sm(required type="text" id="countryOfBirth" name="countryOfBirth")
+                option Select one...
+        .form-section
+          .top-form-group
+            .form-group
+              label(for="height") Height(in meters)
+                label.star *
+              input.form-control.form-control-sm(required type="text" id="height" placeholder="E.g 1.7" name="height")
+            .form-group
+              label(for="eyeColor") Eye color
+                label.star *
+              select.form-control.form-control-sm(required type="text" id="eyeColor" name="eyeColor")
+                option(value="#") Select one...
+                option(value="Black") Black
+                option(value="Brown") Brown
+                option(value="Blue") Blue
+                option(value="Green") Green
+                option(value="Grey") Grey
+            .form-group
+              label(for="hairColor") Hair color
+              label.star *
+              select.form-control.form-control-sm(required id="hairColor" name="hairColor")
+                option(value="#") Select one...
+                option(value="Black") Black
+                option(value="Brown") Brown
+                option(value="Blond") Blond
+                option(value="Ginger") Ginger
+                option(value="Grey") Grey
+                option(value="Red") Red
+        .form-section
+          .top-form-group
+            .form-group
+              label(for="nationality") Nationality
+              label.star *
+              select#nationality.form-control.form-control-sm(required name="nationality")
+                option(value="dane") Dane
+            .form-group
+              label(for="maritalStatus") Marital Status
+              label.star *
+              select#nationality.form-control.form-control-sm(required name="maritalStatus")
+                option(value="#") Select one...
+                option(value="single") Single
+                option(value="married") Married
+                option(value="divorced") Divorced
+                option(value="widowed") Widowed
+        .form-section
+          .top-form-group
+            .form-group
+              label(for="profession") Profession
+              label.star *
+              input.form-control.form-control-sm(required type="text" placeholder="Profession" id="profession" name="profession")
+            .form-group
+              label(for="previousProfession") Previous profession
+              label.star *
+              input.form-control.form-control-sm(required type="text" placeholder="Previous profession" id="previousProfession" name="previousProfession")
+        .form-section
+          .top-form-group
+            .form-group
+              label(for="countryOfResidence") Country of residence
+              label.star *
+              select.form-control.form-control-sm(required name="countryOfResidence" id="countryOfResidence")
+                option(value="Denmark") Select one
+            .form-group
+              label(for="residentialAddress") Residential address
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="residentialAddress" id="residentialAddress")
+            .form-group
+              label(for="telephoneNumber") Telephone
+              label.star *
+              input.form-control.form-control-sm(required name="telephoneNumber" id="telephoneNumber")
+            .form-group
+              label(for="email") Email
+              label.star *
+              input.form-control.form-control-sm(required type="email" name="email" id="email")
+        .form-section
+          p.form-section-name Current/Last Educational Institution attended
+          .top-form-group
+            .form-group
+              label(for="institution") Institution
+              input.form-control.form-control-sm(type="text" name="institution" id="institution")
+            .form-group
+              label(for="placeOfInstitution") Place
+              input.form-control.form-control-sm(type="text" name="placeOfInstitution" id="placeOfInstitution")
+            .form-group
+              label(for="year") Year
+              input.form-control.form-control-sm(type="text" name="year" id="year")
+        .form-section
+          p.form-section-name Evidence of citizenship
+          .top-form-group
+            .form-group
+              label(for="fathersName") Father's name
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="fathersName" id="fathersName")
+            .form-group
+              label(for="fathersNationality") Father's nationality
+              label.star *
+              select.form-control.form-control-sm(required name="fathersNationality" id="fathersNationality")
+                option(value="Denmark") Select one
+            .form-group
+              label(for="fathersAddress") Father's address
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="fathersAddress" id="fathersAddress")
+          .bottom-form-group
+            .form-group
+              label(for="mothersName") Mother's name
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="mothersName" id="mothersName")
+            .form-group
+              label(for="mothersNationality") Mother's nationality
+              label.star *
+              select.form-control.form-control-sm(required name="mothersNationality" id="mothersNationality")
+                option(value="Denmark") Select one
+            .form-group
+              label(for="mothersAddress") Mother's address
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="mothersAddress" id="mothersAddress")
+        .form-section
+          p.form-section-name Any 2 Danes living in your country who will act as guarantors and be contacted in case of emergency
+          .top-form-group
+            .form-group
+              label(for="guarantorsName1") Full name
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="guarantorsName1" id="guarantorsName1")
+            .form-group
+              label(for="guarantorsAddress1") Residential address
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="guarantorsAddress1" id="guarantorsAddress1")
+            .form-group
+              label(for="guarantorsTelephoneNumber1") Telephone number
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
+          .bottom-form-group
+            .form-group
+              label(for="guarantorsName2") Full name
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="guarantorsName2" id="guarantorsName2")
+            .form-group
+              label(for="guarantorsAddress2") Residential address
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="guarantorsAddress2" id="guarantorsAddress2")
+            .form-group
+              label(for="guarantorsTelephoneNumber2") Telephone number
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
+        .form-section
+          p.form-section-name PARENTAL/LEGAL GUARDIAN CONSENT FOR APPLICANT 
+            b UNDER 18 YEARS OF AGE
+          p I hereby give consent for applicant who is my 
+            input(type="text" placeholder="Son, daughter...") 
+            |  hold a passport
+          .top-form-group
+            .form-group
+              label(for="parentName") Full name
+              label.star *
+              input.form-control.form-control-sm(type="text" name="parentName" id="parentName")
+            .form-group
+              label(for="parentNAddress") Residential address
+              label.star *
+              input.form-control.form-control-sm(type="text" name="parentNAddress" id="parentNAddress")
+            .form-group
+              label(for="parentTelephoneNumber") Telephone number
+              label.star *
+              input.form-control.form-control-sm(type="text" name="parentTelephoneNumber" id="parentTelephoneNumber")
+        .form-section
+          p.form-section-name FOR PERSONS COMPLETING THIS FORM ON BEHALF OF APPLICANTS WHO CANNOT READ OR WRITE ENGLISH
+          p The above declaration has been read and intepreted by me in 
+            input(type="text" placeholder="Eg. English")
+            |  language to the applicant and he/she understands and accepts
+          .top-form-group
+            .form-group
+              label(for="intepreterName") Full name
+              label.star *
+              input.form-control.form-control-sm(type="text" name="intepreterName" id="intepreterName")
+            .form-group
+              label(for="intepreterddress") Residential address
+              label.star *
+              input.form-control.form-control-sm(type="text" name="intepreterAddress" id="intepreterAddress")
+            .form-group
+              label(for="intepreterTelephoneNumber") Telephone number
+              label.star *
+              input.form-control.form-control-sm(type="text" name="intepreterTelephoneNumber" id="intepreterTelephoneNumber")
+        .form-section
+          p.form-section-name DECLARATION BY APPLICANT
+          p I, the undersigned hereby apply for Danish Passport and declare:
+          p
+            input(type="checkbox", name="newPassport") 
+            |  That I have not previously held or applied for a passport of any description.
+          p
+            input(type="checkbox", name="newPassport") 
+            |  That the previous passport No. 
+            input(type="text" name="previousPassportNumber")
+            |   granted me is  
+            select(name="stateOfPreviousPassport")
+              option Select one...
+              option(value="attached") Attached
+              option(value="lost") Lost
+              option(value="missing") Missing
+              option(value="damaged") Damaged
+            |   (Attached/Lost/Missing/Damaged)
+            br
+            |   And that all the above information is true and correct
+
+          .top-form-group
+            .form-group
+        .form-section
+          p.form-section-name WITNESS
+          .top-form-group
+            .form-group
+              label(for="witnessName") Full name
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="witnessName" id="witnessName")
+            .form-group
+              label(for="witnessOccupation") Occupation
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="witnessOccupation" id="witnessOccupation")
+            .form-group
+              label(for="witnessWorkPlaceAddress") Workplace Address
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="witnessWorkPlaceAddress" id="witnessWorkPlaceAddress")
+          .bottom-form-group
+            .form-group
+              label(for="witnessResidentialAddress") Residential address
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="witnessResidentialAddress" id="witnessResidentialAddress")
+            .form-group
+              label(for="witnessTelephoneNumber") Telephone number
+              label.star *
+              input.form-control.form-control-sm(required type="text" name="witnessTelephoneNumber" id="witnessTelephoneNumber")
+            .form-group
+              label(for="witnessDate") Date
+              label.star *
+              input.form-control.form-control-sm(required type="date" name="witnessDate" id="witnessDate")
+        .submit-button
+          button.submit-passport-form.btn.btn-primary.btn-lg.btn-block(type="submit") submit
+  script(src="/js/countries.js")
+
+              
+          
