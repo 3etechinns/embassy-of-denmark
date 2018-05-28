@@ -18,6 +18,10 @@ module.exports = app => {
     return res.render("login");
   });
 
+  app.get("/register", (req, res, next) => {
+    return res.redirect("/");
+  });
+
   app.get("/logout", async (req, res, next) => {
     try {
       await req.session.destroy();

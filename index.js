@@ -10,6 +10,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+// mongodb://127.0.0.1:27017/denmarkdb
+
 const app = express();
 
 // Configuration settings on the app
@@ -51,7 +53,7 @@ app.use((req, res, next) => {
 // Error Handler
 app.use((error, req, res, next) => {
   // res.status(error.status || 500).render("error", { error });
-  return res.json(error);
+  return res.json(error.message);
 });
 
 const PORT = process.env.PORT || 3003;
