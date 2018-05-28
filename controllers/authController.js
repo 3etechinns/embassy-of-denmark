@@ -7,7 +7,7 @@ const createUser = async (req, res, next) => {
   try {
     const { email, password, confirmPassword } = req.body;
 
-    if (!email || !password || !confirmPassword) {
+    if (!email.trim() || !password.trim() || !confirmPassword.trim()) {
       return util.error("all fields required", next);
     }
 
@@ -26,6 +26,8 @@ const createUser = async (req, res, next) => {
       password: hash
     });
     req.session.userId = user._id;
+    req.session.userEmail = user.email;
+    res.locals.currentUser = user.email;
     return res.redirect("/forms/passport");
   } catch (error) {
     return next(error);
@@ -46,6 +48,13 @@ const logIn = async (req, res, next) => {
       return util.error("Incorrect password", next, 403);
     }
     req.session.userId = user._id;
+    req.session.userEmail = user.email;
+    // res.locals.currentUser = user.email;
+    // res.locals = {
+    //   ...res.locals,
+    //   currentUser: user.email
+    // };
+    console.log(res.locals);
     return res.redirect("/forms/passport");
   } catch (error) {
     return next(error);

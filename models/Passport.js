@@ -4,7 +4,12 @@ const ParentalConsentSchema = require("./ParentalConsent");
 
 const PassportFormSchema = new Schema(
   {
-    surname: { type: String, trim: true, required: true, default: " " },
+    surname: {
+      type: String,
+      trim: true,
+      required: [true, "surname is required"],
+      default: " "
+    },
     firstName: { type: String, trim: true, required: true, default: " " },
     otherNames: { type: String, trim: true },
     maidenName: { type: String, trim: true },
@@ -31,16 +36,21 @@ const PassportFormSchema = new Schema(
     residentialAddress: {
       type: String,
       trim: true,
-      required: true,
+      required: [true, "residential address is required"],
       default: " "
     },
     telephoneNumber: { type: String, trim: true, required: true, default: " " },
-    email: { type: String, trim: true, required: true, default: " " },
+    email: {
+      type: String,
+      trim: true,
+      required: [true, "email is required"],
+      default: " "
+    },
     fathersName: { type: String, trim: true, required: true, default: " " },
     fathersNationality: {
       type: String,
       trim: true,
-      required: true,
+      required: [true, "father's nationality is required"],
       default: " "
     },
     fathersAddress: { type: String, trim: true, required: true, default: " " },
@@ -53,7 +63,7 @@ const PassportFormSchema = new Schema(
     },
     mothersAddress: { type: String, trim: true, required: true, default: " " },
     oldPassport: { type: Boolean, trim: true },
-    dateOfIssue: { type: Date },
+    dateOfIssue: { type: Date, trim: true },
     placeOfIssue: { type: String, trim: true },
     witnessName: { type: String, trim: true, required: true, default: " " },
     witnessOccupation: {
@@ -80,7 +90,7 @@ const PassportFormSchema = new Schema(
       required: true,
       default: " "
     },
-    witnessDate: { type: Date, required: true },
+    witnessDate: { type: Date, trim: true, required: true },
     guarantors: {
       type: [
         {

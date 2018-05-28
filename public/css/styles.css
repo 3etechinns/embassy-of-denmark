@@ -13,15 +13,19 @@ body {
 
 .root {
   display: flex;
+  margin: 0 auto;
   flex-direction: column;
+  /* width: 100%; */
 }
 
 .main-content {
   flex: 1;
+  position: relative;
+  margin: 87px auto 0 auto;
 }
 
-.root, .passport, header {
-  margin: 0 auto;
+.register, .login {
+  width: 60%;
 }
 
 /* .home::before {
@@ -40,16 +44,11 @@ body {
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 10px;
+  /* padding: 10px; */
 }
 
 .avatar {
   width: 40px;
-}
-
-.username {
-  background: inherit !important;
-  border: none;
 }
 
 .navbar-brand {
@@ -68,10 +67,8 @@ body {
 header {
   width: 100%;
   border-bottom: 1px solid #dbe2e8;
-}
-
-.passport {
-  width: 80%;
+  position: fixed;
+  z-index: 100;
 }
 
 form {
@@ -87,7 +84,7 @@ form {
 
 .register-form form, .login-form form {
   border: 1px solid #dbe2e8;
-  width: 60%;
+  width: 100%;
   box-shadow: 2px 2px 3px 0 rgba(117, 124, 129, 0.12);
   margin: 40px auto;
 }
@@ -146,7 +143,7 @@ form {
   margin-top: 15px;
 }
 
-.submit-button button {
+.submit-button > a, .submit-button button {
   text-transform: uppercase;
   font-weight: 600;
   padding: 13px;
@@ -160,6 +157,15 @@ form {
   box-shadow: 12px 15px 20px rgba(0, 0, 0, 0.1);
   border: none;
   font-size: 12px;
+}
+
+.submit-passport-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-passport-form > a, .submit-passport-form > button {
+  width: 300px;
 }
 
 label, option {

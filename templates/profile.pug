@@ -1,4 +1,24 @@
 extends ./layout.pug
 
 block main
-  .display-4.my-4 Profile Page
+  .main-content.profile
+    .display-4.text-center.my-4 Profile Page
+    table.table
+      thead
+        tr
+          th(scope='col') NO.
+          th(scope='col') FORM
+          th(scope='col') CREATED AT
+          th(scope='col') LAST UPDATED
+          th(scope='col') STATUS
+          th(scope='col') PRICE
+          th(scope='col') 
+      tbody
+        each form in forms
+          tr
+            th(scope='row') 1
+            td #{form.formType}
+            td #{form.createdAt}
+            td #{form.updatedAt}
+            td #{form.status}
+            td #{200}

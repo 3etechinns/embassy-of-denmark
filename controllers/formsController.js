@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 const util = require("../util");
 const PassportForm = mongoose.model("PassportForm");
+const Form = mongoose.model("Form");
 const VisaForm = mongoose.model("VisaForm");
+const FORM_TYPES = require("../formsTypes");
 
 const createPassportForm = async (req, res, next) => {
   try {
     // for forms submitted to be continued later
     if (req.query.type === "continue-later") {
       // loop through each property in the req.body and set empty ones to undefined
+      // for the purpose of mongoose providing a default value
       for (prop in req.body) {
         if (!req.body[prop].trim()) {
           req.body[prop] = undefined;
@@ -27,23 +30,27 @@ const createPassportForm = async (req, res, next) => {
       }
     ];
 
-    // console.log(req.body);
-
-    const form = await PassportForm.create({
+    const passportForm = await PassportForm.create({
       ...req.body,
+      dateOfBirth: new Date(req.body.dateOfBirth).valueOf(),
+      witnessDate: new Date(req.body.witnessDate).valueOf(),
       guarantors
     });
 
-    console.log("old passport is " + form.oldPassport);
+    const formRecord = await Form.create({
+      _owner: req.session.userId,
+      id: passportForm._id,
+      formType: FORM_TYPES.passportForm
+    });
 
-    if (!form) {
+    if (!passportForm) {
       return util.error(
         "sorry, we are having problems processing your form, try again later",
         next
       );
     }
 
-    return res.json(form);
+    return res.json(passportForm);
   } catch (error) {
     // error.message = "Please fill all required fields";
     return next(error);

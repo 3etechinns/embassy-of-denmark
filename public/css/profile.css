@@ -1,4 +1,16 @@
-* {
-  box-sizing: border-box;
+
+table {
+  display: table;
+  border-collapse: collapse;
+  border-color: grey !important;
 }
 
+.table {
+  background: white;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+.profile {
+  width: 80%;
+}

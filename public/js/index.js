@@ -2,7 +2,6 @@ var countryOfBirth = document.querySelector("#countryOfBirth");
 var countryOfResidence = document.querySelector("#countryOfResidence");
 var fathersNationality = document.querySelector("#fathersNationality");
 var mothersNationality = document.querySelector("#mothersNationality");
-console.log(countryOfResidence);
 
 if (countryOfBirth) {
   countries.forEach(function(country) {
@@ -35,6 +34,3 @@ if (signUpTabbedPane) {
 }
 
 $().dropdown();
-// $(".dropdown-menu").on("show.bs.dropdown", function() {
-//   // do something…
-// });

@@ -14,13 +14,13 @@ header
           a.nav-link(href="/forms/dual-citizenship") Dual Citizenship Form
         li.nav-item
           a.nav-link(href="/forms/appointment") Appointment Form
-    if user
-      .user-profile.dropdown
-        #dropdownMenuLink.btn.btn-secondary.username.text-muted.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') 
-          img.avatar.mr-1(src="/img/avatar.png", alt="avatar")
-          | user@email.com
+      if userId
+        li.nav-item.user-profile.dropdown  
+          div#dropdownMenuLink.btn.dropdown-toggle.username(role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')  
+            img.text-muted.avatar.mr-1(src="/img/avatar.png", alt="avatar")
+            | #{email}
           .dropdown-menu(aria-labelledby='dropdownMenuLink')
-            a.dropdown-item.sign-out logout
+            a.dropdown-item.sign-out(href="/logout") Sign out
             a.dropdown-item(href='#') Another action
             a.dropdown-item(href='#') Something else here
     button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")

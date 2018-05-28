@@ -1,24 +1,27 @@
-const { requireLogin } = require("../middleware");
+const { requireLogin, requireLogout } = require("../middleware");
 const {
   createPassportForm,
   createVisaForm
 } = require("../controllers/formsController");
 const { createUser, logIn } = require("../controllers/authController");
+const mongoose = require("mongoose");
+const Form = mongoose.model("Form");
 
 module.exports = app => {
-  app.get("/", (req, res, next) => {
+  app.get("/", requireLogout, (req, res, next) => {
     return res.render("register");
   });
 
-  app.get("/profile", requireLogin, (req, res, next) => {
-    return res.render("profile");
+  app.get("/profile", requireLogin, async (req, res, next) => {
+    const forms = await Form.find({ _owner: req.session.userId });
+    return res.render("profile", { forms });
   });
 
-  app.get("/login", (req, res, next) => {
+  app.get("/login", requireLogout, (req, res, next) => {
     return res.render("login");
   });
 
-  app.get("/register", (req, res, next) => {
+  app.get("/register", requireLogout, (req, res, next) => {
     return res.redirect("/");
   });
 

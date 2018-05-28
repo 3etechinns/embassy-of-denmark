@@ -36,7 +36,12 @@ mongoose.connect(process.env.MONGO_URI, { autoReconnect: true }, err => {
 require("./models");
 
 app.use((req, res, next) => {
-  if (req.session.userId) res.locals.user = req.session.userId;
+  if (req.session.userId) {
+    res.locals = {
+      userId: req.session.userId,
+      email: req.session.userEmail
+    };
+  }
   return next();
 });
 
@@ -52,8 +57,8 @@ app.use((req, res, next) => {
 
 // Error Handler
 app.use((error, req, res, next) => {
-  // res.status(error.status || 500).render("error", { error });
-  return res.json(error.message);
+  // return res.status(error.status || 500).render("error", { error });
+  return res.json({ message: error.message, status: error.status });
 });
 
 const PORT = process.env.PORT || 3003;
