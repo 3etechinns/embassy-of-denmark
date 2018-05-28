@@ -1,39 +1,101 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const ParentalConsentSchema = require("./ParentalConsent");
-const { witnessFormSchema, GuarantorSchema } = require("./Witness");
-const evidenceOfCitizenShipFormSchema = require("./evidenceOfCitizenShip");
 
 const PassportFormSchema = new Schema(
   {
-    surname: { type: String, required: true },
-    firstName: { type: String, required: true },
-    otherNames: { type: String },
-    maidenName: { type: String },
-    previousName: { type: String },
-    applicationType: { type: String, required: true },
-    passportType: { type: String, required: true },
-    applicationPriority: { type: String, required: true },
-    profession: { type: String, required: true },
-    previousProfession: { type: String },
+    surname: { type: String, trim: true, required: true, default: " " },
+    firstName: { type: String, trim: true, required: true, default: " " },
+    otherNames: { type: String, trim: true },
+    maidenName: { type: String, trim: true },
+    previousName: { type: String, trim: true },
+    applicationType: { type: String, trim: true, required: true, default: " " },
+    passportType: { type: String, trim: true, required: true, default: " " },
+    applicationPriority: {
+      type: String,
+      trim: true,
+      required: true,
+      default: " "
+    },
+    profession: { type: String, trim: true, required: true, default: " " },
+    previousProfession: { type: String, trim: true },
     dateOfBirth: { type: Date, required: true },
-    gender: { type: String, required: true },
-    placeOfBirth: { type: String, required: true },
-    countryOfBirth: { type: String, required: true },
-    height: { type: String, required: true },
-    eyeColor: { type: String, required: true },
-    hairColor: { type: String, required: true },
-    nationality: { type: String, required: true },
-    maritalStatus: { type: String, required: true },
-    residentialAddress: { type: String, required: true },
-    telephoneNumber: { type: String, required: true },
-    email: { type: String, required: true },
-    guarantors: { type: [GuarantorSchema], required: true },
-    evidenceOfCitizenship: {
-      type: evidenceOfCitizenShipFormSchema,
+    gender: { type: String, trim: true, required: true, default: " " },
+    placeOfBirth: { type: String, trim: true, required: true, default: " " },
+    countryOfBirth: { type: String, trim: true, required: true, default: " " },
+    height: { type: String, trim: true, required: true, default: " " },
+    eyeColor: { type: String, trim: true, required: true, default: " " },
+    hairColor: { type: String, trim: true, required: true, default: " " },
+    nationality: { type: String, trim: true, required: true, default: " " },
+    maritalStatus: { type: String, trim: true, required: true, default: " " },
+    residentialAddress: {
+      type: String,
+      trim: true,
+      required: true,
+      default: " "
+    },
+    telephoneNumber: { type: String, trim: true, required: true, default: " " },
+    email: { type: String, trim: true, required: true, default: " " },
+    fathersName: { type: String, trim: true, required: true, default: " " },
+    fathersNationality: {
+      type: String,
+      trim: true,
+      required: true,
+      default: " "
+    },
+    fathersAddress: { type: String, trim: true, required: true, default: " " },
+    mothersName: { type: String, trim: true, required: true, default: " " },
+    mothersNationality: {
+      type: String,
+      trim: true,
+      required: true,
+      default: " "
+    },
+    mothersAddress: { type: String, trim: true, required: true, default: " " },
+    oldPassport: { type: Boolean, trim: true },
+    dateOfIssue: { type: Date },
+    placeOfIssue: { type: String, trim: true },
+    witnessName: { type: String, trim: true, required: true, default: " " },
+    witnessOccupation: {
+      type: String,
+      trim: true,
+      required: true,
+      default: " "
+    },
+    witnessWorkPlaceAddress: {
+      type: String,
+      trim: true,
+      required: true,
+      default: " "
+    },
+    witnessTelephoneNumber: {
+      type: String,
+      trim: true,
+      required: true,
+      default: " "
+    },
+    witnessResidentialAddress: {
+      type: String,
+      trim: true,
+      required: true,
+      default: " "
+    },
+    witnessDate: { type: Date, required: true },
+    guarantors: {
+      type: [
+        {
+          guarantorsName: {
+            type: String,
+            trim: true,
+            required: true,
+            default: " "
+          },
+          guarantorsAddress: { type: String, trim: true },
+          guarantorsTelephoneNumber: { type: String, trim: true }
+        }
+      ],
       required: true
     },
-    witness: { type: witnessFormSchema, required: true },
     parentalConsent: { type: ParentalConsentSchema }
   },
   { timestamps: true }

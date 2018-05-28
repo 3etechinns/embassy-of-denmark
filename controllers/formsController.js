@@ -5,66 +5,36 @@ const VisaForm = mongoose.model("VisaForm");
 
 const createPassportForm = async (req, res, next) => {
   try {
-    const {
-      guarantorsName1,
-      guarantorsAddress1,
-      guarantorsTelephoneNumber1,
-      guarantorsName2,
-      guarantorsAddress2,
-      guarantorsTelephoneNumber2,
-      witnessName,
-      witnessOccupation,
-      witnessWorkPlaceAddress,
-      witnessTelephoneNumber,
-      witnessResidentialAddress,
-      witnessDate,
-      fathersName,
-      fathersNationality,
-      fathersAddress,
-      mothersName,
-      mothersNationality,
-      mothersAdrress
-    } = req.body;
-
-    console.log(witnessDate);
-
+    // for forms submitted to be continued later
+    if (req.query.type === "continue-later") {
+      // loop through each property in the req.body and set empty ones to undefined
+      for (prop in req.body) {
+        if (!req.body[prop].trim()) {
+          req.body[prop] = undefined;
+        }
+      }
+    }
     const guarantors = [
       {
-        guarantorsName: guarantorsName1,
-        guarantorsAddress: guarantorsAddress1,
-        guarantorsTelephoneNumber: guarantorsTelephoneNumber1
+        guarantorsName: req.body.guarantorsName1,
+        guarantorsAddress: req.body.guarantorsAddress1,
+        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber1
       },
       {
-        guarantorsName: guarantorsName2,
-        guarantorsAddress: guarantorsAddress2,
-        guarantorsTelephoneNumber: guarantorsTelephoneNumber2
+        guarantorsName: req.body.guarantorsName2,
+        guarantorsAddress: req.body.guarantorsAddress2,
+        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber2
       }
     ];
 
-    const witness = {
-      witnessName,
-      witnessOccupation,
-      witnessWorkPlaceAddress,
-      witnessTelephoneNumber,
-      witnessResidentialAddress,
-      witnessDate
-    };
-
-    const evidenceOfCitizenship = {
-      fathersName,
-      fathersNationality,
-      fathersAddress,
-      mothersName,
-      mothersNationality,
-      mothersAdrress
-    };
+    // console.log(req.body);
 
     const form = await PassportForm.create({
       ...req.body,
-      guarantors,
-      witness,
-      evidenceOfCitizenship
+      guarantors
     });
+
+    console.log("old passport is " + form.oldPassport);
 
     if (!form) {
       return util.error(

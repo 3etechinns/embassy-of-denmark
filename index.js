@@ -6,7 +6,9 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 
 // Only used in development mode to set environment variables
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 const app = express();
 
@@ -48,7 +50,8 @@ app.use((req, res, next) => {
 
 // Error Handler
 app.use((error, req, res, next) => {
-  res.status(error.status || 500).render("error", { error });
+  // res.status(error.status || 500).render("error", { error });
+  return res.json(error);
 });
 
 const PORT = process.env.PORT || 3003;
