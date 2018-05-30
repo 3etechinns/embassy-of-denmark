@@ -4,17 +4,13 @@ const {
   createVisaForm
 } = require("../controllers/formsController");
 const { createUser, logIn } = require("../controllers/authController");
+const { getProfile } = require("../controllers/profileController");
 const mongoose = require("mongoose");
-const Form = mongoose.model("Form");
+const util = require("../util");
 
 module.exports = app => {
   app.get("/", requireLogout, (req, res, next) => {
     return res.render("register");
-  });
-
-  app.get("/profile", requireLogin, async (req, res, next) => {
-    const forms = await Form.find({ _owner: req.session.userId });
-    return res.render("profile", { forms });
   });
 
   app.get("/login", requireLogout, (req, res, next) => {
@@ -33,6 +29,8 @@ module.exports = app => {
       return next(error);
     }
   });
+
+  app.get("/profile", requireLogin, getProfile);
 
   app.get("/forms/passport", requireLogin, (req, res, next) => {
     return res.render("passport");

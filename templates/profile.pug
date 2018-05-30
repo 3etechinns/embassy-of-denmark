@@ -2,7 +2,7 @@ extends ./layout.pug
 
 block main
   .main-content.profile
-    .display-4.text-center.my-4 Profile Page
+    .display-4.text-center.my-4 My Profile
     table.table
       thead
         tr
@@ -22,3 +22,5 @@ block main
             td #{form.updatedAt}
             td #{form.status}
             td #{200}
+    if errorMessage
+      .alert.alert-warning.text-center(role="alert") #{errorMessage}

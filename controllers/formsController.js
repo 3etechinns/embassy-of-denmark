@@ -50,7 +50,7 @@ const createPassportForm = async (req, res, next) => {
       );
     }
 
-    return res.json(passportForm);
+    return res.redirect("/profile");
   } catch (error) {
     // error.message = "Please fill all required fields";
     return next(error);

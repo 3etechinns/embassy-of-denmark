@@ -4,6 +4,7 @@
 
 body {
   background: #ecf0f5 !important;
+  position: relative;
 }
 
 .error-page {
@@ -21,19 +22,13 @@ body {
 .main-content {
   flex: 1;
   position: relative;
-  margin: 87px auto 0 auto;
+  margin: 132px auto 0 auto;
+  bottom: 45px;
 }
 
 .register, .login {
   width: 60%;
 }
-
-/* .home::before {
-  content: url("/img/home.svg");
-  position: absolute;
-  left: 149px;
-  max-width: 6px;
-} */
 
 .header-img {
   width: 50px;
@@ -44,7 +39,6 @@ body {
   cursor: pointer;
   display: flex;
   align-items: center;
-  /* padding: 10px; */
 }
 
 .avatar {
@@ -54,10 +48,6 @@ body {
 .navbar-brand {
   margin-right: 50px; 
 }
-
-/* .sign-out::before {
-  content: url("/img/log-out.svg");
-} */
 
 .container-fluid {
   margin: 0;
@@ -216,16 +206,13 @@ label {
 }
 
 .main-footer {
-  /* overflow: hidden; */
+  position: absolute;
+  width: 100%;
+  bottom: 0;
   background: #fff;
   width: 100%;
   padding: 10px;
   text-align: center;
-}
-
-footer  {
-  position: relative;
-  bottom: 0;
 }
 
 /* 'Source Sans Pro',sans-serif; */
