@@ -5,3 +5,7 @@ i used lean() method to strip off mongoose's helper functions and properties on 
 document to make it efficient.
 3. im now displaying a nice message to the user whenever he has no forms at the initial 
 stage.
+
+May 30th 2018 evening changes
+1. Added icons and links to view and edit forms but have not yet implemented the routes 
+for them.
