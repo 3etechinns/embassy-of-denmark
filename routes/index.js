@@ -4,7 +4,7 @@ const {
   createVisaForm
 } = require("../controllers/formsController");
 const { createUser, logIn } = require("../controllers/authController");
-const { getProfile } = require("../controllers/profileController");
+const { getProfile } = require("../controllers/mainController");
 const mongoose = require("mongoose");
 const util = require("../util");
 

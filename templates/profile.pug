@@ -11,7 +11,8 @@ block main
           th(scope='col') CREATED AT
           th(scope='col') LAST UPDATED
           th(scope='col') STATUS
-          th(scope='col') PRICE
+          th(scope='col') PRICE(GH)
+          th(scope='col') 
           th(scope='col') 
       tbody
         each form, index in forms
@@ -22,5 +23,13 @@ block main
             td #{form.updatedAt}
             td #{form.status}
             td #{200}
+            td.edit 
+              a(href=`/edit/${form._id}`)
+                img.edit-icon(src="/img/edit.svg") 
+                | Edit
+            td.view 
+              a(href=`/view/${form._id}`)
+                img.view-icon(src="/img/eye.svg")
+                | View
     if errorMessage
       .alert.alert-warning.text-center(role="alert") #{errorMessage}

@@ -14,3 +14,24 @@ table {
 .profile {
   width: 80%;
 }
+
+.edit-icon {
+  cursor: pointer;
+  width: 18px;
+  margin-right: 5px;
+}
+
+.view-icon {
+  cursor: pointer;
+  width: 20px;
+  margin-right: 5px;
+}
+
+/* .edit-button::before {
+  content: url("/img/edit.svg");
+  cursor: pointer;
+  width: 5px;
+  right: 95px;
+  position: absolute;
+} */
+
