@@ -1,0 +1,7 @@
+May 30th 2018 changes
+1. fixed problems with footer, so now footer works fine.
+2. made changes to how data is retrieved from database to be displayed in the profile page,
+i used lean() method to strip off mongoose's helper functions and properties on the 
+document to make it efficient.
+3. im now displaying a nice message to the user whenever he has no forms at the initial 
+stage.
