@@ -8,7 +8,7 @@ const FormSchema = new Schema(
       required: true,
       ref: "User"
     },
-    id: { type: Schema.Types.ObjectId, required: true },
+    formId: { type: Schema.Types.ObjectId, required: true },
     formType: {
       type: String,
       required: true

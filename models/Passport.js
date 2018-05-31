@@ -10,29 +10,25 @@ const PassportFormSchema = new Schema(
       required: [true, "surname is required"],
       default: " "
     },
-    firstName: { type: String, trim: true, required: true, default: " " },
     otherNames: { type: String, trim: true },
     maidenName: { type: String, trim: true },
     previousName: { type: String, trim: true },
-    applicationType: { type: String, trim: true, required: true, default: " " },
-    passportType: { type: String, trim: true, required: true, default: " " },
-    applicationPriority: {
-      type: String,
-      trim: true,
-      required: true,
-      default: " "
-    },
     profession: { type: String, trim: true, required: true, default: " " },
     previousProfession: { type: String, trim: true },
     dateOfBirth: { type: Date, required: true },
     gender: { type: String, trim: true, required: true, default: " " },
     placeOfBirth: { type: String, trim: true, required: true, default: " " },
+    countryOfResidence: {
+      type: String,
+      trim: true,
+      required: true,
+      default: " "
+    },
     countryOfBirth: { type: String, trim: true, required: true, default: " " },
     height: { type: String, trim: true, required: true, default: " " },
     eyeColor: { type: String, trim: true, required: true, default: " " },
     hairColor: { type: String, trim: true, required: true, default: " " },
     nationality: { type: String, trim: true, required: true, default: " " },
-    maritalStatus: { type: String, trim: true, required: true, default: " " },
     residentialAddress: {
       type: String,
       trim: true,
@@ -62,6 +58,7 @@ const PassportFormSchema = new Schema(
       default: " "
     },
     mothersAddress: { type: String, trim: true, required: true, default: " " },
+    declarationOption: { type: String },
     oldPassport: { type: Boolean, trim: true },
     dateOfIssue: { type: Date, trim: true },
     placeOfIssue: { type: String, trim: true },
@@ -106,7 +103,24 @@ const PassportFormSchema = new Schema(
       ],
       required: true
     },
+    interpreterName: { type: String },
+    interpreterAddress: { type: String },
+    interpreterTelephoneNumber: { type: String },
+    languageInterpretedIn: { type: String },
+    previousPassportNumber: { type: String },
+    declarationDate: { type: Date },
     parentalConsent: { type: ParentalConsentSchema }
+    // stateOfPreviousPassport: { type: String },
+    // maritalStatus: { type: String, trim: true, required: true, default: " " },
+    // firstName: { type: String, trim: true, required: true, default: " " },
+    // applicationType: { type: String, trim: true, required: true, default: " " },
+    // passportType: { type: String, trim: true, required: true, default: " " },
+    // applicationPriority: {
+    //   type: String,
+    //   trim: true,
+    //   required: true,
+    //   default: " "
+    // },
   },
   { timestamps: true }
 );

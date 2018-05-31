@@ -28,6 +28,16 @@ const getProfile = (req, res, next) => {
   }
 };
 
+const editForm = (req, res, next) => {
+  return res.render("editForm", { form: req.form });
+};
+
+const viewForm = (req, res, next) => {
+  return res.render("viewForm");
+};
+
 module.exports = {
-  getProfile
+  getProfile,
+  editForm,
+  viewForm
 };

@@ -187,6 +187,10 @@ label {
   color: rgba(245, 45, 45, 0.986);
 }
 
+#declarationDate, #countryOfBirth {
+  width: 300px;
+}
+
 .form-group {
   /* min-width: 30%; */
   flex-grow: 1;

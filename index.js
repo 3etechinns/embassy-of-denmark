@@ -23,7 +23,7 @@ app.use(
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    cookie: { maxAge: 60 * 60 * 12 * 1000 }
+    cookie: { maxAge: Date.now() + 60 * 60 * 12 * 1000 }
   })
 );
 app.use(express.json());

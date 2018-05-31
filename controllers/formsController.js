@@ -17,6 +17,27 @@ const createPassportForm = async (req, res, next) => {
         }
       }
     }
+
+    const currentYear = new Date().getFullYear();
+    const yearOfBirth = new Date().getFullYear();
+
+    const age = currentYear - yearOfBirth;
+
+    // ensures filling of parental consent when age is below 18 and form is not a save
+    // and continue later type
+    if (req.query.type !== "continue-later") {
+      if (
+        (age < 18 && !req.body.parentName.trim()) ||
+        !req.body.parentAddress.trim() ||
+        !req.body.parentTelephoneNumber.trim()
+      ) {
+        return util.error(
+          "Parental consent is necessary for people below age 18, please make sure you have filled such fields too",
+          next
+        );
+      }
+    }
+
     const guarantors = [
       {
         guarantorsName: req.body.guarantorsName1,
@@ -39,7 +60,7 @@ const createPassportForm = async (req, res, next) => {
 
     const formRecord = await Form.create({
       _owner: req.session.userId,
-      id: passportForm._id,
+      formId: passportForm._id,
       formType: FORM_TYPES.passportForm
     });
 

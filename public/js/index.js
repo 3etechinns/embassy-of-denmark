@@ -34,3 +34,23 @@ if (signUpTabbedPane) {
 }
 
 $().dropdown();
+
+// if (document.querySelector("#dateOfBirth")) {
+//   document
+//     .querySelector("#dateOfBirth")
+//     .addEventListener("change", function(e) {
+//       const yearOfBirth = new Date(this.value).getFullYear();
+//       const currentYear = new Date().getFullYear();
+//       console.log(currentYear - yearOfBirth);
+//       const age = currentYear - yearOfBirth;
+//       if (age < 18) {
+//         document.querySelector("#parentName").setAttribute("required", "true");
+//         document
+//           .querySelector("#parentAddress")
+//           .setAttribute("required", "true");
+//         document
+//           .querySelector("#parentTelephoneNumber")
+//           .setAttribute("required", "true");
+//       }
+//     });
+// }
