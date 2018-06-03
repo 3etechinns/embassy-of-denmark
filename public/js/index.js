@@ -36,38 +36,38 @@ if (signUpTabbedPane) {
 $().dropdown();
 
 // stripe checkout
-// var handler = StripeCheckout.configure({
-//   key: "pk_test_AZLJ6GOzlzvtcrxBWn8WAqLh",
-//   image: "/img/logo.png",
-//   locale: "auto",
-//   allowRememberMe: false,
-//   token: function(token) {
-//     var data = {};
-//     for (key in document.forms) {
-//       data[key] = document.forms[key];
-//     }
+var handler = StripeCheckout.configure({
+  key: "pk_test_AZLJ6GOzlzvtcrxBWn8WAqLh",
+  image: "/img/logo.png",
+  locale: "auto",
+  allowRememberMe: false,
+  token: function(token) {
+    var data = {};
+    for (key in document.forms) {
+      data[key] = document.forms[key];
+    }
 
-//     console.log(data);
-//     // axios.post("/forms/payment", { data, token });
-//     // $.post("/forms/payment", { data, token });
-//   }
-// });
-// console.log(document.querySelectorAll("input"));
+    console.log(data);
+    // axios.post("/forms/payment", { data, token });
+    // $.post("/forms/payment", { data, token });
+  }
+});
+console.log(document.querySelectorAll("input"));
 
-// document.getElementById("customButton").addEventListener("click", function(e) {
-//   // Open Checkout with further options:
-//   handler.open({
-//     name: "Embassy of Denmark",
-//     description: "Pay for Passport form",
-//     amount: 2000
-//   });
-//   e.preventDefault();
-// });
+document.getElementById("customButton").addEventListener("click", function(e) {
+  // Open Checkout with further options:
+  handler.open({
+    name: "Embassy of Denmark",
+    description: "Pay for Passport form",
+    amount: 2000
+  });
+  e.preventDefault();
+});
 
-// // Close Checkout on page navigation:
-// window.addEventListener("popstate", function() {
-//   handler.close();
-// });
+// Close Checkout on page navigation:
+window.addEventListener("popstate", function() {
+  handler.close();
+});
 
 // bootstrap code for handling showing of file name
 
