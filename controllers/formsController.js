@@ -5,6 +5,45 @@ const Form = mongoose.model("Form");
 const VisaForm = mongoose.model("VisaForm");
 const FORM_TYPES = require("../formsTypes");
 
+const getModelName = type => {
+  switch (type) {
+    case FORM_TYPES.passportForm:
+      return "PassportForm";
+    case FORM_TYPES.VisaForm:
+      return "VisaForm";
+    default:
+      return "";
+  }
+};
+
+const formIdParamHandler = async (req, res, next, formId) => {
+  try {
+    const type = req.query.type;
+    const modelName = getModelName(type);
+
+    if (!modelName) {
+      return util.error(
+        "we are having problems fetching form data, please try again later",
+        next
+      );
+    }
+
+    const form = await mongoose
+      .model(modelName)
+      .findById(formId)
+      .lean()
+      .exec();
+
+    if (!form) {
+      return util.error("could not load form data, try again later", next);
+    }
+    req.form = form;
+    return next();
+  } catch (error) {
+    return util.error(error.message, next);
+  }
+};
+
 const createPassportForm = async (req, res, next) => {
   try {
     // for forms submitted to be continued later
@@ -96,7 +135,18 @@ const createVisaForm = async (req, res, next) => {
   }
 };
 
+const editForm = (req, res, next) => {
+  return res.render("editForm", { form: req.form });
+};
+
+const viewForm = (req, res, next) => {
+  return res.render("viewForm");
+};
+
 module.exports = {
   createPassportForm,
-  createVisaForm
+  createVisaForm,
+  formIdParamHandler,
+  editForm,
+  viewForm
 };

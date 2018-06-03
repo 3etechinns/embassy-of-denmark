@@ -133,7 +133,7 @@ form {
   margin-top: 15px;
 }
 
-.submit-button > a, .submit-button button {
+.submit-button > a, .submit-button .custom-button {
   text-transform: uppercase;
   font-weight: 600;
   padding: 13px;
@@ -187,10 +187,6 @@ label {
   color: rgba(245, 45, 45, 0.986);
 }
 
-#declarationDate, #countryOfBirth {
-  width: 300px;
-}
-
 .form-group {
   /* min-width: 30%; */
   flex-grow: 1;
@@ -227,3 +223,24 @@ label {
     display: none;
   }
 } */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* for bootstrap custom file upload */
+.custom-file-label {
+  overflow: hidden;
+}

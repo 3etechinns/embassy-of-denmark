@@ -20,8 +20,8 @@ header
             img.text-muted.avatar.mr-1(src="/img/avatar.png", alt="avatar")
             | #{email}
           .dropdown-menu(aria-labelledby='dropdownMenuLink')
+            a.dropdown-item(href='/profile') Profile
+            a.dropdown-item(href='#') Account Settings
             a.dropdown-item.sign-out(href="/logout") Sign out
-            a.dropdown-item(href='/profile') My profile
-            a.dropdown-item(href='#') Something else here
     button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
         span.navbar-toggler-icon

@@ -13,8 +13,6 @@ const PassportFormSchema = new Schema(
     otherNames: { type: String, trim: true },
     maidenName: { type: String, trim: true },
     previousName: { type: String, trim: true },
-    profession: { type: String, trim: true, required: true, default: " " },
-    previousProfession: { type: String, trim: true },
     dateOfBirth: { type: Date, required: true },
     gender: { type: String, trim: true, required: true, default: " " },
     placeOfBirth: { type: String, trim: true, required: true, default: " " },
@@ -109,18 +107,13 @@ const PassportFormSchema = new Schema(
     languageInterpretedIn: { type: String },
     previousPassportNumber: { type: String },
     declarationDate: { type: Date },
+    declarationSignature: { type: String },
+    guarantorsSignature1: { type: String },
+    guarantorsSignature2: { type: String },
+    parentalConsentSignature: { type: String },
+    witnessSignature: { type: String },
+    interpretersSignature: { type: String },
     parentalConsent: { type: ParentalConsentSchema }
-    // stateOfPreviousPassport: { type: String },
-    // maritalStatus: { type: String, trim: true, required: true, default: " " },
-    // firstName: { type: String, trim: true, required: true, default: " " },
-    // applicationType: { type: String, trim: true, required: true, default: " " },
-    // passportType: { type: String, trim: true, required: true, default: " " },
-    // applicationPriority: {
-    //   type: String,
-    //   trim: true,
-    //   required: true,
-    //   default: " "
-    // },
   },
   { timestamps: true }
 );
