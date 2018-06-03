@@ -13,20 +13,21 @@ const PassportFormSchema = new Schema(
     otherNames: { type: String, trim: true },
     maidenName: { type: String, trim: true },
     previousName: { type: String, trim: true },
-    dateOfBirth: { type: Date, required: true },
+    dateOfBirth: { type: String, required: true, default: " ", trim: true },
     gender: { type: String, trim: true, required: true, default: " " },
     placeOfBirth: { type: String, trim: true, required: true, default: " " },
+    countryOfBirth: { type: String, trim: true, required: true, default: " " },
+    height: { type: String, trim: true, required: true, default: " " },
+    eyeColor: { type: String, trim: true, required: true, default: " " },
+    hairColor: { type: String, trim: true, required: true, default: " " },
+    nationality: { type: String, trim: true, required: true, default: " " },
+    profession: { type: String },
     countryOfResidence: {
       type: String,
       trim: true,
       required: true,
       default: " "
     },
-    countryOfBirth: { type: String, trim: true, required: true, default: " " },
-    height: { type: String, trim: true, required: true, default: " " },
-    eyeColor: { type: String, trim: true, required: true, default: " " },
-    hairColor: { type: String, trim: true, required: true, default: " " },
-    nationality: { type: String, trim: true, required: true, default: " " },
     residentialAddress: {
       type: String,
       trim: true,
@@ -40,6 +41,9 @@ const PassportFormSchema = new Schema(
       required: [true, "email is required"],
       default: " "
     },
+    institution: { type: String },
+    placeOfInstitution: { type: String },
+    lastYearOfEducation: { type: String },
     fathersName: { type: String, trim: true, required: true, default: " " },
     fathersNationality: {
       type: String,
@@ -56,10 +60,64 @@ const PassportFormSchema = new Schema(
       default: " "
     },
     mothersAddress: { type: String, trim: true, required: true, default: " " },
-    declarationOption: { type: String },
-    oldPassport: { type: Boolean, trim: true },
-    dateOfIssue: { type: Date, trim: true },
-    placeOfIssue: { type: String, trim: true },
+    evidenceOfCitizenshipNumber: { type: String },
+    evidenceOfCitizenshipDate: {
+      type: String,
+      required: true,
+      default: " ",
+      trim: true
+    },
+    evidenceOfCitizenshipPlaceOfIssue: { type: String },
+    guarantors: {
+      type: [
+        {
+          guarantorsName: {
+            type: String,
+            trim: true,
+            required: true,
+            default: " "
+          },
+          guarantorsAddress: {
+            type: String,
+            trim: true,
+            required: true,
+            default: " "
+          },
+          guarantorsTelephoneNumber: {
+            type: String,
+            trim: true,
+            required: true,
+            default: " "
+          },
+          guarantorsSignature: {
+            type: String,
+            require: true,
+            default: " "
+          }
+        }
+      ],
+      required: true
+    },
+    parentalConsentMetaData: { type: String },
+    parentName: { type: String, trim: true },
+    parentAddress: { type: String, trim: true },
+    parentalConsentSignature: { type: String, trim: true },
+    parentTelephoneNumber: { type: String, trim: true },
+    languageInterpretedIn: { type: String, trim: true },
+    interpreterName: { type: String, trim: true },
+    interpreterAddress: { type: String, trim: true },
+    interpreterTelephoneNumber: { type: String, trim: true },
+    interpretersSignature: { type: String, trim: true },
+    interpretationDate: { type: String, trim: true },
+    declarationOption: {
+      type: String,
+      required: true,
+      default: " ",
+      trim: true
+    },
+    previousPassportNumber: { type: String, trim: true },
+    declarationSignature: { type: String, required: true, default: " " },
+    declarationDate: { type: String, required: true, trim: true, default: " " },
     witnessName: { type: String, trim: true, required: true, default: " " },
     witnessOccupation: {
       type: String,
@@ -85,35 +143,9 @@ const PassportFormSchema = new Schema(
       required: true,
       default: " "
     },
-    witnessDate: { type: Date, trim: true, required: true },
-    guarantors: {
-      type: [
-        {
-          guarantorsName: {
-            type: String,
-            trim: true,
-            required: true,
-            default: " "
-          },
-          guarantorsAddress: { type: String, trim: true },
-          guarantorsTelephoneNumber: { type: String, trim: true }
-        }
-      ],
-      required: true
-    },
-    interpreterName: { type: String },
-    interpreterAddress: { type: String },
-    interpreterTelephoneNumber: { type: String },
-    languageInterpretedIn: { type: String },
-    previousPassportNumber: { type: String },
-    declarationDate: { type: Date },
-    declarationSignature: { type: String },
-    guarantorsSignature1: { type: String },
-    guarantorsSignature2: { type: String },
-    parentalConsentSignature: { type: String },
-    witnessSignature: { type: String },
-    interpretersSignature: { type: String },
-    parentalConsent: { type: ParentalConsentSchema }
+    witnessSignature: { type: String, trim: true },
+    witnessDate: { type: String, trim: true, required: true, default: " " },
+    paymentId: { type: Schema.Types.ObjectId, required: true, default: " " }
   },
   { timestamps: true }
 );

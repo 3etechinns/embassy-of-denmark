@@ -43,16 +43,32 @@ var handler = StripeCheckout.configure({
   allowRememberMe: false,
   token: function(token) {
     var data = {};
-    for (key in document.forms) {
-      data[key] = document.forms[key];
-    }
+    var inputFields = document.querySelectorAll("input");
+    var selectFields = document.querySelectorAll("select");
 
-    console.log(data);
-    // axios.post("/forms/payment", { data, token });
-    // $.post("/forms/payment", { data, token });
+    inputFields.forEach(function(input) {
+      if (input.type === "radio" && !input.checked) {
+        return;
+      } else {
+        data[input.name] = input.value;
+      }
+    });
+
+    selectFields.forEach(function(select) {
+      data[select.name] = select.value;
+    });
+    axios.post("/forms/payment", { data, token }).then(
+      function(res) {
+        console.log(res);
+        axios.post("/forms/passport", { ...data, token: res.token });
+      },
+      function(err) {
+        console.log("axios error", err);
+      }
+    );
+    // $.post("/forms/payment", { data: data, token: token });
   }
 });
-console.log(document.querySelectorAll("input"));
 
 document.getElementById("customButton").addEventListener("click", function(e) {
   // Open Checkout with further options:

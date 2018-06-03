@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const util = require("../util");
 const PassportForm = mongoose.model("PassportForm");
 const Form = mongoose.model("Form");
+const Payment = mongoose.model("Payment");
 const VisaForm = mongoose.model("VisaForm");
 const FORM_TYPES = require("../formsTypes");
 
@@ -57,15 +58,14 @@ const createPassportForm = async (req, res, next) => {
       }
     }
 
-    const currentYear = new Date().getFullYear();
-    const yearOfBirth = new Date().getFullYear();
-
-    const age = currentYear - yearOfBirth;
-
     // ensures filling of parental consent when age is below 18 and form is not a save
     // and continue later type
     if (req.query.type !== "continue-later") {
+      const currentYear = new Date().getFullYear();
+      const yearOfBirth = new Date(req.body.dateOfBirth).getFullYear();
+      const age = currentYear - yearOfBirth;
       if (
+        !req.body.dateOfBirth ||
         (age < 18 && !req.body.parentName.trim()) ||
         !req.body.parentAddress.trim() ||
         !req.body.parentTelephoneNumber.trim()
@@ -81,20 +81,34 @@ const createPassportForm = async (req, res, next) => {
       {
         guarantorsName: req.body.guarantorsName1,
         guarantorsAddress: req.body.guarantorsAddress1,
-        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber1
+        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber1,
+        guarantorsSignature: req.body.guarantorsSignature1
       },
       {
         guarantorsName: req.body.guarantorsName2,
         guarantorsAddress: req.body.guarantorsAddress2,
-        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber2
+        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber2,
+        guarantorsSignature: req.body.guarantorsSignature2
       }
     ];
 
+    let paymentId = undefined;
+
+    if (req.query.type !== "continue-later") {
+      const payment = await Payment.findById(req.body.token);
+      if (!payment || payment._owner !== req.session.userId) {
+        return util.error(
+          "please make sure you have paid for the form and submit again",
+          next
+        );
+      }
+      paymentId = req.body.token;
+    }
+
     const passportForm = await PassportForm.create({
       ...req.body,
-      dateOfBirth: new Date(req.body.dateOfBirth).valueOf(),
-      witnessDate: new Date(req.body.witnessDate).valueOf(),
-      guarantors
+      guarantors,
+      paymentId
     });
 
     const formRecord = await Form.create({
@@ -103,9 +117,9 @@ const createPassportForm = async (req, res, next) => {
       formType: FORM_TYPES.passportForm
     });
 
-    if (!passportForm) {
+    if (!passportForm || !formRecord) {
       return util.error(
-        "sorry, we are having problems processing your form, try again later",
+        "sorry, we are having problems creating your form, try again later",
         next
       );
     }

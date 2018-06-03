@@ -12,10 +12,6 @@ block main
               label.star *
               input.form-control.form-control-sm(type="text" id="surname" placeholder="Surname" name="surname")
             .form-group
-              label(for="firstName") First name
-              label.star *
-              input.form-control.form-control-sm( type="text" placeholder="First name" id="firstName" name="firstName")
-            .form-group
               label(for="otherNames") Other names
               input.form-control.form-control-sm(type="text" placeholder="Other names" id="otherNames" name="otherNames")
           .bottom-form-group
@@ -30,7 +26,7 @@ block main
             .form-group
               label(for="dateOfBirth") Date of birth
               label.star *
-              input.form-control.form-control-sm( type="date" required id="dateOfBirth" name="dateOfBirth")
+              input.form-control.form-control-sm( type="date" id="dateOfBirth" name="dateOfBirth")
             .form-group
               label(for="gender" id="gender") Gender
                 label.star *
@@ -50,7 +46,7 @@ block main
               label(for="countryOfBirth") Country of birth
                 label.star *
               select.form-control.form-control-sm( type="text" id="countryOfBirth" name="countryOfBirth")
-                option Select one...
+                option(value="") Select one...
         .form-section
           .top-form-group
             .form-group
@@ -61,7 +57,7 @@ block main
               label(for="eyeColor") Eye color
                 label.star *
               select.form-control.form-control-sm( type="text" id="eyeColor" name="eyeColor")
-                option(value="#") Select one...
+                option(value="") Select one...
                 option(value="Black") Black
                 option(value="Brown") Brown
                 option(value="Blue") Blue
@@ -71,7 +67,7 @@ block main
               label(for="hairColor") Hair color
               label.star *
               select.form-control.form-control-sm( id="hairColor" name="hairColor")
-                option(value="#") Select one...
+                option(value="") Select one...
                 option(value="Black") Black
                 option(value="Brown") Brown
                 option(value="Blond") Blond
@@ -84,7 +80,7 @@ block main
               label(for="nationality") Nationality
               label.star *
               select#nationality.form-control.form-control-sm( name="nationality")
-                option(value="dane") Dane
+                option(value="") Select one
             .form-group
               label(for="profession") Profession
               label.star *
@@ -118,8 +114,8 @@ block main
               label(for="placeOfInstitution") Place
               input.form-control.form-control-sm(type="text" placeholder="Place" name="placeOfInstitution" id="placeOfInstitution")
             .form-group
-              label(for="year") Year
-              input.form-control.form-control-sm(type="number" placeholder="Year" name="year" id="year")
+              label(for="lastYearOfEducation") Year
+              input.form-control.form-control-sm(type="text" placeholder="Year" name="lastYearOfEducation" id="lastYearOfEducation")
         .form-section
           p.form-section-name Evidence of citizenship
           .top-form-group
@@ -179,6 +175,12 @@ block main
               label(for="guarantorsTelephoneNumber1") Telephone number
               label.star *
               input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
+            .form-group
+              label Upload your signature
+              label.star *
+              .custom-file
+                input#customFile.custom-file-input(type='file' name="guarantorsSignature1" enctype="multipart/form-data" )
+                label.custom-file-label(for='customFile') Choose file
           .bottom-form-group
             .form-group
               label(for="guarantorsName2") Full name
@@ -188,13 +190,6 @@ block main
               label(for="guarantorsAddress2") Residential address
               label.star *
               input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress2" id="guarantorsAddress2")
-            .form-group
-              label Upload your signature
-              label.star *
-              .custom-file
-                input#customFile.custom-file-input(type='file' name="guarantorsSignature1" enctype="multipart/form-data" )
-                label.custom-file-label(for='customFile') Choose file
-          .bottom-form-group
             .form-group
               label(for="guarantorsTelephoneNumber2") Telephone number
               label.star *
@@ -209,7 +204,7 @@ block main
           p.form-section-name PARENTAL/LEGAL GUARDIAN CONSENT FOR APPLICANT 
             b UNDER 18 YEARS OF AGE
           p I hereby give consent for applicant who is my 
-            input(type="text" name="" placeholder="Son, daughter...") 
+            input(type="text" name="parentalConsentMetaData" placeholder="Son, daughter...") 
             |  to hold a passport
           .top-form-group
             .form-group
@@ -217,7 +212,7 @@ block main
               label.star *
               input.form-control.form-control-sm(type="text" placeholder=" Parent's Full name" name="parentName" id="parentName")
             .form-group
-              label(for="parentNAddress") Residential address
+              label(for="parentAddress") Residential address
               label.star *
               input.form-control.form-control-sm(type="text" placeholder="Parent's address" name="parentAddress" id="parentAddress")
           .bottom-form-group
@@ -257,9 +252,9 @@ block main
                 input#customFile.custom-file-input(type='file' name="interpretersSignature" enctype="multipart/form-data" )
                 label.custom-file-label(for='customFile') Choose file
             .form-group
-                label(for="declarationDate") Date
+                label(for="interpretationDate") Date
                 label.star *
-                input.form-control.form-control-sm( type="date" required name="declarationDate" id="declarationDate")
+                input.form-control.form-control-sm( type="date" name="interpretationDate" id="interpretationDate")
         .form-section
           p.form-section-name 
             span DECLARATION BY APPLICANT
@@ -273,11 +268,6 @@ block main
             |  That the previous passport with number 
             input(type="text" name="previousPassportNumber") 
             |   granted me is Attached/lost
-            //- select(name="stateOfPreviousPassport")
-            //-   option Select one...
-            //-   option(value="attached") Attached
-            //-   option(value="lost") Lost
-            //- |   (Attached/Lost)
           .bottom-form-group
             .form-group
               label Upload your signature
@@ -288,7 +278,7 @@ block main
             .form-group
                 label(for="declarationDate") Date
                 label.star *
-                input.form-control.form-control-sm( type="date" required name="declarationDate" id="declarationDate")
+                input.form-control.form-control-sm( type="date" name="declarationDate" id="declarationDate")
         .form-section
           p.form-section-name WITNESS
           .top-form-group
@@ -322,7 +312,7 @@ block main
             .form-group
               label(for="witnessDate") Date
               label.star *
-              input.form-control.form-control-sm( type="date" required name="witnessDate" id="witnessDate")
+              input.form-control.form-control-sm( type="date" name="witnessDate" id="witnessDate")
         .submit-button.submit-passport-form
           button#customButton.btn.btn-primary.btn-lg.custom-button(type='button', data-toggle='modal', data-target='.bd-example-modal-sm') pay and submit
           button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post") Save and Continue Later

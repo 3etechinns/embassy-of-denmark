@@ -57,7 +57,9 @@ app.use((req, res, next) => {
 
 // Error Handler
 app.use((error, req, res, next) => {
-  // return res.json({ message: error.message, status: error.status });
+  // return res
+  //   .status(error.status || 500)
+  //   .json({ message: error.message, status: error.status || 500 });
   return res.status(error.status || 500).render("error", { error });
 });
 
