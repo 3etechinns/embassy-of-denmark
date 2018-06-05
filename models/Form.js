@@ -16,6 +16,13 @@ const FormSchema = new Schema(
     status: {
       type: String,
       default: "Pending"
+    },
+    isComplete: { type: Boolean, required: true, default: false },
+    paymentId: {
+      type: Schema.Types.ObjectId,
+      // required: true,
+      // default: " ",
+      ref: "Payment"
     }
   },
   { timestamps: true }

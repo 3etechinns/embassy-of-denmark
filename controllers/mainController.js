@@ -1,25 +1,28 @@
 const mongoose = require("mongoose");
-const Form = mongoose.model("Form");
+const FormRecord = mongoose.model("FormRecord");
 const util = require("../util");
 
 const getProfile = (req, res, next) => {
   try {
-    Form.find({ _owner: req.session.userId }, (error, forms) => {
+    FormRecord.find({ _owner: req.session.userId }, (error, formRecords) => {
       if (error) {
-        return util.error("could not load forms, please try again later", next);
+        return util.error(
+          "could not load your formRecords, please try again later",
+          next
+        );
       }
 
-      if (!forms.length) {
-        res.locals.errorMessage = "You dont have any forms yet";
+      if (!formRecords.length) {
+        res.locals.errorMessage = "You dont have any form Records yet";
       }
 
-      forms = forms.map(form => ({
-        ...form,
-        createdAt: form.createdAt.toLocaleDateString(),
-        updatedAt: form.updatedAt.toLocaleString()
+      formRecords = formRecords.map(formRecord => ({
+        ...formRecord,
+        createdAt: formRecord.createdAt.toLocaleDateString(),
+        updatedAt: formRecord.updatedAt.toLocaleString()
       }));
 
-      return res.render("profile", { forms });
+      return res.render("profile", { formRecords });
     })
       .lean()
       .exec();

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const PassportForm = mongoose.model("PassportForm");
-const Form = mongoose.model("Form");
+const FormRecord = mongoose.model("FormRecord");
 const Payment = mongoose.model("Payment");
 const VisaForm = mongoose.model("VisaForm");
 const FORM_TYPES = require("../formsTypes");
@@ -65,15 +65,12 @@ const createPassportForm = async (req, res, next) => {
       const yearOfBirth = new Date(req.body.dateOfBirth).getFullYear();
       const age = currentYear - yearOfBirth;
 
-      if (!req.body.dateOfBirth.trim()) {
-        return util.error("Date of birth is required", next);
-      }
-
       if (
-        !req.body.dateOfBirth ||
-        (age < 18 && !req.body.parentName.trim()) ||
-        !req.body.parentAddress.trim() ||
-        !req.body.parentTelephoneNumber.trim()
+        req.body.dateOfBirth &&
+        (age < 18 &&
+          (!req.body.parentName.trim() ||
+            !req.body.parentAddress.trim() ||
+            !req.body.parentTelephoneNumber.trim()))
       ) {
         return util.error(
           "Parental consent is required for people below age 18, please make sure you have filled such fields too",
@@ -97,8 +94,6 @@ const createPassportForm = async (req, res, next) => {
       }
     ];
 
-    let paymentId = undefined;
-
     // if (req.query.type !== "continue-later") {
     //   const payment = await Payment.findById(req.body.token);
     //   if (!payment || payment._owner !== req.session.userId) {
@@ -112,14 +107,14 @@ const createPassportForm = async (req, res, next) => {
 
     const passportForm = await PassportForm.create({
       ...req.body,
-      guarantors,
-      paymentId
+      guarantors
     });
 
-    const formRecord = await Form.create({
+    const formRecord = await FormRecord.create({
       _owner: req.session.userId,
       formId: passportForm._id,
-      formType: FORM_TYPES.passportForm
+      formType: FORM_TYPES.passportForm,
+      isComplete: true
     });
 
     if (!passportForm || !formRecord) {
@@ -129,9 +124,7 @@ const createPassportForm = async (req, res, next) => {
       );
     }
 
-    req.passportForm = passportForm;
-
-    return next();
+    return res.redirect("/profile");
   } catch (error) {
     // error.message = "Please fill all required fields";
     return next(error);

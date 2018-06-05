@@ -17,17 +17,17 @@ block main
           th(scope='col') 
           th(scope='col') 
       tbody
-        each form, index in forms
+        each formRecord, index in formRecords
           tr
             th(scope='row') #{index + 1}
-            td #{form.formType}
-            td #{form.createdAt}
-            td #{form.updatedAt}
+            td #{formRecord.formType}
+            td #{formRecord.createdAt}
+            td #{formRecord.updatedAt}
             td
               img.icon.processing-status-icon(src="/img/circle.svg")
-              | #{form.status}
+              | #{formRecord.status}
             td
-              if form.paymentId
+              if formRecord.paymentId
                 img.icon.payment-status(src="/img/check.svg")
                 | Paid 
               else
@@ -35,13 +35,13 @@ block main
                 | Unpaid
             td #{200}
             td.edit 
-              a(href=`/edit/${form.formId}?type=${form.formType}`)
+              a(href=`/edit/${formRecord.formId}?type=${formRecord.formType}`)
                 img.edit-icon.icon(src="/img/edit.svg" title="edit") 
             td.view 
-              a(href=`/view/${form.formId}?type=${form.formType}`)
+              a(href=`/view/${formRecord.formId}?type=${formRecord.formType}`)
                 img.view-icon.icon(src="/img/eye.svg" title="view")
-            if !form.paymentId
-              td.customButton.pay-button
+            if !formRecord.paymentId
+              td.customButton.pay-button(title="Pay" id=`${formRecord._id}`)
                 img.icon(src="/img/credit-card.svg")
                 | Pay
             else 
@@ -60,9 +60,12 @@ block scripts
       locale: "auto",
       allowRememberMe: false,
       token: function(token) {
+        console.log(document.formRecordId)
         axios
-          .post("/forms/payment", { token })
+          .post("/forms/payment", { token, formRecordId: document.formRecordId })
           .then(function(res) {
+            document.body.innerHTML = "";
+            document.body.innerHTML = res.data
             console.log(res);
           })
           .catch(function(err) {
@@ -75,6 +78,8 @@ block scripts
 
     $(".customButton").click(function(e) {
       // Open Checkout with further options:
+      document.formRecordId = this.id;
+      console.log(document.formRecordId)
       handler.open({
         name: "Embassy of Denmark",
         description: "Pay for Passport form",
