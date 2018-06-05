@@ -34,18 +34,20 @@ block main
                 img.icon.payment-status(src="/img/x.svg")
                 | Unpaid
             td #{200}
-            td.edit 
+            td.edit.actions-button 
               a(href=`/edit/${formRecord.formId}?type=${formRecord.formType}`)
                 img.edit-icon.icon(src="/img/edit.svg" title="edit") 
-            td.view 
+                | Edit
+            td.view.actions-button 
               a(href=`/view/${formRecord.formId}?type=${formRecord.formType}`)
                 img.view-icon.icon(src="/img/eye.svg" title="view")
+                | View
             if !formRecord.paymentId
-              td.customButton.pay-button(title="Pay" id=`${formRecord._id}`)
+              td.customButton.pay-button.actions-button(title="Pay" id=`${formRecord._id}`)
                 img.icon(src="/img/credit-card.svg")
                 | Pay
             else 
-              td
+              td.actions-button
     if errorMessage
       .alert.alert-warning.text-center(role="alert") #{errorMessage}
   script(src="https://checkout.stripe.com/checkout.js")

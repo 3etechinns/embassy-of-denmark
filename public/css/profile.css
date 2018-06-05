@@ -23,6 +23,9 @@ table {
 
 .pay-button {
   cursor: pointer;
+}
+
+.actions-button, .actions-button a {
   color: #009cfc;
 }
 
