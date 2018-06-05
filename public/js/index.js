@@ -1,105 +1,17 @@
-var countryOfBirth = document.querySelector("#countryOfBirth");
-var countryOfResidence = document.querySelector("#countryOfResidence");
-var fathersNationality = document.querySelector("#fathersNationality");
-var mothersNationality = document.querySelector("#mothersNationality");
+var data = {};
+var inputFields = document.querySelectorAll("input");
+var selectFields = document.querySelectorAll("select");
 
-if (countryOfBirth) {
-  countries.forEach(function(country) {
-    appendOptions(countryOfBirth, country.name);
-    appendOptions(countryOfResidence, country.name);
-    appendOptions(mothersNationality, country.name);
-    appendOptions(fathersNationality, country.name);
-  });
-}
-
-function appendOptions(parent, value) {
-  var option = document.createElement("option");
-  option.innerHTML = value;
-  parent.appendChild(option);
-}
-
-var signUpTabbedPane = document.querySelector(".tabbed-pane .sign-up");
-var signInTabbedPane = document.querySelector(".tabbed-pane .sign-in");
-
-if (signInTabbedPane) {
-  signInTabbedPane.addEventListener("click", function(e) {
-    location.assign("/login");
-  });
-}
-
-if (signUpTabbedPane) {
-  signUpTabbedPane.addEventListener("click", function(e) {
-    location.assign("/");
-  });
-}
-
-$().dropdown();
-
-// stripe checkout
-var handler = StripeCheckout.configure({
-  key: "pk_test_AZLJ6GOzlzvtcrxBWn8WAqLh",
-  image: "/img/logo.png",
-  locale: "auto",
-  allowRememberMe: false,
-  token: function(token) {
-    var data = {};
-    var inputFields = document.querySelectorAll("input");
-    var selectFields = document.querySelectorAll("select");
-
-    inputFields.forEach(function(input) {
-      if (input.type === "radio" && !input.checked) {
-        return;
-      } else {
-        data[input.name] = input.value;
-      }
-    });
-
-    selectFields.forEach(function(select) {
-      data[select.name] = select.value;
-    });
-    axios.post("/forms/payment", { data, token }).then(
-      function(res) {
-        console.log(res);
-        axios.post("/forms/passport", { ...data, token: res.token });
-      },
-      function(err) {
-        console.log("axios error", err);
-      }
-    );
-    // $.post("/forms/payment", { data: data, token: token });
+inputFields.forEach(function(input) {
+  if (input.type === "radio" && !input.checked) {
+    return;
+  } else {
+    data[input.name] = input.value;
   }
 });
 
-document.getElementById("customButton").addEventListener("click", function(e) {
-  // Open Checkout with further options:
-  handler.open({
-    name: "Embassy of Denmark",
-    description: "Pay for Passport form",
-    amount: 2000
-  });
-  e.preventDefault();
-});
-
-// Close Checkout on page navigation:
-window.addEventListener("popstate", function() {
-  handler.close();
-});
-
-// bootstrap code for handling showing of file name
-
-$("input[type=file]").change(function() {
-  var fieldVal = $(this).val();
-  console.log($(this).val());
-
-  // Change the node's value by removing the fake path (Chrome)
-  fieldVal = fieldVal.replace("C:\\fakepath\\", "");
-
-  if (fieldVal != undefined || fieldVal != "") {
-    $(this)
-      .next(".custom-file-label")
-      .attr("data-content", fieldVal)
-      .text(fieldVal);
-  }
+selectFields.forEach(function(select) {
+  data[select.name] = select.value;
 });
 
 // if (document.querySelector("#dateOfBirth")) {

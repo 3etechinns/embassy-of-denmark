@@ -15,23 +15,14 @@ table {
   width: 80%;
 }
 
-.edit-icon {
+.icon {
   cursor: pointer;
   width: 18px;
   margin-right: 5px;
 }
 
-.view-icon {
+.pay-button {
   cursor: pointer;
-  width: 20px;
-  margin-right: 5px;
+  color: #009cfc;
 }
-
-/* .edit-button::before {
-  content: url("/img/edit.svg");
-  cursor: pointer;
-  width: 5px;
-  right: 95px;
-  position: absolute;
-} */
 

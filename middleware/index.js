@@ -10,6 +10,8 @@ const requireLogout = (req, res, next) => {
   return next();
 };
 
+const handlePayment = async (req, res, next) => {};
+
 module.exports = {
   requireLogin,
   requireLogout

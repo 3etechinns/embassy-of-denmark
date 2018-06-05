@@ -17,6 +17,37 @@ html(lang="en")
       .main-footer.text-muted
         footer Copyright &copy; 2018 Embassy of Denmark. All rights reserved.
     script(src="/js/jquery.min.js")
-    script(src="/js/popper.min.js")
+    //- script(src="/js/popper.min.js")
     script(src="/js/bootstrap.min.js")
-    script(src="/js/index.js")
+    script.
+      var signUpTabbedPane = document.querySelector(".tabbed-pane .sign-up");
+      var signInTabbedPane = document.querySelector(".tabbed-pane .sign-in");
+
+      if (signInTabbedPane) {
+        signInTabbedPane.addEventListener("click", function(e) {
+          location.assign("/login");
+        });
+      }
+
+      if (signUpTabbedPane) {
+        signUpTabbedPane.addEventListener("click", function(e) {
+          location.assign("/");
+        });
+      }
+      $().dropdown();
+
+      // bootstrap code for handling showing of file name
+      $("input[type=file]").change(function() {
+        var fieldVal = $(this).val();
+
+        // Change the node's value by removing the fake path (Chrome)
+        fieldVal = fieldVal.replace("C:\\fakepath\\", "");
+
+        if (fieldVal != undefined || fieldVal != "") {
+          $(this)
+            .next(".custom-file-label")
+            .attr("data-content", fieldVal)
+            .text(fieldVal);
+        }
+      });
+  block scripts

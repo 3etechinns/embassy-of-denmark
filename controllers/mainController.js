@@ -15,7 +15,7 @@ const getProfile = (req, res, next) => {
 
       forms = forms.map(form => ({
         ...form,
-        createdAt: form.createdAt.toLocaleString(),
+        createdAt: form.createdAt.toLocaleDateString(),
         updatedAt: form.updatedAt.toLocaleString()
       }));
 

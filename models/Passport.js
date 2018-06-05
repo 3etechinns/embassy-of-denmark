@@ -143,9 +143,10 @@ const PassportFormSchema = new Schema(
       required: true,
       default: " "
     },
-    witnessSignature: { type: String, trim: true },
+    witnessSignature: { type: String, trim: true, required: true },
     witnessDate: { type: String, trim: true, required: true, default: " " },
-    paymentId: { type: Schema.Types.ObjectId, required: true, default: " " }
+    paymentId: { type: Schema.Types.ObjectId, required: true, default: " " },
+    isComplete: { type: Boolean, required: true, default: false }
   },
   { timestamps: true }
 );

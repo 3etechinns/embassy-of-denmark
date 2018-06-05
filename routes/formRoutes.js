@@ -1,4 +1,4 @@
-const { requireLogin } = require("../middleware");
+const { requireLogin, handlePayment } = require("../middleware");
 const {
   createPassportForm,
   createVisaForm,

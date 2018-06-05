@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const util = require("../util");
 const PassportForm = mongoose.model("PassportForm");
 const Form = mongoose.model("Form");
 const Payment = mongoose.model("Payment");
 const VisaForm = mongoose.model("VisaForm");
 const FORM_TYPES = require("../formsTypes");
+const util = require("../util");
 
 const getModelName = type => {
   switch (type) {
@@ -64,6 +64,11 @@ const createPassportForm = async (req, res, next) => {
       const currentYear = new Date().getFullYear();
       const yearOfBirth = new Date(req.body.dateOfBirth).getFullYear();
       const age = currentYear - yearOfBirth;
+
+      if (!req.body.dateOfBirth.trim()) {
+        return util.error("Date of birth is required", next);
+      }
+
       if (
         !req.body.dateOfBirth ||
         (age < 18 && !req.body.parentName.trim()) ||
@@ -71,7 +76,7 @@ const createPassportForm = async (req, res, next) => {
         !req.body.parentTelephoneNumber.trim()
       ) {
         return util.error(
-          "Parental consent is necessary for people below age 18, please make sure you have filled such fields too",
+          "Parental consent is required for people below age 18, please make sure you have filled such fields too",
           next
         );
       }
@@ -94,16 +99,16 @@ const createPassportForm = async (req, res, next) => {
 
     let paymentId = undefined;
 
-    if (req.query.type !== "continue-later") {
-      const payment = await Payment.findById(req.body.token);
-      if (!payment || payment._owner !== req.session.userId) {
-        return util.error(
-          "please make sure you have paid for the form and submit again",
-          next
-        );
-      }
-      paymentId = req.body.token;
-    }
+    // if (req.query.type !== "continue-later") {
+    //   const payment = await Payment.findById(req.body.token);
+    //   if (!payment || payment._owner !== req.session.userId) {
+    //     return util.error(
+    //       "please make sure you have paid for the form and submit again",
+    //       next
+    //     );
+    //   }
+    //   paymentId = req.body.token;
+    // }
 
     const passportForm = await PassportForm.create({
       ...req.body,
@@ -124,7 +129,9 @@ const createPassportForm = async (req, res, next) => {
       );
     }
 
-    return res.redirect("/profile");
+    req.passportForm = passportForm;
+
+    return next();
   } catch (error) {
     // error.message = "Please fill all required fields";
     return next(error);
@@ -144,7 +151,7 @@ const createVisaForm = async (req, res, next) => {
 
     return res.json(form);
   } catch (error) {
-    error.message = "Please fill all required fields";
+    // error.message = "Please fill all required fields";
     return next(error);
   }
 };

@@ -10,8 +10,10 @@ block main
           th(scope='col') FORM
           th(scope='col') CREATED AT
           th(scope='col') LAST UPDATED
-          th(scope='col') STATUS
+          th(scope='col') PROCESSING STATUS
+          th(scope='col') PAYMENT STATUS
           th(scope='col') PRICE(₵)
+          th(scope='col') 
           th(scope='col') 
           th(scope='col') 
       tbody
@@ -21,15 +23,68 @@ block main
             td #{form.formType}
             td #{form.createdAt}
             td #{form.updatedAt}
-            td #{form.status}
+            td
+              img.icon.processing-status-icon(src="/img/circle.svg")
+              | #{form.status}
+            td
+              if form.paymentId
+                img.icon.payment-status(src="/img/check.svg")
+                | Paid 
+              else
+                img.icon.payment-status(src="/img/x.svg")
+                | Unpaid
             td #{200}
             td.edit 
               a(href=`/edit/${form.formId}?type=${form.formType}`)
-                img.edit-icon(src="/img/edit.svg") 
-                | Edit
+                img.edit-icon.icon(src="/img/edit.svg" title="edit") 
             td.view 
               a(href=`/view/${form.formId}?type=${form.formType}`)
-                img.view-icon(src="/img/eye.svg")
-                | View
+                img.view-icon.icon(src="/img/eye.svg" title="view")
+            if !form.paymentId
+              td.customButton.pay-button
+                img.icon(src="/img/credit-card.svg")
+                | Pay
+            else 
+              td
     if errorMessage
       .alert.alert-warning.text-center(role="alert") #{errorMessage}
+  script(src="https://checkout.stripe.com/checkout.js")
+  script(src="/js/axios.min.js")
+
+block scripts
+  script.
+    // stripe checkout
+    var handler = StripeCheckout.configure({
+      key: "pk_test_AZLJ6GOzlzvtcrxBWn8WAqLh",
+      image: "/img/logo.png",
+      locale: "auto",
+      allowRememberMe: false,
+      token: function(token) {
+        axios
+          .post("/forms/payment", { token })
+          .then(function(res) {
+            console.log(res);
+          })
+          .catch(function(err) {
+            document.body.innerHTML = "";
+            document.body.innerHTML = err.response.data;
+            console.log(err.response);
+          });
+      }
+    });
+
+    $(".customButton").click(function(e) {
+      // Open Checkout with further options:
+      handler.open({
+        name: "Embassy of Denmark",
+        description: "Pay for Passport form",
+        amount: 2000
+      });
+      e.preventDefault();
+    });
+
+    // Close Checkout on page navigation:
+    window.addEventListener("popstate", function() {
+      handler.close();
+    });
+

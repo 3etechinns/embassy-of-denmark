@@ -1,19 +1,16 @@
-const axios = require("axios");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const uuid = require("uuid");
 const mongoose = require("mongoose");
 const Payment = mongoose.model("Payment");
+const uuid = require("uuid");
 const util = require("../util");
 
 const handlePayment = async (req, res, next) => {
   try {
-    const { data, token } = req.body;
-
     const charge = await stripe.charges.create({
       amount: 2000,
       currency: "usd",
       description: "pay for passport form",
-      source: token.id
+      source: req.body.token.id
     });
 
     if (charge.status !== "succeeded") {
@@ -24,14 +21,15 @@ const handlePayment = async (req, res, next) => {
     }
 
     const payment = await Payment.create({
-      stripeChargeId: token.id,
+      stripeChargeId: req.body.token.id,
       amount: charge.amount,
       transactionId: uuid(),
       currency: charge.currency,
       _owner: req.session.userId
     });
 
-    return res.json({ token: payment._id });
+    req.passportForm.paymentId = payment._id;
+    return res.redirect("/profile");
   } catch (error) {
     console.log(error.message);
     return next(error);

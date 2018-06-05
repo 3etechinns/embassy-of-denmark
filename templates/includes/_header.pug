@@ -21,7 +21,11 @@ header
             | #{email}
           .dropdown-menu(aria-labelledby='dropdownMenuLink')
             a.dropdown-item(href='/profile') Profile
-            a.dropdown-item(href='#') Account Settings
-            a.dropdown-item.sign-out(href="/logout") Sign out
+            a.dropdown-item(href='#') 
+              img.icon.settings-icon(src="/img/settings.svg")
+              | Account Settings
+            a.dropdown-item.sign-out(href="/logout")
+              img.icon.sign-out-icon(src="/img/power.svg")
+              | Sign Out
     button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
         span.navbar-toggler-icon

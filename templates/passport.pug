@@ -307,15 +307,33 @@ block main
               label Upload your signature
               label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' name="witnessSignature" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' accept="image/*" name="witnessSignature" enctype="multipart/form-data" )
                 label.custom-file-label(for='customFile') Choose file
             .form-group
               label(for="witnessDate") Date
               label.star *
               input.form-control.form-control-sm( type="date" name="witnessDate" id="witnessDate")
         .submit-button.submit-passport-form
-          button#customButton.btn.btn-primary.btn-lg.custom-button(type='button', data-toggle='modal', data-target='.bd-example-modal-sm') pay and submit
+          button.btn.btn-primary.btn-lg.custom-button(type='submit', data-toggle='modal', data-target='.bd-example-modal-sm') submit
           button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post") Save and Continue Later
-  script(src="/js/countries.js")  
-  script(src="https://checkout.stripe.com/checkout.js")
-  script(src="/js/axios.min.js")
+  script(src="/js/countries.js")
+  script.
+    var countryOfBirth = document.querySelector("#countryOfBirth");
+    var countryOfResidence = document.querySelector("#countryOfResidence");
+    var fathersNationality = document.querySelector("#fathersNationality");
+    var mothersNationality = document.querySelector("#mothersNationality");
+
+    if (countryOfBirth) {
+      countries.forEach(function(country) {
+        appendOptions(countryOfBirth, country.name);
+        appendOptions(countryOfResidence, country.name);
+        appendOptions(mothersNationality, country.name);
+        appendOptions(fathersNationality, country.name);
+      });
+    }
+
+    function appendOptions(parent, value) {
+      var option = document.createElement("option");
+      option.innerHTML = value;
+      parent.appendChild(option);
+    }
