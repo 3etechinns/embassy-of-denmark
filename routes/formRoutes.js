@@ -4,7 +4,7 @@ const {
   createVisaForm,
   formIdParamHandler,
   editForm,
-  viewForm
+  deleteForm
 } = require("../controllers/formsController");
 
 module.exports = app => {
@@ -20,7 +20,7 @@ module.exports = app => {
 
   app.get("/edit/:formId", requireLogin, editForm);
 
-  app.get("/view/:formId", requireLogin, viewForm);
+  app.get("/delete/:formId", requireLogin, deleteForm);
 
   app.get("/forms/visa", requireLogin, (req, res, next) => {
     return res.render("visaForm");

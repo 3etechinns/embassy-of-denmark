@@ -35,9 +35,12 @@ const formIdParamHandler = async (req, res, next, formId) => {
       .lean()
       .exec();
 
+    console.log(form);
+
     if (!form) {
       return util.error("could not load form data, try again later", next);
     }
+
     req.form = form;
     return next();
   } catch (error) {
@@ -153,8 +156,8 @@ const editForm = (req, res, next) => {
   return res.render("editForm", { form: req.form });
 };
 
-const viewForm = (req, res, next) => {
-  return res.render("viewForm");
+const deleteForm = (req, res, next) => {
+  return res.send("delete in progress");
 };
 
 module.exports = {
@@ -162,5 +165,5 @@ module.exports = {
   createVisaForm,
   formIdParamHandler,
   editForm,
-  viewForm
+  deleteForm
 };

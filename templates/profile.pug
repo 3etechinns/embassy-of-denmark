@@ -38,10 +38,21 @@ block main
               a(href=`/edit/${formRecord.formId}?type=${formRecord.formType}`)
                 img.edit-icon.icon(src="/img/edit.svg" title="edit") 
                 | Edit
-            td.view.actions-button 
-              a(href=`/view/${formRecord.formId}?type=${formRecord.formType}`)
-                img.view-icon.icon(src="/img/eye.svg" title="view")
-                | View
+            td.delete 
+              img.delete-icon.icon(src="/img/trash-2.svg" title="delete" data-toggle="modal" data-target="#exampleModal")
+              #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                .modal-dialog(role='document')
+                  .modal-content
+                    .modal-header
+                      h5#exampleModalLabel.modal-title Confirm
+                      button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                    .modal-body
+                      | Are you sure you want to delete this form?
+                    .modal-footer
+                      button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                      button.btn.btn-primary.confirm-delete(type='button' id=`${formRecord.formId}` data-type=`${formRecord.formType}`) Delete
+
             if !formRecord.paymentId
               td.customButton.pay-button.actions-button(title="Pay" id=`${formRecord._id}`)
                 img.icon(src="/img/credit-card.svg")
@@ -93,4 +104,8 @@ block scripts
     window.addEventListener("popstate", function() {
       handler.close();
     });
+
+    document.querySelector(".confirm-delete").addEventListener("click", function() {
+      location.assign("/delete/" + this.id + "?type=" + this.getAttribute("data-type"))
+    })
 

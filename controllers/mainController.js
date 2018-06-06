@@ -19,7 +19,7 @@ const getProfile = (req, res, next) => {
       formRecords = formRecords.map(formRecord => ({
         ...formRecord,
         createdAt: formRecord.createdAt.toLocaleDateString(),
-        updatedAt: formRecord.updatedAt.toLocaleString()
+        updatedAt: formRecord.updatedAt.toLocaleDateString()
       }));
 
       return res.render("profile", { formRecords });
