@@ -2,7 +2,7 @@ extends ./layout.pug
 
 block main
   .main-content.profile
-    .display-4.text-center.my-4 My Profile
+    h5.display-5.my-4.profile-header Dashboard
     table.table
       thead
         tr
@@ -66,8 +66,7 @@ block scripts
         axios
           .post("/forms/payment", { token, formRecordId: document.formRecordId })
           .then(function(res) {
-            document.body.innerHTML = "";
-            document.body.innerHTML = res.data
+            location.reload();
             console.log(res);
           })
           .catch(function(err) {

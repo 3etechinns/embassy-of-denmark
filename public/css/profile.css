@@ -1,4 +1,11 @@
 
+.profile-header {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /* font-style: italic; */
+}
+
+
 table {
   display: table;
   border-collapse: collapse;
