@@ -20,7 +20,9 @@ header
             img.text-muted.avatar.mr-1(src="/img/avatar.png", alt="avatar")
             | #{email}
           .dropdown-menu(aria-labelledby='dropdownMenuLink')
-            a.dropdown-item(href='/profile') Profile
+            a.dropdown-item(href='/profile')
+              img.icon.user-icon(src="/img/user.svg")
+              | Profile
             a.dropdown-item(href='#') 
               img.icon.settings-icon(src="/img/settings.svg")
               | Account Settings

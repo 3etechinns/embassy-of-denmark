@@ -20,7 +20,7 @@ module.exports = app => {
 
   app.get("/edit/:formId", requireLogin, editForm);
 
-  app.get("/delete/:formId", requireLogin, deleteForm);
+  app.get("/delete/:formRecordId", requireLogin, deleteForm);
 
   app.get("/forms/visa", requireLogin, (req, res, next) => {
     return res.render("visaForm");

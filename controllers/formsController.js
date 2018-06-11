@@ -35,8 +35,6 @@ const formIdParamHandler = async (req, res, next, formId) => {
       .lean()
       .exec();
 
-    console.log(form);
-
     if (!form) {
       return util.error("could not load form data, try again later", next);
     }
@@ -156,8 +154,19 @@ const editForm = (req, res, next) => {
   return res.render("editForm", { form: req.form });
 };
 
-const deleteForm = (req, res, next) => {
-  return res.send("delete in progress");
+const deleteForm = async (req, res, next) => {
+  try {
+    const model = mongoose.model(getModelName(req.query.type));
+
+    const resp = await Promise.all([
+      FormRecord.remove({ _id: req.params.formRecordId }),
+      model.remove({ _id: req.query.formId })
+    ]);
+
+    return res.redirect("/profile");
+  } catch (error) {
+    return next(error);
+  }
 };
 
 module.exports = {
