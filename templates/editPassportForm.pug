@@ -10,23 +10,23 @@ block main
             .form-group
               label(for="surname") Surname
               label.star *
-              input.form-control.form-control-sm(type="text" id="surname" placeholder="Surname" name="surname")
+              input.form-control.form-control-sm(type="text" value=form.surname id="surname" placeholder="Surname" name="surname")
             .form-group
               label(for="otherNames") Other names
-              input.form-control.form-control-sm(type="text" placeholder="Other names" id="otherNames" name="otherNames")
+              input.form-control.form-control-sm(type="text" value=form.otherNames placeholder="Other names" id="otherNames" name="otherNames")
           .bottom-form-group
             .form-group
               label(for="maidenName") Maiden name(s)
-              input.form-control.form-control-sm(type="text" placeholder="Maiden name(s)" id="maidenName" name="maidenName")
+              input.form-control.form-control-sm(type="text" value=form.maidenName placeholder="Maiden name(s)" id="maidenName" name="maidenName")
             .form-group#affidavit
               label(for="previousName") If name has changed by Affidavit or Gazette Publication, provide previous name
-              input.form-control.form-control-sm(type="text" placeholder="Previous name if changed" id="previousName" name="previousName")
+              input.form-control.form-control-sm(type="text" value=form.previousName placeholder="Previous name if changed" id="previousName" name="previousName")
         .form-section
           .top-form-group
             .form-group
               label(for="dateOfBirth") Date of birth
               label.star *
-              input.form-control.form-control-sm( type="date" id="dateOfBirth" name="dateOfBirth")
+              input.form-control.form-control-sm( type="date" value=form.dateOfBirth id="dateOfBirth" name="dateOfBirth")
             .form-group
               label(for="gender" id="gender") Gender
                 label.star *
@@ -39,24 +39,24 @@ block main
                 label.form-check-label Female
           .bottom-form-group
             .form-group
-              label(for="placeOfBirth") City or town of birth
-                label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Birth city/town" id="placeOfBirth" name="placeOfBirth")
-            .form-group
               label(for="countryOfBirth") Country of birth
                 label.star *
-              select.form-control.form-control-sm( type="text" id="countryOfBirth" name="countryOfBirth")
+              select.form-control.form-control-sm( type="text" value=form.countryOfBirth id="countryOfBirth" name="countryOfBirth")
                 option(value="") Select one...
+            .form-group
+              label(for="placeOfBirth") City or town of birth
+                label.star *
+              input.form-control.form-control-sm( type="text" value=form.placeOfBirth placeholder="Birth city/town" id="placeOfBirth" name="placeOfBirth")
         .form-section
           .top-form-group
             .form-group
               label(for="height") Height(in meters)
                 label.star *
-              input.form-control.form-control-sm( type="text" id="height" placeholder="E.g 1.7" name="height")
+              input.form-control.form-control-sm( type="text" value=form.height id="height" placeholder="E.g 1.7" name="height")
             .form-group
               label(for="eyeColor") Eye color
                 label.star *
-              select.form-control.form-control-sm( type="text" id="eyeColor" name="eyeColor")
+              select.form-control.form-control-sm( type="text" value=form.eyeColor id="eyeColor" name="eyeColor")
                 option(value="") Select one...
                 option(value="Black") Black
                 option(value="Brown") Brown
@@ -66,7 +66,7 @@ block main
             .form-group
               label(for="hairColor") Hair color
               label.star *
-              select.form-control.form-control-sm( id="hairColor" name="hairColor")
+              select.form-control.form-control-sm( id="hairColor" value=form.hairColor name="hairColor")
                 option(value="") Select one...
                 option(value="Black") Black
                 option(value="Brown") Brown
@@ -79,73 +79,73 @@ block main
             .form-group
               label(for="nationality") Nationality
               label.star *
-              select#nationality.form-control.form-control-sm( name="nationality")
+              select#nationality.form-control.form-control-sm( name="nationality" value=form.nationality)
                 option(value="") Select one
             .form-group
               label(for="profession") Profession
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Profession" id="profession" name="profession")
+              input.form-control.form-control-sm( type="text" value=form.profession placeholder="Profession" id="profession" name="profession")
         .form-section
           .top-form-group
             .form-group
               label(for="countryOfResidence") Country of residence
               label.star *
-              select.form-control.form-control-sm( name="countryOfResidence" id="countryOfResidence")
+              select.form-control.form-control-sm( name="countryOfResidence" value=form.countryOfResidence id="countryOfResidence")
                 option(value="Denmark") Select one
             .form-group
               label(for="residentialAddress") Residential address
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Residential address" name="residentialAddress" id="residentialAddress")
+              input.form-control.form-control-sm( type="text" value=form.residentialAddress placeholder="Residential address" name="residentialAddress" id="residentialAddress")
             .form-group
               label(for="telephoneNumber") Telephone
               label.star *
-              input.form-control.form-control-sm(type="number" placeholder="Telephone" name="telephoneNumber" id="telephoneNumber")
+              input.form-control.form-control-sm(type="number" value=form.telephoneNumber placeholder="Telephone" name="telephoneNumber" id="telephoneNumber")
             .form-group
               label(for="email") Email
               label.star *
-              input.form-control.form-control-sm( type="email" placeholder="Email" name="email" id="email")
+              input.form-control.form-control-sm( type="email" value=form.email placeholder="Email" name="email" id="email")
         .form-section
           p.form-section-name Current/Last Educational Institution attended
           .top-form-group
             .form-group
               label(for="institution") Institution
-              input.form-control.form-control-sm(type="text" placeholder="Institution" name="institution" id="institution")
+              input.form-control.form-control-sm(type="text" value=form.institution placeholder="Institution" name="institution" id="institution")
             .form-group
               label(for="placeOfInstitution") Place
-              input.form-control.form-control-sm(type="text" placeholder="Place" name="placeOfInstitution" id="placeOfInstitution")
+              input.form-control.form-control-sm(type="text" value=form.placeOfInstitution placeholder="Place" name="placeOfInstitution" id="placeOfInstitution")
             .form-group
               label(for="lastYearOfEducation") Year
-              input.form-control.form-control-sm(type="text" placeholder="Year" name="lastYearOfEducation" id="lastYearOfEducation")
+              input.form-control.form-control-sm(type="text" placeholder="Year" value=form.lastYearOfEducation name="lastYearOfEducation" id="lastYearOfEducation")
         .form-section
           p.form-section-name Evidence of citizenship
           .top-form-group
             .form-group
               label(for="fathersName") Father's name
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Father's name" name="fathersName" id="fathersName")
+              input.form-control.form-control-sm( type="text" value=form.fathersName placeholder="Father's name" name="fathersName" id="fathersName")
             .form-group
               label(for="fathersNationality") Father's nationality
               label.star *
-              select.form-control.form-control-sm( name="fathersNationality" id="fathersNationality")
+              select.form-control.form-control-sm( name="fathersNationality" value=form.fathersNationality id="fathersNationality")
                 option(value="Denmark") Select one
             .form-group
               label(for="fathersAddress") Father's address
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Father's address" name="fathersAddress" id="fathersAddress")
+              input.form-control.form-control-sm( type="text" value=form.fathersAddress placeholder="Father's address" name="fathersAddress" id="fathersAddress")
           .bottom-form-group
             .form-group
               label(for="mothersName") Mother's name
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Mother's name" name="mothersName" id="mothersName")
+              input.form-control.form-control-sm( type="text" value=form.mothersName placeholder="Mother's name" name="mothersName" id="mothersName")
             .form-group
               label(for="mothersNationality") Mother's nationality
               label.star *
-              select.form-control.form-control-sm( name="mothersNationality" id="mothersNationality")
+              select.form-control.form-control-sm( name="mothersNationality" value=form.mothersNationality id="mothersNationality")
                 option(value="Denmark") Select one
             .form-group
               label(for="mothersAddress") Mother's address
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Mother's address" name="mothersAddress" id="mothersAddress")
+              input.form-control.form-control-sm( type="text" value=form.mothersAddress placeholder="Mother's address" name="mothersAddress" id="mothersAddress")
           .top-form-group
             .form-group
               label Birth or Baptism Certificate / Citizenship Identity Card / Old Passport  
@@ -153,108 +153,108 @@ block main
           .top-form-group
             .form-group
               label Number 
-              input.form-control.form-control-sm( type="text" placeholder="card number" name="evidenceOfCitizenshipNumber" id="evidenceOfCitizenshipNumber")
+              input.form-control.form-control-sm( type="text" value=form.evidenceOfCitizenshipNumber placeholder="card number" name="evidenceOfCitizenshipNumber" id="evidenceOfCitizenshipNumber")
             .form-group
               label Date of issue  
-              input.form-control.form-control-sm( type="date" name="evidenceOfCitizenshipDate" id="evidenceOfCitizenshipDate")
+              input.form-control.form-control-sm( type="date" name="evidenceOfCitizenshipDate" value=form.evidenceOfCitizenshipDate id="evidenceOfCitizenshipDate")
             .form-group
               label Place of issue  
-              input.form-control.form-control-sm( type="text" placeholder="Place of issue" name="evidenceOfCitizenshipPlaceOfIssue" id="evidenceOfCitizenshipPlaceOfIssue")
+              input.form-control.form-control-sm( type="text" placeholder="Place of issue" value=form.evidenceOfCitizenshipPlaceOfIssue name="evidenceOfCitizenshipPlaceOfIssue" id="evidenceOfCitizenshipPlaceOfIssue")
         .form-section
           p.form-section-name Any 2 Danes living in your country who will act as guarantors and be contacted in case of emergency
           .top-form-group
             .form-group
               label(for="guarantorsName1") Full name
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName1" id="guarantorsName1")
+              input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName1" value=form.guarantors[0].guarantorsName id="guarantorsName1")
             .form-group
               label(for="guarantorsAddress1") Residential address
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress1" id="guarantorsAddress1")
+              input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress1" value=form.guarantors[0].guarantorsAddress id="guarantorsAddress1")
             .form-group
               label(for="guarantorsTelephoneNumber1") Telephone number
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
+              input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber1" value=form.guarantors[0].guarantorsTelephoneNumber id="guarantorsTelephoneNumber1")
             .form-group
               label Upload your signature
               label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' name="guarantorsSignature1" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' name="guarantorsSignature1" value=form.guarantorsSignature1 enctype="multipart/form-data" )
                 label.custom-file-label(for='customFile') Choose file
           .bottom-form-group
             .form-group
               label(for="guarantorsName2") Full name
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName2" id="guarantorsName2")
+              input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName2" value=form.guarantors[1].guarantorsName id="guarantorsName2")
             .form-group
               label(for="guarantorsAddress2") Residential address
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress2" id="guarantorsAddress2")
+              input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress2" value=form.guarantors[1].guarantorsAddress id="guarantorsAddress2")
             .form-group
               label(for="guarantorsTelephoneNumber2") Telephone number
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
+              input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber2" value=form.guarantors[1].guarantorsTelephoneNumber id="guarantorsTelephoneNumber2")
             .form-group
               label Upload your signature
               label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' name="guarantorsSignature2" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' name="guarantorsSignature2" value=form.guarantorsSignature2 enctype="multipart/form-data" )
                 label.custom-file-label(for='customFile') Choose file
         .form-section
           p.form-section-name PARENTAL/LEGAL GUARDIAN CONSENT FOR APPLICANT 
             b UNDER 18 YEARS OF AGE
           p I hereby give consent for applicant who is my 
-            input(type="text" name="parentalConsentMetaData" placeholder="Son, daughter...") 
+            input(type="text" name="parentalConsentMetaData" value=form.parentalConsentMetaData placeholder="Son, daughter...") 
             |  to hold a passport
           .top-form-group
             .form-group
               label(for="parentName") Full name
               label.star *
-              input.form-control.form-control-sm(type="text" placeholder=" Parent's Full name" name="parentName" id="parentName")
+              input.form-control.form-control-sm(type="text" placeholder=" Parent's Full name" name="parentName" value=form.parentName id="parentName")
             .form-group
               label(for="parentAddress") Residential address
               label.star *
-              input.form-control.form-control-sm(type="text" placeholder="Parent's address" name="parentAddress" id="parentAddress")
+              input.form-control.form-control-sm(type="text" placeholder="Parent's address" name="parentAddress" value=form.parentAddress id="parentAddress")
           .bottom-form-group
             .form-group
               label Upload your signature
               label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' name="parentalConsentSignature" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' name="parentalConsentSignature" value=form.parentalConsentSignature enctype="multipart/form-data" )
                 label.custom-file-label(for='customFile') Choose file
             .form-group
               label(for="parentTelephoneNumber") Telephone number
               label.star *
-              input.form-control.form-control-sm(type="text" placeholder="Parent's Telephone number" name="parentTelephoneNumber" id="parentTelephoneNumber")
+              input.form-control.form-control-sm(type="text" placeholder="Parent's Telephone number" name="parentTelephoneNumber" value=form.parentTelephoneNumber id="parentTelephoneNumber")
         .form-section
           p.form-section-name FOR PERSONS COMPLETING THIS FORM ON BEHALF OF APPLICANTS WHO CANNOT READ OR WRITE ENGLISH
           p The above declaration has been read and interpreted by me in 
-            input(type="text" placeholder="Eg. English" name="languageInterpretedIn")
+            input(type="text" placeholder="Eg. English" name="languageInterpretedIn" value=form.languageInterpretedIn)
             |  language to the applicant and he/she understands and accepts
           .top-form-group
             .form-group
               label(for="interpreterName") Full name
               label.star *
-              input.form-control.form-control-sm(type="text" placeholder="Full name of interpreter" name="interpreterName" id="interpreterName")
+              input.form-control.form-control-sm(type="text" placeholder="Full name of interpreter" name="interpreterName" value=form.interpreterName id="interpreterName")
             .form-group
               label(for="interpreterAddress") Residential address
               label.star *
-              input.form-control.form-control-sm(type="text" placeholder="Residential address of interpreter" name="interpreterAddress" id="interpreterAddress")
+              input.form-control.form-control-sm(type="text" placeholder="Residential address of interpreter" name="interpreterAddress" value=form.interpreterAddress id="interpreterAddress")
             .form-group
               label(for="interpreterTelephoneNumber") Telephone number
               label.star *
-              input.form-control.form-control-sm(type="text" placeholder="Interpreter's Telephone number" name="interpreterTelephoneNumber" id="interpreterTelephoneNumber")
+              input.form-control.form-control-sm(type="text" placeholder="Interpreter's Telephone number" name="interpreterTelephoneNumber" value=form.interpreterTelephoneNumber id="interpreterTelephoneNumber")
           .bottom-form-group
             .form-group
               label Upload your signature
               label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' name="interpretersSignature" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' name="interpretersSignature" value=form.interpretersSignature enctype="multipart/form-data" )
                 label.custom-file-label(for='customFile') Choose file
             .form-group
                 label(for="interpretationDate") Date
                 label.star *
-                input.form-control.form-control-sm( type="date" name="interpretationDate" id="interpretationDate")
+                input.form-control.form-control-sm( type="date" name="interpretationDate" value=form.interpretationDate id="interpretationDate")
         .form-section
           p.form-section-name 
             span DECLARATION BY APPLICANT
@@ -266,55 +266,55 @@ block main
           p
             input(type="radio", name="declarationOption" value="attached/lost") 
             |  That the previous passport with number 
-            input(type="text" name="previousPassportNumber") 
+            input(type="text" name="previousPassportNumber" value=form.previousPassportNumber) 
             |   granted me is Attached/lost
           .bottom-form-group
             .form-group
               label Upload your signature
               label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' name="declarationSignature" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' name="declarationSignature" value=form.declarationSignature enctype="multipart/form-data" )
                 label.custom-file-label(for='customFile') Choose file
             .form-group
                 label(for="declarationDate") Date
                 label.star *
-                input.form-control.form-control-sm( type="date" name="declarationDate" id="declarationDate")
+                input.form-control.form-control-sm( type="date" name="declarationDate" value=form.declarationDate id="declarationDate")
         .form-section
           p.form-section-name WITNESS
           .top-form-group
             .form-group
               label(for="witnessName") Full name
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Witness name" name="witnessName" id="witnessName")
+              input.form-control.form-control-sm( type="text" placeholder="Witness name" name="witnessName" value=form.witnessName id="witnessName")
             .form-group
               label(for="witnessOccupation") Occupation
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Witness occupation" name="witnessOccupation" id="witnessOccupation")
+              input.form-control.form-control-sm( type="text" placeholder="Witness occupation" name="witnessOccupation" value=form.witnessOccupation id="witnessOccupation")
             .form-group
               label(for="witnessWorkPlaceAddress") Workplace Address
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Witness work place" name="witnessWorkPlaceAddress" id="witnessWorkPlaceAddress")
+              input.form-control.form-control-sm( type="text" placeholder="Witness work place" name="witnessWorkPlaceAddress" value=form.witnessWorkPlaceAddress id="witnessWorkPlaceAddress")
           .bottom-form-group
             .form-group
               label(for="witnessResidentialAddress") Residential address
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Witness residential address" name="witnessResidentialAddress" id="witnessResidentialAddress")
+              input.form-control.form-control-sm( type="text" placeholder="Witness residential address" name="witnessResidentialAddress" value=form.witnessResidentialAddress id="witnessResidentialAddress")
             .form-group
               label(for="witnessTelephoneNumber") Telephone number
               label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Witness telephone number" name="witnessTelephoneNumber" id="witnessTelephoneNumber")
+              input.form-control.form-control-sm( type="text" placeholder="Witness telephone number" name="witnessTelephoneNumber" value=form.witnessTelephoneNumber id="witnessTelephoneNumber")
             .form-group
               label Upload your signature
               label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' accept="image/*" name="witnessSignature" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' accept="image/*" name="witnessSignature" value=form.witnessSignature enctype="multipart/form-data" )
                 label.custom-file-label(for='customFile') Choose file
             .form-group
               label(for="witnessDate") Date
               label.star *
-              input.form-control.form-control-sm( type="date" name="witnessDate" id="witnessDate")
+              input.form-control.form-control-sm( type="date" name="witnessDate" value=form.witnessDate id="witnessDate")
         .submit-button.submit-passport-form
-          button.btn.btn-primary.btn-lg.custom-button(type='submit', formaction="/forms/passport" formmethod="post" data-toggle='modal', data-target='.bd-example-modal-sm') submit
+          button.btn.btn-primary.btn-lg.custom-button(type='button', data-toggle='modal', data-target='.bd-example-modal-sm') submit
           button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post") Save and Continue Later
   script(src="/js/countries.js")
   script.
@@ -337,3 +337,7 @@ block main
       option.innerHTML = value;
       parent.appendChild(option);
     }
+
+block scripts
+  script.
+    var form = document.form.gender

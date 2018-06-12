@@ -78,6 +78,24 @@ const createPassportForm = async (req, res, next) => {
           next
         );
       }
+
+      // ensuring guarantors information is provided when the request is not a save and
+      // continue later one
+      if (
+        (!req.body.guarantorsName1.trim(),
+        !req.body.guarantorsAddress1.trim(),
+        !req.body.guarantorsTelephoneNumber1.trim(),
+        !req.body.guarantorsSignature1.trim(),
+        !req.body.guarantorsName2.trim(),
+        !req.body.guarantorsAddress2.trim(),
+        !req.body.guarantorsTelephoneNumber2.trim(),
+        !req.body.guarantorsSignature2.trim())
+      ) {
+        return util.error(
+          "Please make sure guarantor information is provided",
+          next
+        );
+      }
     }
 
     const guarantors = [
@@ -95,17 +113,6 @@ const createPassportForm = async (req, res, next) => {
       }
     ];
 
-    // if (req.query.type !== "continue-later") {
-    //   const payment = await Payment.findById(req.body.token);
-    //   if (!payment || payment._owner !== req.session.userId) {
-    //     return util.error(
-    //       "please make sure you have paid for the form and submit again",
-    //       next
-    //     );
-    //   }
-    //   paymentId = req.body.token;
-    // }
-
     const passportForm = await PassportForm.create({
       ...req.body,
       guarantors
@@ -115,7 +122,7 @@ const createPassportForm = async (req, res, next) => {
       _owner: req.session.userId,
       formId: passportForm._id,
       formType: FORM_TYPES.passportForm,
-      isComplete: true
+      isComplete: req.query.type === "continue-later" ? false : true
     });
 
     if (!passportForm || !formRecord) {
@@ -134,16 +141,51 @@ const createPassportForm = async (req, res, next) => {
 
 const createVisaForm = async (req, res, next) => {
   try {
-    const form = await VisaForm.create({ ...req.body });
+    // for forms submitted to be continued later
+    if (req.query.type === "continue-later") {
+      // loop through each property in the req.body and set empty ones to undefined
+      // for the purpose of mongoose providing a default value
+      for (prop in req.body) {
+        if (!req.body[prop].trim()) {
+          req.body[prop] = undefined;
+        }
+      }
+    }
 
-    if (!form) {
+    /**
+     * Please ensure consistency in the model and pug files and then u can make changes
+     *  to thi side like how we did for the guarantors information in the passport form
+     */
+    const references = [
+      {
+        fullName: req.body.referenceName1,
+        address: req.body.referenceAddress1,
+        telephoneNumber: req.body.referenceNumber1
+      },
+      {
+        fullName: req.body.referenceName2,
+        address: req.body.referenceAddress2,
+        telephoneNumber: req.body.referenceNumber2
+      }
+    ];
+
+    const visaForm = await VisaForm.create({ ...req.body });
+
+    const formRecord = await FormRecord.create({
+      _owner: req.session.userId,
+      formId: visaForm._id,
+      formType: FORM_TYPES.VisaForm,
+      isComplete: req.query.type === "continue-later" ? false : true
+    });
+
+    if (!visaForm || !formRecord) {
       return util.error(
-        "sorry, we are having problems processing your form, try again latter",
+        "sorry, we are having problems creating your form, try again later",
         next
       );
     }
 
-    return res.json(form);
+    return res.redirect("/profile");
   } catch (error) {
     // error.message = "Please fill all required fields";
     return next(error);
@@ -151,17 +193,32 @@ const createVisaForm = async (req, res, next) => {
 };
 
 const editForm = (req, res, next) => {
-  return res.render("editForm", { form: req.form });
+  try {
+    switch (req.query.type) {
+      case "Passport":
+        return res.render("editPassportForm", { form: req.form });
+      case "Visa":
+        return res.render("editVisaForm", { form: req.form });
+      default:
+        return res.redirect("/profile");
+    }
+  } catch (error) {
+    return next(error);
+  }
 };
 
 const deleteForm = async (req, res, next) => {
   try {
     const model = mongoose.model(getModelName(req.query.type));
 
+    console.log(getModelName(req.query.type));
+
     const resp = await Promise.all([
       FormRecord.remove({ _id: req.params.formRecordId }),
       model.remove({ _id: req.query.formId })
     ]);
+
+    console.log(resp);
 
     return res.redirect("/profile");
   } catch (error) {

@@ -20,8 +20,6 @@ const FormSchema = new Schema(
     isComplete: { type: Boolean, required: true, default: false },
     paymentId: {
       type: Schema.Types.ObjectId,
-      // required: true,
-      // default: " ",
       ref: "Payment"
     }
   },

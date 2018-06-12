@@ -1,0 +1,192 @@
+extends ./layout.pug
+
+block main
+  .main-content.passport
+    h5.display-5.my-4 Visa Application
+    .passport-form  
+      form(name="passport")
+        .form-section
+          p.form-section-name Personal Information
+          .top-form-group
+            .form-group
+              label(for="surname") Surname
+              label.star *
+              input.form-control.form-control-sm(type="text" id="surname" placeholder="Surname" name="surname")
+            .form-group
+              label(for="firstName") First name
+              label.star *
+              input.form-control.form-control-sm( type="text" placeholder="First name" id="firstName" name="firstName")
+            .form-group
+              label(for="previousName") Previous name, if changed
+              label.star *
+              input.form-control.form-control-sm(type="text" id="previousName" placeholder="Previous name" name="previousName")
+          .bottom-form-group
+            .form-group
+              label(for="dateOfBirth") Date of Birth
+              label.star *
+              input.form-control.form-control-sm( type="date" placeholder="Date of Birth" id="dateOfBirth" name="dateOfBirth")
+            .form-group
+              label(for="placeOfBirth") Place of birth
+              label.star *
+              input.form-control.form-control-sm( type="text" placeholder="Place of Birth" id="placeOfBirth" name="placeOfBirth")
+            .form-group
+              label(for="nationality") Applicant's nationality
+              label.star *
+              select#nationality.form-control.form-control-sm( name="nationality")
+                option(value="dane") Dane
+        .form-section
+          p.form-section-name Contact Information
+          .top-form-group
+            .form-group
+              label(for="email") Email
+              label.star *
+              input.form-control.form-control-sm( type="text" placeholder="Email" id="email" name="email")
+            .form-group
+              label(for="telephone") Telephone Number
+              label.star *
+              input.form-control.form-control-sm( type="text" placeholder="Telephone Number" id="telephone" name="telephone")
+            .form-group
+              label(for="residentialAddress") Residential Address
+              label.star *
+              input.form-control.form-control-sm( type="text" placeholder="Residential Address" id="residentialAddress" name="residentialAddress")
+        .form-section
+          p.form-section-name Passport Information
+          .top-form-group
+            .form-group
+              label(for="passportNumber") Passport Number
+              label.star *
+              input.form-control.form-control-sm( type="text" placeholder="Passport Number" id="passportNumber" name="passportNumber")
+            .form-group
+              label(for="passportDateOfIssue") Date of Issue
+              label.star *
+              input.form-control.form-control-sm( type="date" placeholder="Date of Issue" id="passportDateOfIssue" name="passportDateOfIssue")
+            .form-group
+              label(for="passportDateOfExpiry") Expiry Date
+              label.star *
+              input.form-control.form-control-sm( type="date" placeholder="Expiry Date" id="passportDateOfExpiry" name="passportDateOfExpiry")
+          .bottom-form-group
+            .form-group
+              label(for="passportPlaceOfIssue") Place of Issue
+              label.star *
+              input.form-control.form-control-sm( type="text" placeholder="Place of Issue" id="passportPlaceOfIssue" name="passportPlaceOfIssue")
+            .form-group
+              label(for="formerNationality") Former Nationality(if applicable)
+              select#nationality.form-control.form-control-sm( name="formerNationality")
+                option(value="dane") Dane
+            .form-group
+              label(for="currentCountryOfResidence") Current country of Residence
+              select#nationality.form-control.form-control-sm( name="currentCountryOfResidence")
+                option(value="dane") Dane
+        .form-section
+          p.form-section-name Work Information
+          .top-form-group
+            .form-group
+              label(for="profession") Profession
+              label.star *
+              input.form-control.form-control-sm( type="text" placeholder="Profession" id="profession" name="profession")
+            .form-group
+              label(for="workPlaceAddress") Work Place Address
+              label.star *
+              input.form-control.form-control-sm( type="text" placeholder="Work Place Address" id="workPlaceAddress" name="workPlaceAddress")
+            .form-group
+              label(for="workPlaceTelephoneNumber") Work Place Telephone
+              label.star *
+              input.form-control.form-control-sm( type="text" placeholder="Work Place Telephone" id="workPlaceTelephoneNumber" name="workPlaceTelephoneNumber")
+        .form-section
+          p.form-section-name Travel Details
+            .top-form-group
+              .form-group
+                label(for="intendedDateOfTravel") Intended Date of Travel
+                label.star *
+                input.form-control.form-control-sm( type="date" placeholder="Intended Date of Travel" id="intendedDateOfTravel" name="intendedDateOfTravel")
+              .form-group
+                label(for="durationOfStay") Duration of Stay
+                label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Duration of Stay" id="durationOfStay" name="durationOfStay")
+              .form-group
+                label(for="dateOfLastVisit") Date of Last Visit to Ghana
+                label.star *
+                input.form-control.form-control-sm( type="date" placeholder="Date of Last Visit" id="dateOfLastVisit" name="dateOfLastVisit")
+            .bottom-form-group
+              .form-group
+                label(for="purposeOfJourney") Purpose of Journey
+                label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Purpose of Journey" id="purposeOfJourney" name="purposeOfJourney")
+              .form-group
+                label(for="meansOfTravel") Means of Travel
+                label.star *
+                select.form-control.form-control-sm( type="text" placeholder="Means of Travel" id="meansOfTravel" name="meansOfTravel")
+                  option(value="") Please select one......
+                  option(value="air") Air
+                  option(value="sea") Sea
+                  option(value="land") Land
+              .form-group
+                label(for="financialMeansOfApplicant") Financial means at disposal
+                label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Financial Means" id="financialMeansOfApplicant" name="financialMeansOfApplicant")
+          .form-section
+            p.form-section-name Visa
+            .top-form-group
+              .form-group
+                label(for="visaType") Visa Type
+                label.star *
+                select#nationality.form-control.form-control-sm( name="visaType")
+                  option(value="") Please Select one.....
+                  option(value="single entry") Single Entry Visa
+                  option(value="multiple entry") Multiple Entry Visa
+              .form-group
+                label(for="possessionOfReturnTicket" id="possessionOfReturnTicket") Do you have a return ticket
+                  label.star *
+                br
+                .form-check.form-check-inline
+                  input.form-check-input.form-control-sm( type="radio" id="yes" name="possessionOfReturnTicket" value="true")
+                  label.form-check-label Yes
+                .form-check.form-check-inline
+                  input.form-check-input.form-control-sm( type="radio" id="no" name="possessionOfReturnTicket" value="false")
+                  label.form-check-label False
+              .form-group
+                label(for="ticketNumber") If yes, provide ticket number
+                input.form-control.form-control-sm( type="text" placeholder="Ticket Number" id="ticketNumber" name="ticketNumber")
+            .bottom-form-group
+              .form-group
+                label(for="accompaniedBy") Who are you accompanied by?
+                input.form-control.form-control-sm( type="text" placeholder="Who are you accompanied by?" id="accompaniedBy" name="accompaniedBy")
+              .form-group
+                label(for="accompaniedByDateOfBirth") His/Her Date of Birth
+                input.form-control.form-control-sm( type="date" placeholder="His/Her Date of Birth" id="accompaniedByDateOfBirth" name="accompaniedByDateOfBirth")
+          .form-section
+            p.form-section-name References' Information
+            |1.
+            .top-form-group
+              .form-group
+                label(for="guarantorsName1") Full name
+                label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName1" id="guarantorsName1")
+              .form-group
+                label(for="guarantorsAddress1") Residential address
+                label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress1" id="guarantorsAddress1")
+              .form-group
+                label(for="guarantorsTelephoneNumber1") Telephone number
+                label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
+            |2.
+            .top-form-group
+              .form-group
+                label(for="guarantorsName2") Full name
+                label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName2" id="guarantorsName2")
+              .form-group
+                label(for="guarantorsAddress2") Residential address
+                label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress2" id="guarantorsAddress2")
+              .form-group
+                label(for="guarantorsTelephoneNumber2") Telephone number
+                label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
+        .submit-button.submit-passport-form
+          button#customButton.btn.btn-primary.btn-lg.custom-button(type='submit', formaction="/forms/visa" formmethod="post" data-toggle='modal', data-target='.bd-example-modal-sm') submit
+          button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/visa?type=continue-later" formmethod="post") Save and Continue Later
+  script(src="/js/countries.js")  
+  script(src="https://checkout.stripe.com/checkout.js")
+  script(src="/js/axios.min.js")
