@@ -31,6 +31,11 @@ const getProfile = (req, res, next) => {
   }
 };
 
+const accountSettings = (req, res, next) => {
+  return res.render("settings");
+};
+
 module.exports = {
-  getProfile
+  getProfile,
+  accountSettings
 };

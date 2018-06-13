@@ -36,3 +36,7 @@ table {
   color: #009cfc;
 }
 
+.disabled-input {
+  cursor: not-allowed;
+}
+

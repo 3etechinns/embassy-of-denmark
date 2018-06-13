@@ -4,6 +4,6 @@ module.exports = app => {
   require("./mainRoutes")(app);
   require("./paymentRoutes")(app);
 
-  // Admin Panel Routes
+  // Admin Routes
   require("./AdminRoutes")(app);
 };

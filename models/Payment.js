@@ -8,7 +8,11 @@ const PaymentSchema = new Schema(
     amount: { type: Number, required: true },
     transactionId: { type: String, required: true },
     currency: { type: String, required: true },
-    _formRecordId: { type: Schema.Types.ObjectId, required: true, ref: "Form" }
+    _formRecordId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "FormRecord"
+    }
   },
   { timestamps: true }
 );

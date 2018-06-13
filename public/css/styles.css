@@ -158,13 +158,13 @@ form {
   width: 300px;
 }
 
-label, option {
+.form-label, option {
   font-family: -apple-system, BlinkMacSystemFont, 'Open Sans', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   font-size: 12px;
   color: #646464;
 }
 
-label {
+.form-label {
   font-weight: 700;
 }
 

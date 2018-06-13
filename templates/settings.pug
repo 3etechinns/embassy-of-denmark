@@ -1,0 +1,17 @@
+extends ./layout.pug
+
+block main
+  .main-content.profile
+    h5.display-5.my-4.profile-header Account Settings
+    .settings-form
+      form(name="account-settings")
+        .form-section
+          .bottom-form-group
+            .form-group 
+              label(for="email") Email
+              input.form-control.form-control-sm.disabled-input(type="text" name="email" value="user@email.com" disabled)
+            .form-group 
+              label(for="password") Password
+              input.form-control.form-control-sm.disabled-input(type="password" disabled name="password" value="********")
+          .text-center
+            button.btn.btn-success.custom-button(type="submit") Save changes

@@ -1,5 +1,8 @@
 const { requireLogin, requireLogout } = require("../middleware");
-const { getProfile } = require("../controllers/mainController");
+const {
+  getProfile,
+  accountSettings
+} = require("../controllers/mainController");
 
 module.exports = app => {
   app.get("/", requireLogout, (req, res, next) => {
@@ -7,4 +10,6 @@ module.exports = app => {
   });
 
   app.get("/profile", requireLogin, getProfile);
+
+  app.get("/account", requireLogin, accountSettings);
 };
