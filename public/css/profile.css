@@ -36,13 +36,6 @@ table {
   color: #009cfc;
 }
 
-/* .settings-form form {
-  padding: 15px;
-  border-top: 3px solid #d2d6de; 
-  border-radius: 4px;
-  box-shadow: 2px 2px 7px 0px rgba(0,0,0,0.35);
-} */
-
 .disabled-input {
   cursor: not-allowed;
 }

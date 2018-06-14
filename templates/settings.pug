@@ -38,7 +38,7 @@ block scripts
   script.
     $(".password-changer").hide();
     document.querySelector(".change-password").addEventListener("click", function() {
-      //- this.innerHTML = "Close";
+      (this.innerHTML === "change Password") ? this.innerHTML = "Close" : this.innerHTML = "change Password";
       $(".password-changer").toggle("slow");
     })
     
