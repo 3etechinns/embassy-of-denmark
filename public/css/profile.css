@@ -36,7 +36,27 @@ table {
   color: #009cfc;
 }
 
+/* .settings-form form {
+  padding: 15px;
+  border-top: 3px solid #d2d6de; 
+  border-radius: 4px;
+  box-shadow: 2px 2px 7px 0px rgba(0,0,0,0.35);
+} */
+
 .disabled-input {
   cursor: not-allowed;
 }
 
+.edit-details, .change-password {
+  width: 150px;
+  margin-top: 40px;
+  padding: 2px;
+  color: rgb(5, 211, 39);
+  cursor: pointer;
+  border: 1px solid rgb(5, 211, 39);
+  border-radius: 4px;
+}
+
+.hide {
+  border: none;
+}

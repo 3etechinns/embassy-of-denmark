@@ -20,7 +20,8 @@ body {
 }
 
 .main-content {
-  flex: 1;
+  /* flex: 1; */
+  width: 80%;
   position: relative;
   margin: 132px auto 0 auto;
   bottom: 45px;
@@ -133,17 +134,21 @@ form {
   margin-top: 15px;
 }
 
-.submit-button > a, .submit-button .custom-button {
-  text-transform: uppercase;
+.submit-button > a, .submit-button {
+
   font-weight: 600;
+  /* background: #02b3e4; */
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: 0.165em;
+}
+
+.submit-button > a, .submit-button .custom-button, .account-btn {
+  text-transform: uppercase;
+  transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out, 0.2s border-color ease-in-out !important;
   padding: 13px;
   border-radius: 4px;
-  letter-spacing: 0.165em;
   text-align: center;
   text-overflow: ellipsis;
-  transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out, 0.2s border-color ease-in-out !important;
-  background: #02b3e4;
-  font-family: 'Open Sans', sans-serif;
   box-shadow: 12px 15px 20px rgba(0, 0, 0, 0.1);
   border: none;
   font-size: 12px;

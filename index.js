@@ -23,16 +23,20 @@ app.use(
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    cookie: { maxAge: Date.now() + 60 * 60 * 12 * 1000 }
+    cookie: { maxAge: 60 * 60 * 10 * 1000 }
   })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.resolve(__dirname, "public")));
-mongoose.connect(process.env.MONGO_URI, { autoReconnect: true }, err => {
-  if (err) return console.log("Database connection error");
-  return console.log("Database connected successfully");
-});
+mongoose.connect(
+  process.env.MONGO_URI,
+  { autoReconnect: true },
+  err => {
+    if (err) return console.log("Database connection error");
+    return console.log("Database connected successfully");
+  }
+);
 require("./models");
 
 app.use((req, res, next) => {

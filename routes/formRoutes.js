@@ -25,4 +25,12 @@ module.exports = app => {
   app.get("/forms/visa", requireLogin, (req, res, next) => {
     return res.render("visaForm");
   });
+
+  app.get("/forms/dual-citizenship", requireLogin, (req, res, next) => {
+    return res.send("work in progress...");
+  });
+
+  app.get("/forms/appointment", requireLogin, (req, res, next) => {
+    return res.send("work in progress...");
+  });
 };

@@ -1,7 +1,8 @@
 const { requireLogin, requireLogout } = require("../middleware");
 const {
   getProfile,
-  accountSettings
+  accountSettings,
+  updateAccountDetails
 } = require("../controllers/mainController");
 
 module.exports = app => {
@@ -12,4 +13,6 @@ module.exports = app => {
   app.get("/profile", requireLogin, getProfile);
 
   app.get("/account", requireLogin, accountSettings);
+
+  app.post("/account", requireLogin, updateAccountDetails);
 };
