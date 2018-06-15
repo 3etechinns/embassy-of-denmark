@@ -51,8 +51,8 @@ block main
                     .modal-body
                       | Are you sure you want to delete this form?
                     .modal-footer
-                      button.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
-                      button.btn.btn-primary.confirm-delete(type='button' id=`${formRecord._id}` data-formRecordId=`${formRecord._id}` data-formId=`${formRecord.formId}` data-type=`${formRecord.formType}`) Delete
+                      button.btn.btn-success(type='button', data-dismiss='modal') Cancel
+                      button.btn.btn-danger.confirm-delete(type='button' id=`${formRecord._id}` data-formRecordId=`${formRecord._id}` data-formId=`${formRecord.formId}` data-type=`${formRecord.formType}`) Delete
 
             if !formRecord.paymentId
               td.customButton.pay-button.actions-button(title="Pay" id=`${formRecord._id}`)
@@ -62,11 +62,21 @@ block main
               td.actions-button
     if errorMessage
       .alert.alert-warning.text-center(role="alert") #{errorMessage}
+    .alert.alert-warning.alert-dismissible.text-center(role="alert" data-dismiss="alert") 
+      a.close(href="#" data-dismiss="alert" aria-label="close") &times;
+      | Please note that 
+      strong unpaid forms 
+      |won't be 
+      strong processed and would be deleted after one week
   script(src="https://checkout.stripe.com/checkout.js")
   script(src="/js/axios.min.js")
 
 block scripts
   script.
+    $(".confirm-delete").click(function(e) {
+      location.assign("/delete/" + this.getAttribute("data-formRecordId") + "?type=" + this.getAttribute("data-type") + "&formId=" + this.getAttribute("data-formId"))
+    });
+
     // stripe checkout
     var handler = StripeCheckout.configure({
       key: "pk_test_AZLJ6GOzlzvtcrxBWn8WAqLh",
@@ -106,7 +116,4 @@ block scripts
       handler.close();
     });
 
-    $(".confirm-delete").click(function(e) {
-      location.assign("/delete/" + this.getAttribute("data-formRecordId") + "?type=" + this.getAttribute("data-type") + "&formId=" + this.getAttribute("data-formId"))
-    })
 
