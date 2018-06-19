@@ -20,9 +20,9 @@ body {
 }
 
 .main-content {
-  /* flex: 1; */
-  width: 80%;
+  flex: 1;
   position: relative;
+  width: 80%;
   margin: 132px auto 0 auto;
   bottom: 45px;
 }
@@ -215,7 +215,6 @@ form {
   width: 100%;
   bottom: 0;
   background: #fff;
-  width: 100%;
   padding: 10px;
   text-align: center;
 }

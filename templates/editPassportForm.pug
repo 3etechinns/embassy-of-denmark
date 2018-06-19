@@ -5,6 +5,9 @@ block main
     h5.display-5.my-4 Passport Application
     .passport-form  
       form(name="passport")
+        div(class="alert alert-danger" role="alert") All fields with 
+          label.form-label.star *
+          |  are required
         .form-section
           .top-form-group
             .form-group
@@ -314,14 +317,17 @@ block main
               label.form-label.star *
               input.form-control.form-control-sm( type="date" name="witnessDate" value=form.witnessDate id="witnessDate")
         .submit-button.submit-passport-form
-          button.btn.btn-primary.btn-lg.custom-button(type='button', data-toggle='modal', data-target='.bd-example-modal-sm') submit
-          button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post") Save and Continue Later
+          //- a.btn.btn-primary.btn-lg.custom-button(href=`/update/${form._id}?type=${form.formType}`) Submit
+          //- a.btn.btn-primary.btn-lg.custom-button(href=`/update/${form._id}?type=${form.formType}?aim=continue-later`) Save and Continue Later
+          button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/update/${form._id}?type=${form.formType}` formmethod="post") Submit
+          button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction=`/update/${form._id}?type=${form.formType}&aim=continue-later` formmethod="post") Save and Continue Later
   script(src="/js/countries.js")
   script.
     var countryOfBirth = document.querySelector("#countryOfBirth");
     var countryOfResidence = document.querySelector("#countryOfResidence");
     var fathersNationality = document.querySelector("#fathersNationality");
     var mothersNationality = document.querySelector("#mothersNationality");
+    var nationality = document.querySelector("#nationality");
 
     if (countryOfBirth) {
       countries.forEach(function(country) {
@@ -329,6 +335,7 @@ block main
         appendOptions(countryOfResidence, country.name);
         appendOptions(mothersNationality, country.name);
         appendOptions(fathersNationality, country.name);
+        appendOptions(nationality, country.name);
       });
     }
 
@@ -338,6 +345,3 @@ block main
       parent.appendChild(option);
     }
 
-block scripts
-  script.
-    var form = document.form.gender

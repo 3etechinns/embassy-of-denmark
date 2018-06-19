@@ -34,7 +34,9 @@ const getProfile = (req, res, next) => {
 };
 
 const accountSettings = (req, res, next) => {
-  return res.render("settings");
+  return res.render("settings", {
+    updateMessage: req.session.updateMessage
+  });
 };
 
 const updateAccountDetails = async (req, res, next) => {
@@ -83,6 +85,7 @@ const updateAccountDetails = async (req, res, next) => {
     .exec();
 
   req.session.userEmail = updatedUser.email;
+  req.session.updateMessage = "Account info successfully changed";
   req.session.save(err => {
     return res.redirect("/account");
   });

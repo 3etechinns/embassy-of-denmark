@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const referenceSchema = new Schema({
-  fullName: { type: String, required: true },
-  address: { type: String, required: true },
-  telephoneNumber: { type: String, required: true }
+  fullName: { type: String, required: true, default: " " },
+  address: { type: String, required: true, default: " " },
+  telephoneNumber: { type: String, required: true, default: " " }
 });
 
 const visaFormSchema = new Schema(
@@ -62,7 +62,7 @@ const visaFormSchema = new Schema(
       default: " "
     },
     telephoneNumber: { type: String, required: true, trim: true, default: " " },
-    intendedDateOfTravelToGhana: {
+    intendedDateOfTravel: {
       type: String,
       required: true,
       trim: true,
@@ -91,7 +91,7 @@ const visaFormSchema = new Schema(
       trim: true,
       default: " "
     },
-    references: { type: [referenceSchema], required: true },
+    references: { type: [referenceSchema], required: true, default: [] },
     accompaniedBy: { type: String },
     accompaniedByDateOfBirth: { type: String }
   },

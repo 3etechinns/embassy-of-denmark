@@ -34,6 +34,10 @@ block main
       .alert.alert-danger.text-center.alert-dismissible(role="alert" data-dismiss="alert") 
         a(href="#" class="close" data-dismiss="alert" aria-label="close") &times;
         | #{message}
+    if updateMessage
+      .alert.alert-success.text-center.alert-dismissible(role="alert" data-dismiss="alert") 
+        a(href="#" class="close" data-dismiss="alert" aria-label="close") &times;
+        | #{updateMessage}
 block scripts
   script.
     $(".password-changer").hide();

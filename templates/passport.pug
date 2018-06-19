@@ -5,7 +5,11 @@ block main
     h5.display-5.my-4 Passport Application
     .passport-form  
       form(name="passport")
+        div(class="alert alert-danger" role="alert") All fields with 
+          label.form-label.star *
+          |  are required
         .form-section
+          p.form-section-name Personal Information
           .top-form-group
             .form-group
               label.form-label(for="surname") Surname
@@ -86,6 +90,7 @@ block main
               label.form-label.star *
               input.form-control.form-control-sm( type="text" placeholder="Profession" id="profession" name="profession")
         .form-section
+          p.form-section-name Contact Information
           .top-form-group
             .form-group
               label.form-label(for="countryOfResidence") Country of residence
@@ -314,7 +319,7 @@ block main
               label.form-label.star *
               input.form-control.form-control-sm( type="date" name="witnessDate" id="witnessDate")
         .submit-button.submit-passport-form
-          button.btn.btn-primary.btn-lg.custom-button(type='submit', formaction="/forms/passport" formmethod="post" data-toggle='modal', data-target='.bd-example-modal-sm') submit
+          button.btn.btn-primary.btn-lg.custom-button(type='submit', formaction="/forms/passport" formmethod="post") submit
           button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post") Save and Continue Later
   script(src="/js/countries.js")
   script.
@@ -322,6 +327,7 @@ block main
     var countryOfResidence = document.querySelector("#countryOfResidence");
     var fathersNationality = document.querySelector("#fathersNationality");
     var mothersNationality = document.querySelector("#mothersNationality");
+    var nationality = document.querySelector("#nationality");
 
     if (countryOfBirth) {
       countries.forEach(function(country) {
@@ -329,6 +335,7 @@ block main
         appendOptions(countryOfResidence, country.name);
         appendOptions(mothersNationality, country.name);
         appendOptions(fathersNationality, country.name);
+        appendOptions(nationality, country.name);
       });
     }
 

@@ -135,7 +135,10 @@ const createPassportForm = async (req, res, next) => {
     return res.redirect("/profile");
   } catch (error) {
     // error.message = "Please fill all required fields";
-    return next(error);
+    return util.error(
+      "Please make sure all required fields have been filled",
+      next
+    );
   }
 };
 
@@ -158,18 +161,21 @@ const createVisaForm = async (req, res, next) => {
      */
     const references = [
       {
-        fullName: req.body.referenceName1,
-        address: req.body.referenceAddress1,
-        telephoneNumber: req.body.referenceNumber1
+        fullName: req.body.guarantorsName1,
+        address: req.body.guarantorsAddress1,
+        telephoneNumber: req.body.guarantorsTelephoneNumber1
       },
       {
-        fullName: req.body.referenceName2,
-        address: req.body.referenceAddress2,
-        telephoneNumber: req.body.referenceNumber2
+        fullName: req.body.guarantorsName2,
+        address: req.body.guarantorsAddress2,
+        telephoneNumber: req.body.guarantorsTelephoneNumber2
       }
     ];
 
-    const visaForm = await VisaForm.create({ ...req.body });
+    const visaForm = await VisaForm.create({
+      ...req.body,
+      references
+    });
 
     const formRecord = await FormRecord.create({
       _owner: req.session.userId,
@@ -188,7 +194,10 @@ const createVisaForm = async (req, res, next) => {
     return res.redirect("/profile");
   } catch (error) {
     // error.message = "Please fill all required fields";
-    return next(error);
+    return util.error(
+      "Please make sure all required fields have been filled",
+      next
+    );
   }
 };
 
@@ -196,13 +205,62 @@ const editForm = (req, res, next) => {
   try {
     switch (req.query.type) {
       case "Passport":
-        return res.render("editPassportForm", { form: req.form });
+        return res.render("editPassportForm", {
+          form: req.form,
+          formRecordId: req.query.formRecordId
+        });
       case "Visa":
         return res.render("editVisaForm", { form: req.form });
       default:
         return res.redirect("/profile");
     }
   } catch (error) {
+    return next(error);
+  }
+};
+
+const updateForm = async (req, res, next) => {
+  try {
+    // This side is to endure that all fields are filed before setting the isComplete
+    // property on the form record to true
+    if (req.query.aim !== "continue-later") {
+      const unfilled = [];
+      for (prop in req.body) {
+        if (!req.body[prop].trim()) {
+          unfilled.push(prop);
+        }
+      }
+
+      if (unfilled.length > 0) {
+        let message = "Please make sure you have filled ";
+        unfilled.forEach(item => {
+          message += item + ", ";
+        });
+        return util.error(message, next);
+      }
+
+      const formRecord = await FormRecord.update(
+        {
+          _id: req.query.formRecordId
+        },
+        { isComplete: true },
+        { new: true }
+      );
+      console.log("form record is: " + formRecord);
+    }
+
+    const modelName = getModelName(req.query.type);
+    const updateInfo = await mongoose
+      .model(modelName)
+      .updateOne({ _id: req.form._id }, { ...req.body }, { new: true })
+      .lean()
+      .exec();
+
+    console.log(updateInfo);
+
+    return res.redirect("/profile");
+  } catch (error) {
+    // console.log(error.message);
     return next(error);
   }
 };
@@ -231,5 +289,6 @@ module.exports = {
   createVisaForm,
   formIdParamHandler,
   editForm,
+  updateForm,
   deleteForm
 };

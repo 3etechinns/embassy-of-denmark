@@ -4,6 +4,7 @@ const {
   createVisaForm,
   formIdParamHandler,
   editForm,
+  updateForm,
   deleteForm
 } = require("../controllers/formsController");
 
@@ -20,6 +21,8 @@ module.exports = app => {
 
   app.get("/edit/:formId", requireLogin, editForm);
 
+  app.post("/update/:formId", requireLogin, updateForm);
+
   app.get("/delete/:formRecordId", requireLogin, deleteForm);
 
   app.get("/forms/visa", requireLogin, (req, res, next) => {
@@ -27,10 +30,10 @@ module.exports = app => {
   });
 
   app.get("/forms/dual-citizenship", requireLogin, (req, res, next) => {
-    return res.send("work in progress...");
+    return res.json({ message: "work in progress..." });
   });
 
   app.get("/forms/appointment", requireLogin, (req, res, next) => {
-    return res.send("work in progress...");
+    return res.json({ message: "work in progress..." });
   });
 };
