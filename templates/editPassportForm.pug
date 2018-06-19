@@ -319,7 +319,7 @@ block main
         .submit-button.submit-passport-form
           //- a.btn.btn-primary.btn-lg.custom-button(href=`/update/${form._id}?type=${form.formType}`) Submit
           //- a.btn.btn-primary.btn-lg.custom-button(href=`/update/${form._id}?type=${form.formType}?aim=continue-later`) Save and Continue Later
-          button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/update/${form._id}?type=${form.formType}` formmethod="post") Submit
+          button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/update/${form._id}?type=Passport` formmethod="post") Submit
           button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction=`/update/${form._id}?type=${form.formType}&aim=continue-later` formmethod="post") Save and Continue Later
   script(src="/js/countries.js")
   script.

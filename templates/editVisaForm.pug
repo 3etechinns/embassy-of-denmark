@@ -188,7 +188,7 @@ block main
         .submit-button.submit-passport-form
           //- button#customButton.btn.btn-primary.btn-lg.custom-button(type='button', data-toggle='modal', data-target='.bd-example-modal-sm') submit
           //- button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/visa?type=continue-later" formmethod="post") Save and Continue Later
-          button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/update/${form._id}?type=${form.formType}` formmethod="post") Submit
+          button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/update/${form._id}?type=Visa` formmethod="post") Submit
           button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction=`/update/${form._id}?type=${form.formType}&aim=continue-later` formmethod="post") Save and Continue Later
   script(src="/js/countries.js")  
   script(src="https://checkout.stripe.com/checkout.js")
