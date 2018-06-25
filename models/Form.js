@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const { newRequests } = require("../processingStatus");
 
 const FormSchema = new Schema(
   {
@@ -15,7 +16,7 @@ const FormSchema = new Schema(
     },
     status: {
       type: String,
-      default: "Pending"
+      default: newRequests
     },
     isComplete: { type: Boolean, required: true, default: false },
     paymentId: {
