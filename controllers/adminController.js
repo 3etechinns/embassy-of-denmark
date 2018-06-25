@@ -24,6 +24,8 @@ const getAllRequests = async (req, res, next) => {
 
 const getNewRequests = async (req, res, next) => {
   try {
+    const skipValue = req.query.skip_value;
+    const limitValue = req.query.limit_value;
     const formRecords = await Form.find({
       $and: [
         { paymentId: { $exists: true } },
@@ -31,6 +33,8 @@ const getNewRequests = async (req, res, next) => {
         { status: newRequests }
       ]
     })
+      .skip(skipValue || 0)
+      .limit(limitValue || 4)
       .populate("_owner")
       .exec();
     return res.json(formRecords);
@@ -41,6 +45,8 @@ const getNewRequests = async (req, res, next) => {
 
 const getProcessingRequests = async (req, res, next) => {
   try {
+    const skipValue = req.query.skip_value;
+    const limitValue = req.query.limit_value;
     const formRecords = await Form.find({
       $and: [
         { paymentId: { $exists: true } },
@@ -58,6 +64,8 @@ const getProcessingRequests = async (req, res, next) => {
 
 const getCompletedRequests = async (req, res, next) => {
   try {
+    const skipValue = req.query.skip_value;
+    const limitValue = req.query.limit_value;
     const formRecords = await Form.find({
       $and: [
         { paymentId: { $exists: true } },
@@ -65,6 +73,8 @@ const getCompletedRequests = async (req, res, next) => {
         { status: completedRequests }
       ]
     })
+      .skip(skipValue || 0)
+      .limit(limitValue || 4)
       .populate("_owner")
       .exec();
     return res.json(formRecords);
@@ -75,6 +85,8 @@ const getCompletedRequests = async (req, res, next) => {
 
 const getDispatchedRequests = async (req, res, next) => {
   try {
+    const skipValue = req.query.skip_value;
+    const limitValue = req.query.limit_value;
     const formRecords = await Form.find({
       $and: [
         { paymentId: { $exists: true } },
@@ -82,6 +94,8 @@ const getDispatchedRequests = async (req, res, next) => {
         { status: dispatchedRequests }
       ]
     })
+      .skip(skipValue || 0)
+      .limit(limitValue || 4)
       .populate("_owner")
       .exec();
     return res.json(formRecords);
