@@ -1,35 +1,34 @@
 extends ./layout.pug
 
 block main
-  .main-content.profile
+  .container.main-content.profile
     h5.display-5.my-4 Account Settings
     .settings-form
       form(method="post" action="/account" name="account-settings")
-        .form-section
-          .bottom-form-group
-            .form-group 
-              label(for="email") Email
-              input.form-control.form-control-sm.disabled-input.edit-email(type="text" name="email" value=`${email}` disabled)
-            .form-group
-              label.edit-details.text-center(title="edit") edit
-          .bottom-form-group
-            .form-group 
-              label(for="password") Password
-              input.form-control.form-control-sm.disabled-input(type="password" disabled value="********")
-            .form-group
-              label.text-center.change-password(title="change password") change Password
-          .password-changer
-            .bottom-form-group
-              .form-group 
-                label(for="oldPassword") Old Password
-                label.star *
-                input.form-control.form-control-sm(type="password" name="oldPassword" placeholder="Old Password")
-              .form-group
-                label(for="newPassword") New Password
-                label.star *
-                input.form-control.form-control-sm(type="password" name="newPassword" placeholder="New Password")
-          .text-center
-            button.btn.btn-success.account-btn(type="submit") Save changes
+        .row.group
+          .col-sm-12.col-md-5.form-group 
+            label(for="email") Email
+            input.form-control.form-control-sm.disabled-input.edit-email(type="text" name="email" value=`${email}` disabled)
+          .col-sm-12.col-md-5.form-group
+            label.edit-details.text-center(title="edit") edit
+        .row.group
+          .col-sm-12.col-md-5.form-group 
+            label(for="password") Password
+            input.form-control.form-control-sm.disabled-input(type="password" disabled value="********")
+          .col-sm-12.col-md-5.form-group
+            label.text-center.change-password(title="change password") change Password
+        .password-changer
+          .row
+            .col-sm-12.col-md-5.form-group 
+              label(for="oldPassword") Old Password
+              label.star *
+              input.form-control.form-control-sm(type="password" name="oldPassword" placeholder="Old Password")
+            .col-sm-12.col-md-5.form-group
+              label(for="newPassword") New Password
+              label.star *
+              input.form-control.form-control-sm(type="password" name="newPassword" placeholder="New Password")
+        .text-center
+          button.btn.btn-success.account-btn(type="submit") Save changes
     if message
       .alert.alert-danger.text-center.alert-dismissible(role="alert" data-dismiss="alert") 
         a(href="#" class="close" data-dismiss="alert" aria-label="close") &times;

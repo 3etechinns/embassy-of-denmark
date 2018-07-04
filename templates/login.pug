@@ -1,7 +1,7 @@
 extends ./layout.pug
 
 block main
-  .main-content.login
+  .container.main-content.login
     .login-form
       form(action="/login" method="POST")
         .tabs
@@ -11,12 +11,13 @@ block main
             .sign-in.active sign in
         .form-section
           .form-header.display-4.mb-4 Sign in to your account
-          .top-form-group
-            .form-group
+          .row
+            //- .top-form-group
+            .col-sm-12.col-xl-5.form-group
               label(for="email") Email
               label.star *
               input.form-control.form-control-sm(required type="email" placeholder="Email Address*" id="email" name="email")
-            .form-group
+            .col-sm-12.col-xl-5.form-group
               label(for="password") Password
               label.star *
               input.form-control.form-control-sm(required type="password" placeholder="Password*" id="password" name="password")

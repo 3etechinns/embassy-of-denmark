@@ -5,6 +5,15 @@
   /* font-style: italic; */
 }
 
+.profile {
+  margin-bottom: 50px;
+  width: 80%;
+}
+
+.settings-form form {
+  padding: 30px;
+}
+
 
 table {
   display: table;
@@ -16,10 +25,6 @@ table {
   background: white;
   margin: 0 auto;
   margin-bottom: 50px;
-}
-
-.profile {
-  width: 80%;
 }
 
 .icon {
@@ -42,12 +47,23 @@ table {
 
 .edit-details, .change-password {
   width: 150px;
-  margin-top: 40px;
+  margin-top: 32px;
   padding: 2px;
   color: rgb(5, 211, 39);
   cursor: pointer;
   border: 1px solid rgb(5, 211, 39);
   border-radius: 4px;
+}
+
+
+@media (max-width: 760px) {
+  .edit-details, .change-password {
+    margin-top: 0px;
+  }
+
+  .profile {
+    width: 100%;
+  }
 }
 
 .hide {

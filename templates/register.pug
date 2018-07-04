@@ -1,7 +1,7 @@
 extends ./layout.pug
 
 block main
-  .main-content.register
+  .container.main-content.register
     .register-form
       form(action="/register" method="POST")
         .tabs
@@ -11,16 +11,18 @@ block main
             .sign-in sign in
         .form-section
           .form-header.display-4.mb-4 Create your embassy account
-          .form-group
-            label(for="email") Email
-            label.star *
-            input.form-control.form-control-sm(required type="email" placeholder="Email Address*" id="email" name="email")
-          .top-form-group
-            .form-group
+          .row
+            .col-sm-12.form-group
+              label(for="email") Email
+              label.star *
+              input.form-control.form-control-sm(required type="email" placeholder="Email Address*" id="email" name="email")
+            //-.top-form-group 
+          .row
+            .col-sm-12.col-lg-5.form-group
               label(for="password") Password
               label.star *
               input.form-control.form-control-sm(required type="password" placeholder="Password*" id="password" name="password")
-            .form-group
+            .col-sm-12.col-lg-5.form-group
               label(for="confirmPassword") Confirm Password
               label.star *
               input.form-control.form-control-sm(required type="password" placeholder="Confirm password*" id="confirmPassword" name="confirmPassword")
