@@ -30,6 +30,12 @@ body {
   width: 80%;
 }
 
+@media (max-width: 760px) {
+  .passport, .visa {
+    width: 100%;
+  }
+}
+
 .header-img {
   width: 50px;
 }
@@ -131,7 +137,8 @@ form {
 }
 
 .submit-button {
-  margin-top: 15px;
+  /* margin-top: 15px; */
+  padding: 30px;
 }
 
 .submit-button > a, .submit-button {
@@ -192,9 +199,9 @@ form {
 }
 
 .form-group {
-  /* min-width: 30%; */
   flex-grow: 1;
-  margin-right: 10px;
+  /* width: 100%; */
+  margin-right: 30px;
 }
 
 #gender ~ label {

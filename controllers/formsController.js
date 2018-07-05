@@ -20,6 +20,7 @@ const getModelName = type => {
 const formIdParamHandler = async (req, res, next, formId) => {
   try {
     const type = req.query.type;
+    console.log(formId);
     const modelName = getModelName(type);
 
     if (!modelName) {
@@ -268,8 +269,6 @@ const updateForm = async (req, res, next) => {
 const deleteForm = async (req, res, next) => {
   try {
     const model = mongoose.model(getModelName(req.query.type));
-
-    console.log(getModelName(req.query.type));
 
     const resp = await Promise.all([
       FormRecord.remove({ _id: req.params.formRecordId }),
