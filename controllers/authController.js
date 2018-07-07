@@ -48,8 +48,9 @@ const logIn = async (req, res, next) => {
       return util.error("Incorrect password", next, 403);
     }
     req.session.userId = user._id;
+    req.session.isAdmin = user.isAdmin;
     req.session.userEmail = user.email;
-    return res.redirect("/profile");
+    return user.isAdmin ? res.redirect("/admin") : res.redirect("/profile");
   } catch (error) {
     return next(error);
   }

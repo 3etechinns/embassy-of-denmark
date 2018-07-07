@@ -1,0 +1,571 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(http-equiv="x-ua-compatible" content="ie=edge")
+    title Embassy Of Denmark
+    // Font Awesome
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    link(href="/css/compiled.min.css" rel="stylesheet")
+    link(href="/css/mdb.min.css" rel="stylesheet")
+    link(href="/css/bootstrap.min.css" rel="stylesheet")
+    link(href="/css/style.css" rel="stylesheet")
+    link(href="/css/styles.css" rel="stylesheet")
+  body.fixed-sn.mdb-skin
+    // Main Navigation
+    header
+      // Navbar
+      nav.navbar.navbar-expand-lg.navbar-dark.double-nav.fixed-top.scrolling-navbar
+        // SideNav slide-out button
+        .float-left
+          a.button-collapse(href="#" data-activates="slide-out")
+            i.fa.fa-bars
+        // Breadcrumb
+        .breadcrumb-dn.mr-auto
+          p(style="font-weight: 600; font-size: 13px;") ADMIN DASHBOARD
+        // Links
+        ul.nav.navbar-nav.nav-flex-icons.ml-auto
+          li.nav-item
+            a.nav-link(href="/admin/support")
+              i.fa.fa-comments-o
+              span.clearfix.d-none.d-sm-inline-block support
+          li.nav-item
+            a.nav-link(href="/admin/settings")
+              i.fa.fa-gear
+              span.clearfix.d-none.d-sm-inline-block Settings
+          li.nav-item.dropdown
+            a.nav-link(href="/logout")
+              i.fa.fa-power-off
+      // /.Navbar
+      // Sidebar navigation
+      #slide-out.side-nav.fixed(style="background: url(/img/logo.png) no-repeat;\
+      background-position: center center;\
+      background-size: cover;\
+      background-attachment: fixed;\
+      background-color: black;")
+        ul.custom-scrollbar.list-unstyled
+          // Logo
+          li.logo-sn.waves-effect
+            .text-center
+              a.pl-0(href="#")
+                img(src="/img/logo.png")
+          // /. Logo
+          // Search Form
+          li
+            form.search-form(role="search")
+              .form-group.waves-light
+                input.form-control(type="text" placeholder="Search")
+          // /.Search Form
+          // Side navigation links
+          li
+            ul.collapsible.collapsible-accordion
+              li
+                a.waves-effect.arrow-r(href="/admin")
+                  | Dashboard
+              hr(style="margin: 10px 0px;")
+              li
+                a.collapsible-header.waves-effect.arrow-r
+                  | Transaction Pipeline
+                  i.fa.fa-angle-down.rotate-icon
+                .collapsible-body
+                  ul
+                    li
+                      a.waves-effect(href="/admin/transaction") All
+                    li
+                      a.waves-effect(href="/admin/transaction") New Requests
+                    li
+                      a.waves-effect(href="/admin/transaction") Under Processing
+                    li
+                      a.waves-effect(href="/admin/transaction") Completed Requests
+                    li
+                      a.waves-effect(href="/admin/transaction") Dispatched Requests
+              hr(style="margin: 10px 0px;")
+              li
+                a.waves-effect.arrow-r(href="/admin/user_search")
+                  | User Search & Reporting
+              hr(style="margin: 10px 0px;")
+              li
+                a.waves-effect.arrow-r(href="/admin/embassy_requests")
+                  | Inter-Embassy Requests
+              hr(style="margin: 10px 0px;")
+              li
+                a.collapsible-header.waves-effect.arrow-r
+                  | Live Chat
+                  i.fa.fa-angle-down.rotate-icon
+                .collapsible-body
+                  ul
+                    li
+                      a.waves-effect(href="#") FAQ
+                    li
+                      a.waves-effect(href="support.html") Write to support
+                    li
+                      a.waves-effect(href="#") Chat with a colleague
+                    li
+                      a.waves-effect(href="#") Chat with other Embassies
+              hr(style="margin: 10px 0px;")
+              li
+                a.collapsible-header.waves-effect.arrow-r
+                  | Settings
+                  i.fa.fa-angle-down.rotate-icon
+                .collapsible-body
+                  ul
+                    li
+                      a.waves-effect(href="#") Access Rights
+                    li
+                      a.waves-effect(href="#") User log
+                    li
+                      a.waves-effect(href="#") Currency
+                    li
+                      a.waves-effect(href="#") Bank/Card details
+                    li
+                      a.waves-effect(href="#") Embassy Profile
+                    li
+                      a.waves-effect(href="#") Staff
+          // /. Side navigation links
+        // Mask
+        .sidenav-bg.mask-strong
+      // /. Sidebar navigation
+    // Main Navigation
+    .main-content.passport
+      h5.display-5.my-4 Review Passport Form
+      .passport-form  
+        form(name="passport")
+          .form-section
+            .top-form-group
+              .form-group
+                label.form-label(for="surname") Surname
+                label.form-label.star *
+                input.form-control.form-control-sm(type="text" value=form.surname id="surname" placeholder="Surname" name="surname")
+              .form-group
+                label.form-label(for="otherNames") Other names
+                input.form-control.form-control-sm(type="text" value=form.otherNames placeholder="Other names" id="otherNames" name="otherNames")
+            .bottom-form-group
+              .form-group
+                label.form-label(for="maidenName") Maiden name(s)
+                input.form-control.form-control-sm(type="text" value=form.maidenName placeholder="Maiden name(s)" id="maidenName" name="maidenName")
+              .form-group#affidavit
+                label.form-label(for="previousName") If name has changed by Affidavit or Gazette Publication, provide previous name
+                input.form-control.form-control-sm(type="text" value=form.previousName placeholder="Previous name if changed" id="previousName" name="previousName")
+          .form-section
+            .top-form-group
+              .form-group
+                label.form-label(for="dateOfBirth") Date of birth
+                label.form-label.star *
+                input.form-control.form-control-sm( type="date" value=form.dateOfBirth id="dateOfBirth" name="dateOfBirth")
+              .form-group
+                label.form-label(for="gender" id="gender") Gender
+                  label.form-label.star *
+                br
+                .form-check.form-check-inline
+                  input.form-check-input.form-control-sm( type="radio" id="male" name="gender" value="male")
+                  label.form-label.form-check-label.form-label Male
+                .form-check.form-check-inline
+                  input.form-check-input.form-control-sm( type="radio" id="female" name="gender" value="female")
+                  label.form-label.form-check-label.form-label Female
+            .bottom-form-group
+              .form-group
+                label.form-label(for="countryOfBirth") Country of birth
+                  label.form-label.star *
+                select.form-control.form-control-sm( type="text" value=form.countryOfBirth id="countryOfBirth" name="countryOfBirth")
+                  option(value="") Select one...
+              .form-group
+                label.form-label(for="placeOfBirth") City or town of birth
+                  label.form-label.star *
+                input.form-control.form-control-sm( type="text" value=form.placeOfBirth placeholder="Birth city/town" id="placeOfBirth" name="placeOfBirth")
+          .form-section
+            .top-form-group
+              .form-group
+                label.form-label(for="height") Height(in meters)
+                  label.form-label.star *
+                input.form-control.form-control-sm( type="text" value=form.height id="height" placeholder="E.g 1.7" name="height")
+              .form-group
+                label.form-label(for="eyeColor") Eye color
+                  label.form-label.star *
+                select.form-control.form-control-sm( type="text" value=form.eyeColor id="eyeColor" name="eyeColor")
+                  option(value="") Select one...
+                  option(value="Black") Black
+                  option(value="Brown") Brown
+                  option(value="Blue") Blue
+                  option(value="Green") Green
+                  option(value="Grey") Grey
+              .form-group
+                label.form-label(for="hairColor") Hair color
+                label.form-label.star *
+                select.form-control.form-control-sm( id="hairColor" value=form.hairColor name="hairColor")
+                  option(value="") Select one...
+                  option(value="Black") Black
+                  option(value="Brown") Brown
+                  option(value="Blond") Blond
+                  option(value="Ginger") Ginger
+                  option(value="Grey") Grey
+                  option(value="Red") Red
+          .form-section
+            .top-form-group
+              .form-group
+                label.form-label(for="nationality") Nationality
+                label.form-label.star *
+                select#nationality.form-control.form-control-sm( name="nationality" value=form.nationality)
+                  option(value="") Select one
+              .form-group
+                label.form-label(for="profession") Profession
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" value=form.profession placeholder="Profession" id="profession" name="profession")
+          .form-section
+            .top-form-group
+              .form-group
+                label.form-label(for="countryOfResidence") Country of residence
+                label.form-label.star *
+                select.form-control.form-control-sm( name="countryOfResidence" value=form.countryOfResidence id="countryOfResidence")
+                  option(value="Denmark") Select one
+              .form-group
+                label.form-label(for="residentialAddress") Residential address
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" value=form.residentialAddress placeholder="Residential address" name="residentialAddress" id="residentialAddress")
+              .form-group
+                label.form-label(for="telephoneNumber") Telephone
+                label.form-label.star *
+                input.form-control.form-control-sm(type="number" value=form.telephoneNumber placeholder="Telephone" name="telephoneNumber" id="telephoneNumber")
+              .form-group
+                label.form-label(for="email") Email
+                label.form-label.star *
+                input.form-control.form-control-sm( type="email" value=form.email placeholder="Email" name="email" id="email")
+          .form-section
+            p.form-section-name Current/Last Educational Institution attended
+            .top-form-group
+              .form-group
+                label.form-label(for="institution") Institution
+                input.form-control.form-control-sm(type="text" value=form.institution placeholder="Institution" name="institution" id="institution")
+              .form-group
+                label.form-label(for="placeOfInstitution") Place
+                input.form-control.form-control-sm(type="text" value=form.placeOfInstitution placeholder="Place" name="placeOfInstitution" id="placeOfInstitution")
+              .form-group
+                label.form-label(for="lastYearOfEducation") Year
+                input.form-control.form-control-sm(type="text" placeholder="Year" value=form.lastYearOfEducation name="lastYearOfEducation" id="lastYearOfEducation")
+          .form-section
+            p.form-section-name Evidence of citizenship
+            .top-form-group
+              .form-group
+                label.form-label(for="fathersName") Father's name
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" value=form.fathersName placeholder="Father's name" name="fathersName" id="fathersName")
+              .form-group
+                label.form-label(for="fathersNationality") Father's nationality
+                label.form-label.star *
+                select.form-control.form-control-sm( name="fathersNationality" value=form.fathersNationality id="fathersNationality")
+                  option(value="Denmark") Select one
+              .form-group
+                label.form-label(for="fathersAddress") Father's address
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" value=form.fathersAddress placeholder="Father's address" name="fathersAddress" id="fathersAddress")
+            .bottom-form-group
+              .form-group
+                label.form-label(for="mothersName") Mother's name
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" value=form.mothersName placeholder="Mother's name" name="mothersName" id="mothersName")
+              .form-group
+                label.form-label(for="mothersNationality") Mother's nationality
+                label.form-label.star *
+                select.form-control.form-control-sm( name="mothersNationality" value=form.mothersNationality id="mothersNationality")
+                  option(value="Denmark") Select one
+              .form-group
+                label.form-label(for="mothersAddress") Mother's address
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" value=form.mothersAddress placeholder="Mother's address" name="mothersAddress" id="mothersAddress")
+            .top-form-group
+              .form-group
+                label.form-label Birth or Baptism Certificate / Citizenship Identity Card / Old Passport  
+                  label.form-label.star *
+            .top-form-group
+              .form-group
+                label.form-label Number 
+                input.form-control.form-control-sm( type="text" value=form.evidenceOfCitizenshipNumber placeholder="card number" name="evidenceOfCitizenshipNumber" id="evidenceOfCitizenshipNumber")
+              .form-group
+                label.form-label Date of issue  
+                input.form-control.form-control-sm( type="date" name="evidenceOfCitizenshipDate" value=form.evidenceOfCitizenshipDate id="evidenceOfCitizenshipDate")
+              .form-group
+                label.form-label Place of issue  
+                input.form-control.form-control-sm( type="text" placeholder="Place of issue" value=form.evidenceOfCitizenshipPlaceOfIssue name="evidenceOfCitizenshipPlaceOfIssue" id="evidenceOfCitizenshipPlaceOfIssue")
+          .form-section
+            p.form-section-name Any 2 Danes living in your country who will act as guarantors and be contacted in case of emergency
+            .top-form-group
+              .form-group
+                label.form-label(for="guarantorsName1") Full name
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName1" value=form.guarantors[0].guarantorsName id="guarantorsName1")
+              .form-group
+                label.form-label(for="guarantorsAddress1") Residential address
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress1" value=form.guarantors[0].guarantorsAddress id="guarantorsAddress1")
+              .form-group
+                label.form-label(for="guarantorsTelephoneNumber1") Telephone number
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber1" value=form.guarantors[0].guarantorsTelephoneNumber id="guarantorsTelephoneNumber1")
+              .form-group
+                label.form-label Upload your signature
+                label.form-label.star *
+                .custom-file
+                  input#customFile.custom-file-input(type='file' name="guarantorsSignature1" value=form.guarantorsSignature1 enctype="multipart/form-data" )
+                  label.form-label.custom-file-label.form-label(for='customFile') Choose file
+            .bottom-form-group
+              .form-group
+                label.form-label(for="guarantorsName2") Full name
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName2" value=form.guarantors[1].guarantorsName id="guarantorsName2")
+              .form-group
+                label.form-label(for="guarantorsAddress2") Residential address
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress2" value=form.guarantors[1].guarantorsAddress id="guarantorsAddress2")
+              .form-group
+                label.form-label(for="guarantorsTelephoneNumber2") Telephone number
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber2" value=form.guarantors[1].guarantorsTelephoneNumber id="guarantorsTelephoneNumber2")
+              .form-group
+                label.form-label Upload your signature
+                label.form-label.star *
+                .custom-file
+                  input#customFile.custom-file-input(type='file' name="guarantorsSignature2" value=form.guarantorsSignature2 enctype="multipart/form-data" )
+                  label.form-label.custom-file-label.form-label(for='customFile') Choose file
+          .form-section
+            p.form-section-name PARENTAL/LEGAL GUARDIAN CONSENT FOR APPLICANT 
+              b UNDER 18 YEARS OF AGE
+            p I hereby give consent for applicant who is my 
+              input(type="text" name="parentalConsentMetaData" value=form.parentalConsentMetaData placeholder="Son, daughter...") 
+              |  to hold a passport
+            .top-form-group
+              .form-group
+                label.form-label(for="parentName") Full name
+                label.form-label.star *
+                input.form-control.form-control-sm(type="text" placeholder=" Parent's Full name" name="parentName" value=form.parentName id="parentName")
+              .form-group
+                label.form-label(for="parentAddress") Residential address
+                label.form-label.star *
+                input.form-control.form-control-sm(type="text" placeholder="Parent's address" name="parentAddress" value=form.parentAddress id="parentAddress")
+            .bottom-form-group
+              .form-group
+                label.form-label Upload your signature
+                label.form-label.star *
+                .custom-file
+                  input#customFile.custom-file-input(type='file' name="parentalConsentSignature" value=form.parentalConsentSignature enctype="multipart/form-data" )
+                  label.form-label.custom-file-label.form-label(for='customFile') Choose file
+              .form-group
+                label.form-label(for="parentTelephoneNumber") Telephone number
+                label.form-label.star *
+                input.form-control.form-control-sm(type="text" placeholder="Parent's Telephone number" name="parentTelephoneNumber" value=form.parentTelephoneNumber id="parentTelephoneNumber")
+          .form-section
+            p.form-section-name FOR PERSONS COMPLETING THIS FORM ON BEHALF OF APPLICANTS WHO CANNOT READ OR WRITE ENGLISH
+            p The above declaration has been read and interpreted by me in 
+              input(type="text" placeholder="Eg. English" name="languageInterpretedIn" value=form.languageInterpretedIn)
+              |  language to the applicant and he/she understands and accepts
+            .top-form-group
+              .form-group
+                label.form-label(for="interpreterName") Full name
+                label.form-label.star *
+                input.form-control.form-control-sm(type="text" placeholder="Full name of interpreter" name="interpreterName" value=form.interpreterName id="interpreterName")
+              .form-group
+                label.form-label(for="interpreterAddress") Residential address
+                label.form-label.star *
+                input.form-control.form-control-sm(type="text" placeholder="Residential address of interpreter" name="interpreterAddress" value=form.interpreterAddress id="interpreterAddress")
+              .form-group
+                label.form-label(for="interpreterTelephoneNumber") Telephone number
+                label.form-label.star *
+                input.form-control.form-control-sm(type="text" placeholder="Interpreter's Telephone number" name="interpreterTelephoneNumber" value=form.interpreterTelephoneNumber id="interpreterTelephoneNumber")
+            .bottom-form-group
+              .form-group
+                label.form-label Upload your signature
+                label.form-label.star *
+                .custom-file
+                  input#customFile.custom-file-input(type='file' name="interpretersSignature" value=form.interpretersSignature enctype="multipart/form-data" )
+                  label.form-label.custom-file-label.form-label(for='customFile') Choose file
+              .form-group
+                  label.form-label(for="interpretationDate") Date
+                  label.form-label.star *
+                  input.form-control.form-control-sm( type="date" name="interpretationDate" value=form.interpretationDate id="interpretationDate")
+          .form-section
+            p.form-section-name 
+              span DECLARATION BY APPLICANT
+              span.star *
+            p I the undersigned, hereby apply for a Ghana Passport and declare: (choose one)
+            p
+              input(type="radio", name="declarationOption" value="newPassport") 
+              |  That I have not previously held or applied for a passport of any description.
+            p
+              input(type="radio", name="declarationOption" value="attached/lost") 
+              |  That the previous passport with number 
+              input(type="text" name="previousPassportNumber" value=form.previousPassportNumber) 
+              |   granted me is Attached/lost
+            .bottom-form-group
+              .form-group
+                label.form-label Upload your signature
+                label.form-label.star *
+                .custom-file
+                  input#customFile.custom-file-input(type='file' name="declarationSignature" value=form.declarationSignature enctype="multipart/form-data" )
+                  label.form-label.custom-file-label.form-label(for='customFile') Choose file
+              .form-group
+                  label.form-label(for="declarationDate") Date
+                  label.form-label.star *
+                  input.form-control.form-control-sm( type="date" name="declarationDate" value=form.declarationDate id="declarationDate")
+          .form-section
+            p.form-section-name WITNESS
+            .top-form-group
+              .form-group
+                label.form-label(for="witnessName") Full name
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Witness name" name="witnessName" value=form.witnessName id="witnessName")
+              .form-group
+                label.form-label(for="witnessOccupation") Occupation
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Witness occupation" name="witnessOccupation" value=form.witnessOccupation id="witnessOccupation")
+              .form-group
+                label.form-label(for="witnessWorkPlaceAddress") Workplace Address
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Witness work place" name="witnessWorkPlaceAddress" value=form.witnessWorkPlaceAddress id="witnessWorkPlaceAddress")
+            .bottom-form-group
+              .form-group
+                label.form-label(for="witnessResidentialAddress") Residential address
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Witness residential address" name="witnessResidentialAddress" value=form.witnessResidentialAddress id="witnessResidentialAddress")
+              .form-group
+                label.form-label(for="witnessTelephoneNumber") Telephone number
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" placeholder="Witness telephone number" name="witnessTelephoneNumber" value=form.witnessTelephoneNumber id="witnessTelephoneNumber")
+              .form-group
+                label.form-label Upload your signature
+                label.form-label.star *
+                .custom-file
+                  input#customFile.custom-file-input(type='file' accept="image/*" name="witnessSignature" value=form.witnessSignature enctype="multipart/form-data" )
+                  label.form-label.custom-file-label.form-label(for='customFile') Choose file
+              .form-group
+                label.form-label(for="witnessDate") Date
+                label.form-label.star *
+                input.form-control.form-control-sm( type="date" name="witnessDate" value=form.witnessDate id="witnessDate")
+          .submit-button.submit-passport-form
+            button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/admin/update/${form._id}?type=Passport&as=Under Processing` formmethod="post") Under Processing
+            button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/admin/update/${form._id}?type=Passport&as=completed` formmethod="post") Complete
+            button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction=`/admin/update/${form._id}?type=Passport&as=Dispatched` formmethod="post") Dispatch
+    // Footer
+    footer.page-footer.center-on-small-only
+      .flex-center.mb-3.mt-2
+        a.px-3(href="")
+          i.fa.fa-facebook
+        a.px-3(href="")
+          i.fa.fa-instagram
+        a.px-3(href="")
+          i.fa.fa-google
+        a.px-3(href="")
+          i.fa.fa-twitter
+        a.px-3(href="")
+          i.fa.fa-linkedin
+      // Copyright
+      .footer-copyright
+        .container-fluid
+          | © 2018 Copyright:
+          a(href="/admin")  Embassy Of Denmark 
+      // /.Copyright
+    // /.Footer
+    // SCRIPTS
+    // JQuery
+    script(type="text/javascript" src="/js/jquery-3.3.1.min.js")
+    // Bootstrap tooltips
+    script(type="text/javascript" src="/js/popper.min.js")
+    // Bootstrap core JavaScript
+    script(type="text/javascript" src="/js/bootstrap.min.js")
+    // MDB core JavaScript
+    script(type="text/javascript" src="/js/mdb.min.js")
+    script(type="text/javascript" src="/js/compiled.min.js")
+    script(type="text/javascript" src="/js/custom.js")
+    // Initializations
+    script.
+      document.querySelector("input").setAttribute("disabled", "disabled")
+      // SideNav Initialization
+      $(".button-collapse").sideNav();
+      // Material Select Initialization
+      $(document).ready(function () {
+      $('.mdb-select').material_select();
+      });
+      // Data Picker Initialization
+      $('.datepicker').pickadate();
+      // Tooltip Initialization
+      $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+      })
+    // Charts
+    script.
+      // Minimalist chart
+      $(function () {
+      $('.min-chart#chart-revenue').easyPieChart({
+      barColor: "#4caf50",
+      onStep: function (from, to, percent) {
+      $(this.el).find('.percent').text(Math.round(percent));
+      }
+      });
+      });
+      // Main chart
+      var ctxL = document.getElementById("lineChart").getContext('2d');
+      var myLineChart = new Chart(ctxL, {
+      type: 'line',
+      data: {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      datasets: [{
+      label: "Revenue Graph",
+      fillColor: "#fff",
+      backgroundColor: 'rgba(255, 255, 255, .3)',
+      borderColor: 'rgba(255, 99, 132)',
+      data: [0, 10, 5, 2, 20, 30, 45],
+      }]
+      },
+      options: {
+      legend: {
+      labels: {
+      fontColor: "#fff",
+      }
+      },
+      scales: {
+      xAxes: [{
+      gridLines: {
+      display: true,
+      color: "rgba(255,255,255,.25)"
+      },
+      ticks: {
+      fontColor: "#fff",
+      },
+      }],
+      yAxes: [{
+      display: true,
+      gridLines: {
+      display: true,
+      color: "rgba(255,255,255,.25)"
+      },
+      ticks: {
+      fontColor: "#fff",
+      },
+      }],
+      }
+      }
+      });
+    // Alerts
+    script.
+      $(function () {
+      $('#folder-1').click(function () {
+      toastr.error("Folder 1 has been clicked!", "Folder 1", {
+      "positionClass": "toast-top-right",
+      });
+      });
+      $('#folder-2').click(function () {
+      // make it not dissappear
+      toastr.info("Folder 2 has been clicked!", "Folder 2", );
+      });
+      $('#folder-3').click(function () {
+      // make it not dissappear
+      toastr.info("Folder 3 has been clicked!", "Folder 3", );
+      });
+      });
+    // sticky
+    script(type="text/javascript").
+      $(function () {
+      $(".sticky").sticky({
+      topSpacing: 90
+      , zIndex: 2
+      , stopper: "#stopper"
+      });
+      });

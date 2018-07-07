@@ -1,4 +1,4 @@
-header
+header.header
   nav.navbar.navbar-expand-lg.navbar-light.bg-light
     a.navbar-brand.ml-4(href="/") 
       img.header-img(src="/img/logo.png", title="denmark logo" alt="logo")
@@ -11,9 +11,11 @@ header
         li.nav-item
           a.nav-link(href="/forms/visa") Visa Form
         li.nav-item
-          a.nav-link(href="/forms/dual-citizenship") Dual Citizenship Form
+          a.nav-link(href="#") Dual Citizenship Form
+          //- a.nav-link(href="/forms/dual-citizenship") Dual Citizenship Form
         li.nav-item
-          a.nav-link(href="/forms/appointment") Appointment Form
+          a.nav-link(href="#") Appointment Form
+          //- a.nav-link(href="/forms/appointment") Appointment Form
       if userId
         li.nav-item.user-profile.dropdown  
           div#dropdownMenuLink.btn.dropdown-toggle.username(role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')  

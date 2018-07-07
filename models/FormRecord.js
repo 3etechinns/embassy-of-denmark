@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const { newRequests } = require("../processingStatus");
 
-const FormSchema = new Schema(
+const FormRecordSchema = new Schema(
   {
     _owner: {
       type: Schema.Types.ObjectId,
@@ -27,4 +27,4 @@ const FormSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = FormSchema;
+module.exports = FormRecordSchema;

@@ -140,6 +140,10 @@ html(lang="en")
             p.section-description
               | Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to
               | you within matter of hours to help you.
+            if message
+              .alert.alert-success.text-center.alert-dismissible(role="alert" data-dismiss="alert") 
+                a(href="#" class="close" data-dismiss="alert" aria-label="close") &times;
+                | #{message}
             .row
               // Grid column
               .col-md-12

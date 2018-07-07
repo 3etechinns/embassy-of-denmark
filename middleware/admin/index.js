@@ -7,11 +7,20 @@ const {
   dispatchedRequests
 } = require("../../processingStatus");
 
+const requireLogin = (req, res, next) => {
+  if (!req.session.userId || !req.session.isAdmin) {
+    // return res.redirect("/admin/sign-in");
+    return res.send("You must login as admin to access this page");
+  }
+  return next();
+};
+
 const getAllRequests = async (req, res, next) => {
   try {
     const skipValue = req.query.skip_value;
     const limitValue = req.query.limit_value;
-    let formRecords = await Form.find()
+    // Remember to take of the query filtering from here
+    let formRecords = await Form.find({ formType: "Passport" })
       .skip(skipValue || 0)
       .limit(limitValue || 4)
       .populate("_owner", "email")
@@ -117,5 +126,6 @@ module.exports = {
   getNewRequests,
   getProcessingRequests,
   getCompletedRequests,
-  getDispatchedRequests
+  getDispatchedRequests,
+  requireLogin
 };

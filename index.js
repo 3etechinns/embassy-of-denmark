@@ -4,6 +4,7 @@ const path = require("path");
 const pug = require("pug");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
+require("./models");
 
 // Only used in development mode to set environment variables
 if (process.env.NODE_ENV !== "production") {
@@ -37,7 +38,6 @@ mongoose.connect(
     return console.log("Database connected successfully");
   }
 );
-require("./models");
 
 app.use((req, res, next) => {
   if (req.session.userId) {
@@ -48,6 +48,10 @@ app.use((req, res, next) => {
   }
   return next();
 });
+
+const { requireLogin } = require("./middleware/admin");
+
+app.use("/admin", requireLogin);
 
 // route Handler
 require("./routes")(app);

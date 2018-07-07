@@ -20,7 +20,6 @@ const getModelName = type => {
 const formIdParamHandler = async (req, res, next, formId) => {
   try {
     const type = req.query.type;
-    console.log(formId);
     const modelName = getModelName(type);
 
     if (!modelName) {
@@ -33,7 +32,6 @@ const formIdParamHandler = async (req, res, next, formId) => {
     const form = await mongoose
       .model(modelName)
       .findById(formId)
-      .lean()
       .exec();
 
     if (!form) {
@@ -247,7 +245,6 @@ const updateForm = async (req, res, next) => {
         { isComplete: true },
         { new: true }
       );
-      console.log("form record is: " + formRecord);
     }
 
     const modelName = getModelName(req.query.type);
@@ -257,11 +254,8 @@ const updateForm = async (req, res, next) => {
       .lean()
       .exec();
 
-    console.log(updateInfo);
-
     return res.redirect("/profile");
   } catch (error) {
-    // console.log(error.message);
     return next(error);
   }
 };
@@ -274,8 +268,6 @@ const deleteForm = async (req, res, next) => {
       FormRecord.remove({ _id: req.params.formRecordId }),
       model.remove({ _id: req.query.formId })
     ]);
-
-    console.log(resp);
 
     return res.redirect("/profile");
   } catch (error) {

@@ -251,8 +251,6 @@ html(lang="en")
               .view.py-3.gradient-card-header.blue.mx-4.d-flex.justify-content-between.align-items-center
                 a.white-text.mx-3(href="") Forms
                 div
-                  button.btn.btn-outline-white.btn-rounded.btn-sm.px-2(type="button" data-toggle="modal" data-target="#modalConfirmDelete")
-                    i.fa.fa-remove.mt-0
                   button.btn.btn-outline-white.btn-rounded.btn-sm.px-2(type="button" data-toggle="tooltip" data-placement="bottom" title="info")
                     i.fa.fa-info-circle.mt-0
               // /Card header
@@ -294,10 +292,10 @@ html(lang="en")
                         td #{formRecord.createdAt}
                         td #{formRecord.status}
                         td
-                          a(href="/admin/view/" + formRecord._id + "?type=" + formRecord.formType)
+                          a(href="/admin/view/" + formRecord.formId + "?type=" + formRecord.formType)
                             img(src="/img/eye.svg" title="View Form")
                   if !formRecords.length
-                    .alert.alert-danger.text-center(role="alert") No Form records yet our Database
+                    .alert.alert-danger.text-center(role="alert") No Form records yet in our Database
                 hr.my-0
                 // Bottom Table UI
                 div
