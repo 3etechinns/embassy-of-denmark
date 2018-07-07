@@ -23,7 +23,8 @@ const createUser = async (req, res, next) => {
     const hash = await bcrypt.hash(password, 10);
     const user = await User.create({
       email,
-      password: hash
+      password: hash,
+      isAdmin: true
     });
     req.session.userId = user._id;
     req.session.userEmail = user.email;
