@@ -87,3 +87,17 @@ body {
 .select-items div:hover, .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+.actions-button, .actions-button a {
+  color: #009cfc;
+}
+
+input:disabled {
+  cursor: not-allowed;
+}
+
+.icon {
+  cursor: pointer;
+  width: 18px;
+  margin-right: 5px;
+}

@@ -281,6 +281,7 @@ html(lang="en")
                         th.th-lg Applicant
                         th.th-lg Date Applied
                         th.th-lg Status
+                        th.th-lg 
                     tbody
                     for formRecord in formRecords
                       tr
@@ -291,9 +292,9 @@ html(lang="en")
                         td #{formRecord._owner.email}
                         td #{formRecord.createdAt}
                         td #{formRecord.status}
-                        td
-                          a(href="/admin/view/" + formRecord.formId + "?type=" + formRecord.formType)
-                            img(src="/img/eye.svg" title="View Form")
+                        td.actions-button
+                          a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
+                            img.icon(src="/img/eye.svg")
                   if !formRecords.length
                     .alert.alert-danger.text-center(role="alert") No Form records yet in our Database
                 hr.my-0

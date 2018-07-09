@@ -60,7 +60,14 @@ module.exports = app => {
   });
 
   app.get("/admin/view/:formId", (req, res, next) => {
-    return res.render("admin/viewPassportForm", { form: req.form._doc });
+    if (req.query.type === "Passport") {
+      return res.render("admin/viewPassportForm", { form: req.form._doc });
+    } else if (req.query.type === "Visa") {
+      return res.render("admin/viewVisaForm", { form: req.form._doc });
+    } else {
+      const err = new Error("invalid request type");
+      return next(err);
+    }
   });
 
   app.get("/admin/support", (req, res, next) => {

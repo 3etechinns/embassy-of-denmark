@@ -476,7 +476,8 @@ html(lang="en")
     script(type="text/javascript" src="/js/custom.js")
     // Initializations
     script.
-      document.querySelector("input").setAttribute("disabled", "disabled")
+      $("input").prop("disabled", true);
+      $("input:disabled").css("cursor", "not-allowed");
       // SideNav Initialization
       $(".button-collapse").sideNav();
       // Material Select Initialization

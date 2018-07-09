@@ -20,7 +20,7 @@ const getAllRequests = async (req, res, next) => {
     const skipValue = req.query.skip_value;
     const limitValue = req.query.limit_value;
     // Remember to take of the query filtering from here
-    let formRecords = await Form.find({ formType: "Passport" })
+    let formRecords = await Form.find({})
       .skip(skipValue || 0)
       .limit(limitValue || 4)
       .populate("_owner", "email")
