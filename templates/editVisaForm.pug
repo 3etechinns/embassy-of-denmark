@@ -1,195 +1,256 @@
 extends ./layout.pug
 
 block main
-  .main-content.passport
+  .container.main-content.passport
     h5.display-5.my-4 Visa Application
     .passport-form  
       form(name="passport")
+        div(class="alert alert-danger" role="alert") All fields with 
+          label.form-label.star *
+          |  are required
         .form-section
           p.form-section-name Personal Information
-          .top-form-group
-            .form-group
+          .row
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="surname") Surname
               label.form-label.star *
-              input.form-control.form-control-sm(type="text" value=`${form.surname}` id="surname" placeholder="Surname" name="surname")
-            .form-group
+              input.form-control.form-control-sm(type="text" value=form.surname id="surname" placeholder="Surname" name="surname")
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="firstName") First name
               label.form-label.star *
-              input.form-control.form-control-sm( type="text" value=`${form.firstName}` placeholder="First name" id="firstName" name="firstName")
-            .form-group
+              input.form-control.form-control-sm( type="text" value=form.firstName placeholder="First name" id="firstName" name="firstName")
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="previousName") Previous name, if changed
               label.form-label.star *
-              input.form-control.form-control-sm(type="text" value=`${form.otherName}` id="previousName" placeholder="Previous name" name="previousName")
-          .bottom-form-group
-            .form-group
+              input.form-control.form-control-sm(type="text" value=form.previousName id="previousName" placeholder="Previous name" name="previousName")
+          .row
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="dateOfBirth") Date of Birth
               label.form-label.star *
-              input.form-control.form-control-sm( type="date" value=`${form.dateOfBirth}` placeholder="Date of Birth" id="dateOfBirth" name="dateOfBirth")
-            .form-group
-              label.form-label(for="placeOfBirth") Place of birth
+              input.form-control.form-control-sm( type="date" value=form.dateOfBirth placeholder="Date of Birth" id="dateOfBirth" name="dateOfBirth")
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="placeOfBirth") City or town of birth
               label.form-label.star *
-              input.form-control.form-control-sm( type="text" value=`${form.placeOfBirth}` placeholder="Place of Birth" id="placeOfBirth" name="placeOfBirth")
-            .form-group
-              label.form-label(for="nationality") Applicant's nationality
+              input.form-control.form-control-sm( type="text" value=form.placeOfBirth placeholder="City or town of birth" id="placeOfBirth" name="placeOfBirth")
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="nationality") Nationality
               label.form-label.star *
-              select#nationality.form-control.form-control-sm( name="nationality" value=`${form.nationality}`)
-                option(value="dane") Dane
+              select.form-control.form-control-sm( name="nationality" data-option=form.nationality id="nationality")
+                option(value="") Please select one....
         .form-section
           p.form-section-name Contact Information
-          .top-form-group
-            .form-group
+          .row
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="email") Email
               label.form-label.star *
-              input.form-control.form-control-sm( type="text" value=`${form.email}` placeholder="Email" id="email" name="email")
-            .form-group
-              label.form-label(for="telephone") Telephone Number
+              input.form-control.form-control-sm( type="text" value=form.email placeholder="Email" id="email" name="email")
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="telephoneNumber") Telephone Number
               label.form-label.star *
-              input.form-control.form-control-sm( type="text" value=`${form.telephone}` placeholder="Telephone Number" id="telephone" name="telephone")
-            .form-group
+              input.form-control.form-control-sm( type="text" value=form.telephoneNumber placeholder="Telephone Number" id="telephoneNumber" name="telephoneNumber")
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="residentialAddress") Residential Address
               label.form-label.star *
-              input.form-control.form-control-sm( type="text" value=`${form.residentialAddress}` placeholder="Residential Address" id="residentialAddress" name="residentialAddress")
+              input.form-control.form-control-sm( type="text" value=form.residentialAddress placeholder="Residential Address" id="residentialAddress" name="residentialAddress")
         .form-section
           p.form-section-name Passport Information
-          .top-form-group
-            .form-group
+          .row
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="passportNumber") Passport Number
               label.form-label.star *
-              input.form-control.form-control-sm( type="text" value=`${form.passportNumber}` placeholder="Passport Number" id="passportNumber" name="passportNumber")
-            .form-group
+              input.form-control.form-control-sm( type="text" value=form.passportNumber placeholder="Passport Number" id="passportNumber" name="passportNumber")
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="passportDateOfIssue") Date of Issue
               label.form-label.star *
-              input.form-control.form-control-sm( type="date" value=`${form.passportDateOfIssue}` placeholder="Date of Issue" id="passportDateOfIssue" name="passportDateOfIssue")
-            .form-group
+              input.form-control.form-control-sm( type="date" value=form.passportDateOfIssue placeholder="Date of Issue" id="passportDateOfIssue" name="passportDateOfIssue")
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="passportDateOfExpiry") Expiry Date
               label.form-label.star *
-              input.form-control.form-control-sm( type="date" value=`${form.passportDateOfExpiry}` placeholder="Expiry Date" id="passportDateOfExpiry" name="passportDateOfExpiry")
-          .bottom-form-group
-            .form-group
-              label.form-label(for="passportPlaceOfIssue") Place of Issue
+              input.form-control.form-control-sm( type="date" value=form.passportDateOfExpiry placeholder="Expiry Date" id="passportDateOfExpiry" name="passportDateOfExpiry")
+          .row
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="passportPlaceOfIssue") Place of Issue of Passport
               label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Place of Issue" value=`${form.passportPlaceOfIssue}` id="passportPlaceOfIssue" name="passportPlaceOfIssue")
-            .form-group
+              input.form-control.form-control-sm( type="text" value=form.passportPlaceOfIssue placeholder="Place of Issue" id="passportPlaceOfIssue" name="passportPlaceOfIssue")
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="formerNationality") Former Nationality(if applicable)
-              select#nationality.form-control.form-control-sm( name="formerNationality" value=`${form.formerNationality}`)
-                option(value="dane") Dane
-            .form-group
-              label.form-label(for="currentCountryOfResidence") Current country of Residence
-              select#nationality.form-control.form-control-sm( name="currentCountryOfResidence" value=`${form.currentCountryOfResidence}`)
-                option(value="dane") Dane
+              select.form-control.form-control-sm( name="formerNationality" data-option=form.formerNationality id="formerNationality")
+                option(value="") Please select one....
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="countryOfCurrentResidence") Current country of Residence
+              select.form-control.form-control-sm( name="countryOfCurrentResidence" data-option=form.countryOfCurrentResidence id="countryOfCurrentResidence")
+                option(value="") Please select one....
         .form-section
           p.form-section-name Work Information
-          .top-form-group
-            .form-group
+          .row
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="profession") Profession
               label.form-label.star *
-              input.form-control.form-control-sm( type="text" value=`${form.profession}` placeholder="Profession" id="profession" name="profession")
-            .form-group
+              input.form-control.form-control-sm( type="text" value=form.profession placeholder="Profession" id="profession" name="profession")
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="workPlaceAddress") Work Place Address
               label.form-label.star *
-              input.form-control.form-control-sm( type="text" value=`${form.workPlaceAddress}` placeholder="Work Place Address" id="workPlaceAddress" name="workPlaceAddress")
-            .form-group
+              input.form-control.form-control-sm( type="text" value=form.workPlaceAddress placeholder="Work Place Address" id="workPlaceAddress" name="workPlaceAddress")
+            .col-sm-12.col-lg-5.form-group
               label.form-label(for="workPlaceTelephoneNumber") Work Place Telephone
               label.form-label.star *
-              input.form-control.form-control-sm( type="text" value=`${form.workPlaceTelephoneNumber}` placeholder="Work Place Telephone" id="workPlaceTelephoneNumber" name="workPlaceTelephoneNumber")
+              input.form-control.form-control-sm( type="text" value=form.workPlaceTelephoneNumber placeholder="Work Place Telephone" id="workPlaceTelephoneNumber" name="workPlaceTelephoneNumber")
         .form-section
           p.form-section-name Travel Details
-            .top-form-group
-              .form-group
+            .row
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="intendedDateOfTravel") Intended Date of Travel
                 label.form-label.star *
-                input.form-control.form-control-sm( type="date" value=`${form.intendedDateOfTravel}` placeholder="Intended Date of Travel" id="intendedDateOfTravel" name="intendedDateOfTravel")
-              .form-group
-                label.form-label(for="durationOfStay") Duration of Stay
+                input.form-control.form-control-sm( type="date" value=form.intendedDateOfTravel placeholder="Intended Date of Travel" id="intendedDateOfTravel" name="intendedDateOfTravel")
+              .col-sm-12.col-lg-5.form-group
+                label.form-label(for="durationOfStayInGhana") Duration of Stay in Ghana
                 label.form-label.star *
-                input.form-control.form-control-sm( type="text" value=`${form.durationOfStay}` placeholder="Duration of Stay" id="durationOfStay" name="durationOfStay")
-              .form-group
-                label.form-label(for="dateOfLastVisit") Date of Last Visit to Ghana
+                input.form-control.form-control-sm( type="text" value=form.durationOfStayInGhana placeholder="Duration of Stay in Ghana" id="durationOfStayInGhana" name="durationOfStayInGhana")
+              .col-sm-12.col-lg-5.form-group
+                label.form-label(for="dateOfLastVisitToGhana") Date of Last Visit to Ghana
                 label.form-label.star *
-                input.form-control.form-control-sm( type="date" value=`${form.dateOfLastVisit}` placeholder="Date of Last Visit" id="dateOfLastVisit" name="dateOfLastVisit")
-            .bottom-form-group
-              .form-group
+                input.form-control.form-control-sm( type="date" value=form.dateOfLastVisitToGhana placeholder="Date of Last Visit to Ghana" id="dateOfLastVisitToGhana" name="dateOfLastVisitToGhana")
+            .row
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="purposeOfJourney") Purpose of Journey
                 label.form-label.star *
-                input.form-control.form-control-sm( type="text" value=`${form.purposeOfJourney}` placeholder="Purpose of Journey" id="purposeOfJourney" name="purposeOfJourney")
-              .form-group
+                input.form-control.form-control-sm( type="text" value=form.purposeOfJourney placeholder="Purpose of Journey" id="purposeOfJourney" name="purposeOfJourney")
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="meansOfTravel") Means of Travel
                 label.form-label.star *
-                select.form-control.form-control-sm( type="text" value=form.meansOfTravel placeholder="Means of Travel" id="meansOfTravel" name="meansOfTravel")
+                select.form-control.form-control-sm( type="text" data-option=form.meansOfTravel placeholder="Means of Travel" id="meansOfTravel" name="meansOfTravel")
                   option(value="") Please select one......
-                  option(value="air") Air
-                  option(value="sea") Sea
-                  option(value="land") Land
-              .form-group
+                  option(value="Air") Air
+                  option(value="Sea") Sea
+                  option(value="Land") Land
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="financialMeansOfApplicant") Financial means at disposal
                 label.form-label.star *
-                input.form-control.form-control-sm( type="text" value=`${form.financialMeansOfApplicant}` placeholder="Financial Means" id="financialMeansOfApplicant" name="financialMeansOfApplicant")
+                input.form-control.form-control-sm( type="text" value=form.financialMeansOfApplicant placeholder="Financial Means" id="financialMeansOfApplicant" name="financialMeansOfApplicant")
           .form-section
             p.form-section-name Visa
-            .top-form-group
-              .form-group
+            .row
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="visaType") Visa Type
                 label.form-label.star *
-                select#nationality.form-control.form-control-sm( name="visaType" value=`${form.visaType}`)
+                select#visaType.form-control.form-control-sm( name="visaType" data-option=form.visaType)
                   option(value="") Please Select one.....
-                  option(value="single entry") Single Entry Visa
-                  option(value="multiple entry") Multiple Entry Visa
-              .form-group
+                  option(value="Single Entry") Single Entry Visa
+                  option(value="Multiple Entry") Multiple Entry Visa
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="possessionOfReturnTicket" id="possessionOfReturnTicket") Do you have a return ticket
                   label.form-label.star *
                 br
                 .form-check.form-check-inline
-                  input.form-check-input.form-control-sm( type="radio" id="yes" name="possessionOfReturnTicket" value="true")
+                  input.form-check-input.form-control-sm( type="radio" data-checked=form.possessionOfReturnTicket id="yes" name="possessionOfReturnTicket" value="Yes")
                   label.form-label.form-check-label.form-label Yes
                 .form-check.form-check-inline
-                  input.form-check-input.form-control-sm( type="radio" id="no" name="possessionOfReturnTicket" value="false")
-                  label.form-label.form-check-label.form-label False
-              .form-group
+                  input.form-check-input.form-control-sm( type="radio" data-checked=form.possessionOfReturnTicket id="no" name="possessionOfReturnTicket" value="No")
+                  label.form-label.form-check-label.form-label No
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="ticketNumber") If yes, provide ticket number
-                input.form-control.form-control-sm( type="text" value=`${form.ticketNumber}` placeholder="Ticket Number" id="ticketNumber" name="ticketNumber")
-            .bottom-form-group
-              .form-group
+                input.form-control.form-control-sm( type="text" data-number=form.ticketNumber value=form.ticketNumber placeholder="Ticket Number" id="ticketNumber" name="ticketNumber")
+            .row
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="accompaniedBy") Who are you accompanied by?
-                input.form-control.form-control-sm( type="text" value=`${form.accompaniedBy}` placeholder="Who are you accompanied by?" id="accompaniedBy" name="accompaniedBy")
-              .form-group
+                input.form-control.form-control-sm( type="text" value=form.accompaniedBy placeholder="Who are you accompanied by?" id="accompaniedBy" name="accompaniedBy")
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="accompaniedByDateOfBirth") His/Her Date of Birth
-                input.form-control.form-control-sm( type="date" value=`${form.accompaniedByDateOfBirth}` placeholder="His/Her Date of Birth" id="accompaniedByDateOfBirth" name="accompaniedByDateOfBirth")
+                input.form-control.form-control-sm( type="date" value=form.accompaniedByDateOfBirth placeholder="His/Her Date of Birth" id="accompaniedByDateOfBirth" name="accompaniedByDateOfBirth")
           .form-section
             p.form-section-name References' Information
             |1.
-            .top-form-group
-              .form-group
+            .row
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="guarantorsName1") Full name
                 label.form-label.star *
-                input.form-control.form-control-sm( type="text" value=`${form.references[0].fullName}` placeholder="Full name" name="guarantorsName1" id="guarantorsName1")
-              .form-group
+                input.form-control.form-control-sm( type="text" value=form.references[0].fullName placeholder="Full name" name="guarantorsName1" id="guarantorsName1")
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="guarantorsAddress1") Residential address
                 label.form-label.star *
-                input.form-control.form-control-sm( type="text" value=`${form.references[0].address}` placeholder="Residential address" name="guarantorsAddress1" id="guarantorsAddress1")
-              .form-group
+                input.form-control.form-control-sm( type="text" value=form.references[0].address placeholder="Residential address" name="guarantorsAddress1" id="guarantorsAddress1")
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="guarantorsTelephoneNumber1") Telephone number
                 label.form-label.star *
-                input.form-control.form-control-sm( type="text" value=`${form.references[0].telephoneNumber}` placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
+                input.form-control.form-control-sm( type="text" value=form.references[0].telephoneNumber placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
             |2.
-            .top-form-group
-              .form-group
+            .row
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="guarantorsName2") Full name
                 label.form-label.star *
-                input.form-control.form-control-sm( type="text" value=`${form.references[1].fullName}` placeholder="Full name" name="guarantorsName2" id="guarantorsName2")
-              .form-group
+                input.form-control.form-control-sm( type="text" value=form.references[1].fullName placeholder="Full name" name="guarantorsName2" id="guarantorsName2")
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="guarantorsAddress2") Residential address
                 label.form-label.star *
-                input.form-control.form-control-sm( type="text" value=`${form.references[1].address}` placeholder="Residential address" name="guarantorsAddress2" id="guarantorsAddress2")
-              .form-group
+                input.form-control.form-control-sm( type="text" value=form.references[1].address placeholder="Residential address" name="guarantorsAddress2" id="guarantorsAddress2")
+              .col-sm-12.col-lg-5.form-group
                 label.form-label(for="guarantorsTelephoneNumber2") Telephone number
                 label.form-label.star *
-                input.form-control.form-control-sm( type="text" value=`${form.references[1].telephoneNumber}` placeholder="Telephone number" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
-        
-        .submit-button.submit-passport-form
-          //- button#customButton.btn.btn-primary.btn-lg.custom-button(type='button', data-toggle='modal', data-target='.bd-example-modal-sm') submit
-          //- button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/visa?type=continue-later" formmethod="post") Save and Continue Later
-          button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/update/${form._id}?type=Visa` formmethod="post") Submit
-          button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction=`/update/${form._id}?type=Visa&aim=continue-later` formmethod="post") Save and Continue Later
+                input.form-control.form-control-sm( type="text" value=form.references[1].telephoneNumber placeholder="Telephone number" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
+        .row.submit-button.submit-passport-form
+          button#customButton.col-sm-12.col-lg-5.my-2.btn.btn-primary.btn-lg.custom-button(type='submit', formaction=`/update/${form._id}?type=Visa&formRecordId=${formRecordId}` formmethod="post") Submit
+          button#continue-later.col-sm-12.col-lg-5.my-2.btn.btn-primary.btn-lg.custom-button(type="submit" formaction=`/update/${form._id}?type=Visa&formRecordId=${formRecordId}&aim=continue-later` formmethod="post") Save and Continue Later
   script(src="/js/countries.js")  
+  script(src="/js/jquery.min.js")  
   script(src="https://checkout.stripe.com/checkout.js")
   script(src="/js/axios.min.js")
+  script.
+    var nationality = document.querySelector("#nationality");
+    var formerNationality = document.querySelector("#formerNationality");
+    var currentCountryOfResidence = document.querySelector("#currentCountryOfResidence");
+
+    if (nationality) {
+      countries.forEach(function(country) {
+        appendOptions(nationality, country.name);
+        appendOptions(formerNationality, country.name);
+        appendOptions(countryOfCurrentResidence, country.name);
+      });
+    }
+
+    function appendOptions(parent, value) {
+      var option = document.createElement("option");
+      option.innerHTML = value;
+      parent.appendChild(option);
+    }
+
+    function populateSelect(id){
+      const options = $(`#${id}`).children();
+      for(var i=0; i<options.length; i++) {
+        if(options[i].value === $(`#${id}`).attr("data-option")) {
+          $(options[i]).prop("selected", true);
+        }
+      }
+    }
+
+    populateSelect("nationality");
+    populateSelect("formerNationality");
+    populateSelect("countryOfCurrentResidence");
+    populateSelect("meansOfTravel");
+    populateSelect("visaType");
+
+    if($("#yes").attr("data-checked") === "Yes") {
+      $("#yes").attr("checked", true);
+    }
+
+    if($("#no").attr("data-checked") === "No") {
+      $("#no").attr("checked", true);
+    }
+
+    var no = document.getElementById("no");
+    if(no.checked) {
+      $("#ticketNumber").attr("disabled",true);
+    }
+    var yes = document.getElementById("yes");
+    if(yes.checked) {
+      $("#ticketNumber").attr("disabled",false);
+    }
+
+    $("#no").change(() => {
+      $("#ticketNumber").val("");
+      $("#ticketNumber").attr("disabled",true);
+    });
+
+    $("#yes").change(() => {
+      $("#ticketNumber").val($("#ticketNumber").attr("data-number"));
+      $("#ticketNumber").attr("disabled",false);
+    });

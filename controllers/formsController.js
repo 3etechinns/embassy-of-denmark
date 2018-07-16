@@ -23,6 +23,7 @@ const formIdParamHandler = async (req, res, next, formId) => {
     const modelName = getModelName(type);
 
     if (!modelName) {
+      console.log("err");
       return util.error(
         "we are having problems fetching form data, please try again later",
         next
@@ -35,6 +36,7 @@ const formIdParamHandler = async (req, res, next, formId) => {
       .exec();
 
     if (!form) {
+      console.log("error occured");
       return util.error("could not load form data, try again later", next);
     }
 
@@ -209,7 +211,10 @@ const editForm = (req, res, next) => {
           formRecordId: req.query.formRecordId
         });
       case "Visa":
-        return res.render("editVisaForm", { form: req.form });
+        return res.render("editVisaForm", {
+          form: req.form,
+          formRecordId: req.query.formRecordId
+        });
       default:
         return res.redirect("/profile");
     }
@@ -220,7 +225,7 @@ const editForm = (req, res, next) => {
 
 const updateForm = async (req, res, next) => {
   try {
-    // This side is to endure that all fields are filed before setting the isComplete
+    // This side is to ensure that all fields are filed before setting the isComplete
     // property on the form record to true
     if (req.query.aim !== "continue-later") {
       const unfilled = [];
@@ -238,6 +243,7 @@ const updateForm = async (req, res, next) => {
         return util.error(message, next);
       }
 
+      console.log("first");
       const formRecord = await FormRecord.update(
         {
           _id: req.query.formRecordId
@@ -245,17 +251,52 @@ const updateForm = async (req, res, next) => {
         { isComplete: true },
         { new: true }
       );
+      const forrm = await FormRecord.findById(req.query.formRecordId);
+      console.log(forrm);
     }
+
+    const guarantors = [
+      {
+        guarantorsName: req.body.guarantorsName1,
+        guarantorsAddress: req.body.guarantorsAddress1,
+        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber1,
+        guarantorsSignature: req.body.guarantorsSignature1
+      },
+      {
+        guarantorsName: req.body.guarantorsName2,
+        guarantorsAddress: req.body.guarantorsAddress2,
+        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber2,
+        guarantorsSignature: req.body.guarantorsSignature2
+      }
+    ];
+
+    const references = [
+      {
+        fullName: req.body.guarantorsName1,
+        address: req.body.guarantorsAddress1,
+        telephoneNumber: req.body.guarantorsTelephoneNumber1
+      },
+      {
+        fullName: req.body.guarantorsName2,
+        address: req.body.guarantorsAddress2,
+        telephoneNumber: req.body.guarantorsTelephoneNumber2
+      }
+    ];
 
     const modelName = getModelName(req.query.type);
     const updateInfo = await mongoose
       .model(modelName)
-      .updateOne({ _id: req.form._id }, { ...req.body }, { new: true })
+      .updateOne(
+        { _id: req.form._id },
+        { ...req.body, guarantors, references },
+        { new: true }
+      )
       .lean()
       .exec();
 
     return res.redirect("/profile");
   } catch (error) {
+    console.log(error);
     return next(error);
   }
 };

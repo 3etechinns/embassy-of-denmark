@@ -36,7 +36,7 @@ block main
                 | Unpaid
             td #{200}
             td.edit.actions-button 
-              a(href=`/edit/${formRecord.formId}?type=${formRecord.formType}`)
+              a(href=`/edit/${formRecord.formId}?type=${formRecord.formType}&formRecordId=${formRecord._id}`)
                 img.edit-icon.icon(src="/img/edit.svg" title="edit") 
                 | Edit
             td.delete 

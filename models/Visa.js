@@ -70,7 +70,7 @@ const visaFormSchema = new Schema(
     },
     meansOfTravel: { type: String },
     financialMeansOfApplicant: { type: String },
-    possessionOfReturnTicket: { type: Boolean },
+    possessionOfReturnTicket: { type: String },
     ticketNumber: { type: String },
     dateOfLastVisitToGhana: {
       type: String,

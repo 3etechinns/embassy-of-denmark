@@ -155,20 +155,14 @@ html(lang="en")
                 input.form-control.form-control-sm( type="date" value=form.dateOfBirth id="dateOfBirth" name="dateOfBirth")
               .form-group
                 label.form-label(for="gender" id="gender") Gender
-                  label.form-label.star *
-                br
-                .form-check.form-check-inline
-                  input.form-check-input.form-control-sm( type="radio" id="male" name="gender" value="male")
-                  label.form-label.form-check-label.form-label Male
-                .form-check.form-check-inline
-                  input.form-check-input.form-control-sm( type="radio" id="female" name="gender" value="female")
-                  label.form-label.form-check-label.form-label Female
+                label.form-label.star *
+                input.form-control.form-control-sm( type="text" value=form.gender id="gender" name="gender")
             .bottom-form-group
               .form-group
                 label.form-label(for="countryOfBirth") Country of birth
                   label.form-label.star *
-                select.form-control.form-control-sm( type="text" value=form.countryOfBirth id="countryOfBirth" name="countryOfBirth")
-                  option(value="") Select one...
+                select.form-control.form-control-sm( type="text" id="countryOfBirth" name="countryOfBirth")
+                  option(value="") #{form.countryOfBirth}
               .form-group
                 label.form-label(for="placeOfBirth") City or town of birth
                   label.form-label.star *
@@ -182,31 +176,20 @@ html(lang="en")
               .form-group
                 label.form-label(for="eyeColor") Eye color
                   label.form-label.star *
-                select.form-control.form-control-sm( type="text" value=form.eyeColor id="eyeColor" name="eyeColor")
-                  option(value="") Select one...
-                  option(value="Black") Black
-                  option(value="Brown") Brown
-                  option(value="Blue") Blue
-                  option(value="Green") Green
-                  option(value="Grey") Grey
+                select.form-control.form-control-sm( type="text" id="eyeColor" name="eyeColor")
+                  option(value="") #{form.eyeColor}
               .form-group
                 label.form-label(for="hairColor") Hair color
                 label.form-label.star *
-                select.form-control.form-control-sm( id="hairColor" value=form.hairColor name="hairColor")
-                  option(value="") Select one...
-                  option(value="Black") Black
-                  option(value="Brown") Brown
-                  option(value="Blond") Blond
-                  option(value="Ginger") Ginger
-                  option(value="Grey") Grey
-                  option(value="Red") Red
+                select.form-control.form-control-sm( id="hairColor" name="hairColor")
+                  option(value="") #{form.hairColor}
           .form-section
             .top-form-group
               .form-group
                 label.form-label(for="nationality") Nationality
                 label.form-label.star *
-                select#nationality.form-control.form-control-sm( name="nationality" value=form.nationality)
-                  option(value="") Select one
+                select#nationality.form-control.form-control-sm( name="nationality")
+                  option(value="") #{form.nationality}
               .form-group
                 label.form-label(for="profession") Profession
                 label.form-label.star *
@@ -216,8 +199,8 @@ html(lang="en")
               .form-group
                 label.form-label(for="countryOfResidence") Country of residence
                 label.form-label.star *
-                select.form-control.form-control-sm( name="countryOfResidence" value=form.countryOfResidence id="countryOfResidence")
-                  option(value="Denmark") Select one
+                select.form-control.form-control-sm( name="countryOfResidence" id="countryOfResidence")
+                  option(value=form.countryOfResidence) #{form.countryOfResidence}
               .form-group
                 label.form-label(for="residentialAddress") Residential address
                 label.form-label.star *
@@ -252,8 +235,8 @@ html(lang="en")
               .form-group
                 label.form-label(for="fathersNationality") Father's nationality
                 label.form-label.star *
-                select.form-control.form-control-sm( name="fathersNationality" value=form.fathersNationality id="fathersNationality")
-                  option(value="Denmark") Select one
+                select.form-control.form-control-sm( name="fathersNationality" id="fathersNationality")
+                  option(value=form.fathersNationality) #{form.fathersNationality}
               .form-group
                 label.form-label(for="fathersAddress") Father's address
                 label.form-label.star *
@@ -266,8 +249,8 @@ html(lang="en")
               .form-group
                 label.form-label(for="mothersNationality") Mother's nationality
                 label.form-label.star *
-                select.form-control.form-control-sm( name="mothersNationality" value=form.mothersNationality id="mothersNationality")
-                  option(value="Denmark") Select one
+                select.form-control.form-control-sm( name="mothersNationality" id="mothersNationality")
+                  option(value=form.mothersNationality) #{form.mothersNationality}
               .form-group
                 label.form-label(for="mothersAddress") Mother's address
                 label.form-label.star *
@@ -441,7 +424,7 @@ html(lang="en")
                 input.form-control.form-control-sm( type="date" name="witnessDate" value=form.witnessDate id="witnessDate")
           .submit-button.submit-passport-form
             button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/admin/update/${form._id}?type=Passport&as=Under Processing` formmethod="post") Under Processing
-            button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/admin/update/${form._id}?type=Passport&as=completed` formmethod="post") Complete
+            button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/admin/update/${form._id}?type=Passport&as=Completed` formmethod="post") Complete
             button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction=`/admin/update/${form._id}?type=Passport&as=Dispatched` formmethod="post") Dispatch
     // Footer
     footer.page-footer.center-on-small-only

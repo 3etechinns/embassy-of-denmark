@@ -36,10 +36,10 @@ block main
                 label.form-label.star *
               br
               .form-check.form-check-inline
-                input.form-check-input.form-control-sm( type="radio" id="male" name="gender" value="male")
+                input.form-check-input.form-control-sm( type="radio" id="male" name="gender" value="Male")
                 label.form-label.form-check-label.form-label Male
               .form-check.form-check-inline
-                input.form-check-input.form-control-sm( type="radio" id="female" name="gender" value="female")
+                input.form-check-input.form-control-sm( type="radio" id="female" name="gender" value="Female")
                 label.form-label.form-check-label.form-label Female
           .row
             .col-sm-12.col-lg-5.form-group
@@ -84,7 +84,7 @@ block main
               label.form-label(for="nationality") Nationality
               label.form-label.star *
               select#nationality.form-control.form-control-sm( name="nationality")
-                option(value="") Select one
+                option(value="") Select one....
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="profession") Profession
               label.form-label.star *
@@ -96,7 +96,7 @@ block main
               label.form-label(for="countryOfResidence") Country of residence
               label.form-label.star *
               select.form-control.form-control-sm( name="countryOfResidence" id="countryOfResidence")
-                option(value="Denmark") Select one
+                option(value="") Select one....
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="residentialAddress") Residential address
               label.form-label.star *
@@ -132,7 +132,7 @@ block main
               label.form-label(for="fathersNationality") Father's nationality
               label.form-label.star *
               select.form-control.form-control-sm( name="fathersNationality" id="fathersNationality")
-                option(value="Denmark") Select one
+                option(value="") Select one....
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="fathersAddress") Father's address
               label.form-label.star *
@@ -146,7 +146,7 @@ block main
               label.form-label(for="mothersNationality") Mother's nationality
               label.form-label.star *
               select.form-control.form-control-sm( name="mothersNationality" id="mothersNationality")
-                option(value="Denmark") Select one
+                option(value="") Select one....
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="mothersAddress") Mother's address
               label.form-label.star *
@@ -266,12 +266,12 @@ block main
             span.star *
           p I the undersigned, hereby apply for a Ghana Passport and declare: (choose one)
           p
-            input(type="radio", name="declarationOption" value="newPassport") 
+            input(type="radio", name="declarationOption" id="newPassport" value="newPassport") 
             |  That I have not previously held or applied for a passport of any description.
           p
-            input(type="radio", name="declarationOption" value="attached/lost") 
+            input(type="radio", name="declarationOption" id="attached" value="attached/lost") 
             |  That the previous passport with number 
-            input(type="text" name="previousPassportNumber") 
+            input(type="text" name="previousPassportNumber" id="previousPassportNumber") 
             |   granted me is Attached/lost
           .row
             .col-sm-12.col-lg-5.form-group
@@ -323,6 +323,7 @@ block main
           button.col-sm-12.col-md-5.my-2.btn.btn-primary.btn-lg.custom-button(type='submit', formaction="/forms/passport" formmethod="post") submit
           button#continue-later.col-sm-12.col-md-5.my-2.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post") Save and Continue Later
   script(src="/js/countries.js")
+  script(src="/js/jquery.min.js")
   script.
     var countryOfBirth = document.querySelector("#countryOfBirth");
     var countryOfResidence = document.querySelector("#countryOfResidence");
@@ -345,3 +346,11 @@ block main
       option.innerHTML = value;
       parent.appendChild(option);
     }
+
+    $("#newPassport").change( () => {
+      $("#previousPassportNumber").attr("disabled",true);
+    });
+
+    $("#attached").change(() => {
+      $("#previousPassportNumber").attr("disabled",false);
+    });

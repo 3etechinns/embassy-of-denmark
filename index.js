@@ -51,6 +51,10 @@ app.use((req, res, next) => {
 
 const { requireLogin } = require("./middleware/admin");
 
+/**
+ * MUST NEVER BE COMMENTED OUT IN PRODUCTION
+ */
+
 app.use("/admin", requireLogin);
 
 // route Handler

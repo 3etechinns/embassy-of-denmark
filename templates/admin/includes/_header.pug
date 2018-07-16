@@ -1,0 +1,128 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(http-equiv="x-ua-compatible" content="ie=edge")
+    title Embassy Of Denmark
+    // Font Awesome
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    link(href="/css/compiled.min.css" rel="stylesheet")
+    link(href="/css/mdb.min.css" rel="stylesheet")
+    link(href="/css/bootstrap.min.css" rel="stylesheet")
+    link(href="/css/style.css" rel="stylesheet")
+    link(href="/css/styles.css" rel="stylesheet")
+  body.fixed-sn.mdb-skin
+    // Main Navigation
+    header
+      // Navbar
+      nav.navbar.navbar-expand-lg.navbar-dark.double-nav.fixed-top.scrolling-navbar
+        // SideNav slide-out button
+        .float-left
+          a.button-collapse(href="#" data-activates="slide-out")
+            i.fa.fa-bars
+        // Breadcrumb
+        .breadcrumb-dn.mr-auto
+          p(style="font-weight: 600; font-size: 13px;") ADMIN DASHBOARD
+        // Links
+        ul.nav.navbar-nav.nav-flex-icons.ml-auto
+          li.nav-item
+            a.nav-link(href="/admin/support")
+              i.fa.fa-comments-o
+              span.clearfix.d-none.d-sm-inline-block support
+          li.nav-item
+            a.nav-link(href="/admin/settings")
+              i.fa.fa-gear
+              span.clearfix.d-none.d-sm-inline-block Settings
+          li.nav-item.dropdown
+            a.nav-link(href="/logout")
+              i.fa.fa-power-off
+      // /.Navbar
+      // Sidebar navigation
+      #slide-out.side-nav.fixed(style="background: url(/img/logo.png) no-repeat;\
+      background-position: center center;\
+      background-size: cover;\
+      background-attachment: fixed;\
+      background-color: black;")
+        ul.custom-scrollbar.list-unstyled
+          // Logo
+          li.logo-sn.waves-effect
+            .text-center
+              a.pl-0(href="#")
+                img(src="/img/logo.png")
+          // /. Logo
+          // Search Form
+          li
+            form.search-form(role="search")
+              .form-group.waves-light
+                input.form-control(type="text" placeholder="Search")
+          // /.Search Form
+          // Side navigation links
+          li
+            ul.collapsible.collapsible-accordion
+              li
+                a.waves-effect.arrow-r(href="/admin")
+                  | Dashboard
+              hr(style="margin: 10px 0px;")
+              li
+                a.collapsible-header.waves-effect.arrow-r
+                  | Transaction Pipeline
+                  i.fa.fa-angle-down.rotate-icon
+                .collapsible-body
+                  ul
+                    li
+                      a.waves-effect(href="/admin/transaction") All
+                    li
+                      a.waves-effect(href="/admin/transaction") New Requests
+                    li
+                      a.waves-effect(href="/admin/transaction") Under Processing
+                    li
+                      a.waves-effect(href="/admin/transaction") Completed Requests
+                    li
+                      a.waves-effect(href="/admin/transaction") Dispatched Requests
+              hr(style="margin: 10px 0px;")
+              li
+                a.waves-effect.arrow-r(href="/admin/user_search")
+                  | User Search & Reporting
+              hr(style="margin: 10px 0px;")
+              li
+                a.waves-effect.arrow-r(href="/admin/embassy_requests")
+                  | Inter-Embassy Requests
+              hr(style="margin: 10px 0px;")
+              li
+                a.collapsible-header.waves-effect.arrow-r
+                  | Live Chat
+                  i.fa.fa-angle-down.rotate-icon
+                .collapsible-body
+                  ul
+                    li
+                      a.waves-effect(href="#") FAQ
+                    li
+                      a.waves-effect(href="support.html") Write to support
+                    li
+                      a.waves-effect(href="#") Chat with a colleague
+                    li
+                      a.waves-effect(href="#") Chat with other Embassies
+              hr(style="margin: 10px 0px;")
+              li
+                a.collapsible-header.waves-effect.arrow-r
+                  | Settings
+                  i.fa.fa-angle-down.rotate-icon
+                .collapsible-body
+                  ul
+                    li
+                      a.waves-effect(href="#") Access Rights
+                    li
+                      a.waves-effect(href="#") User log
+                    li
+                      a.waves-effect(href="#") Currency
+                    li
+                      a.waves-effect(href="#") Bank/Card details
+                    li
+                      a.waves-effect(href="#") Embassy Profile
+                    li
+                      a.waves-effect(href="#") Staff
+          // /. Side navigation links
+        // Mask
+        .sidenav-bg.mask-strong
+      // /. Sidebar navigation

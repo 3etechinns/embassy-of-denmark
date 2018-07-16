@@ -19,10 +19,9 @@ const getAllRequests = async (req, res, next) => {
   try {
     const skipValue = req.query.skip_value;
     const limitValue = req.query.limit_value;
-    // Remember to take of the query filtering from here
     let formRecords = await Form.find({})
       .skip(skipValue || 0)
-      .limit(limitValue || 4)
+      .limit(limitValue || 8)
       .populate("_owner", "email")
       .lean()
       .exec();
@@ -32,7 +31,7 @@ const getAllRequests = async (req, res, next) => {
         createdAt: formRecord.createdAt.toLocaleDateString()
       };
     });
-    req.formRecords = formRecords;
+    req.allFormRecords = formRecords;
     return next();
   } catch (error) {
     return next(error);
@@ -45,7 +44,7 @@ const getNewRequests = async (req, res, next) => {
     const limitValue = req.query.limit_value;
     const formRecords = await Form.find({
       $and: [
-        { paymentId: { $exists: true } },
+        // { paymentId: { $exists: true } },
         { isComplete: true },
         { status: newRequests }
       ]
@@ -54,7 +53,8 @@ const getNewRequests = async (req, res, next) => {
       .limit(limitValue || 4)
       .populate("_owner")
       .exec();
-    return res.json(formRecords);
+    req.newRequests = formRecords;
+    return next();
   } catch (error) {
     return res.json(error);
   }
@@ -66,14 +66,16 @@ const getProcessingRequests = async (req, res, next) => {
     const limitValue = req.query.limit_value;
     const formRecords = await Form.find({
       $and: [
-        { paymentId: { $exists: true } },
+        // { paymentId: { $exists: true } },
         { isComplete: true },
         { status: underProcessing }
       ]
     })
       .populate("_owner")
       .exec();
-    return res.json(formRecords);
+    req.underProcessing = formRecords;
+    return next();
+    // return res.json(formRecords);
   } catch (error) {
     return res.json(error);
   }
@@ -85,7 +87,7 @@ const getCompletedRequests = async (req, res, next) => {
     const limitValue = req.query.limit_value;
     const formRecords = await Form.find({
       $and: [
-        { paymentId: { $exists: true } },
+        // { paymentId: { $exists: true } },
         { isComplete: true },
         { status: completedRequests }
       ]
@@ -94,7 +96,9 @@ const getCompletedRequests = async (req, res, next) => {
       .limit(limitValue || 4)
       .populate("_owner")
       .exec();
-    return res.json(formRecords);
+    req.completedRequests = formRecords;
+    return next();
+    // return res.json(formRecords);
   } catch (error) {
     return res.json(error);
   }
@@ -106,7 +110,7 @@ const getDispatchedRequests = async (req, res, next) => {
     const limitValue = req.query.limit_value;
     const formRecords = await Form.find({
       $and: [
-        { paymentId: { $exists: true } },
+        // { paymentId: { $exists: true } },
         { isComplete: true },
         { status: dispatchedRequests }
       ]
@@ -115,7 +119,9 @@ const getDispatchedRequests = async (req, res, next) => {
       .limit(limitValue || 4)
       .populate("_owner")
       .exec();
-    return res.json(formRecords);
+    req.dispatchedRequests = formRecords;
+    return next();
+    // return res.json(formRecords);
   } catch (error) {
     return res.json(error);
   }
