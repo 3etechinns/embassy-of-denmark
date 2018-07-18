@@ -1,3 +1,4 @@
+const path = require("path");
 const mongoose = require("mongoose");
 const PassportForm = mongoose.model("PassportForm");
 const FormRecord = mongoose.model("FormRecord");
@@ -23,7 +24,6 @@ const formIdParamHandler = async (req, res, next, formId) => {
     const modelName = getModelName(type);
 
     if (!modelName) {
-      console.log("err");
       return util.error(
         "we are having problems fetching form data, please try again later",
         next
@@ -36,7 +36,6 @@ const formIdParamHandler = async (req, res, next, formId) => {
       .exec();
 
     if (!form) {
-      console.log("error occured");
       return util.error("could not load form data, try again later", next);
     }
 
@@ -51,8 +50,9 @@ const createPassportForm = async (req, res, next) => {
   try {
     // for forms submitted to be continued later
     if (req.query.type === "continue-later") {
-      // loop through each property in the req.body and set empty ones to undefined
-      // for the purpose of mongoose providing a default value
+      /** loop through each property in the req.body and set empty ones to undefined
+       for the purpose of mongoose providing a default value
+       */
       for (prop in req.body) {
         if (!req.body[prop].trim()) {
           req.body[prop] = undefined;
@@ -60,19 +60,28 @@ const createPassportForm = async (req, res, next) => {
       }
     }
 
-    // ensures filling of parental consent when age is below 18 and form is not a save
-    // and continue later type
+    /**
+     * Only runs when the request is not of type 'continue-later'
+     */
     if (req.query.type !== "continue-later") {
+      // checking the existence of the date of birth
+      if (!req.body.dateOfBirth) {
+        return util.error(
+          "Date of birth is required to submit this form",
+          next
+        );
+      }
       const currentYear = new Date().getFullYear();
       const yearOfBirth = new Date(req.body.dateOfBirth).getFullYear();
       const age = currentYear - yearOfBirth;
 
+      // ensures filling of parental consent when age is below
       if (
-        req.body.dateOfBirth &&
-        (age < 18 &&
-          (!req.body.parentName.trim() ||
-            !req.body.parentAddress.trim() ||
-            !req.body.parentTelephoneNumber.trim()))
+        age < 18 &&
+        (!req.body.parentName.trim() ||
+          !req.body.parentAddress.trim() ||
+          !req.body.parentTelephoneNumber.trim() ||
+          !req.files["parentalConsentSignature"])
       ) {
         return util.error(
           "Parental consent is required for people below age 18, please make sure you have filled such fields too",
@@ -80,20 +89,33 @@ const createPassportForm = async (req, res, next) => {
         );
       }
 
-      // ensuring guarantors information is provided when the request is not a save and
-      // continue later one
+      /**
+       * ensures guarantors information is provided, this is done because mongoose
+       * can't validate nested objects within an array.
+       */
       if (
-        (!req.body.guarantorsName1.trim(),
-        !req.body.guarantorsAddress1.trim(),
-        !req.body.guarantorsTelephoneNumber1.trim(),
-        !req.body.guarantorsSignature1.trim(),
-        !req.body.guarantorsName2.trim(),
-        !req.body.guarantorsAddress2.trim(),
-        !req.body.guarantorsTelephoneNumber2.trim(),
-        !req.body.guarantorsSignature2.trim())
+        !req.body.guarantorsName1.trim() ||
+        !req.body.guarantorsAddress1.trim() ||
+        !req.body.guarantorsTelephoneNumber1.trim() ||
+        !req.files["guarantorsSignature1"] ||
+        !req.body.guarantorsName2.trim() ||
+        !req.body.guarantorsAddress2.trim() ||
+        !req.body.guarantorsTelephoneNumber2.trim() ||
+        !req.files["guarantorsSignature2"]
       ) {
         return util.error(
           "Please make sure guarantor information is provided",
+          next
+        );
+      }
+
+      // Ensures declaration and witness signatures are uploaded
+      if (
+        !req.files["declarationSignature"] ||
+        !req.files["witnessSignature"]
+      ) {
+        return util.error(
+          "Please make sure declaration and witness signatures are uploaded",
           next
         );
       }
@@ -104,19 +126,80 @@ const createPassportForm = async (req, res, next) => {
         guarantorsName: req.body.guarantorsName1,
         guarantorsAddress: req.body.guarantorsAddress1,
         guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber1,
-        guarantorsSignature: req.body.guarantorsSignature1
+        guarantorsSignature: req.files["guarantorsSignature1"]
+          ? path.resolve(
+              __dirname,
+              "..",
+              "store",
+              req.files["guarantorsSignature1"][0].filename
+            )
+          : undefined
       },
       {
         guarantorsName: req.body.guarantorsName2,
         guarantorsAddress: req.body.guarantorsAddress2,
         guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber2,
-        guarantorsSignature: req.body.guarantorsSignature2
+        guarantorsSignature: req.files["guarantorsSignature2"]
+          ? path.resolve(
+              __dirname,
+              "..",
+              "store",
+              req.files["guarantorsSignature2"][0].filename
+            )
+          : undefined
       }
     ];
 
+    // Ensures Previous passport number is entered for option attached/lost
+    if (
+      req.body.declarationOption === "attached/lost" &&
+      !req.body.previousPassportNumber
+    ) {
+      return util.error(
+        "Previous Passport number must be provided for Attached/lost Passports",
+        next
+      );
+    }
+
+    const signatures = {
+      interpretersSignature: req.files["interpretersSignature"]
+        ? path.resolve(
+            __dirname,
+            "..",
+            "store",
+            req.files["interpretersSignature"][0].filename
+          )
+        : undefined,
+      parentalConsentSignature: req.files["parentalConsentSignature"]
+        ? path.resolve(
+            __dirname,
+            "..",
+            "store",
+            req.files["parentalConsentSignature"][0].filename
+          )
+        : undefined,
+      declarationSignature: req.files["declarationSignature"]
+        ? path.resolve(
+            __dirname,
+            "..",
+            "store",
+            req.files["declarationSignature"][0].filename
+          )
+        : undefined,
+      witnessSignature: req.files["witnessSignature"]
+        ? path.resolve(
+            __dirname,
+            "..",
+            "store",
+            req.files["witnessSignature"][0].filename
+          )
+        : undefined
+    };
+
     const passportForm = await PassportForm.create({
       ...req.body,
-      guarantors
+      guarantors,
+      ...signatures
     });
 
     const formRecord = await FormRecord.create({
@@ -135,7 +218,8 @@ const createPassportForm = async (req, res, next) => {
 
     return res.redirect("/profile");
   } catch (error) {
-    // error.message = "Please fill all required fields";
+    console.log(error);
+    // return util.error(error.message, next);
     return util.error(
       "Please make sure all required fields have been filled",
       next
@@ -156,10 +240,6 @@ const createVisaForm = async (req, res, next) => {
       }
     }
 
-    /**
-     * Please ensure consistency in the model and pug files and then u can make changes
-     *  to thi side like how we did for the guarantors information in the passport form
-     */
     const references = [
       {
         fullName: req.body.guarantorsName1,
@@ -195,6 +275,7 @@ const createVisaForm = async (req, res, next) => {
     return res.redirect("/profile");
   } catch (error) {
     // error.message = "Please fill all required fields";
+    console.log(error);
     return util.error(
       "Please make sure all required fields have been filled",
       next
@@ -225,7 +306,7 @@ const editForm = (req, res, next) => {
 
 const updateForm = async (req, res, next) => {
   try {
-    // This side is to ensure that all fields are filed before setting the isComplete
+    // This side is to ensure that all fields are filled before setting the isComplete
     // property on the form record to true
     if (req.query.aim !== "continue-later") {
       const unfilled = [];
@@ -243,7 +324,6 @@ const updateForm = async (req, res, next) => {
         return util.error(message, next);
       }
 
-      console.log("first");
       const formRecord = await FormRecord.update(
         {
           _id: req.query.formRecordId
@@ -251,8 +331,7 @@ const updateForm = async (req, res, next) => {
         { isComplete: true },
         { new: true }
       );
-      const forrm = await FormRecord.findById(req.query.formRecordId);
-      console.log(forrm);
+      const form = await FormRecord.findById(req.query.formRecordId);
     }
 
     const guarantors = [

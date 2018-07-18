@@ -15,6 +15,10 @@ const requireLogin = (req, res, next) => {
   return next();
 };
 
+/**
+ * Uncomment a lot of the stuff commented out here
+ */
+
 const getAllRequests = async (req, res, next) => {
   try {
     const skipValue = req.query.skip_value;
@@ -45,7 +49,7 @@ const getNewRequests = async (req, res, next) => {
     const formRecords = await Form.find({
       $and: [
         // { paymentId: { $exists: true } },
-        { isComplete: true },
+        // { isComplete: true },
         { status: newRequests }
       ]
     })
@@ -67,7 +71,7 @@ const getProcessingRequests = async (req, res, next) => {
     const formRecords = await Form.find({
       $and: [
         // { paymentId: { $exists: true } },
-        { isComplete: true },
+        // { isComplete: true },
         { status: underProcessing }
       ]
     })
@@ -88,7 +92,7 @@ const getCompletedRequests = async (req, res, next) => {
     const formRecords = await Form.find({
       $and: [
         // { paymentId: { $exists: true } },
-        { isComplete: true },
+        // { isComplete: true },
         { status: completedRequests }
       ]
     })
@@ -111,7 +115,7 @@ const getDispatchedRequests = async (req, res, next) => {
     const formRecords = await Form.find({
       $and: [
         // { paymentId: { $exists: true } },
-        { isComplete: true },
+        // { isComplete: true },
         { status: dispatchedRequests }
       ]
     })
