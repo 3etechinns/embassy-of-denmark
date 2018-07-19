@@ -83,7 +83,6 @@ const getProcessingRequests = async (req, res, next) => {
       .exec();
     req.underProcessing = changeDateFormat(formRecords);
     return next();
-    // return res.json(formRecords);
   } catch (error) {
     return res.json(error);
   }
@@ -107,7 +106,6 @@ const getCompletedRequests = async (req, res, next) => {
       .exec();
     req.completedRequests = changeDateFormat(formRecords);
     return next();
-    // return res.json(formRecords);
   } catch (error) {
     return res.json(error);
   }
@@ -131,7 +129,6 @@ const getDispatchedRequests = async (req, res, next) => {
       .exec();
     req.dispatchedRequests = changeDateFormat(formRecords);
     return next();
-    // return res.json(formRecords);
   } catch (error) {
     return res.json(error);
   }

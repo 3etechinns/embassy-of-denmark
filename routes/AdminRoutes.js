@@ -101,7 +101,7 @@ module.exports = app => {
   });
 
   app.get("/admin/embassy_requests", (req, res, next) => {
-    return res.render("admin/home");
+    return res.redirect("/admin");
   });
 
   app.get(
@@ -164,17 +164,14 @@ module.exports = app => {
   });
 
   app.get("/admin/support", (req, res, next) => {
-    return res.render("admin/support", {
-      message: req.session.feedBackMessage
-    });
+    return res.render("admin/support");
   });
 
   app.post("/admin/support", async (req, res, next) => {
     try {
       const feedBack = await FeedBack.create({ ...req.body });
-      req.session.feedBackMessage = "Thank you for your suggestions";
-      req.session.save(err => {
-        return res.redirect("/admin/support");
+      return res.render("admin/support", {
+        message: "Thank you for your suggestions"
       });
     } catch (error) {
       return next(error);
