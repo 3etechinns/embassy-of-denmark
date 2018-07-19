@@ -46,23 +46,38 @@ module.exports = app => {
     getCompletedRequests,
     getDispatchedRequests,
     (req, res, next) => {
-      // return res.json(req.formRecords);
+      let newRequestsCount = 0;
+      let underProcessingRequestsCount = 0;
+      let completedRequestsCount = 0;
+      let dispatchedRequestsCount = 0;
+
+      req.allFormRecords.forEach(form => {
+        if (form.status === PROCESSING_STATUS.newRequests) {
+          newRequestsCount++;
+        } else if (form.status === PROCESSING_STATUS.completedRequests) {
+          completedRequestsCount++;
+        } else if (form.status === PROCESSING_STATUS.dispatchedRequests) {
+          dispatchedRequestsCount++;
+        } else if (form.status === PROCESSING_STATUS.underProcessing) {
+          underProcessingRequestsCount++;
+        }
+      });
+
       return res.render("admin/home", {
         formRecords: req.allFormRecords,
-        newRequestsCount: req.newRequests.length,
-        underProcessingRequestsCount: req.underProcessing.length,
-        completedRequestsCount: req.completedRequests.length,
-        dispatchedRequestsCount: req.dispatchedRequests.length
+        newRequestsCount,
+        underProcessingRequestsCount,
+        completedRequestsCount,
+        dispatchedRequestsCount
       });
     }
   );
 
-  // work on this later
   app.post("/admin/update/:formId", async (req, res, next) => {
-    // req.form.update({ ...req.form.update, status: req.query.as });
-    // return res.json(req.params);
     try {
       const status = getStatus(req.query.as);
+
+      // update where formId === formId and to a status of status
       const updateMessage = await FormRecord.update(
         { formId: req.params.formId },
         { status }
@@ -89,19 +104,77 @@ module.exports = app => {
     return res.render("admin/home");
   });
 
+  app.get(
+    "/admin/transaction/all_requests",
+    getAllRequests,
+    (req, res, next) => {
+      return res.render("admin/transaction", {
+        formRecords: req.allFormRecords,
+        title: "All Form Records"
+      });
+    }
+  );
+
+  app.get(
+    "/admin/transaction/new_requests",
+    getNewRequests,
+    (req, res, next) => {
+      return res.render("admin/transaction", {
+        formRecords: req.newRequests,
+        title: "New Requests"
+      });
+    }
+  );
+
+  app.get(
+    "/admin/transaction/under_processing_requests",
+    getProcessingRequests,
+    (req, res, next) => {
+      return res.render("admin/transaction", {
+        formRecords: req.underProcessing,
+        title: "Under Processing Requests"
+      });
+    }
+  );
+
+  app.get(
+    "/admin/transaction/completed_requests",
+    getCompletedRequests,
+    (req, res, next) => {
+      return res.render("admin/transaction", {
+        formRecords: req.completedRequests,
+        title: "Completed Requests"
+      });
+    }
+  );
+
+  app.get(
+    "/admin/transaction/dispatched_requests",
+    getDispatchedRequests,
+    (req, res, next) => {
+      return res.render("admin/transaction", {
+        formRecords: req.dispatchedRequests,
+        title: "Dispatched Requests"
+      });
+    }
+  );
+
   app.get("/admin/settings", (req, res, next) => {
     return res.redirect("/admin");
   });
 
   app.get("/admin/support", (req, res, next) => {
-    return res.render("admin/support");
+    return res.render("admin/support", {
+      message: req.session.feedBackMessage
+    });
   });
 
   app.post("/admin/support", async (req, res, next) => {
     try {
       const feedBack = await FeedBack.create({ ...req.body });
-      return res.render("admin/support", {
-        message: "Thank you for your suggestions"
+      req.session.feedBackMessage = "Thank you for your suggestions";
+      req.session.save(err => {
+        return res.redirect("/admin/support");
       });
     } catch (error) {
       return next(error);

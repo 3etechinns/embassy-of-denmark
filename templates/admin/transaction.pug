@@ -8,12 +8,12 @@ html(lang="en")
     // Font Awesome
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
     // Bootstrap core CSS
-    link(href="css/bootstrap.min.css" rel="stylesheet")
+    link(href="/css/bootstrap.min.css" rel="stylesheet")
     // Material Design Bootstrap
-    link(href="css/mdb.min.css" rel="stylesheet")
+    link(href="/css/mdb.min.css" rel="stylesheet")
     // Your custom styles (optional)
-    link(href="css/style.css" rel="stylesheet")
-    link(href="css/compiled.min.css" rel="stylesheet")
+    link(href="/css/style.css" rel="stylesheet")
+    link(href="/css/compiled.min.css" rel="stylesheet")
   body.fixed-sn.mdb-skin
     // Main Navigation
     header
@@ -29,170 +29,118 @@ html(lang="en")
         // Links
         ul.nav.navbar-nav.nav-flex-icons.ml-auto
           li.nav-item
-            a.nav-link(href="support.html")
+            a.nav-link(href="/admin/support")
               i.fa.fa-comments-o
-              span.clearfix.d-none.d-sm-inline-block support
+              span.clearfix.d-none.d-sm-inline-block Support
           li.nav-item
-            a.nav-link
+            a.nav-link(href="/admin/settings")
               i.fa.fa-gear
               span.clearfix.d-none.d-sm-inline-block Settings
           li.nav-item.dropdown
-            a.nav-link
+            a.nav-link(href="/logout")
               i.fa.fa-power-off
       // /.Navbar
-      include sidebar
+      include sidebar.pug
     // Main Navigation
     // Main layout
     main(style="margin: 0%;")
       .container-fluid.row(style="margin: 0px;")
-        .col-md-12
-          section
-            h6(style="font-weight:600;") TRANSACTION SUMMARY:
-            .row.mt-2.mb-2
-              .col-md-3
-                h6 New Requests
-                h1 0
-              .col-md-3
-                h6 Under Processing
-                h1 0
-              .col-md-3
-                h6 Completed Requests
-                h1 0
-              .col-md-3
-                h6 Dispatched Requests
-                h1 0
-          hr
-          // Section: Modals
-          section
-            // Modal: modalConfirmDelete
-            #modalConfirmDelete.modal.fade(tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true")
-              .modal-dialog.modal-sm.modal-notify.modal-danger(role="document")
-                // Content
-                .modal-content.text-center
-                  // Header
-                  .modal-header.d-flex.justify-content-center
-                    p.heading Are you sure?
-                  // Body
-                  .modal-body
-                    p You can't Undo once this item is deleted
-                  // Footer
-                  .modal-footer.flex-center
-                    a.btn.btn-outline-secondary-modal(style="color: black !important;") Yes
-                    a.btn.btn-primary-modal.waves-effect(type="button" data-dismiss="modal" style="color: black !important;") No
-                // /.Content
-            // Modal: modalConfirmDelete
-          // Section: Modals
-          // Section: Table
-          section
-            // Card
-            .card.card-cascade.narrower(style="width: 100%;")
-              // Card header
-              .view.py-3.gradient-card-header.blue.mx-4.d-flex.justify-content-between.align-items-center
-                a.white-text.mx-3(href="") Transaction Pipeline
-                div
-                  button.btn.btn-outline-white.btn-rounded.btn-sm.px-2(type="button" data-toggle="modal" data-target="#modalConfirmDelete")
-                    i.fa.fa-remove.mt-0
-                  button.btn.btn-outline-white.btn-rounded.btn-sm.px-2(type="button" data-toggle="tooltip" data-placement="bottom" title="info")
-                    i.fa.fa-info-circle.mt-0
-              // /Card header
-              // Card content
-              .card-body
+        // Section: Table
+        section
+          // Card
+          .card.card-cascade.narrower(style="width: 100%;")
+            // Card header
+            .view.py-3.gradient-card-header.blue.mx-4.d-flex.justify-content-between.align-items-center
+              a.white-text.mx-3(href="") #{title}
+              div
+                button.btn.btn-outline-white.btn-rounded.btn-sm.px-2(type="button" data-toggle="tooltip" data-placement="bottom" title="info")
+                  i.fa.fa-info-circle.mt-0
+            // /Card header
+            // Card content
+            .card-body
+              .row
+                .col-md-10.my-3
+                  form.form-inline
+                    input.form-control.my-0.py-0(type="text" placeholder="Search" style="max-width: 150px;")
+                    button.btn.btn-sm.btn-info.ml-2.px-2
+                      i.fa.fa-search
+              .table-responsive
+                table.table
+                  thead
+                    tr
+                      th
+                      th.th-lg Form Type
+                      th.th-lg Applicant
+                      th.th-lg Date Applied
+                      th.th-lg Status
+                      th.th-lg 
+                  tbody#forms(data-forms=formRecords)
+                    for formRecord, index in formRecords
+                      tr
+                        th(scope="row")
+                          input(type="checkbox" id=`checkbox${index}`)
+                          label.label-table(for=`checkbox${index}`)
+                        td #{formRecord.formType}
+                        td #{formRecord._owner.email}
+                        td #{formRecord.createdAt}
+                        td #{formRecord.status}
+                        td.actions-button
+                          a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
+                            img.icon(src="/img/eye.svg")
+                if !formRecords.length
+                  .alert.alert-danger.text-center(role="alert") No Form records in our Database yet
+              hr.my-0
+              // Bottom Table UI
+              div
+                // Name
                 .row
-                  .col-md-6.my-2
-                    .custom-select(style="width: 50%;")
-                      select
-                        option(value="" disabled="" selected="") show all
-                        option(value="0") show all
-                        option(value="1") New Requests
-                        option(value="2") Under Processing
-                        option(value="3") Completed Requests
-                        option(value="3") Dispatched Requests
-                  .col-md-6.my-2
-                    form.form-inline
-                      input.form-control.my-0.py-0(type="text" placeholder="Search" style="max-width: 150px;")
-                      button.btn.btn-sm.btn-info.ml-2.px-2
-                        i.fa.fa-search
-                .table-responsive
-                  table.table
-                    thead
-                      tr
-                        th
-                          input#checkbox(type="checkbox")
-                          label.label-table(for="checkbox")
-                        th.th-lg Transaction ID
-                        th.th-lg Nature
-                        th.th-lg Date Initiated
-                        th.th-lg Status
-                    tbody
-                      tr
-                        th(scope="row")
-                          input#checkbox1(type="checkbox")
-                          label.label-table(for="checkbox1")
-                        td Lorem Ipsum
-                        td Lorem Ipsum
-                        td Lorem Ipsum
-                        td Lorem Ipsum
-                      tr
-                        th(scope="row")
-                          input#checkbox2(type="checkbox")
-                          label.label-table(for="checkbox2")
-                        td Lorem Ipsum
-                        td Lorem Ipsum
-                        td Lorem Ipsum
-                        td Lorem Ipsum
-                      tr
-                        th(scope="row")
-                          input#checkbox3(type="checkbox")
-                          label.label-table(for="checkbox3")
-                        td Lorem Ipsum
-                        td Lorem Ipsum
-                        td Lorem Ipsum
-                        td Lorem Ipsum
-                hr.my-0
-                // Bottom Table UI
-                div
-                  // Name
-                  .row
-                    .col-md-4.custom-select.my-4.mx-3(style="width: 100%;")
-                      select.my-4
-                        option(value="0" disabled="") Rows number
-                        option(value="1" selected="") 10 rows
-                        option(value="2") 25 rows
-                        option(value="3") 50 rows
-                        option(value="4") 100 rows
-                        option(value="4") all
-                    .col-md-5
-                      // Pagination
-                      nav.my-4
-                        ul.pagination.pagination-circle.pg-blue.mb-0
-                          // First
-                          li.page-item.disabled
-                            a.page-link First
-                          // Arrow left
-                          li.page-item.disabled
-                            a.page-link(aria-label="Previous")
-                              span(aria-hidden="true") «
-                              span.sr-only Previous
-                          // Numbers
-                          li.page-item.active
-                            a.page-link 1
-                          li.page-item
-                            a.page-link 2
-                          li.page-item
-                            a.page-link 3
-                          // Arrow right
-                          li.page-item
-                            a.page-link(aria-label="Next")
-                              span(aria-hidden="true") »
-                              span.sr-only Next
-                          // First
-                          li.page-item
-                            a.page-link Last
-                      // /Pagination
-                // Bottom Table UI
-              // /.Card content
-            // /.Card
-          // Section: Table
+                  .col-md-4.custom-select.my-4.mx-3(style="width: 100%;")
+                    select#numberOfRows.my-4
+                      option(value="5") 5 rows
+                      option(value="10") 10 rows
+                      option(value="20") 20 rows
+                      option(value="50") 50 rows
+                      option(value="100") 100 rows
+                      option(value=formRecords.length) All rows
+                  .col-md-5
+                    // Pagination
+                    nav.my-4
+                      ul.pagination.pagination-circle.pg-blue.mb-0
+                        // First
+                        li.page-item
+                          a#first.page-link First
+                        // Arrow left
+                        li.page-item
+                          a#previous.page-link(aria-label="Previous")
+                            span(aria-hidden="true") «
+                            span.sr-only Previous
+                        // Numbers
+                        li#0.page-item.active
+                          a.page-link 1
+                        li#1.page-item
+                          a.page-link 2
+                        li#2.page-item
+                          a.page-link 3
+                        // Arrow right
+                        li.page-item
+                          a#next.page-link(aria-label="Next")
+                            span(aria-hidden="true") »
+                            span.sr-only Next
+                        // Last
+                        li.page-item
+                          a#last.page-link Last
+                    // /Pagination
+              // Bottom Table UI
+            // /.Card content
+          // /.Card
+        // Section: Table
+        //- .col-md-3
+        //-   .sticky
+        //-     .list-group
+        //-       a.list-group-item.active.waves-effect(href="#")
+        //-         | User Search and Reporting
+        //-       a.list-group-item.list-group-item-action.waves-effect(href="#") data
+      #stopper.pb-2
     // Main layout
     // Footer
     footer.page-footer.center-on-small-only
@@ -211,20 +159,20 @@ html(lang="en")
       .footer-copyright
         .container-fluid
           | © 2018 Copyright:
-          a(href="https://www.MDBootstrap.com")  Embassy Of Denmark 
+          a(href="/admin")  Embassy Of Denmark 
       // /.Copyright
     // /.Footer
     // SCRIPTS
     // JQuery
-    script(type="text/javascript" src="js/jquery-3.3.1.min.js")
+    script(type="text/javascript" src="/js/jquery-3.3.1.min.js")
     // Bootstrap tooltips
-    script(type="text/javascript" src="js/popper.min.js")
+    script(type="text/javascript" src="/js/popper.min.js")
     // Bootstrap core JavaScript
-    script(type="text/javascript" src="js/bootstrap.min.js")
+    script(type="text/javascript" src="/js/bootstrap.min.js")
     // MDB core JavaScript
-    script(type="text/javascript" src="js/mdb.min.js")
-    script(type="text/javascript" src="js/compiled.min.js")
-    script(type="text/javascript" src="js/custom.js")
+    script(type="text/javascript" src="/js/mdb.min.js")
+    script(type="text/javascript" src="/js/compiled.min.js")
+    script(type="text/javascript" src="/js/custom.js")
     // Initializations
     script.
       // SideNav Initialization
@@ -318,4 +266,126 @@ html(lang="en")
       , zIndex: 2
       , stopper: "#stopper"
       });
+      });
+      //GILBERT'S JAVASCRIPT
+    script.
+      var currentPage = 0;
+      var numberOfPages = 0;
+      var $numberOfRows = $("#numberOfRows").val();
+
+      function partition(dataSource, dataLimit) {
+        var partitionedData = [];
+        var dataLength = dataSource.length;
+        for (var i = 0; i < dataSource.length; i += dataLimit) {
+          var nArray = [];
+          if (dataLength < dataLimit) {
+            for (var j = dataLength; j > 0; j--) {
+              nArray.push(dataSource[dataSource.length - j]);
+              dataLength--;
+            }
+            partitionedData.push(nArray);
+            break;
+          } else {
+            for (var k = i; k < i + dataLimit; k++) {
+              nArray.push(dataSource[k]);
+              dataLength--;
+            }
+          }
+          partitionedData.push(nArray);
+        }
+        numberOfPages = partitionedData.length ;
+        return partitionedData;
+      }
+
+      function populateForms(arr) {
+        $("#forms").html("");
+        for(var i = 0; i < arr.length; i++) {
+          var $row = $("<tr></tr>");
+          var $thead = $('<th scope="row"></th>');
+          var $input = $("<input type='checkbox'></input>");
+          $($input).attr("id",`checkbox${i}`);
+          var $label = $('<label class="label-tabel"></label>');
+          $($label).attr("for",`checkbox${i}`);
+          $($thead).append($input);
+          $($thead).append($label);
+          var $formType = $(`<td>${arr[i].formType}</td>`);
+          var $email = $(`<td>${arr[i]._owner.email}</td>`);
+          var $createdAt = $(`<td>${arr[i].createdAt}</td>`);
+          var $status = $(`<td>${arr[i].status}</td>`);
+          var $actions = $("<td class='actions-button'></td>");
+          var $link = $("<a title='View Form'></a>");
+          $($link).attr("href",`/admin/view/${arr[i].formId}?type=${arr[i].formType}`);
+          var $img = $("<img class='icon' src='/img/eye.svg'>");
+          $($link).append($img);
+          $($actions).append($link);
+          $($row).append([$thead,$formType,$email,$createdAt,$status,$actions]);
+          $("#forms").append($row);
+        }
+      }
+
+      function runPartitioning(id,limit) {
+        $.get("/api/allForms",(data) => {
+          var partitionedData = partition(data,limit);
+          $(".page-item").removeClass("active");
+          $(".page-item").removeClass("disabled");
+          $(`#${id}`).addClass("active");
+          currentPage = id;
+          populateForms(partitionedData[id]);
+        });
+      }
+
+      function run(id) {
+        $("#last").removeClass("disabled");
+        $("#next").removeClass("disabled");
+        runPartitioning(id,$numberOfRows);
+        if(id === 0) {
+          $("#first").addClass("disabled");
+          $("#previous").addClass("disabled");
+        }
+        else if(id > 0 && id < numberOfPages-1) {
+          $("#first").removeClass("disabled");
+          $("#previous").removeClass("disabled");
+        }
+        else if(id >= numberOfPages-1) {
+          $("#first").removeClass("disabled");
+          $("#previous").removeClass("disabled");
+          $("#last").addClass("disabled");
+          $("#next").addClass("disabled");
+        }
+      }
+
+      run(0);
+
+      $("#numberOfRows").change(() => {
+        console.log("changed");
+      });
+
+      $("#next").click(e => {
+        var id = currentPage + 1;
+        run(id);
+      });
+
+      $("#first").click(e => {
+        run(0);
+      });
+
+      $("#last").click(e => {
+        run(numberOfPages-1);
+      });
+
+      $("#previous").click(e => {
+        var id = currentPage - 1;
+        run(id);
+      });
+      
+      $("#1").click(e => {
+        run(1);
+      });
+
+      $("#0").click(e => {
+        run(0);
+      });
+
+      $("#2").click(e => {
+        run(2);
       });

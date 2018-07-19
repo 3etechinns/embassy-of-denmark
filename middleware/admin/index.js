@@ -15,10 +15,17 @@ const requireLogin = (req, res, next) => {
   return next();
 };
 
+const changeDateFormat = records =>
+  records.map(formRecord => {
+    return {
+      ...formRecord,
+      createdAt: formRecord.createdAt.toLocaleDateString()
+    };
+  });
 /**
- * Uncomment a lot of the stuff commented out here
+ * Uncomment a lot of the stuff commented out here,
+ * especially the paymentId and isComplete filter options
  */
-
 const getAllRequests = async (req, res, next) => {
   try {
     const skipValue = req.query.skip_value;
@@ -29,13 +36,8 @@ const getAllRequests = async (req, res, next) => {
       .populate("_owner", "email")
       .lean()
       .exec();
-    formRecords = formRecords.map(formRecord => {
-      return {
-        ...formRecord,
-        createdAt: formRecord.createdAt.toLocaleDateString()
-      };
-    });
-    req.allFormRecords = formRecords;
+
+    req.allFormRecords = changeDateFormat(formRecords);
     return next();
   } catch (error) {
     return next(error);
@@ -56,8 +58,9 @@ const getNewRequests = async (req, res, next) => {
       .skip(skipValue || 0)
       .limit(limitValue || 4)
       .populate("_owner")
+      .lean()
       .exec();
-    req.newRequests = formRecords;
+    req.newRequests = changeDateFormat(formRecords);
     return next();
   } catch (error) {
     return res.json(error);
@@ -76,8 +79,9 @@ const getProcessingRequests = async (req, res, next) => {
       ]
     })
       .populate("_owner")
+      .lean()
       .exec();
-    req.underProcessing = formRecords;
+    req.underProcessing = changeDateFormat(formRecords);
     return next();
     // return res.json(formRecords);
   } catch (error) {
@@ -99,8 +103,9 @@ const getCompletedRequests = async (req, res, next) => {
       .skip(skipValue || 0)
       .limit(limitValue || 4)
       .populate("_owner")
+      .lean()
       .exec();
-    req.completedRequests = formRecords;
+    req.completedRequests = changeDateFormat(formRecords);
     return next();
     // return res.json(formRecords);
   } catch (error) {
@@ -122,8 +127,9 @@ const getDispatchedRequests = async (req, res, next) => {
       .skip(skipValue || 0)
       .limit(limitValue || 4)
       .populate("_owner")
+      .lean()
       .exec();
-    req.dispatchedRequests = formRecords;
+    req.dispatchedRequests = changeDateFormat(formRecords);
     return next();
     // return res.json(formRecords);
   } catch (error) {
