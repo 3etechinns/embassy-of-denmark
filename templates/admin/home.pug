@@ -31,7 +31,7 @@ html(lang="en")
           li.nav-item
             a.nav-link(href="/admin/support")
               i.fa.fa-comments-o
-              span.clearfix.d-none.d-sm-inline-block support
+              span.clearfix.d-none.d-sm-inline-block Support
           li.nav-item
             a.nav-link(href="/admin/settings")
               i.fa.fa-gear
@@ -40,94 +40,7 @@ html(lang="en")
             a.nav-link(href="/logout")
               i.fa.fa-power-off
       // /.Navbar
-      // Sidebar navigation
-      #slide-out.side-nav.fixed(style="background: url(/img/logo.png) no-repeat;\
-      background-position: center center;\
-      background-size: cover;\
-      background-attachment: fixed;\
-      background-color: black;")
-        ul.custom-scrollbar.list-unstyled
-          // Logo
-          li.logo-sn.waves-effect
-            .text-center
-              a.pl-0(href="#")
-                img(src="/img/logo.png")
-          // /. Logo
-          // Search Form
-          li
-            form.search-form(role="search")
-              .form-group.waves-light
-                input.form-control(type="text" placeholder="Search")
-          // /.Search Form
-          // Side navigation links
-          li
-            ul.collapsible.collapsible-accordion
-              li
-                a.waves-effect.arrow-r(href="/admin")
-                  | Dashboard
-              hr(style="margin: 10px 0px;")
-              li
-                a.collapsible-header.waves-effect.arrow-r
-                  | Transaction Pipeline
-                  i.fa.fa-angle-down.rotate-icon
-                .collapsible-body
-                  ul
-                    li
-                      a.waves-effect(href="/admin/transaction") All
-                    li
-                      a.waves-effect(href="/admin/transaction") New Requests
-                    li
-                      a.waves-effect(href="/admin/transaction") Under Processing
-                    li
-                      a.waves-effect(href="/admin/transaction") Completed Requests
-                    li
-                      a.waves-effect(href="/admin/transaction") Dispatched Requests
-              hr(style="margin: 10px 0px;")
-              li
-                a.waves-effect.arrow-r(href="/admin/user_search")
-                  | User Search & Reporting
-              hr(style="margin: 10px 0px;")
-              li
-                a.waves-effect.arrow-r(href="/admin/embassy_requests")
-                  | Inter-Embassy Requests
-              hr(style="margin: 10px 0px;")
-              li
-                a.collapsible-header.waves-effect.arrow-r
-                  | Live Chat
-                  i.fa.fa-angle-down.rotate-icon
-                .collapsible-body
-                  ul
-                    li
-                      a.waves-effect(href="#") FAQ
-                    li
-                      a.waves-effect(href="support.html") Write to support
-                    li
-                      a.waves-effect(href="#") Chat with a colleague
-                    li
-                      a.waves-effect(href="#") Chat with other Embassies
-              hr(style="margin: 10px 0px;")
-              li
-                a.collapsible-header.waves-effect.arrow-r
-                  | Settings
-                  i.fa.fa-angle-down.rotate-icon
-                .collapsible-body
-                  ul
-                    li
-                      a.waves-effect(href="#") Access Rights
-                    li
-                      a.waves-effect(href="#") User log
-                    li
-                      a.waves-effect(href="#") Currency
-                    li
-                      a.waves-effect(href="#") Bank/Card details
-                    li
-                      a.waves-effect(href="#") Embassy Profile
-                    li
-                      a.waves-effect(href="#") Staff
-          // /. Side navigation links
-        // Mask
-        .sidenav-bg.mask-strong
-      // /. Sidebar navigation
+      include sidebar.pug
     // Main Navigation
     // Main layout
     main(style="margin: 0%;")
@@ -161,7 +74,7 @@ html(lang="en")
                     p.heading Are you sure?
                   // Body
                   .modal-body
-                    p You can't Undo once this item is deleted
+                    p You can't undo once this item is deleted
                   // Footer
                   .modal-footer.flex-center
                     a.btn.btn-outline-secondary-modal(style="color: black !important;") Yes
@@ -261,7 +174,7 @@ html(lang="en")
                     .custom-select(style="width: 50%;")
                       select
                         option(value="" disabled="" selected="") show all
-                        option(value="0") show all
+                        option(value="0") Show All
                         option(value="1") Processed
                         option(value="2") Pending
                         option(value="3") Last 7 days
@@ -282,19 +195,19 @@ html(lang="en")
                         th.th-lg Date Applied
                         th.th-lg Status
                         th.th-lg 
-                    tbody
-                    for formRecord in formRecords
-                      tr
-                        th(scope="row")
-                          input#checkbox1(type="checkbox")
-                          label.label-table(for="checkbox1")
-                        td #{formRecord.formType}
-                        td #{formRecord._owner.email}
-                        td #{formRecord.createdAt}
-                        td #{formRecord.status}
-                        td.actions-button
-                          a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
-                            img.icon(src="/img/eye.svg")
+                    tbody#forms(data-forms=formRecords)
+                      for formRecord, index in formRecords
+                        tr
+                          th(scope="row")
+                            input(type="checkbox" id=`checkbox${index}`)
+                            label.label-table(for=`checkbox${index}`)
+                          td #{formRecord.formType}
+                          td #{formRecord._owner.email}
+                          td #{formRecord.createdAt}
+                          td #{formRecord.status}
+                          td.actions-button
+                            a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
+                              img.icon(src="/img/eye.svg")
                   if !formRecords.length
                     .alert.alert-danger.text-center(role="alert") No Form records yet in our Database
                 hr.my-0
@@ -303,40 +216,40 @@ html(lang="en")
                   // Name
                   .row
                     .col-md-4.custom-select.my-4.mx-3(style="width: 100%;")
-                      select.my-4
-                        option(value="0" disabled="") Rows number
-                        option(value="1" selected="") 10 rows
-                        option(value="2") 25 rows
-                        option(value="3") 50 rows
-                        option(value="4") 100 rows
-                        option(value="4") all
+                      select#numberOfRows.my-4
+                        option(value="5") 5 rows
+                        option(value="10") 10 rows
+                        option(value="20") 20 rows
+                        option(value="50") 50 rows
+                        option(value="100") 100 rows
+                        option(value=formRecords.length) All rows
                     .col-md-5
                       // Pagination
                       nav.my-4
                         ul.pagination.pagination-circle.pg-blue.mb-0
                           // First
-                          li.page-item.disabled
-                            a.page-link First
+                          li.page-item
+                            a#first.page-link First
                           // Arrow left
-                          li.page-item.disabled
-                            a.page-link(aria-label="Previous")
+                          li.page-item
+                            a#previous.page-link(aria-label="Previous")
                               span(aria-hidden="true") «
                               span.sr-only Previous
                           // Numbers
-                          li.page-item.active
+                          li#0.page-item.active
                             a.page-link 1
-                          li.page-item
+                          li#1.page-item
                             a.page-link 2
-                          li.page-item
+                          li#2.page-item
                             a.page-link 3
                           // Arrow right
                           li.page-item
-                            a.page-link(aria-label="Next")
+                            a#next.page-link(aria-label="Next")
                               span(aria-hidden="true") »
                               span.sr-only Next
-                          // First
+                          // Last
                           li.page-item
-                            a.page-link Last
+                            a#last.page-link Last
                       // /Pagination
                 // Bottom Table UI
               // /.Card content
@@ -474,4 +387,126 @@ html(lang="en")
       , zIndex: 2
       , stopper: "#stopper"
       });
+      });
+      //GILBERT'S JAVASCRIPT
+    script.
+      var currentPage = 0;
+      var numberOfPages = 0;
+      var $numberOfRows = $("#numberOfRows").val();
+
+      function partition(dataSource, dataLimit) {
+        var partitionedData = [];
+        var dataLength = dataSource.length;
+        for (var i = 0; i < dataSource.length; i += dataLimit) {
+          var nArray = [];
+          if (dataLength < dataLimit) {
+            for (var j = dataLength; j > 0; j--) {
+              nArray.push(dataSource[dataSource.length - j]);
+              dataLength--;
+            }
+            partitionedData.push(nArray);
+            break;
+          } else {
+            for (var k = i; k < i + dataLimit; k++) {
+              nArray.push(dataSource[k]);
+              dataLength--;
+            }
+          }
+          partitionedData.push(nArray);
+        }
+        numberOfPages = partitionedData.length ;
+        return partitionedData;
+      }
+
+      function populateForms(arr) {
+        $("#forms").html("");
+        for(var i = 0; i < arr.length; i++) {
+          var $row = $("<tr></tr>");
+          var $thead = $('<th scope="row"></th>');
+          var $input = $("<input type='checkbox'></input>");
+          $($input).attr("id",`checkbox${i}`);
+          var $label = $('<label class="label-tabel"></label>');
+          $($label).attr("for",`checkbox${i}`);
+          $($thead).append($input);
+          $($thead).append($label);
+          var $formType = $(`<td>${arr[i].formType}</td>`);
+          var $email = $(`<td>${arr[i]._owner.email}</td>`);
+          var $createdAt = $(`<td>${arr[i].createdAt}</td>`);
+          var $status = $(`<td>${arr[i].status}</td>`);
+          var $actions = $("<td class='actions-button'></td>");
+          var $link = $("<a title='View Form'></a>");
+          $($link).attr("href",`/admin/view/${arr[i].formId}?type=${arr[i].formType}`);
+          var $img = $("<img class='icon' src='/img/eye.svg'>");
+          $($link).append($img);
+          $($actions).append($link);
+          $($row).append([$thead,$formType,$email,$createdAt,$status,$actions]);
+          $("#forms").append($row);
+        }
+      }
+
+      function runPartitioning(id,limit) {
+        $.get("/api/allForms",(data) => {
+          var partitionedData = partition(data,limit);
+          $(".page-item").removeClass("active");
+          $(".page-item").removeClass("disabled");
+          $(`#${id}`).addClass("active");
+          currentPage = id;
+          populateForms(partitionedData[id]);
+        });
+      }
+
+      function run(id) {
+        $("#last").removeClass("disabled");
+        $("#next").removeClass("disabled");
+        runPartitioning(id,$numberOfRows);
+        if(id === 0) {
+          $("#first").addClass("disabled");
+          $("#previous").addClass("disabled");
+        }
+        else if(id > 0 && id < numberOfPages-1) {
+          $("#first").removeClass("disabled");
+          $("#previous").removeClass("disabled");
+        }
+        else if(id >= numberOfPages-1) {
+          $("#first").removeClass("disabled");
+          $("#previous").removeClass("disabled");
+          $("#last").addClass("disabled");
+          $("#next").addClass("disabled");
+        }
+      }
+
+      run(0);
+
+      $("#numberOfRows").change(() => {
+        console.log("changed");
+      });
+
+      $("#next").click(e => {
+        var id = currentPage + 1;
+        run(id);
+      });
+
+      $("#first").click(e => {
+        run(0);
+      });
+
+      $("#last").click(e => {
+        run(numberOfPages-1);
+      });
+
+      $("#previous").click(e => {
+        var id = currentPage - 1;
+        run(id);
+      });
+      
+      $("#1").click(e => {
+        run(1);
+      });
+
+      $("#0").click(e => {
+        run(0);
+      });
+
+      $("#2").click(e => {
+        run(2);
       });
