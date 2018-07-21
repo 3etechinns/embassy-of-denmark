@@ -38,40 +38,32 @@ const getStatus = status => {
 };
 
 module.exports = app => {
-  app.get(
-    "/admin",
-    getAllRequests,
-    getNewRequests,
-    getProcessingRequests,
-    getCompletedRequests,
-    getDispatchedRequests,
-    (req, res, next) => {
-      let newRequestsCount = 0;
-      let underProcessingRequestsCount = 0;
-      let completedRequestsCount = 0;
-      let dispatchedRequestsCount = 0;
+  app.get("/admin", getAllRequests, (req, res, next) => {
+    let newRequestsCount = 0;
+    let underProcessingRequestsCount = 0;
+    let completedRequestsCount = 0;
+    let dispatchedRequestsCount = 0;
 
-      req.allFormRecords.forEach(form => {
-        if (form.status === PROCESSING_STATUS.newRequests) {
-          newRequestsCount++;
-        } else if (form.status === PROCESSING_STATUS.completedRequests) {
-          completedRequestsCount++;
-        } else if (form.status === PROCESSING_STATUS.dispatchedRequests) {
-          dispatchedRequestsCount++;
-        } else if (form.status === PROCESSING_STATUS.underProcessing) {
-          underProcessingRequestsCount++;
-        }
-      });
+    req.allFormRecords.forEach(form => {
+      if (form.status === PROCESSING_STATUS.newRequests) {
+        newRequestsCount++;
+      } else if (form.status === PROCESSING_STATUS.completedRequests) {
+        completedRequestsCount++;
+      } else if (form.status === PROCESSING_STATUS.dispatchedRequests) {
+        dispatchedRequestsCount++;
+      } else if (form.status === PROCESSING_STATUS.underProcessing) {
+        underProcessingRequestsCount++;
+      }
+    });
 
-      return res.render("admin/home", {
-        formRecords: req.allFormRecords,
-        newRequestsCount,
-        underProcessingRequestsCount,
-        completedRequestsCount,
-        dispatchedRequestsCount
-      });
-    }
-  );
+    return res.render("admin/home", {
+      formRecords: req.allFormRecords,
+      newRequestsCount,
+      underProcessingRequestsCount,
+      completedRequestsCount,
+      dispatchedRequestsCount
+    });
+  });
 
   app.post("/admin/update/:formId", async (req, res, next) => {
     try {

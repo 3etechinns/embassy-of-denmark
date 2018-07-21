@@ -6,8 +6,8 @@ const {
 } = require("../controllers/mainController");
 
 module.exports = app => {
-  app.get("/", requireLogout, (req, res, next) => {
-    return res.render("register");
+  app.get("/", (req, res, next) => {
+    return res.render("landing");
   });
 
   app.get("/profile", requireLogin, getProfile);

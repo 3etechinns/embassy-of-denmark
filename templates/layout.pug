@@ -6,6 +6,7 @@ html(lang="en")
     title Document
     link(rel="stylesheet", href="/css/bootstrap.min.css")
     link(rel="stylesheet", href="/css/styles.css")
+    block styles
   if userId
     link(rel="stylesheet", href="/css/profile.css")
   body
@@ -31,7 +32,7 @@ html(lang="en")
 
       if (signUpTabbedPane) {
         signUpTabbedPane.addEventListener("click", function(e) {
-          location.assign("/");
+          location.assign("/register");
         });
       }
       $().dropdown();

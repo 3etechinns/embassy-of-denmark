@@ -9,7 +9,7 @@ module.exports = app => {
   app.post("/login", requireLogout, logIn);
 
   app.get("/register", requireLogout, (req, res, next) => {
-    return res.redirect("/");
+    return res.render("register");
   });
 
   app.post("/register", requireLogout, createUser);
