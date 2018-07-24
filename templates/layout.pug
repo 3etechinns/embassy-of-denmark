@@ -32,7 +32,7 @@ html(lang="en")
 
       if (signUpTabbedPane) {
         signUpTabbedPane.addEventListener("click", function(e) {
-          location.assign("/register");
+          location.assign("/");
         });
       }
       $().dropdown();
@@ -51,4 +51,28 @@ html(lang="en")
             .text(fieldVal);
         }
       });
+    script.
+      if(location.pathname === "/") {
+        $("#home").addClass("active");
+        $("#applications").removeClass("active");
+        $("#dashboard").removeClass("active");
+      }
+
+      if(location.pathname === "/profile" || location.pathname === "/account") {
+        $("#dashboard").addClass("active");
+        $("#applications").removeClass("active");
+        $("#home").removeClass("active");
+      }
+
+      if(location.pathname.includes("forms")) {
+        $("#applications").addClass("active");
+        $("#home").removeClass("active");
+        $("#dashboard").removeClass("active");
+      }
+      if(location.pathname.includes("edit")) {
+        $("#applications").addClass("active");
+        $("#home").removeClass("active");
+        $("#dashboard").removeClass("active");
+      }
+      
   block scripts

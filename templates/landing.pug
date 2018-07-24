@@ -17,17 +17,63 @@ html(lang="en")
             li.nav-item
               a.nav-link.home.active(href="/") Home
             li.nav-item
-              a.nav-link(href="/forms/passport") About
+              a.nav-link(href="#") About
             li.nav-item
-              a.nav-link(href="/forms/passport") FAQs
+              a.nav-link(href="#") FAQs
         button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
             span.navbar-toggler-icon
     .main-content
       h1.display-1.my-4.text-center iEmbassy
       h5.text-center.text-muted A cloud based online embassy management system
       .select.text-center.my-5
-        a.btn.btn-outline-success.mx-2(href="/register") Create Account
-        a.btn.btn-primary.mx-2(href="/login") &nbsp &nbsp &nbsp Sign in &nbsp &nbsp &nbsp
+        button.btn.btn-outline-success.mx-2(type="button" data-toggle="modal" data-target="#createAccount") Create Account
+        .modal.fade(id='createAccount' tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+          .modal-dialog(role='document')
+            .modal-content
+              .modal-header
+                img.header-img(src="/img/logo.png")
+                h5#exampleModalLabel.modal-title.m-3 Create Your Embassy Account
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                  span(aria-hidden='true') ×
+              .modal-body
+                form(action="/register" method="POST")
+                  .form-group
+                    label(for="email") Email
+                    label.star *
+                    input(class="form-control" placeholder="Email : " id="email" type="text" name="email" data-toggle="tooltip" title="show tooltip")
+                  .form-group
+                    label(for="password") Password
+                    label.star *
+                    input(class="form-control" placeholder="Password : " id="password" type="password" name="password")
+                  .form-group
+                    label(for="confirmPassword") Confirm Password
+                    label.star *
+                    input(class="form-control" placeholder="Confirm Password : " id="confirmPassword" type="password" name="confirmPassword")
+                  button(class="btn btn-primary btn-lg btn-block my-4" type="submit") Create Account
+                  //- a.account-status(href="/register") ave no account? Sign Up!
+              //- .modal-footer
+                button.btn.btn-success(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-danger.confirm-delete(type='button') Delete
+        button.btn.btn-outline-primary.mx-2(type="button" data-toggle="modal" data-target="#signin") &nbsp &nbsp &nbsp Sign in &nbsp &nbsp &nbsp
+        .modal.fade(id='signin' tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+          .modal-dialog(role='document')
+            .modal-content
+              .modal-header
+                img.header-img(src="/img/logo.png")
+                h5#exampleModalLabel.modal-title.m-3 Sign in to your account
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                  span(aria-hidden='true') ×
+              .modal-body
+                form(action="/login" method="POST")
+                  .form-group
+                    label(for="email") Email
+                    label.star *
+                    input(class="form-control" placeholder="Email : " id="email" type="text" name="email" data-toggle="tooltip" title="show tooltip")
+                  .form-group
+                    label(for="password") Password
+                    label.star *
+                    input(class="form-control" placeholder="Password : " id="password" type="password" name="password")
+                  button(class="btn btn-primary btn-lg btn-block my-4" type="submit") Sign in
       .carousel-content
         #carouselExampleIndicators.carousel.slide(data-ride="carousel")
           ol.carousel-indicators
@@ -41,8 +87,8 @@ html(lang="en")
               img.carousel-img.d-block.w-100(src="/img/pexels-photo-905873.jpeg" alt="First slide")
             .carousel-item
               img.carousel-img.d-block.w-100(src="/img/ba.jpg" alt="Second slide")
-            .carousel-item
-              img.carousel-img.d-block.w-100(src="/img/landing2.jpg" alt="Second slide")
+            //- .carousel-item
+            //-   img.carousel-img.d-block.w-100(src="/img/landing2.jpg" alt="Second slide")
           a.carousel-control-prev(href="#carouselExampleIndicators" role="button" data-slide="prev")
             span.carousel-control-prev-icon(aria-hidden="true")
             span.sr-only Previous
@@ -52,4 +98,5 @@ html(lang="en")
     .main-footer.text-muted
         footer Copyright &copy; 2018 iEmbassy: Subsidiary of 3E-Technologies & Innovations. All rights reserved.
     script(src="/js/jquery.min.js")
+    script(src="/js/popper.min.js")
     script(src="/js/bootstrap.min.js")

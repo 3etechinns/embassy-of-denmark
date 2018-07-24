@@ -3,7 +3,13 @@
 }
 
 body {
-  background: #ecf0f5 !important;
+  /* background: #ecf0f5 !important; */
+  background: url("/img/zachary-nelson-192289.jpg");
+  /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
+  /* background: url("/img/danes.jpg"); */
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
   position: relative;
 }
 
@@ -16,6 +22,7 @@ body {
   display: flex;
   margin: 0 auto;
   flex-direction: column;
+  /* background-color: #fff; */
 }
 
 .main-content {
@@ -47,6 +54,13 @@ body {
   align-items: center;
 }
 
+.table {
+  border: 1px solid rgba(0, 0, 0, .125) !important;
+  box-shadow: 7px 7px 7px #44424246 !important;
+  border-radius: .25rem !important;
+  background-clip: border-box !important;
+}
+
 .avatar {
   width: 40px;
 }
@@ -57,24 +71,36 @@ body {
 
 .header {
   width: 100%;
-  border-bottom: 1px solid #dbe2e8;
+  background-color: #fff;
+  /* border-bottom: 1px solid #dbe2e8; */
+  border: 1px solid rgba(0, 0, 0, .125) !important;
+  box-shadow: 7px 7px 7px #44424246 !important;
+  /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
   position: fixed;
   z-index: 100;
+  /* box-shadow: 2px 3px 7px 2px rgba(92,92,92,0.51);
+  -webkit-box-shadow: 2px 3px 7px 2px rgba(92,92,92,0.51);
+  -moz-box-shadow: 2px 3px 7px 2px rgba(92,92,92,0.51); */
 }
 
 form {
   background: #fff;
+  /* box-shadow: 7px 7px 7px #44424246; */
 }
 
 .passport-form form {
   padding: 15px;
   border-top: 3px solid #d2d6de; 
-  border-radius: 4px;
-  box-shadow: 2px 2px 7px 0px rgba(0,0,0,0.35);
+  border: 1px solid rgba(0, 0, 0, .125) !important;
+  box-shadow: 7px 7px 7px #44424246 !important;
+  border-radius: .25rem !important;
+  background-clip: border-box !important;
+  /* border-radius: 4px;
+  box-shadow: 2px 2px 7px 0px rgba(0,0,0,0.35); */
 }
 
 .register-form form, .login-form form {
-  border: 1px solid #dbe2e8;
+  /* border: 1px solid #dbe2e8; */
   width: 80%;
   box-shadow: 2px 2px 3px 0 rgba(117, 124, 129, 0.12);
   margin: 40px auto;
@@ -101,8 +127,8 @@ form {
 }
 
 .sign-in, .sign-up {
-  border-bottom: 1px solid #dbe2e8;
-  background: #fafbfc;
+  /* border-bottom: 1px solid #dbe2e8; */
+  /* background: #fafbfc; */
   font-weight: 600;
   margin-right: auto;
   color: #7d97ad;
@@ -119,13 +145,19 @@ form {
 
 .tabbed-pane {
   cursor: pointer;
+  /* background: #fff; */
+}
+
+.tabbed-pane .inactive {
+  background-color: #f2f2f2;
 }
 
 .tabbed-pane .active {
-  background: #fff;
+  /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);; */
   border: none;
   color: #2e3d49;
   cursor: auto;
+  border-bottom: #dbe2e8
 }
 
 .tabbed-pane {
@@ -220,7 +252,7 @@ form {
   position: absolute;
   width: 100%;
   bottom: 0;
-  background: #fff;
+  background: #1B1C1D;
   padding: 10px;
   text-align: center;
 }

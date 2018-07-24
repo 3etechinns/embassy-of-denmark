@@ -38,6 +38,34 @@ const getStatus = status => {
 };
 
 module.exports = app => {
+  /**
+   * Make sure these api routes are preceded with a /admin and are wired up with the
+   * requireLogin middleware
+   */
+  app.get("/api/allForms", getAllRequests, (req, res, next) => {
+    return res.json(req.allFormRecords);
+  });
+  app.get("/api/newRequests", getNewRequests, (req, res, next) => {
+    return res.json(req.newRequests);
+  });
+  app.get(
+    "/api/underProcessingRequests",
+    getProcessingRequests,
+    (req, res, next) => {
+      return res.json(req.underProcessing);
+    }
+  );
+  app.get("/api/completedRequests", getCompletedRequests, (req, res, next) => {
+    return res.json(req.completedRequests);
+  });
+  app.get(
+    "/api/dispatchedRequests",
+    getDispatchedRequests,
+    (req, res, next) => {
+      return res.json(req.dispatchedRequests);
+    }
+  );
+
   app.get("/admin", getAllRequests, (req, res, next) => {
     let newRequestsCount = 0;
     let underProcessingRequestsCount = 0;
@@ -83,6 +111,7 @@ module.exports = app => {
 
   app.get("/admin/view/:formId", (req, res, next) => {
     if (req.query.type === "Passport") {
+      console.log(req.form);
       return res.render("admin/viewPassportForm", { form: req.form._doc });
     } else if (req.query.type === "Visa") {
       return res.render("admin/viewVisaForm", { form: req.form._doc });

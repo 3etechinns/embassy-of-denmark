@@ -75,18 +75,18 @@ html(lang="en")
                       th.th-lg Status
                       th.th-lg 
                   tbody#forms(data-forms=formRecords)
-                    for formRecord, index in formRecords
-                      tr
-                        th(scope="row")
-                          input(type="checkbox" id=`checkbox${index}`)
-                          label.label-table(for=`checkbox${index}`)
-                        td #{formRecord.formType}
-                        td #{formRecord._owner.email}
-                        td #{formRecord.createdAt}
-                        td #{formRecord.status}
-                        td.actions-button
-                          a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
-                            img.icon(src="/img/eye.svg")
+                    //- for formRecord, index in formRecords
+                    //-   tr
+                    //-     th(scope="row")
+                    //-       input(type="checkbox" id=`checkbox${index}`)
+                    //-       label.label-table(for=`checkbox${index}`)
+                    //-     td #{formRecord.formType}
+                    //-     td #{formRecord._owner.email}
+                    //-     td #{formRecord.createdAt}
+                    //-     td #{formRecord.status}
+                    //-     td.actions-button
+                    //-       a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
+                    //-         img.icon(src="/img/eye.svg")
                 if !formRecords.length
                   .alert.alert-danger.text-center(role="alert") No Form records in our Database yet
               hr.my-0
@@ -187,60 +187,60 @@ html(lang="en")
       $(function () {
       $('[data-toggle="tooltip"]').tooltip()
       })
-    // Charts
-    script.
-      // Minimalist chart
-      $(function () {
-      $('.min-chart#chart-revenue').easyPieChart({
-      barColor: "#4caf50",
-      onStep: function (from, to, percent) {
-      $(this.el).find('.percent').text(Math.round(percent));
-      }
-      });
-      });
+    //- // Charts
+    //- script.
+    //-   // Minimalist chart
+    //-   $(function () {
+    //-   $('.min-chart#chart-revenue').easyPieChart({
+    //-   barColor: "#4caf50",
+    //-   onStep: function (from, to, percent) {
+    //-   $(this.el).find('.percent').text(Math.round(percent));
+    //-   }
+    //-   });
+    //-   });
       // Main chart
-      var ctxL = document.getElementById("lineChart").getContext('2d');
-      var myLineChart = new Chart(ctxL, {
-      type: 'line',
-      data: {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      datasets: [{
-      label: "Revenue Graph",
-      fillColor: "#fff",
-      backgroundColor: 'rgba(255, 255, 255, .3)',
-      borderColor: 'rgba(255, 99, 132)',
-      data: [0, 10, 5, 2, 20, 30, 45],
-      }]
-      },
-      options: {
-      legend: {
-      labels: {
-      fontColor: "#fff",
-      }
-      },
-      scales: {
-      xAxes: [{
-      gridLines: {
-      display: true,
-      color: "rgba(255,255,255,.25)"
-      },
-      ticks: {
-      fontColor: "#fff",
-      },
-      }],
-      yAxes: [{
-      display: true,
-      gridLines: {
-      display: true,
-      color: "rgba(255,255,255,.25)"
-      },
-      ticks: {
-      fontColor: "#fff",
-      },
-      }],
-      }
-      }
-      });
+      //- var ctxL = document.getElementById("lineChart").getContext('2d');
+      //- var myLineChart = new Chart(ctxL, {
+      //- type: 'line',
+      //- data: {
+      //- labels: ["January", "February", "March", "April", "May", "June", "July"],
+      //- datasets: [{
+      //- label: "Revenue Graph",
+      //- fillColor: "#fff",
+      //- backgroundColor: 'rgba(255, 255, 255, .3)',
+      //- borderColor: 'rgba(255, 99, 132)',
+      //- data: [0, 10, 5, 2, 20, 30, 45],
+      //- }]
+      //- },
+      //- options: {
+      //- legend: {
+      //- labels: {
+      //- fontColor: "#fff",
+      //- }
+      //- },
+      //- scales: {
+      //- xAxes: [{
+      //- gridLines: {
+      //- display: true,
+      //- color: "rgba(255,255,255,.25)"
+      //- },
+      //- ticks: {
+      //- fontColor: "#fff",
+      //- },
+      //- }],
+      //- yAxes: [{
+      //- display: true,
+      //- gridLines: {
+      //- display: true,
+      //- color: "rgba(255,255,255,.25)"
+      //- },
+      //- ticks: {
+      //- fontColor: "#fff",
+      //- },
+      //- }],
+      //- }
+      //- }
+      //- });
     // Alerts
     script.
       $(function () {
@@ -323,8 +323,8 @@ html(lang="en")
         }
       }
 
-      function runPartitioning(id,limit) {
-        $.get("/api/allForms",(data) => {
+      function runPartitioning(id,limit,formStatus) {
+        $.get(`/api/${formStatus}`,(data) => {
           var partitionedData = partition(data,limit);
           $(".page-item").removeClass("active");
           $(".page-item").removeClass("disabled");
@@ -334,10 +334,20 @@ html(lang="en")
         });
       }
 
-      function run(id) {
+      function run(id,formStatus) {
         $("#last").removeClass("disabled");
         $("#next").removeClass("disabled");
-        runPartitioning(id,$numberOfRows);
+        $("#1").removeClass("disabled");
+        $("#2").removeClass("disabled");
+        runPartitioning(id,$numberOfRows,formStatus);
+        console.log(numberOfPages);
+        if(numberOfPages < 2) {
+          $("#1").addClass("disabled");
+          $("#2").addClass("disabled");
+        }
+        if(numberOfPages < 3) {
+          $("#2").addClass("disabled");
+        }
         if(id === 0) {
           $("#first").addClass("disabled");
           $("#previous").addClass("disabled");
@@ -354,7 +364,25 @@ html(lang="en")
         }
       }
 
-      run(0);
+      function final(id) {
+        if(location.pathname === "/admin/transaction/all_requests") {
+          run(id,"allForms");
+        }
+        if(location.pathname === "/admin/transaction/new_requests") {
+          run(id,"newRequests");
+        }
+        if(location.pathname === "/admin/transaction/under_processing_requests") {
+          run(id,"underProcessingRequests");
+        }
+        if(location.pathname === "/admin/transaction/completed_requests") {
+          run(id,"completedRequests");
+        }
+        if(location.pathname === "/admin/transaction/dispatched_requests") {
+          run(id,"dispatchedRequests");
+        }
+      }
+
+      final(0);
 
       $("#numberOfRows").change(() => {
         console.log("changed");
@@ -362,30 +390,30 @@ html(lang="en")
 
       $("#next").click(e => {
         var id = currentPage + 1;
-        run(id);
+        final(id);
       });
 
       $("#first").click(e => {
-        run(0);
+        final(0);
       });
 
       $("#last").click(e => {
-        run(numberOfPages-1);
+        final(numberOfPages-1);
       });
 
       $("#previous").click(e => {
         var id = currentPage - 1;
-        run(id);
+        final(id);
       });
       
       $("#1").click(e => {
-        run(1);
+        final(1);
       });
 
       $("#0").click(e => {
-        run(0);
+        final(0);
       });
 
       $("#2").click(e => {
-        run(2);
+        final(2);
       });

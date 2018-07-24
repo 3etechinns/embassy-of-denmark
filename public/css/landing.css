@@ -54,3 +54,12 @@ body {
   margin: 30px auto;
 }
 
+.star {
+  color: rgba(245, 45, 45, 0.986);
+}
+
+/* .modal-content {
+  background-color: #ece9e946 !important;
+  box-shadow: 7px 7px 7px #44424246 !important;
+} */
+
