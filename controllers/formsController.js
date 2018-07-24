@@ -127,12 +127,7 @@ const createPassportForm = async (req, res, next) => {
         guarantorsAddress: req.body.guarantorsAddress1,
         guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber1,
         guarantorsSignature: req.files["guarantorsSignature1"]
-          ? path.resolve(
-              __dirname,
-              "..",
-              "store",
-              req.files["guarantorsSignature1"][0].filename
-            )
+          ? req.files["guarantorsSignature1"][0].path
           : undefined
       },
       {
@@ -140,12 +135,7 @@ const createPassportForm = async (req, res, next) => {
         guarantorsAddress: req.body.guarantorsAddress2,
         guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber2,
         guarantorsSignature: req.files["guarantorsSignature2"]
-          ? path.resolve(
-              __dirname,
-              "..",
-              "store",
-              req.files["guarantorsSignature2"][0].filename
-            )
+          ? req.files["guarantorsSignature2"][0].path
           : undefined
       }
     ];
@@ -163,36 +153,16 @@ const createPassportForm = async (req, res, next) => {
 
     const signatures = {
       interpretersSignature: req.files["interpretersSignature"]
-        ? path.resolve(
-            __dirname,
-            "..",
-            "store",
-            req.files["interpretersSignature"][0].filename
-          )
+        ? req.files["interpretersSignature"][0].path
         : undefined,
       parentalConsentSignature: req.files["parentalConsentSignature"]
-        ? path.resolve(
-            __dirname,
-            "..",
-            "store",
-            req.files["parentalConsentSignature"][0].filename
-          )
+        ? req.files["parentalConsentSignature"][0].path
         : undefined,
       declarationSignature: req.files["declarationSignature"]
-        ? path.resolve(
-            __dirname,
-            "..",
-            "store",
-            req.files["declarationSignature"][0].filename
-          )
+        ? req.files["declarationSignature"][0].path
         : undefined,
       witnessSignature: req.files["witnessSignature"]
-        ? path.resolve(
-            __dirname,
-            "..",
-            "store",
-            req.files["witnessSignature"][0].filename
-          )
+        ? req.files["witnessSignature"][0].path
         : undefined
     };
 
@@ -306,12 +276,38 @@ const editForm = (req, res, next) => {
 
 const updateForm = async (req, res, next) => {
   try {
+    const nonCompulsoryFields = [
+      "languageInterpretedIn",
+      "interpreterName",
+      "interpreterAddress",
+      "interpreterTelephoneNumber",
+      "interpretationDate"
+    ];
+
+    const fileFields = [
+      "guarantorsSignature1",
+      "guarantorsSignature2",
+      "interpretersSignature",
+      "parentalConsentSignature",
+      "declarationSignature",
+      "witnessSignature"
+    ];
+
+    // for setting properties on the request body that have values of a file
+    console.log(req.files);
+    for (prop in req.body) {
+      if (fileFields.includes(req.body[prop])) {
+        req.body[prop] = req.files[prop] ? req.files[prop][0].path : "";
+        console.log(req.body[prop]);
+      }
+    }
+
     // This side is to ensure that all fields are filled before setting the isComplete
     // property on the form record to true
     if (req.query.aim !== "continue-later") {
       const unfilled = [];
       for (prop in req.body) {
-        if (!req.body[prop].trim()) {
+        if (!req.body[prop].trim() && !nonCompulsoryFields.includes(prop)) {
           unfilled.push(prop);
         }
       }
@@ -334,6 +330,7 @@ const updateForm = async (req, res, next) => {
       const form = await FormRecord.findById(req.query.formRecordId);
     }
 
+    // for handling update of passport form
     const guarantors = [
       {
         guarantorsName: req.body.guarantorsName1,
@@ -349,6 +346,7 @@ const updateForm = async (req, res, next) => {
       }
     ];
 
+    // for handling update of visa form
     const references = [
       {
         fullName: req.body.guarantorsName1,
@@ -369,10 +367,9 @@ const updateForm = async (req, res, next) => {
         { _id: req.form._id },
         { ...req.body, guarantors, references },
         { new: true }
-      )
-      .lean()
-      .exec();
+      );
 
+    console.log(updateInfo);
     return res.redirect("/profile");
   } catch (error) {
     console.log(error);

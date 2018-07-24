@@ -25,7 +25,14 @@ block main
             td #{formRecord.createdAt}
             td #{formRecord.updatedAt}
             td
-              img.icon.processing-status-icon(src="/img/circle.svg")
+              if formRecord.status === "New Request"
+                img.icon.processing-status-icon(src="/img/circle-red.svg")
+              else if formRecord.status === "Completed Request"
+                img.icon.processing-status-icon(src="/img/circle-green.svg")
+              else if formRecord.status === "Dispatched Request"
+                img.icon.processing-status-icon(src="/img/check.svg")
+              else
+                img.icon.processing-status-icon(src="/img/circle-yellow.svg")
               | #{formRecord.status}
             td
               if formRecord.paymentId

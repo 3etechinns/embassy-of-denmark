@@ -45,7 +45,7 @@ module.exports = app => {
 
   app.get("/edit/:formId", requireLogin, editForm);
 
-  app.post("/update/:formId", requireLogin, updateForm);
+  app.post("/update/:formId", requireLogin, cpUpload, updateForm);
 
   app.get("/delete/:formRecordId", requireLogin, deleteForm);
 
