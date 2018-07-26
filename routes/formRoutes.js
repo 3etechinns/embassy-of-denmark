@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const multer = require("multer");
 const { requireLogin, handlePayment } = require("../middleware");
 const {
@@ -15,6 +16,14 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}${path.extname(file.originalname)}`);
   },
   destination: (req, file, cb) => {
+    const dir = path.resolve(__dirname, "..", "store");
+
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+      console.log("created directory store");
+    } else {
+      console.log("directory already exists");
+    }
     cb(null, path.resolve(__dirname, "..", "store"));
   }
 });
