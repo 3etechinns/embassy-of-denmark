@@ -3,3 +3,4 @@ testing.json
 .env
 credentials.txt
 store/*
+issues.txt
