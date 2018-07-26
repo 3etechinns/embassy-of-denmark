@@ -26,7 +26,7 @@ html(lang="en")
       h1.display-1.my-4.text-center iEmbassy
       h5.text-center.text-muted A cloud based online embassy management system
       .select.text-center.my-5
-        button.btn.btn-outline-success.mx-2(type="button" data-toggle="modal" data-target="#createAccount") Create Account
+        button.btn.btn-success.mx-2(type="button" data-toggle="modal" data-target="#createAccount") Create Account
         .modal.fade(id='createAccount' tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
           .modal-dialog(role='document')
             .modal-content
@@ -36,19 +36,23 @@ html(lang="en")
                 button.close(type='button', data-dismiss='modal', aria-label='Close')
                   span(aria-hidden='true') ×
               .modal-body
-                form(action="/register" method="POST")
+                form(action="/create-profile" method="POST")
+                  .form-group
+                    label(for="fullName") Full name
+                    label.star *
+                    input(required class="form-control" placeholder="Full name : " id="fullName" type="text" name="fullName" data-toggle="tooltip")
                   .form-group
                     label(for="email") Email
                     label.star *
-                    input(class="form-control" placeholder="Email : " id="email" type="text" name="email" data-toggle="tooltip" title="show tooltip")
+                    input(required class="form-control" placeholder="Email : " id="email" type="text" name="email" data-toggle="tooltip" )
                   .form-group
                     label(for="password") Password
                     label.star *
-                    input(class="form-control" placeholder="Password : " id="password" type="password" name="password")
+                    input(required class="form-control" placeholder="Password : " id="password" type="password" name="password")
                   .form-group
                     label(for="confirmPassword") Confirm Password
                     label.star *
-                    input(class="form-control" placeholder="Confirm Password : " id="confirmPassword" type="password" name="confirmPassword")
+                    input(required class="form-control" placeholder="Confirm Password : " id="confirmPassword" type="password" name="confirmPassword")
                   button(class="btn btn-primary btn-lg btn-block my-4" type="submit") Create Account
                   //- a.account-status(href="/register") ave no account? Sign Up!
               //- .modal-footer
@@ -68,11 +72,11 @@ html(lang="en")
                   .form-group
                     label(for="email") Email
                     label.star *
-                    input(class="form-control" placeholder="Email : " id="email" type="text" name="email" data-toggle="tooltip" title="show tooltip")
+                    input(required class="form-control" placeholder="Email : " id="login-email" type="text" name="email" )
                   .form-group
                     label(for="password") Password
                     label.star *
-                    input(class="form-control" placeholder="Password : " id="password" type="password" name="password")
+                    input(required class="form-control" placeholder="Password : " id="login-password" type="password" name="password")
                   button(class="btn btn-primary btn-lg btn-block my-4" type="submit") Sign in
       .carousel-content
         #carouselExampleIndicators.carousel.slide(data-ride="carousel")

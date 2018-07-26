@@ -162,7 +162,7 @@ html(lang="en")
                         option(value="3") Last 7 days
                   .col-md-6.my-2
                     form.form-inline
-                      input.form-control.my-0.py-0(type="text" placeholder="Search" style="max-width: 150px;")
+                      input#searchForm.form-control.my-0.py-0(type="text" placeholder="Search" style="max-width: 150px;")
                       button.btn.btn-sm.btn-info.ml-2.px-2
                         i.fa.fa-search
                 .table-responsive
@@ -178,18 +178,18 @@ html(lang="en")
                         th.th-lg Status
                         th.th-lg 
                     tbody#forms(data-forms=formRecords)
-                      for formRecord, index in formRecords
-                        tr
-                          th(scope="row")
-                            input(type="checkbox" id=`checkbox${index}`)
-                            label.label-table(for=`checkbox${index}`)
-                          td #{formRecord.formType}
-                          td #{formRecord._owner.email}
-                          td #{formRecord.createdAt}
-                          td #{formRecord.status}
-                          td.actions-button
-                            a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
-                              img.icon(src="/img/eye.svg")
+                      //- for formRecord, index in formRecords
+                      //-   tr
+                      //-     th(scope="row")
+                      //-       input(type="checkbox" id=`checkbox${index}`)
+                      //-       label.label-table(for=`checkbox${index}`)
+                      //-     td #{formRecord.formType}
+                      //-     td #{formRecord._owner.email}
+                      //-     td #{formRecord.createdAt}
+                      //-     td #{formRecord.status}
+                      //-     td.actions-button
+                      //-       a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
+                      //-         img.icon(src="/img/eye.svg")
                   if !formRecords.length
                     .alert.alert-danger.text-center(role="alert") No Form records yet in our Database
                 hr.my-0
@@ -237,12 +237,19 @@ html(lang="en")
               // /.Card content
             // /.Card
           // Section: Table
-        //- .col-md-3
+        //- .col-md-6.my-2
         //-   .sticky
-        //-     .list-group
-        //-       a.list-group-item.active.waves-effect(href="#")
-        //-         | User Search and Reporting
-        //-       a.list-group-item.list-group-item-action.waves-effect(href="#") data
+        .col-md-3
+          .sticky
+            form.my-2.md-6.form-inline
+              input#searchUser.form-control.my-0.py-0(type="text" placeholder="Search" style="max-width: 150px;")
+              button.btn.btn-sm.btn-info.ml-2.px-2
+                i.fa.fa-search
+            .list-group
+              h6.list-group-item.active.waves-effect(style="background: DodgerBlue; border:none; color: white;")
+                | User Search and Reporting
+              each user in users
+                a.user.list-group-item.list-group-item-action.waves-effect(href=`admin/users/${user._id}/profile`) #{user.fullName || "Mark Manson"} 
       #stopper.pb-2
     // Main layout
     // Footer
@@ -491,4 +498,42 @@ html(lang="en")
 
       $("#2").click(e => {
         run(2);
+      });
+
+      var tableRows = $("#forms > tr");
+      console.log($("#forms > tr"));
+      function searchUser(rows,input,searchPosition) {
+        $(rows).each((index,row) => {
+          console.log(row);
+          var tdName = $($(row).children()[searchPosition]).text();
+          //- var tdEmail = $($(row).children()[5]).text();
+          var name = tdName.toLowerCase();
+          //- var email = tdEmail.toLowerCase();
+          $(row).css({"background-color":"#fff"});
+          if(input !== "" && (name.includes(input.toLowerCase()))) {
+            console.log("searching for a member");
+            $(row).css({"background-color":"#efefef"});
+            row.scrollIntoView();
+          }
+        });
+      }
+
+      $("#searchForm").keyup(e => {
+        console.log("changed");
+        searchUser(tableRows,$("searchForm").val(),2);
+      });
+      
+      //- var searchData = $("#searchBox").val();
+      $("#searchUser").keyup(e => {
+        e.preventDefault();
+        $(".user").each((index,user) => {
+          var name = $(user).text().toLowerCase();
+          var input = $("#searchUser").val().toLowerCase();
+          $(user).css({"background-color":"#fff"});
+          if(input !== "" && name.includes(input)) {
+            console.log("searching for a member");
+            $(user).css({"background-color":"#efefef"});
+            user.scrollIntoView();
+          }
+        })
       });

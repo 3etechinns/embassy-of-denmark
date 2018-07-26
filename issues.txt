@@ -1,2 +1,2 @@
-Pre population issues (Passport):
-  gender
+Make sure these api routes are preceded with a /admin and are wired up with the
+ requireLogin middleware

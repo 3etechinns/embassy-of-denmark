@@ -1,6 +1,6 @@
-const path = require("path");
 const mongoose = require("mongoose");
 const FormRecord = mongoose.model("FormRecord");
+const User = mongoose.model("User");
 const FeedBack = mongoose.model("FeedBack");
 const {
   getNewRequests,
@@ -67,7 +67,7 @@ module.exports = app => {
     }
   );
 
-  app.get("/admin", getAllRequests, (req, res, next) => {
+  app.get("/admin", getAllRequests, async (req, res, next) => {
     let newRequestsCount = 0;
     let underProcessingRequestsCount = 0;
     let completedRequestsCount = 0;
@@ -85,7 +85,10 @@ module.exports = app => {
       }
     });
 
+    const users = await User.find();
+
     return res.render("admin/home", {
+      users,
       formRecords: req.allFormRecords,
       newRequestsCount,
       underProcessingRequestsCount,
@@ -110,6 +113,22 @@ module.exports = app => {
     }
   });
 
+  app.post("/admin/verify/:userId", async (req, res, next) => {
+    try {
+      const status = req.query.verification;
+
+      // update where formId === formId and to a status of status
+      const updateMessage = await User.update(
+        { _id: req.params.userId },
+        { verificationStatus: status }
+      );
+
+      return res.redirect("/admin");
+    } catch (error) {
+      return next(error);
+    }
+  });
+
   app.get("/admin/view/:formId", (req, res, next) => {
     if (req.query.type === "Passport") {
       console.log(req.form);
@@ -119,6 +138,18 @@ module.exports = app => {
     } else {
       const err = new Error("invalid request type");
       return next(err);
+    }
+  });
+
+  app.get("/admin/users/:userId/profile", async (req, res, next) => {
+    try {
+      const user = await User.findById(req.params.userId);
+      if (!user) {
+        return util.error("User not found");
+      }
+      return res.render("admin/userProfile", { user });
+    } catch (error) {
+      return next(error);
     }
   });
 

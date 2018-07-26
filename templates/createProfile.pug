@@ -1,0 +1,139 @@
+extends ./layout.pug
+
+block main
+  .container.main-content.passport
+    h5.display-5.my-4 Create Profile
+    .passport-form  
+      form(name="passport" method="post" action="/register")
+        div.text-center(class="alert alert-secondary" role="alert") ONE LAST THING. Please help us get a profile of you.
+        .form-section
+          p.form-section-name Identity Information
+          .row
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="fullName") Full Name
+              label.form-label.star *
+              input.form-control.form-control-sm(required type="text" id="fullName" placeholder="Full Name" value=fullName name="fullName")
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="gender" id="gender") Gender
+                label.form-label.star *
+              br
+              .form-check.form-check-inline
+                input.form-check-input.form-control-sm( type="radio" id="male" name="gender" value="Male")
+                label.form-label.form-check-label.form-label Male
+              .form-check.form-check-inline
+                input.form-check-input.form-control-sm( type="radio" id="female" name="gender" value="Female")
+                label.form-label.form-check-label.form-label Female
+          .row
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="dateOfBirth") Date of Birth
+              label.form-label.star *
+              input.form-control.form-control-sm(required type="date" placeholder="Date of Birth" id="dateOfBirth" name="dateOfBirth")
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="nationality") Nationality
+              label.form-label.star *
+              select.form-control.form-control-sm(required name="nationality" id="nationality")
+                option(value="") Please select one....
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="idNumber") ID Number
+              label.form-label.star *
+              input.form-control.form-control-sm(required type="text" placeholder="ID Number" id="idNumber" name="idNumber")
+        .form-section
+          p.form-section-name Contact Information
+          .row
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="email") Email
+              label.form-label.star *
+              input.form-control.form-control-sm(required type="text" value=email placeholder="Email" id="email" name="email")
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="telephoneNumber") Telephone Number
+              label.form-label.star *
+              input.form-control.form-control-sm(required type="text" placeholder="Telephone Number" id="telephoneNumber" name="telephoneNumber")
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="residentialAddress") Residential Address
+              label.form-label.star *
+              input.form-control.form-control-sm(required type="text" placeholder="Residential Address" id="residentialAddress" name="residentialAddress")
+            .col-sm-12.col-lg-5.form-group
+              label.form-label(for="password") Account Password
+              //- label.form-label.star *
+              input.form-control.form-control-sm(required type="password" value=password placeholder="Account Password" id="password" name="password")
+        .form-section
+          p.form-section-name Please provide us with 
+            strong at least 2
+            |  of the following documents
+          .row
+            .form-group.ml-3
+              label.checkbox-inline(for="cbs")
+                input#cbs(type="checkbox", name="cbs")
+                |    3 months bank statement &nbsp &nbsp &nbsp &nbsp
+              label.checkbox-inline(for="crp")
+                input#crp(type="checkbox", name="crp")
+                |    Residence Permit &nbsp &nbsp &nbsp &nbsp
+              label.checkbox-inline(for="csp")
+                input#csp(type="checkbox", name="csp")
+                |    Scanned Passport &nbsp &nbsp &nbsp &nbsp
+          .row
+            .col-sm-12.col-lg-5.form-group
+              label.form-label 3 months bank statement
+              .custom-file
+                input#bs.custom-file-input(type='file' name="bankStatement" enctype="multipart/form-data" )
+                label.form-label.custom-file-label.form-label(for='bs') Choose file
+            .col-sm-12.col-lg-5.form-group
+              label.form-label Residence Permit
+              .custom-file
+                input#rp.custom-file-input(type='file' name="residencePermit" enctype="multipart/form-data" )
+                label.form-label.custom-file-label.form-label(for='rp') Choose file
+            .col-sm-12.col-lg-5.form-group
+              label.form-label Scanned Passport
+              .custom-file
+                input#sp.custom-file-input(type='file' name="scannedPassport" enctype="multipart/form-data" )
+                label.form-label.custom-file-label.form-label(for='sp') Choose file
+        .row.submit-button.submit-passport-form.justify-content-center
+          button#customButton.col-sm-12.col-lg-5.my-2.btn.btn-primary.btn-lg.custom-button(type='submit') Submit
+          //- button#continue-later.col-sm-12.col-lg-5.my-2.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/visa?type=continue-later" formmethod="post") Save and Continue Later
+  script(src="/js/countries.js")  
+  //- script(src="https://checkout.stripe.com/checkout.js")
+  script(src="/js/jquery.min.js")
+  script.
+    $("#home").addClass("active");
+    $("#applications").removeClass("active");
+    $("#dashboard").removeClass("active");
+
+    var nationality = document.querySelector("#nationality");
+    //- var formerNationality = document.querySelector("#formerNationality");
+    //- var currentCountryOfResidence = document.querySelector("#currentCountryOfResidence");
+
+    if (nationality) {
+      countries.forEach(function(country) {
+        appendOptions(nationality, country.name);
+        //- appendOptions(formerNationality, country.name);
+        //- appendOptions(currentCountryOfResidence, country.name);
+      });
+    }
+
+    function appendOptions(parent, value) {
+      var option = document.createElement("option");
+      option.innerHTML = value;
+      parent.appendChild(option);
+    }
+
+    $("#cbs").change(e => {
+      if(e.target.checked) {
+        $("#bs").attr("required",true);
+      } else{
+        $("#bs").attr("required",false);
+      }
+    });
+    $("#crp").change(e => {
+      if(e.target.checked) {
+        $("#rp").attr("required",true);
+      } else{
+        $("#rp").attr("required",false);
+      }
+    });
+    $("#csp").change(e => {
+      if(e.target.checked) {
+        $("#sp").attr("required",true);
+      } else{
+        $("#sp").attr("required",false);
+      }
+    });

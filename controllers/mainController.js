@@ -15,7 +15,7 @@ const getProfile = (req, res, next) => {
       }
 
       if (!formRecords.length) {
-        res.locals.errorMessage = "You don't have any form Records yet";
+        res.locals.errorMessage = "You do not have any form Records yet";
       }
 
       formRecords = formRecords.map(formRecord => ({

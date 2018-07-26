@@ -5,15 +5,21 @@ const User = mongoose.model("User");
 
 const createUser = async (req, res, next) => {
   try {
-    const { email, password, confirmPassword } = req.body;
+    // const { fullName, email, password, confirmPassword } = req.body;
+    const { email, password } = req.body;
 
-    if (!email.trim() || !password.trim() || !confirmPassword.trim()) {
-      return util.error("all fields required", next);
-    }
+    // if (
+    //   !fullName.trim() ||
+    //   !email.trim() ||
+    //   !password.trim() ||
+    //   !confirmPassword.trim()
+    // ) {
+    //   return util.error("All fields required", next);
+    // }
 
-    if (password !== confirmPassword) {
-      return util.error("passwords do not match", next);
-    }
+    // if (password !== confirmPassword) {
+    //   return util.error("Passwords do not match", next);
+    // }
 
     const foundUser = await User.findOne({ email });
     if (foundUser) {
@@ -22,7 +28,7 @@ const createUser = async (req, res, next) => {
 
     const hash = await bcrypt.hash(password, 10);
     const user = await User.create({
-      email,
+      ...req.body,
       password: hash
     });
     req.session.userId = user._id;
