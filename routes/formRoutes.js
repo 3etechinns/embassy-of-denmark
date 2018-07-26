@@ -60,4 +60,20 @@ module.exports = app => {
   app.get("/forms/appointment", requireLogin, (req, res, next) => {
     return res.json({ message: "work in progress..." });
   });
+
+  app.get("/view/:formId/:fileId", requireLogin, (req, res, next) => {
+    try {
+      const signature = path.resolve(
+        __dirname,
+        "..",
+        "store",
+        req.params.fileId
+      );
+      return res.sendFile(signature);
+    } catch (error) {
+      error.message =
+        "sorry, we are having problems locating the file, try again later";
+      return next(error);
+    }
+  });
 };

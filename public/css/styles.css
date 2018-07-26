@@ -34,7 +34,7 @@ body {
 }
 
 .passport, .visa {
-  width: 80%;
+  width: 90%;
 }
 
 @media (max-width: 760px) {
@@ -246,6 +246,11 @@ form {
   justify-content: center;
   align-items: center;
   align-content: center;
+}
+
+.view-file-icon {
+  width: 18px;
+  margin-right: 5px;
 }
 
 .main-footer {

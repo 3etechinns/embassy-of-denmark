@@ -1,4 +1,3 @@
-const path = require("path");
 const mongoose = require("mongoose");
 const PassportForm = mongoose.model("PassportForm");
 const FormRecord = mongoose.model("FormRecord");
@@ -33,6 +32,7 @@ const formIdParamHandler = async (req, res, next, formId) => {
     const form = await mongoose
       .model(modelName)
       .findById(formId)
+      .lean()
       .exec();
 
     if (!form) {
@@ -127,7 +127,7 @@ const createPassportForm = async (req, res, next) => {
         guarantorsAddress: req.body.guarantorsAddress1,
         guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber1,
         guarantorsSignature: req.files["guarantorsSignature1"]
-          ? req.files["guarantorsSignature1"][0].path
+          ? req.files["guarantorsSignature1"][0].name
           : undefined
       },
       {
@@ -135,7 +135,7 @@ const createPassportForm = async (req, res, next) => {
         guarantorsAddress: req.body.guarantorsAddress2,
         guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber2,
         guarantorsSignature: req.files["guarantorsSignature2"]
-          ? req.files["guarantorsSignature2"][0].path
+          ? req.files["guarantorsSignature2"][0].name
           : undefined
       }
     ];
@@ -153,16 +153,16 @@ const createPassportForm = async (req, res, next) => {
 
     const signatures = {
       interpretersSignature: req.files["interpretersSignature"]
-        ? req.files["interpretersSignature"][0].path
+        ? req.files["interpretersSignature"][0].name
         : undefined,
       parentalConsentSignature: req.files["parentalConsentSignature"]
-        ? req.files["parentalConsentSignature"][0].path
+        ? req.files["parentalConsentSignature"][0].name
         : undefined,
       declarationSignature: req.files["declarationSignature"]
-        ? req.files["declarationSignature"][0].path
+        ? req.files["declarationSignature"][0].name
         : undefined,
       witnessSignature: req.files["witnessSignature"]
-        ? req.files["witnessSignature"][0].path
+        ? req.files["witnessSignature"][0].name
         : undefined
     };
 
@@ -253,27 +253,6 @@ const createVisaForm = async (req, res, next) => {
   }
 };
 
-const editForm = (req, res, next) => {
-  try {
-    switch (req.query.type) {
-      case "Passport":
-        return res.render("editPassportForm", {
-          form: req.form,
-          formRecordId: req.query.formRecordId
-        });
-      case "Visa":
-        return res.render("editVisaForm", {
-          form: req.form,
-          formRecordId: req.query.formRecordId
-        });
-      default:
-        return res.redirect("/profile");
-    }
-  } catch (error) {
-    return next(error);
-  }
-};
-
 const updateForm = async (req, res, next) => {
   try {
     const nonCompulsoryFields = [
@@ -295,9 +274,14 @@ const updateForm = async (req, res, next) => {
 
     // for setting properties on the request body that have values of a file
     console.log(req.files);
-    for (prop in req.body) {
-      if (fileFields.includes(req.body[prop])) {
-        req.body[prop] = req.files[prop] ? req.files[prop][0].path : "";
+    for (prop in req.files) {
+      console.log(prop);
+      console.log(fileFields.includes(prop));
+      // if (prop === "guarantorsSignature1" || prop === "guarantorsSignature2") {
+      //   req.body.guarantors = []
+      // }
+      if (fileFields.includes(prop)) {
+        req.body[prop] = req.files[prop] ? req.files[prop][0].name : "";
         console.log(req.body[prop]);
       }
     }
@@ -373,6 +357,51 @@ const updateForm = async (req, res, next) => {
     return res.redirect("/profile");
   } catch (error) {
     console.log(error);
+    return next(error);
+  }
+};
+
+const editForm = (req, res, next) => {
+  try {
+    switch (req.query.type) {
+      case "Passport":
+        const fileFields = [
+          "interpretersSignature",
+          "parentalConsentSignature",
+          "declarationSignature",
+          "witnessSignature"
+        ];
+
+        // to help with updating input[type="file"] elements
+        for (prop in req.form) {
+          if (prop === "guarantors") {
+            req.form[prop] = req.form[prop].map(guarantor => {
+              return {
+                ...guarantor,
+                guarantorsSignature: guarantor.guarantorsSignature.trim()
+              };
+            });
+          }
+
+          if (fileFields.includes(prop) && req.form[prop]) {
+            console.log(prop);
+            req.form[prop] = req.form[prop].trim();
+          }
+        }
+
+        return res.render("editPassportForm", {
+          form: req.form,
+          formRecordId: req.query.formRecordId
+        });
+      case "Visa":
+        return res.render("editVisaForm", {
+          form: req.form,
+          formRecordId: req.query.formRecordId
+        });
+      default:
+        return res.redirect("/profile");
+    }
+  } catch (error) {
     return next(error);
   }
 };

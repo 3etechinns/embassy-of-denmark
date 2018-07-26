@@ -133,15 +133,16 @@ block main
               label.form-label.star *
               select.form-control.form-control-sm( name="fathersNationality" data-option=form.fathersNationality id="fathersNationality")
                 option(value="") Select one....
+          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="fathersAddress") Father's address
               label.form-label.star *
               input.form-control.form-control-sm( type="text" value=form.fathersAddress placeholder="Father's address" name="fathersAddress" id="fathersAddress")
-          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="mothersName") Mother's name
               label.form-label.star *
               input.form-control.form-control-sm( type="text" value=form.mothersName placeholder="Mother's name" name="mothersName" id="mothersName")
+          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="mothersNationality") Mother's nationality
               label.form-label.star *
@@ -162,6 +163,7 @@ block main
             .col-sm-12.col-lg-5.form-group
               label.form-label Date of issue  
               input.form-control.form-control-sm( type="date" value=form.evidenceOfCitizenshipDate name="evidenceOfCitizenshipDate" id="evidenceOfCitizenshipDate")
+          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label Place of issue  
               input.form-control.form-control-sm( type="text" value=form.evidenceOfCitizenshipPlaceOfIssue placeholder="Place of issue" name="evidenceOfCitizenshipPlaceOfIssue" id="evidenceOfCitizenshipPlaceOfIssue")
@@ -176,6 +178,7 @@ block main
               label.form-label(for="guarantorsAddress1") Residential address
               label.form-label.star *
               input.form-control.form-control-sm( type="text" value=form.guarantors[0].guarantorsAddress placeholder="Residential address" name="guarantorsAddress1" id="guarantorsAddress1")
+          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="guarantorsTelephoneNumber1") Telephone number
               label.form-label.star *
@@ -184,8 +187,13 @@ block main
               label.form-label Upload your signature
               label.form-label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' value=form.guarantors[0].guarantorsSignature name="guarantorsSignature1" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' name="guarantorsSignature1" enctype="multipart/form-data" )
                 label.form-label.custom-file-label.form-label(for='customFile') Choose file
+              if form.guarantors[0].guarantorsSignature
+                .view-file.actions-button.my-3 
+                  a(href=`/view/${form._id}/${form.guarantors[0].guarantorsSignature}?type=Passport` target="blank")
+                    img.view-file-icon.icon(src="/img/file.svg" title="edit") 
+                    | view uploaded file
           .row
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="guarantorsName2") Full name
@@ -195,6 +203,7 @@ block main
               label.form-label(for="guarantorsAddress2") Residential address
               label.form-label.star *
               input.form-control.form-control-sm( type="text" value=form.guarantors[1].guarantorsAddress placeholder="Residential address" name="guarantorsAddress2" id="guarantorsAddress2")
+          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="guarantorsTelephoneNumber2") Telephone number
               label.form-label.star *
@@ -203,8 +212,13 @@ block main
               label.form-label Upload your signature
               label.form-label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' value=form.guarantors[1].guarantorsSignature name="guarantorsSignature2" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' name="guarantorsSignature2" enctype="multipart/form-data" )
                 label.form-label.custom-file-label.form-label(for='customFile') Choose file
+              if form.guarantors[1].guarantorsSignature
+                .view-file.actions-button.my-3 
+                  a(href=`/view/${form._id}/${form.guarantors[1].guarantorsSignature}?type=Passport` target="blank")
+                    img.view-file-icon.icon(src="/img/file.svg" title="edit") 
+                    | view uploaded file
         .form-section
           p.form-section-name PARENTAL/LEGAL GUARDIAN CONSENT FOR APPLICANT 
             b UNDER 18 YEARS OF AGE
@@ -225,8 +239,13 @@ block main
               label.form-label Upload your signature
               label.form-label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' value=form.parentalConsentSignature name="parentalConsentSignature" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' name="parentalConsentSignature" enctype="multipart/form-data" )
                 label.form-label.custom-file-label.form-label(for='customFile') Choose file
+              if form.parentalConsentSignature
+                .view-file.actions-button.my-3 
+                  a(href=`/view/${form._id}/${form.parentalConsentSignature}?type=Passport` target="blank")
+                    img.view-file-icon.icon(src="/img/file.svg" title="edit") 
+                    | view uploaded file
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="parentTelephoneNumber") Telephone number
               label.form-label.star *
@@ -245,17 +264,23 @@ block main
               label.form-label(for="interpreterAddress") Residential address
               label.form-label.star *
               input.form-control.form-control-sm(type="text" value=form.interpreterAddress placeholder="Residential address of interpreter" name="interpreterAddress" id="interpreterAddress")
+          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="interpreterTelephoneNumber") Telephone number
               label.form-label.star *
               input.form-control.form-control-sm(type="text" value=form.interpreterTelephoneNumber placeholder="Interpreter's Telephone number" name="interpreterTelephoneNumber" id="interpreterTelephoneNumber")
-          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label Upload your signature
               label.form-label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' value=form.interpretersSignature name="interpretersSignature" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' name="interpretersSignature" enctype="multipart/form-data" )
                 label.form-label.custom-file-label.form-label(for='customFile') Choose file
+              if form.interpretersSignature
+                .view-file.actions-button.my-3 
+                  a(href=`/view/${form._id}/${form.interpretersSignature}?type=Passport` target="blank")
+                    img.view-file-icon.icon(src="/img/file.svg" title="edit") 
+                    | view uploaded file
+          .row
             .col-sm-12.col-lg-5.form-group
                 label.form-label(for="interpretationDate") Date
                 label.form-label.star *
@@ -278,8 +303,13 @@ block main
               label.form-label Upload your signature
               label.form-label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' value=form.declarationSignature name="declarationSignature" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' name="declarationSignature" enctype="multipart/form-data" )
                 label.form-label.custom-file-label.form-label(for='customFile') Choose file
+              if form.declarationSignature
+                .view-file.actions-button.my-3 
+                  a(href=`/view/${form._id}/${form.declarationSignature}?type=Passport` target="blank")
+                    img.view-file-icon.icon(src="/img/file.svg" title="edit") 
+                    | view uploaded file
             .col-sm-12.col-lg-5.form-group
                 label.form-label(for="declarationDate") Date
                 label.form-label.star *
@@ -295,15 +325,16 @@ block main
               label.form-label(for="witnessOccupation") Occupation
               label.form-label.star *
               input.form-control.form-control-sm( type="text" value=form.witnessOccupation placeholder="Witness occupation" name="witnessOccupation" id="witnessOccupation")
+          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="witnessWorkPlaceAddress") Workplace Address
               label.form-label.star *
               input.form-control.form-control-sm( type="text" value=form.witnessWorkPlaceAddress placeholder="Witness work place" name="witnessWorkPlaceAddress" id="witnessWorkPlaceAddress")
-          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="witnessResidentialAddress") Residential address
               label.form-label.star *
               input.form-control.form-control-sm( type="text" value=form.witnessResidentialAddress placeholder="Witness residential address" name="witnessResidentialAddress" id="witnessResidentialAddress")
+          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="witnessTelephoneNumber") Telephone number
               label.form-label.star *
@@ -312,8 +343,14 @@ block main
               label.form-label Upload your signature
               label.form-label.star *
               .custom-file
-                input#customFile.custom-file-input(type='file' value=form.witnessSignature accept="image/*" name="witnessSignature" enctype="multipart/form-data" )
+                input#customFile.custom-file-input(type='file' accept="image/*" name="witnessSignature" enctype="multipart/form-data" )
                 label.form-label.custom-file-label.form-label(for='customFile') Choose file
+              if form.witnessSignature
+                .view-file.actions-button.my-3 
+                  a(href=`/view/${form._id}/${form.witnessSignature}?type=Passport` target="blank")
+                    img.view-file-icon.icon(src="/img/file.svg" title="edit") 
+                    | view uploaded file
+          .row
             .col-sm-12.col-lg-5.form-group
               label.form-label(for="witnessDate") Date
               label.form-label.star *

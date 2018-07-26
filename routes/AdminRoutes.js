@@ -1,3 +1,4 @@
+const path = require("path");
 const mongoose = require("mongoose");
 const FormRecord = mongoose.model("FormRecord");
 const FeedBack = mongoose.model("FeedBack");
@@ -195,6 +196,22 @@ module.exports = app => {
         message: "Thank you for your suggestions"
       });
     } catch (error) {
+      return next(error);
+    }
+  });
+
+  app.get("/admin/view/:formId/:imageId", requireLogin, (req, res, next) => {
+    try {
+      const signature = path.resolve(
+        __dirname,
+        "..",
+        "store",
+        req.params.imageId
+      );
+      return res.sendFile(signature);
+    } catch (error) {
+      error.message =
+        "sorry, we are having problems locating the file, try again later";
       return next(error);
     }
   });
