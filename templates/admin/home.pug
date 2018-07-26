@@ -249,7 +249,7 @@ html(lang="en")
               h6.list-group-item.active.waves-effect(style="background: DodgerBlue; border:none; color: white;")
                 | User Search and Reporting
               each user in users
-                a.user.list-group-item.list-group-item-action.waves-effect(href=`admin/users/${user._id}/profile`) #{user.fullName || "Mark Manson"} 
+                a.user.list-group-item.list-group-item-action.waves-effect(href=`admin/users/${user._id}/profile`) #{user.fullName || user.email} 
       #stopper.pb-2
     // Main layout
     // Footer

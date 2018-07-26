@@ -85,7 +85,8 @@ module.exports = app => {
       }
     });
 
-    const users = await User.find();
+    // Do not include admins
+    const users = await User.find({ isAdmin: false });
 
     return res.render("admin/home", {
       users,
