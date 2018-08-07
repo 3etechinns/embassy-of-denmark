@@ -24,7 +24,10 @@ const getProfile = (req, res, next) => {
         updatedAt: formRecord.updatedAt.toLocaleDateString()
       }));
 
-      return res.render("profile", { formRecords });
+      return res.render("history", {
+        formRecords,
+        headerText: "History"
+      });
     })
       .lean()
       .exec();
@@ -33,41 +36,66 @@ const getProfile = (req, res, next) => {
   }
 };
 
-const accountSettings = (req, res, next) => {
-  return res.render("settings", {
-    updateMessage: req.session.updateMessage
-  });
+const accountSettings = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.session.userId);
+    return res.render("profile", {
+      updateMessage: req.session.updateMessage,
+      headerText: "Profile",
+      ...user
+    });
+  } catch (error) {
+    return next(error);
+  }
 };
 
 const updateAccountDetails = async (req, res, next) => {
-  let { email, oldPassword, newPassword } = req.body;
+  let {
+    email,
+    oldPassword,
+    newPassword,
+    confirmPassword,
+    bio,
+    fullName,
+    telephoneNumber,
+    residentialAddress
+  } = req.body;
+
+  const user = await User.findById(req.session.userId);
+  console.log("user is ", user);
 
   const updates = {};
 
-  if (!email) {
+  if (!email.trim()) {
     email = req.session.userEmail;
   }
 
   if (email !== undefined && email !== req.session.userEmail) {
     const existingUser = await User.findOne({ email: email.trim() });
     if (existingUser) {
-      return res.render("settings", {
-        message: "new email provided already exists"
+      return res.render("profile", {
+        message: "New email provided already exists",
+        headerText: "Profile",
+        ...user
       });
     }
   }
 
-  if (oldPassword.trim() && !newPassword.trim()) {
+  if (oldPassword.trim() && (!newPassword.trim() || !confirmPassword.trim())) {
     res.locals.message = "Please enter new Password too";
-    return res.render("settings");
+    return res.render("profile", { headerText: "Profile", ...user });
   }
-  if (oldPassword.trim() && newPassword.trim()) {
-    const user = await User.findById(req.session.userId);
+  if (oldPassword.trim() && newPassword.trim() && confirmPassword.trim()) {
     const matching = await bcrypt.compare(oldPassword, user.password);
 
     if (!matching) {
       res.locals.message = "old passwords do not match";
-      return res.render("settings");
+      return res.render("profile", { headerText: "Profile", ...user });
+    }
+
+    if (newPassword !== confirmPassword) {
+      res.locals.message = "passwords do not match";
+      return res.render("profile", { headerText: "Profile", ...user });
     }
 
     const hash = await bcrypt.hash(newPassword, 10);
@@ -75,19 +103,26 @@ const updateAccountDetails = async (req, res, next) => {
   }
 
   updates.email = email;
+  updates.bio = bio;
+  updates.residentialAddress = residentialAddress;
+  updates.telephoneNumber = telephoneNumber;
+  updates.fullName = fullName;
 
   const updatedUser = await User.findByIdAndUpdate(
     req.session.userId,
     { ...updates },
-    { new: true, select: { email: true } }
+    { new: true, select: { password: false } }
   )
     .lean()
     .exec();
 
   req.session.userEmail = updatedUser.email;
-  req.session.updateMessage = "Account info successfully changed";
+  console.log(updatedUser);
   req.session.save(err => {
-    return res.redirect("/account");
+    return res.render("profile", {
+      ...updatedUser,
+      updateMessage: "Account info successfully changed"
+    });
   });
 };
 

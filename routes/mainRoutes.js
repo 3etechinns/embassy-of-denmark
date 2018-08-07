@@ -10,9 +10,9 @@ module.exports = app => {
     return res.render("landing");
   });
 
-  app.get("/profile", requireLogin, getProfile);
+  app.get("/history", requireLogin, getProfile);
 
-  app.get("/account", requireLogin, accountSettings);
+  app.get("/profile", requireLogin, accountSettings);
 
-  app.post("/account", requireLogin, updateAccountDetails);
+  app.post("/profile", requireLogin, updateAccountDetails);
 };

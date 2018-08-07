@@ -1,0 +1,106 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    link(rel='apple-touch-icon', sizes='76x76', href='../assets/img/apple-icon.png')
+    link(rel='icon', type='image/png', href='../assets/img/favicon.png')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title
+      | Embassy of Denmark
+    meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no', name='viewport')
+    // Fonts and icons
+    link(rel='stylesheet', type='text/css', href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css')
+    // CSS Files
+    link(href='/css/mdb.min.css', rel='stylesheet')
+    link(href='/css/material-dashboard.css?v=2.1.0', rel='stylesheet')
+    // CSS Just for demo purpose, don't include it in your project
+    link(href='/css/demo.css', rel='stylesheet')
+    block styles
+  body
+    .wrapper
+      .sidebar(data-color='purple', data-background-color='white', data-image='/img/sidebar-1.jpg')
+        //
+          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+          Tip 2: you can also add an image using data-image tag
+        .logo
+          a.simple-text.logo-normal
+            | Hi, #{fullName || email}
+        .sidebar-wrapper
+          ul.nav.collapsible.collapsible-accordion
+            li.nav-item
+              a.nav-link(href='#')
+                i.material-icons dashboard
+                p Dashboard
+            li.nav-item
+              a.nav-link(href='/profile')
+                i.material-icons person
+                p User Profile
+            li.nav-item.active
+              a.nav-link(href='/history')
+                i.material-icons history
+                p History
+            li.nav-item
+              a.nav-link(href='/forms/passport')
+                i.material-icons content_paste
+                p Passport Form
+            li.nav-item
+              a.nav-link(href='/forms/visa')
+                i.material-icons content_paste
+                p Visa Form
+            li.nav-item
+              a.nav-link(href='#')
+                i.material-icons notifications
+                p Notifications
+            //
+              <li class="nav-item active-pro ">
+              <a class="nav-link" href="./upgrade.html">
+              <i class="material-icons">unarchive</i>
+              <p>Upgrade to PRO</p>
+              </a>
+              </li>
+      .main-panel
+        // Navbar
+        nav.navbar.navbar-expand-lg.navbar-transparent.navbar-absolute.fixed-top
+          .container-fluid
+            .navbar-wrapper
+              a.navbar-brand #{headerText || "Dashboard"}
+            button.navbar-toggler(type='button', data-toggle='collapse', aria-controls='navigation-index', aria-expanded='false', aria-label='Toggle navigation')
+              span.sr-only Toggle navigation
+              span.navbar-toggler-icon.icon-bar
+              span.navbar-toggler-icon.icon-bar
+              span.navbar-toggler-icon.icon-bar
+            .collapse.navbar-collapse.justify-content-end
+              form.navbar-form
+                .input-group.no-border
+                  input.form-control(type='text', value='', placeholder='Search...')
+                  button.btn.btn-white.btn-round.btn-just-icon(type='submit')
+                    i.material-icons search
+                    .ripple-container
+              ul.navbar-nav
+                li.nav-item
+                  a.nav-link(href='#pablo')
+                    i.material-icons dashboard
+                    p.d-lg-none.d-md-block
+                      | Stats
+                li.nav-item.dropdown
+                  a#navbarDropdownMenuLink.nav-link(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                    i.material-icons notifications
+                    span.notification 5
+                    p.d-lg-none.d-md-block
+                      | Some Actions
+                  .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
+                    a.dropdown-item(href='#') Mike John responded to your email
+                    a.dropdown-item(href='#') You have 5 new tasks
+                    a.dropdown-item(href='#') You're now friend with Andrew
+                    a.dropdown-item(href='#') Another Notification
+                    a.dropdown-item(href='#') Another One
+                li.nav-item
+                  a.nav-link(href='#pablo')
+                    i.material-icons person
+                    p.d-lg-none.d-md-block
+                      | Account
+        block main
+        include ./includes/_footer
+        block scripts
+                    

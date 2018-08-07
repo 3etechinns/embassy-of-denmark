@@ -1,0 +1,132 @@
+extends ./_user_dashboard_layout
+
+block styles
+  link(rel="stylesheet", href="/css/profile.css")
+
+block main
+  // End Navbar
+  .content
+    .container-fluid
+      .row
+        .col-md-12
+          .card
+            .card-header.card-header-primary
+              h4.card-title Transactions Summary
+              p.card-category  All forms
+            .card-body
+              .table-responsive
+                table.table
+                  thead.text-primary
+                    th
+                      | No.
+                    th
+                      | Type
+                    th
+                      | Created At
+                    th
+                      | Last Updated
+                    th
+                      | Processing Status
+                    th
+                      | Payment Status
+                    th
+                      | Price (₵)
+                    th
+                    th
+                    th
+                  tbody
+                    each formRecord, index in formRecords
+                      tr
+                        th(scope='row') #{index + 1}
+                        td #{formRecord.formType}
+                        td #{formRecord.createdAt}
+                        td #{formRecord.updatedAt}
+                        td
+                          if formRecord.status === "New Request"
+                            img.icon.processing-status-icon(src="/img/circle-red.svg")
+                          else if formRecord.status === "Completed Request"
+                            img.icon.processing-status-icon(src="/img/circle-green.svg")
+                          else if formRecord.status === "Dispatched Request"
+                            img.icon.processing-status-icon(src="/img/check.svg")
+                            //- i.material-icons done
+                          else
+                            img.icon.processing-status-icon(src="/img/circle-yellow.svg")
+                          | #{formRecord.status}
+                        td
+                          if formRecord.paymentId
+                            img.icon.payment-status(src="/img/check.svg")
+                            | Paid 
+                          else
+                            img.icon.payment-status(src="/img/x.svg")
+                            | Unpaid
+                        td.text-primary #{200}
+                        td.edit.actions-button 
+                          a(href=`/edit/${formRecord.formId}?type=${formRecord.formType}&formRecordId=${formRecord._id}`)
+                            img.edit-icon.icon(src="/img/edit.svg" title="edit") 
+                            | Edit
+                        td.delete 
+                          img.delete-icon.icon(src="/img/trash-2.svg" title="delete" data-toggle="modal" data-target=`#${formRecord._id}`)
+                          .modal.fade(id=`${formRecord._id}` tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                            .modal-dialog(role='document')
+                              .modal-content
+                                .modal-header
+                                  h5#exampleModalLabel.modal-title Confirm
+                                  button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                    span(aria-hidden='true') ×
+                                .modal-body
+                                  | Are you sure you want to delete this form?
+                                .modal-footer
+                                  button.btn.btn-success(type='button', data-dismiss='modal') Cancel
+                                  button.btn.btn-danger.confirm-delete(type='button' id=`${formRecord._id}` data-formRecordId=`${formRecord._id}` data-formId=`${formRecord.formId}` data-type=`${formRecord.formType}`) Delete
+
+                        if !formRecord.paymentId
+                          td.customButton.pay-button.actions-button(title="Pay" id=`${formRecord._id}`)
+                            img.icon(src="/img/credit-card.svg")
+                            | Pay
+                        else 
+                          td.actions-button
+
+block scripts
+  script.
+    $(".confirm-delete").click(function(e) {
+      location.assign("/delete/" + this.getAttribute("data-formRecordId") + "?type=" + this.getAttribute("data-type") + "&formId=" + this.getAttribute("data-formId"))
+    });
+
+    // stripe checkout
+    var handler = StripeCheckout.configure({
+      key: "pk_test_AZLJ6GOzlzvtcrxBWn8WAqLh",
+      image: "/img/logo.png",
+      locale: "auto",
+      allowRememberMe: false,
+      token: function(token) {
+        console.log(document.formRecordId)
+        axios
+          .post("/forms/payment", { token, formRecordId: document.formRecordId })
+          .then(function(res) {
+            location.reload();
+            console.log(res);
+          })
+          .catch(function(err) {
+            document.body.innerHTML = "";
+            document.body.innerHTML = err.response.data;
+            console.log(err.response);
+          });
+      }
+    });
+
+    $(".customButton").click(function(e) {
+      // Open Checkout with further options:
+      document.formRecordId = this.id;
+      console.log(document.formRecordId)
+      handler.open({
+        name: "Embassy of Denmark",
+        description: "Pay for Passport form",
+        amount: 2000
+      });
+      e.preventDefault();
+    });
+
+    // Close Checkout on page navigation:
+    window.addEventListener("popstate", function() {
+      handler.close();
+    });

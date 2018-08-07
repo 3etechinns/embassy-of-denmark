@@ -16,7 +16,8 @@ const UserSchema = new Schema(
     residencePermit: String,
     scannedPassport: String,
     verificationStatus: { type: String, default: "Not Verified" },
-    isAdmin: { type: Boolean, default: false }
+    isAdmin: { type: Boolean, default: false },
+    bio: { type: String, trim: true }
   },
   { timestamps: true }
 );
