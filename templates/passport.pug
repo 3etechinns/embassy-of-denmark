@@ -1,327 +1,252 @@
-extends ./layout.pug
+extends ./_user_dashboard_layout
+
+block styles
+  link(rel="stylesheet", href="/css/formstyle.css")
 
 block main
-  .container.main-content.passport
-    h5.display-5.my-4 Passport Application
-    .passport-form  
-      form(name="passport" enctype="multipart/form-data")
-        div(class="alert alert-danger" role="alert") All fields with 
-          label.form-label.star *
-          |  are required
-        .form-section
-          p.form-section-name Personal Information
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="surname") Surname
-              label.form-label.star *
-              input.form-control.form-control-sm(type="text" id="surname" placeholder="Surname" name="surname")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="otherNames") Other names
-              input.form-control.form-control-sm(type="text" placeholder="Other names" id="otherNames" name="otherNames")
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="maidenName") Maiden name(s)
-              input.form-control.form-control-sm(type="text" placeholder="Maiden name(s)" id="maidenName" name="maidenName")
-            .col-sm-12.col-lg-5.form-group#affidavit
-              label.form-label(for="previousName") If name has changed by Affidavit or Gazette Publication, provide previous name
-              input.form-control.form-control-sm(type="text" placeholder="Previous name if changed" id="previousName" name="previousName")
-        .form-section
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="dateOfBirth") Date of birth
-              label.form-label.star *
-              input.form-control.form-control-sm( type="date" id="dateOfBirth" name="dateOfBirth")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="gender" id="gender") Gender
-                label.form-label.star *
-              br
-              .form-check.form-check-inline
-                input.form-check-input.form-control-sm( type="radio" id="male" name="gender" value="Male")
-                label.form-label.form-check-label.form-label Male
-              .form-check.form-check-inline
-                input.form-check-input.form-control-sm( type="radio" id="female" name="gender" value="Female")
-                label.form-label.form-check-label.form-label Female
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="placeOfBirth") City or town of birth
-                label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Birth city/town" id="placeOfBirth" name="placeOfBirth")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="countryOfBirth") Country of birth
-                label.form-label.star *
-              select.form-control.form-control-sm( type="text" id="countryOfBirth" name="countryOfBirth")
-                option(value="") Select one...
-        .form-section
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="height") Height(in meters)
-                label.form-label.star *
-              input.form-control.form-control-sm( type="text" id="height" placeholder="E.g 1.7" name="height")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="eyeColor") Eye color
-                label.form-label.star *
-              select.form-control.form-control-sm( type="text" id="eyeColor" name="eyeColor")
-                option(value="") Select one...
-                option(value="Black") Black
-                option(value="Brown") Brown
-                option(value="Blue") Blue
-                option(value="Green") Green
-                option(value="Grey") Grey
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="hairColor") Hair color
-              label.form-label.star *
-              select.form-control.form-control-sm( id="hairColor" name="hairColor")
-                option(value="") Select one...
-                option(value="Black") Black
-                option(value="Brown") Brown
-                option(value="Blond") Blond
-                option(value="Ginger") Ginger
-                option(value="Grey") Grey
-                option(value="Red") Red
-        .form-section
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="nationality") Nationality
-              label.form-label.star *
-              select#nationality.form-control.form-control-sm( name="nationality")
-                option(value="") Select one....
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="profession") Profession
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Profession" id="profession" name="profession")
-        .form-section
-          p.form-section-name Contact Information
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="countryOfResidence") Country of residence
-              label.form-label.star *
-              select.form-control.form-control-sm( name="countryOfResidence" id="countryOfResidence")
-                option(value="") Select one....
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="residentialAddress") Residential address
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Residential address" name="residentialAddress" id="residentialAddress")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="telephoneNumber") Telephone
-              label.form-label.star *
-              input.form-control.form-control-sm(type="number" placeholder="Telephone" name="telephoneNumber" id="telephoneNumber")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="email") Email
-              label.form-label.star *
-              input.form-control.form-control-sm( type="email" placeholder="Email" name="email" id="email")
-        .form-section
-          p.form-section-name Current/Last Educational Institution attended
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="institution") Institution
-              input.form-control.form-control-sm(type="text" placeholder="Institution" name="institution" id="institution")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="placeOfInstitution") Place
-              input.form-control.form-control-sm(type="text" placeholder="Place" name="placeOfInstitution" id="placeOfInstitution")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="lastYearOfEducation") Year
-              input.form-control.form-control-sm(type="text" placeholder="Year" name="lastYearOfEducation" id="lastYearOfEducation")
-        .form-section
-          p.form-section-name Evidence of citizenship
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="fathersName") Father's name
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Father's name" name="fathersName" id="fathersName")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="fathersNationality") Father's nationality
-              label.form-label.star *
-              select.form-control.form-control-sm( name="fathersNationality" id="fathersNationality")
-                option(value="") Select one....
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="fathersAddress") Father's address
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Father's address" name="fathersAddress" id="fathersAddress")
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="mothersName") Mother's name
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Mother's name" name="mothersName" id="mothersName")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="mothersNationality") Mother's nationality
-              label.form-label.star *
-              select.form-control.form-control-sm( name="mothersNationality" id="mothersNationality")
-                option(value="") Select one....
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="mothersAddress") Mother's address
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Mother's address" name="mothersAddress" id="mothersAddress")
-          .top-form-group
-            .form-group
-              label.form-label Birth or Baptism Certificate / Citizenship Identity Card / Old Passport  
-                label.form-label.star *
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label Number 
-              input.form-control.form-control-sm( type="text" placeholder="card number" name="evidenceOfCitizenshipNumber" id="evidenceOfCitizenshipNumber")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label Date of issue  
-              input.form-control.form-control-sm( type="date" name="evidenceOfCitizenshipDate" id="evidenceOfCitizenshipDate")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label Place of issue  
-              input.form-control.form-control-sm( type="text" placeholder="Place of issue" name="evidenceOfCitizenshipPlaceOfIssue" id="evidenceOfCitizenshipPlaceOfIssue")
-        .form-section
-          p.form-section-name Any 2 Danes living in your country who will act as guarantors and be contacted in case of emergency
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="guarantorsName1") Full name
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName1" id="guarantorsName1")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="guarantorsAddress1") Residential address
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress1" id="guarantorsAddress1")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="guarantorsTelephoneNumber1") Telephone number
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label Upload your signature
-              label.form-label.star *
-              .custom-file
-                input#customFile.custom-file-input(type='file' name="guarantorsSignature1" enctype="multipart/form-data" )
-                label.form-label.custom-file-label.form-label(for='customFile') Choose file
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="guarantorsName2") Full name
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName2" id="guarantorsName2")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="guarantorsAddress2") Residential address
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress2" id="guarantorsAddress2")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="guarantorsTelephoneNumber2") Telephone number
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label Upload your signature
-              label.form-label.star *
-              .custom-file
-                input#customFile.custom-file-input(type='file' name="guarantorsSignature2" enctype="multipart/form-data" )
-                label.form-label.custom-file-label.form-label(for='customFile') Choose file
-        .form-section
-          p.form-section-name PARENTAL/LEGAL GUARDIAN CONSENT FOR APPLICANT 
-            b UNDER 18 YEARS OF AGE
-          p I hereby give consent for applicant who is my 
-            input(type="text" name="parentalConsentMetaData" placeholder="Son, daughter...") 
-            |  to hold a passport
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="parentName") Full name
-              label.form-label.star *
-              input.form-control.form-control-sm(type="text" placeholder=" Parent's Full name" name="parentName" id="parentName")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="parentAddress") Residential address
-              label.form-label.star *
-              input.form-control.form-control-sm(type="text" placeholder="Parent's address" name="parentAddress" id="parentAddress")
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label Upload your signature
-              label.form-label.star *
-              .custom-file
-                input#customFile.custom-file-input(type='file' name="parentalConsentSignature" enctype="multipart/form-data" )
-                label.form-label.custom-file-label.form-label(for='customFile') Choose file
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="parentTelephoneNumber") Telephone number
-              label.form-label.star *
-              input.form-control.form-control-sm(type="text" placeholder="Parent's Telephone number" name="parentTelephoneNumber" id="parentTelephoneNumber")
-        .form-section
-          p.form-section-name FOR PERSONS COMPLETING THIS FORM ON BEHALF OF APPLICANTS WHO CANNOT READ OR WRITE ENGLISH
-          p The above declaration has been read and interpreted by me in 
-            input(type="text" placeholder="Eg. English" name="languageInterpretedIn")
-            |  language to the applicant and he/she understands and accepts
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="interpreterName") Full name
-              label.form-label.star *
-              input.form-control.form-control-sm(type="text" placeholder="Full name of interpreter" name="interpreterName" id="interpreterName")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="interpreterAddress") Residential address
-              label.form-label.star *
-              input.form-control.form-control-sm(type="text" placeholder="Residential address of interpreter" name="interpreterAddress" id="interpreterAddress")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="interpreterTelephoneNumber") Telephone number
-              label.form-label.star *
-              input.form-control.form-control-sm(type="text" placeholder="Interpreter's Telephone number" name="interpreterTelephoneNumber" id="interpreterTelephoneNumber")
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label Upload your signature
-              label.form-label.star *
-              .custom-file
-                input#customFile.custom-file-input(type='file' name="interpretersSignature" enctype="multipart/form-data" )
-                label.form-label.custom-file-label.form-label(for='customFile') Choose file
-            .col-sm-12.col-lg-5.form-group
-                label.form-label(for="interpretationDate") Date
-                label.form-label.star *
-                input.form-control.form-control-sm( type="date" name="interpretationDate" id="interpretationDate")
-        .form-section
-          p.form-section-name 
-            span DECLARATION BY APPLICANT
-            span.star *
-          p I the undersigned, hereby apply for a Ghana Passport and declare: (choose one)
-          p
-            input(type="radio", name="declarationOption" id="newPassport" value="newPassport") 
-            |  That I have not previously held or applied for a passport of any description.
-          p
-            input(type="radio", name="declarationOption" id="attached" value="attached/lost") 
-            |  That the previous passport with number 
-            input(type="text" name="previousPassportNumber" id="previousPassportNumber") 
-            |   granted me is Attached/lost
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label Upload your signature
-              label.form-label.star *
-              .custom-file
-                input#customFile.custom-file-input(type='file' name="declarationSignature" enctype="multipart/form-data" )
-                label.form-label.custom-file-label.form-label(for='customFile') Choose file
-            .col-sm-12.col-lg-5.form-group
-                label.form-label(for="declarationDate") Date
-                label.form-label.star *
-                input.form-control.form-control-sm( type="date" name="declarationDate" id="declarationDate")
-        .form-section
-          p.form-section-name WITNESS
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="witnessName") Full name
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Witness name" name="witnessName" id="witnessName")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="witnessOccupation") Occupation
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Witness occupation" name="witnessOccupation" id="witnessOccupation")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="witnessWorkPlaceAddress") Workplace Address
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Witness work place" name="witnessWorkPlaceAddress" id="witnessWorkPlaceAddress")
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="witnessResidentialAddress") Residential address
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Witness residential address" name="witnessResidentialAddress" id="witnessResidentialAddress")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="witnessTelephoneNumber") Telephone number
-              label.form-label.star *
-              input.form-control.form-control-sm( type="text" placeholder="Witness telephone number" name="witnessTelephoneNumber" id="witnessTelephoneNumber")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label Upload your signature
-              label.form-label.star *
-              .custom-file
-                input#customFile.custom-file-input(type='file' accept="image/*" name="witnessSignature" enctype="multipart/form-data" )
-                label.form-label.custom-file-label.form-label(for='customFile') Choose file
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="witnessDate") Date
-              label.form-label.star *
-              input.form-control.form-control-sm( type="date" name="witnessDate" id="witnessDate")
-        //- .bottom-form-group
-        .row.submit-button.submit-passport-form
-          button.col-sm-12.col-md-5.my-2.btn.btn-primary.btn-lg.custom-button(type='submit', formaction="/forms/passport" formmethod="post") submit
-          button#continue-later.col-sm-12.col-md-5.my-2.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post") Save and Continue Later
+  .content
+    .container
+      .row
+        .col-md-12.col-md-offset-3
+          form#msform(method='POST', action='', enctype='multipart/form-data')
+            // progressbar
+            ul#progressbar
+              li.active(style='color: #000000 !important;') Personal Information
+              li(style='color: #000000 !important;') Contact Information
+              li(style='color: #000000 !important;') Evidence of Citizenship
+              li(style='color: #000000 !important;') Guarantors' Information
+              li(style='color: #000000 !important;') Parental Consent
+              li(style='color: #000000 !important;') Declaration
+              li(style='color: #000000 !important;') Witness Information
+            // fieldsets
+            fieldset
+              h2.fs-title Personal Information
+              h3.fs-subtitle Help us identify who we're dealing with
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" id="surname" placeholder="Surname" name="surname")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" placeholder="Other names" id="otherNames" name="otherNames")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" placeholder="Maiden name(s)" id="maidenName" name="maidenName")
+              .row
+                .col-sm-12.col-lg-4.form-group#affidavit
+                  input.form-control.form-control-sm(type="text" placeholder="Previous name if changed" id="previousName" name="previousName")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="date" id="dateOfBirth" name="dateOfBirth")
+                .col-sm-12.col-lg-4.form-group.btn-group.btn-group-toggle(data-toggle='buttons')
+                  label.btn.btn-secondary.active
+                    input#male(type='radio', name='gender', value="male" autocomplete='off', checked='')
+                    |  &nbsp &nbsp Male &nbsp &nbsp
+                  label.btn.btn-secondary
+                    input#female(type='radio', name='gender', value="female" autocomplete='off')
+                    |  &nbsp Female &nbsp
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" id="placeOfBirth" placeholder="City of Birth" name="placeOfBirth")
+                .col-sm-12.col-lg-4.form-group
+                  select.select.form-control(placeholder="Country of Birth" id="countryOfBirth" name="countryOfBirth")
+                    option(value="") --Country of Birth--
+                .col-sm-12.col-lg-4.form-group
+                  select.form-control.form-control-sm(placeholder="Nationality" id="nationality" name="nationality")
+                    option(value="") --Nationality--
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( id="height" placeholder="E.g 1.7" name="height")
+                .col-sm-12.col-lg-4.form-group
+                  select.form-control(placeholder="Eye color" id="eyeColor" name="eyeColor")
+                    option(value="") --Eye color--
+                    option(value="Black") Black
+                    option(value="Brown") Brown
+                    option(value="Blue") Blue
+                    option(value="Green") Green
+                    option(value="Grey") Grey
+                .col-sm-12.col-lg-4.form-group
+                  select.form-control(placeholder="Hair color" id="hairColor" name="hairColor")
+                    option(value="") --Hair color--
+                    option(value="Black") Black
+                    option(value="Brown") Brown
+                    option(value="Blond") Blond
+                    option(value="Ginger") Ginger
+                    option(value="Grey") Grey
+                    option(value="Red") Red
+              input.next.action-button(type='button', name='next', value='Next')
+            fieldset
+              h2.fs-title Contact Information
+              h3.fs-subtitle Tell us how we can contact you
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  select.form-control.form-control-sm( name="countryOfResidence" id="countryOfResidence")
+                    option(value="") --Country of residence--
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Residential address" name="residentialAddress" id="residentialAddress")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="number" placeholder="Telephone" name="telephoneNumber" id="telephoneNumber")
+              .row
+                .col-sm-12.col-lg-6.form-group
+                  input.form-control.form-control-sm( type="email" placeholder="Email" name="email" id="email")
+                .col-sm-12.col-lg-6.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Institution" id="institution" name="institution")
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" placeholder="Profession" name="profession" id="profession")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" placeholder="Place of institution" name="placeOfInstitution" id="placeOfInstitution")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" placeholder="Year attended" name="lastYearOfEducation" id="lastYearOfEducation")
+              input.previous.action-button-previous(type='button', name='previous', value='Previous')
+              input.next.action-button(type='button', name='next', value='Next')
+
+            fieldset
+              h2.fs-title Evidence of Citizenship
+              h3.fs-subtitle Please help us with some citizenship information
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Father's name" name="fathersName" id="fathersName")
+                .col-sm-12.col-lg-4.form-group
+                  select.form-control.form-control-sm( name="fathersNationality" id="fathersNationality")
+                    option(value="") --Father's nationality--
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Father's address" name="fathersAddress" id="fathersAddress")
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Mother's name" name="mothersName" id="mothersName")
+                .col-sm-12.col-lg-4.form-group
+                  select.form-control.form-control-sm( name="mothersNationality" id="mothersNationality")
+                    option(value="") --Mother's nationality--
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Mother's address" name="mothersAddress" id="mothersAddress")
+              .top-form-group
+                .form-group
+                  label.form-label Birth or Baptism Certificate / Citizenship Identity Card / Old Passport  
+                    label.form-label.star *
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="card number" name="evidenceOfCitizenshipNumber" id="evidenceOfCitizenshipNumber")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="date" name="evidenceOfCitizenshipDate" id="evidenceOfCitizenshipDate")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Place of issue" name="evidenceOfCitizenshipPlaceOfIssue" id="evidenceOfCitizenshipPlaceOfIssue")
+              input.previous.action-button-previous(type='button', name='previous', value='Previous')
+              input.next.action-button(type='button', name='next', value='Next')
+
+            fieldset
+              h2.fs-title Guarantors' information
+              h3.fs-subtitle Tell us about your guarantors
+              p First guarantor
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName1" id="guarantorsName1")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress1" id="guarantorsAddress1")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
+                .col-sm-12.col-lg-4.form-group
+                  .custom-file
+                    input#customFile.custom-file-input(type='file' name="guarantorsSignature1" enctype="multipart/form-data" )
+                    //- label.form-label.custom-file-label.form-label(for='customFile') Upload signature
+              p Second guarantor
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName2" id="guarantorsName2")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress2" id="guarantorsAddress2")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
+                .col-sm-12.col-lg-4.form-group
+                  .custom-file
+                    input#customFile.custom-file-input(type='file' name="guarantorsSignature2" enctype="multipart/form-data" )
+                    label.form-label.custom-file-label.form-label(for='customFile') Upload signature
+              input.previous.action-button-previous(type='button', name='previous', value='Previous')
+              input.next.action-button(type='button', name='next', value='Next')
+
+            fieldset
+              h2.fs-title Parental Consent
+              h3.fs-subtitle For applicants 
+                strong under 18 years of age.
+              p I hereby give consent for applicant who is my 
+                input(type="text" name="parentalConsentMetaData" placeholder="Son, daughter...") 
+                |  to hold a passport
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" placeholder=" Parent's Full name" name="parentName" id="parentName")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" placeholder="Parent's address" name="parentAddress" id="parentAddress")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" placeholder="Parent's Telephone number" name="parentTelephoneNumber" id="parentTelephoneNumber")
+              .row
+                .col-sm-12.col-lg-12.form-group
+                  .custom-file
+                    input#customFile.custom-file-input(type='file' name="parentalConsentSignature" enctype="multipart/form-data" )
+                    label.form-label.custom-file-label.form-label(for='customFile') Choose file
+              input.previous.action-button-previous(type='button', name='previous', value='Previous')
+              input.next.action-button(type='button', name='next', value='Next')
+
+            fieldset
+              h2.fs-title Declarations
+              h3.fs-subtitle For persons filling on behalf of applicant who cannot read and write English
+              p The above declaration has been read and interpreted by me in 
+                input(type="text" placeholder="Eg. English" name="languageInterpretedIn")
+                |  language to the applicant and he/she understands and accepts
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" placeholder="Full name of interpreter" name="interpreterName" id="interpreterName")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" placeholder="Residential address of interpreter" name="interpreterAddress" id="interpreterAddress")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm(type="text" placeholder="Interpreter's Telephone number" name="interpreterTelephoneNumber" id="interpreterTelephoneNumber")
+              .row
+                .col-sm-12.col-lg-6.form-group
+                  .custom-file
+                    input#customFile.custom-file-input(type='file' name="interpretersSignature" enctype="multipart/form-data" )
+                    label.form-label.custom-file-label.form-label(for='customFile') Upload your signature
+                .col-sm-12.col-lg-6.form-group
+                    input.form-control.form-control-sm( type="date" placeholder="Interpretation date" name="interpretationDate" id="interpretationDate")
+              h3.fs-subtitle For applicants filling the form by themselves
+              p I the undersigned, hereby apply for a Ghana Passport and declare: (choose one)
+              p
+                input(type="radio", name="declarationOption" id="newPassport" value="newPassport") 
+                |  That I have not previously held or applied for a passport of any description.
+              p
+                input(type="radio", name="declarationOption" id="attached" value="attached/lost") 
+                |  That the previous passport with number 
+                input(type="text" name="previousPassportNumber" id="previousPassportNumber") 
+                |   granted me is Attached/lost
+              .row
+                .col-sm-12.col-lg-5.form-group
+                  .custom-file
+                    input#customFile.custom-file-input(type='file' name="declarationSignature" enctype="multipart/form-data" )
+                    label.form-label.custom-file-label.form-label(for='customFile') Upload Signature
+                .col-sm-12.col-lg-5.form-group
+                    input.form-control.form-control-sm( type="date" name="declarationDate" id="declarationDate")
+              input.previous.action-button-previous(type='button', name='previous', value='Previous')
+              input.next.action-button(type='button', name='next', value='Next')
+
+            fieldset
+              h2.fs-title Witness' information
+              h3.fs-subtitle
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Witness name" name="witnessName" id="witnessName")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Witness occupation" name="witnessOccupation" id="witnessOccupation")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Witness work place" name="witnessWorkPlaceAddress" id="witnessWorkPlaceAddress")
+              .row
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Witness residential address" name="witnessResidentialAddress" id="witnessResidentialAddress")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="text" placeholder="Witness telephone number" name="witnessTelephoneNumber" id="witnessTelephoneNumber")
+                .col-sm-12.col-lg-4.form-group
+                  input.form-control.form-control-sm( type="date" placeholder="Date" name="witnessDate" id="witnessDate")
+              .row
+                .col-sm-12.col-lg-12.form-group
+                  .custom-file
+                    input#customFile.custom-file-input(type='file' accept="image/*" name="witnessSignature" enctype="multipart/form-data" )
+                    label.form-label.custom-file-label.form-label(for='customFile') Upload signature
+              input.previous.action-button-previous(type='button', name='previous', value='Previous')
+              input.next.action-button(type='button', name='next', value='Next')
+block scripts
   script(src="/js/countries.js")
   script(src="/js/jquery.min.js")
   script.
@@ -354,3 +279,92 @@ block main
     $("#attached").change(() => {
       $("#previousPassportNumber").attr("disabled",false);
     });
+
+    
+    //jQuery time
+    var current_fs, next_fs, previous_fs; //fieldsets
+    var left, opacity, scale; //fieldset properties which we will animate
+    var animating; //flag to prevent quick multi-click glitches
+
+    $(".next").click(function(){
+      console.log("afer")
+      if(animating) return false;
+      animating = true;
+      
+      current_fs = $(this).parent();
+      next_fs = $(this).parent().next();
+      
+      //activate next step on progressbar using the index of next_fs
+      $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      
+      //show the next fieldset
+      next_fs.show(); 
+      console.log(next_fs)
+      //hide the current fieldset with style
+      current_fs.animate({opacity: 0}, {
+        step: function(now, mx) {
+          //as the opacity of current_fs reduces to 0 - stored in "now"
+          //1. scale current_fs down to 80%
+          scale = 1 - (1 - now) * 0.2;
+          //2. bring next_fs from the right(50%)
+          left = (now * 50)+"%";
+          //3. increase opacity of next_fs to 1 as it moves in
+          opacity = 1 - now;
+          current_fs.css({
+            'transform': 'scale('+scale+')',
+            'position': 'absolute'
+          });
+          next_fs.css({'left': left, 'opacity': opacity});
+        }, 
+        duration: 800, 
+        complete: function(){
+          current_fs.hide();
+          animating = false;
+        }, 
+        //this comes from the custom easing plugin
+        //- easing: 'easeInOutBack'
+      });
+    });
+
+    $(".previous").click(function(){
+      if(animating) return false;
+      animating = true;
+      
+      current_fs = $(this).parent();
+      previous_fs = $(this).parent().prev();
+      
+      //de-activate current step on progressbar
+      $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+      
+      //show the previous fieldset
+      previous_fs.show(); 
+      //hide the current fieldset with style
+      current_fs.animate({opacity: 0}, {
+        step: function(now, mx) {
+          //as the opacity of current_fs reduces to 0 - stored in "now"
+          //1. scale previous_fs from 80% to 100%
+          scale = 0.8 + (1 - now) * 0.2;
+          //2. take current_fs to the right(50%) - from 0%
+          left = ((1-now) * 50)+"%";
+          //3. increase opacity of previous_fs to 1 as it moves in
+          opacity = 1 - now;
+          current_fs.css({'left': left});
+          previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+        }, 
+        duration: 800, 
+        complete: function(){
+          current_fs.hide();
+          animating = false;
+        }, 
+        //this comes from the custom easing plugin
+        //- easing: 'easeInOutBack'
+      });
+    });
+
+    $(".submit").click(function(){
+      return false;
+    })
+
+              
+              
+
