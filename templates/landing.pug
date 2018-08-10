@@ -3,8 +3,8 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='icon', type='image/png', href='/img/logo.png')
     link(rel='stylesheet', href='/css/bootstrap.min.css')
-    //- link(rel="stylesheet", href="/css/landing.css")
     meta(http-equiv='X-UA-Compatible', content='ie=edge')
     style.
       .carousel-item {
@@ -64,6 +64,11 @@ html(lang='en')
             .carousel-caption.d-none.d-md-block
               h2.display-4 Third Slide
               p.lead This is a description for the third slide.
+          // Slide Four - Set the background image for this slide in the line below
+          .carousel-item(style="background-image: url('/img/pexels-photo-905873.jpeg')")
+            .carousel-caption.d-none.d-md-block
+              h2.display-4 Fourth Slide
+              p.lead This is a description for the fourth slide.
         a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
           span.carousel-control-prev-icon(aria-hidden='true')
           span.sr-only Previous
@@ -86,20 +91,12 @@ html(lang='en')
           .modal-body
             form(action="/create-profile" method="POST")
               .form-group
-                //- label(for="fullName") Full name
-                //- label.star *
                 input(required class="form-control" placeholder="Full name : " id="fullName" type="text" name="fullName" data-toggle="tooltip")
               .form-group
-                //- label(for="email") Email
-                //- label.star *
                 input(required class="form-control" placeholder="Email : " id="email" type="text" name="email" data-toggle="tooltip" )
               .form-group
-                //- label(for="password") Password
-                //- label.star *
                 input(required class="form-control" placeholder="Password : " id="password" type="password" name="password")
               .form-group
-                //- label(for="confirmPassword") Confirm Password
-                //- label.star *
                 input(required class="form-control" placeholder="Confirm Password : " id="confirmPassword" type="password" name="confirmPassword")
               .text-center
                 button(class="btn btn-primary my-4" type="submit") Create Account
@@ -123,6 +120,5 @@ html(lang='en')
                 input(required class="form-control" placeholder="Password : " id="login-password" type="password" name="password")
               .text-center
                 button(class="btn btn-primary my-4" type="submit") Sign in
-    
     script(src='/js/jquery.min.js')
     script(src='/js/bootstrap.min.js')

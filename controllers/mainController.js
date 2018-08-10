@@ -38,7 +38,9 @@ const getProfile = (req, res, next) => {
 
 const accountSettings = async (req, res, next) => {
   try {
-    const user = await User.findById(req.session.userId);
+    const user = await User.findById(req.session.userId)
+      .lean()
+      .exec();
     return res.render("profile", {
       updateMessage: req.session.updateMessage,
       headerText: "Profile",
@@ -61,8 +63,12 @@ const updateAccountDetails = async (req, res, next) => {
     residentialAddress
   } = req.body;
 
-  const user = await User.findById(req.session.userId);
-  console.log("user is ", user);
+  const user = await User.findById(req.session.userId, {
+    password: false,
+    isAdmin: false
+  })
+    .lean()
+    .exec();
 
   const updates = {};
 
@@ -82,8 +88,11 @@ const updateAccountDetails = async (req, res, next) => {
   }
 
   if (oldPassword.trim() && (!newPassword.trim() || !confirmPassword.trim())) {
-    res.locals.message = "Please enter new Password too";
-    return res.render("profile", { headerText: "Profile", ...user });
+    return res.render("profile", {
+      ...user,
+      headerText: "Profile",
+      message: "Please enter new Password too"
+    });
   }
   if (oldPassword.trim() && newPassword.trim() && confirmPassword.trim()) {
     const matching = await bcrypt.compare(oldPassword, user.password);
@@ -111,13 +120,12 @@ const updateAccountDetails = async (req, res, next) => {
   const updatedUser = await User.findByIdAndUpdate(
     req.session.userId,
     { ...updates },
-    { new: true, select: { password: false } }
+    { new: true, select: { password: false, isAdmin: false } }
   )
     .lean()
     .exec();
 
   req.session.userEmail = updatedUser.email;
-  console.log(updatedUser);
   req.session.save(err => {
     return res.render("profile", {
       ...updatedUser,
