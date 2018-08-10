@@ -4,7 +4,7 @@ html(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='/css/bootstrap.min.css')
-    link(rel="stylesheet", href="/css/landing.css")
+    //- link(rel="stylesheet", href="/css/landing.css")
     meta(http-equiv='X-UA-Compatible', content='ie=edge')
     style.
       .carousel-item {
@@ -16,7 +16,13 @@ html(lang='en')
         -o-background-size: cover;
         background-size: cover;
       }
-    title Document
+      .header-img {
+        width: 50px;
+      }
+      .star {
+        color: rgba(245, 45, 45, 0.986);
+      }
+    title Embassy of Denmark
   body
     // Navigation
     nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
@@ -27,15 +33,15 @@ html(lang='en')
         #navbarResponsive.collapse.navbar-collapse
           ul.navbar-nav.ml-auto
             li.nav-item.active
-              a.nav-link(href='#')
+              a.nav-link.my-2(href='#')
                 | Home
                 span.sr-only (current)
             li.nav-item
-              a.nav-link(href='#') About
+              a.nav-link.my-2(href='#') About
             li.nav-item
-              a.nav-link(href='#') Sign up
+                button.btn.btn-success.my-2.mx-2(type="button" data-toggle="modal" data-target="#createAccount") Create Account
             li.nav-item
-              a.nav-link(href='#') Sign in
+              button.btn.btn-outline-primary.my-2.mx-2(type="button" data-toggle="modal" data-target="#signin") &nbsp &nbsp &nbsp Sign in &nbsp &nbsp &nbsp
     header
       #carouselExampleIndicators.carousel.slide(data-ride='carousel')
         ol.carousel-indicators
@@ -69,58 +75,54 @@ html(lang='en')
       .container.text-center
         h1.display-4 Embassy of Denmark
         p.lead A clod based online embassy management system
-    .select.text-center.my-5
-        button.btn.btn-success.mx-2(type="button" data-toggle="modal" data-target="#createAccount") Create Account
-        .modal.fade(id='createAccount' tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
-          .modal-dialog(role='document')
-            .modal-content
-              .modal-header
-                img.header-img(src="/img/logo.png")
-                h5#exampleModalLabel.modal-title.m-3 Create Your Embassy Account
-                button.close(type='button', data-dismiss='modal', aria-label='Close')
-                  span(aria-hidden='true') ×
-              .modal-body
-                form(action="/create-profile" method="POST")
-                  .form-group
-                    label(for="fullName") Full name
-                    label.star *
-                    input(required class="form-control" placeholder="Full name : " id="fullName" type="text" name="fullName" data-toggle="tooltip")
-                  .form-group
-                    label(for="email") Email
-                    label.star *
-                    input(required class="form-control" placeholder="Email : " id="email" type="text" name="email" data-toggle="tooltip" )
-                  .form-group
-                    label(for="password") Password
-                    label.star *
-                    input(required class="form-control" placeholder="Password : " id="password" type="password" name="password")
-                  .form-group
-                    label(for="confirmPassword") Confirm Password
-                    label.star *
-                    input(required class="form-control" placeholder="Confirm Password : " id="confirmPassword" type="password" name="confirmPassword")
-                  button(class="btn btn-primary btn-lg btn-block my-4" type="submit") Create Account
-                  //- a.account-status(href="/register") ave no account? Sign Up!
-              //- .modal-footer
-                button.btn.btn-success(type='button', data-dismiss='modal') Cancel
-                button.btn.btn-danger.confirm-delete(type='button') Delete
-        button.btn.btn-outline-primary.mx-2(type="button" data-toggle="modal" data-target="#signin") &nbsp &nbsp &nbsp Sign in &nbsp &nbsp &nbsp
-        .modal.fade(id='signin' tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
-          .modal-dialog(role='document')
-            .modal-content
-              .modal-header
-                img.header-img(src="/img/logo.png")
-                h5#exampleModalLabel.modal-title.m-3 Sign in to your account
-                button.close(type='button', data-dismiss='modal', aria-label='Close')
-                  span(aria-hidden='true') ×
-              .modal-body
-                form(action="/login" method="POST")
-                  .form-group
-                    label(for="email") Email
-                    label.star *
-                    input(required class="form-control" placeholder="Email : " id="login-email" type="text" name="email" )
-                  .form-group
-                    label(for="password") Password
-                    label.star *
-                    input(required class="form-control" placeholder="Password : " id="login-password" type="password" name="password")
-                  button(class="btn btn-primary btn-lg btn-block my-4" type="submit") Sign in
+    .modal.fade(id='createAccount' tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            img.header-img(src="/img/logo.png")
+            h5#exampleModalLabel.modal-title.m-3 Create Your Embassy Account
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            form(action="/create-profile" method="POST")
+              .form-group
+                //- label(for="fullName") Full name
+                //- label.star *
+                input(required class="form-control" placeholder="Full name : " id="fullName" type="text" name="fullName" data-toggle="tooltip")
+              .form-group
+                //- label(for="email") Email
+                //- label.star *
+                input(required class="form-control" placeholder="Email : " id="email" type="text" name="email" data-toggle="tooltip" )
+              .form-group
+                //- label(for="password") Password
+                //- label.star *
+                input(required class="form-control" placeholder="Password : " id="password" type="password" name="password")
+              .form-group
+                //- label(for="confirmPassword") Confirm Password
+                //- label.star *
+                input(required class="form-control" placeholder="Confirm Password : " id="confirmPassword" type="password" name="confirmPassword")
+              .text-center
+                button(class="btn btn-primary my-4" type="submit") Create Account
+    .modal.fade(id='signin' tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            img.header-img(src="/img/logo.png")
+            h5#exampleModalLabel.modal-title.m-3 Sign in to your account
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            form(action="/login" method="POST")
+              .form-group
+                label(for="email") Email
+                label.star *
+                input(required class="form-control" placeholder="Email : " id="login-email" type="text" name="email" )
+              .form-group
+                label(for="password") Password
+                label.star *
+                input(required class="form-control" placeholder="Password : " id="login-password" type="password" name="password")
+              .text-center
+                button(class="btn btn-primary my-4" type="submit") Sign in
+    
     script(src='/js/jquery.min.js')
     script(src='/js/bootstrap.min.js')
