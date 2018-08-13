@@ -1,6 +1,12 @@
-extends ./layout
-
-block main
-  h1.display-4.text-center.my-4 Cloud-Store
-  .error-page
-    div(class="alert alert-danger" role="alert")= error.message
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    link(rel="stylesheet", href="/css/bootstrap.min.css")
+    title Document
+  body(style="width:50%; margin:0 auto")
+    h1.display-4.text-center.my-4 Default Error Page
+    .error-page.text-center
+      div(class="alert alert-danger" role="alert") Error message: #{error.message}
