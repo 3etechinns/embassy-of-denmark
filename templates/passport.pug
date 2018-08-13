@@ -244,8 +244,10 @@ block main
                   .custom-file
                     input#customFile.custom-file-input(type='file' accept="image/*" name="witnessSignature" enctype="multipart/form-data" )
                     label.form-label.custom-file-label.form-label(for='customFile') Upload signature
-              input.previous.action-button-previous(type='button', name='previous', value='Previous')
-              input.next.action-button(type='button', name='next', value='Next')
+              .row.submit-button.submit-passport-form.text-center
+                input.col-sm-12.col-md-4.previous.action-button-previous(type='button', name='previous', value='Previous')
+                button#continue-later.col-sm-12.col-md-4.btn.btn-primary.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post") Save and Continue Later
+                button.col-sm-12.col-md-4.btn.btn-primary(type='submit', formaction="/forms/passport" formmethod="post") submit
 block scripts
   script(src="/js/countries.js")
   script(src="/js/jquery.min.js")
@@ -287,7 +289,6 @@ block scripts
     var animating; //flag to prevent quick multi-click glitches
 
     $(".next").click(function(){
-      console.log("afer")
       if(animating) return false;
       animating = true;
       
@@ -299,7 +300,6 @@ block scripts
       
       //show the next fieldset
       next_fs.show(); 
-      console.log(next_fs)
       //hide the current fieldset with style
       current_fs.animate({opacity: 0}, {
         step: function(now, mx) {

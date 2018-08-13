@@ -186,7 +186,7 @@ const createPassportForm = async (req, res, next) => {
       );
     }
 
-    return res.redirect("/profile");
+    return res.redirect("/history");
   } catch (error) {
     console.log(error);
     // return util.error(error.message, next);
@@ -242,7 +242,7 @@ const createVisaForm = async (req, res, next) => {
       );
     }
 
-    return res.redirect("/profile");
+    return res.redirect("/history");
   } catch (error) {
     // error.message = "Please fill all required fields";
     console.log(error);
@@ -399,7 +399,7 @@ const editForm = (req, res, next) => {
           formRecordId: req.query.formRecordId
         });
       default:
-        return res.redirect("/profile");
+        return res.redirect("/history");
     }
   } catch (error) {
     return next(error);
@@ -415,7 +415,7 @@ const deleteForm = async (req, res, next) => {
       model.remove({ _id: req.query.formId })
     ]);
 
-    return res.redirect("/profile");
+    return res.redirect("/history");
   } catch (error) {
     return next(error);
   }
