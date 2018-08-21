@@ -7,6 +7,13 @@ html(lang="en")
     link(rel="stylesheet", href="/css/bootstrap.min.css")
     title Document
   body(style="width:50%; margin:0 auto")
-    h1.display-4.text-center.my-4 Default Error Page
+    h3.display-4.text-center.my-4 Ooops, something bad happened (:
     .error-page.text-center
       div(class="alert alert-danger" role="alert") Error message: #{error.message}
+    .back-link.text-center
+      button.btn.btn-primary Go back
+        //- i.materials-icon arrow
+    script.
+      document.querySelector(".back-link").addEventListener("click", function(e) {
+        history.back()
+      })

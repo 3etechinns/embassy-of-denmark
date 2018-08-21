@@ -59,7 +59,7 @@ module.exports = app => {
   app.get("/delete/:formRecordId", requireLogin, deleteForm);
 
   app.get("/forms/visa", requireLogin, (req, res, next) => {
-    return res.render("visaForm");
+    return res.render("visa");
   });
 
   app.get("/forms/dual-citizenship", requireLogin, (req, res, next) => {

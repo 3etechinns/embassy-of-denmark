@@ -32,11 +32,19 @@ html(lang="en")
             a.nav-link(href="/admin/support")
               i.fa.fa-comments-o
               span.clearfix.d-none.d-sm-inline-block Support
-          li.nav-item
-            a.nav-link(href="/admin/settings")
-              i.fa.fa-gear
-              span.clearfix.d-none.d-sm-inline-block Settings
           li.nav-item.dropdown
+            a#dropdown-settings.nav-link.dropdown-toggle(href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false")
+              i.fa.fa-gear
+              | Settings
+            .dropdown-menu(aria-labelledby="dropdown-settings")
+              a.dropdown-item(href="" data-toggle="modal" data-target="#priceSettings") Price Settings
+              a.dropdown-item(href="#") Access Rights
+              a.dropdown-item(href="#") User Log
+              a.dropdown-item(href="#") Currency
+              a.dropdown-item(href="#") Bank/Card Details
+              a.dropdown-item(href="#") Embassy Profile
+              a.dropdown-item(href="#") Staff
+          li.nav-item
             a.nav-link(href="/logout")
               i.fa.fa-power-off
       // /.Navbar
@@ -253,6 +261,47 @@ html(lang="en")
       #stopper.pb-2
     // Main layout
     // Footer
+    .modal.fade(id='priceSettings' tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            img.header-img(src="/img/logo.png")
+            h5#exampleModalLabel.modal-title.text-center Price Settings
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            p.text-center.text-danger.my-3 Changes made will apply to all forms filled from now!!!
+            form(action="/admin/settings/prices" method="POST")
+              .row
+                .col-md-6.text-primary
+                  |&nbsp &nbsp Passport Form
+                .col-md-6
+                  .form-group
+                    label.text-primary.bdn-label-floating Passport Form price
+                    input.form-control(type="text" name="passportPrice")
+              .row
+                .col-md-6.text-warning
+                  |&nbsp &nbsp Visa Form
+                .col-md-6
+                  .form-group
+                    label.text-warning.bdn-label-floating Visa Form price
+                    input.form-control(type="text" name="visaPrice")
+              .row
+                .col-md-6
+                  |&nbsp &nbsp Dual Citizenship Form
+                .col-md-6
+                  .form-group
+                    label.text-dark.bdn-label-floating Dual Citizenship Form price
+                    input.form-control(type="text" name="dualCitizenshipPrice")
+              .row
+                .col-md-6.text-success
+                  |&nbsp &nbsp Appointment Form
+                .col-md-6
+                  .form-group
+                    label.text-success.bdn-label-floating Appointment Form price
+                    input.form-control(type="text" name="appointmentPrice")
+              .text-center
+                button(class="btn btn-primary my-4" type="submit") Apply Changes
     footer.page-footer.center-on-small-only
       .flex-center.mb-3.mt-2
         a.px-3(href="")
@@ -274,7 +323,7 @@ html(lang="en")
     // /.Footer
     // SCRIPTS
     // JQuery
-    script(type="text/javascript" src="/js/jquery-3.3.1.min.js")
+    script(type="text/javascript" src="/js/jquery.min.js")
     // Bootstrap tooltips
     script(type="text/javascript" src="/js/popper.min.js")
     // Bootstrap core JavaScript
@@ -283,7 +332,7 @@ html(lang="en")
     script(type="text/javascript" src="/js/mdb.min.js")
     script(type="text/javascript" src="/js/compiled.min.js")
     script(type="text/javascript" src="/js/custom.js")
-    // Initializations
+    // Initialization
     script.
       // SideNav Initialization
       $(".button-collapse").sideNav();
@@ -501,7 +550,6 @@ html(lang="en")
       });
 
       var tableRows = $("#forms > tr");
-      console.log($("#forms > tr"));
       function searchUser(rows,input,searchPosition) {
         $(rows).each((index,row) => {
           console.log(row);
@@ -511,7 +559,6 @@ html(lang="en")
           //- var email = tdEmail.toLowerCase();
           $(row).css({"background-color":"#fff"});
           if(input !== "" && (name.includes(input.toLowerCase()))) {
-            console.log("searching for a member");
             $(row).css({"background-color":"#efefef"});
             row.scrollIntoView();
           }
@@ -519,7 +566,6 @@ html(lang="en")
       }
 
       $("#searchForm").keyup(e => {
-        console.log("changed");
         searchUser(tableRows,$("searchForm").val(),2);
       });
       
@@ -536,4 +582,9 @@ html(lang="en")
             user.scrollIntoView();
           }
         })
+      });
+
+      $("#dropdown-settings").click(e => {
+        e.preventDefault();
+        console.log(e.target);
       });

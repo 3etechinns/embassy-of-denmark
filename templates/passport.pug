@@ -1,5 +1,8 @@
 extends ./_user_dashboard_layout
 
+block pre_bootstrap
+  link(href='/css/mdb.min.css', rel='stylesheet')
+
 block styles
   link(rel="stylesheet", href="/css/formstyle.css")
 
@@ -8,16 +11,16 @@ block main
     .container
       .row
         .col-md-12.col-md-offset-3
-          form#msform(method='POST', action='', enctype='multipart/form-data')
+          form#msform(method='POST' enctype='multipart/form-data')
             // progressbar
             ul#progressbar
-              li.active(style='color: #000000 !important;') Personal Information
-              li(style='color: #000000 !important;') Contact Information
-              li(style='color: #000000 !important;') Evidence of Citizenship
-              li(style='color: #000000 !important;') Guarantors' Information
-              li(style='color: #000000 !important;') Parental Consent
-              li(style='color: #000000 !important;') Declaration
-              li(style='color: #000000 !important;') Witness Information
+              li.long.active(style='color: #000000 !important;') Personal Information
+              li.long(style='color: #000000 !important;') Contact Information
+              li.long(style='color: #000000 !important;') Evidence of Citizenship
+              li.long(style='color: #000000 !important;') Guarantors' Information
+              li.long(style='color: #000000 !important;') Parental Consent
+              li.long(style='color: #000000 !important;') Declaration
+              li.long(style='color: #000000 !important;') Witness Information
             // fieldsets
             fieldset
               h2.fs-title Personal Information
@@ -244,10 +247,10 @@ block main
                   .custom-file
                     input#customFile.custom-file-input(type='file' accept="image/*" name="witnessSignature" enctype="multipart/form-data" )
                     label.form-label.custom-file-label.form-label(for='customFile') Upload signature
-              .row.submit-button.submit-passport-form.text-center
+              .row.submit-button.submit-passport-form
                 input.col-sm-12.col-md-4.previous.action-button-previous(type='button', name='previous', value='Previous')
-                button#continue-later.col-sm-12.col-md-4.btn.btn-primary.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post") Save and Continue Later
-                button.col-sm-12.col-md-4.btn.btn-primary(type='submit', formaction="/forms/passport" formmethod="post") submit
+                input#continue-later.col-sm-12.col-md-4.next.action-button.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post" value="Save and Continue Later") 
+                input.col-sm-12.col-md-4.next.action-button(type='submit', formaction="/forms/passport" formmethod="post" value="submit") 
 block scripts
   script(src="/js/countries.js")
   script(src="/js/jquery.min.js")

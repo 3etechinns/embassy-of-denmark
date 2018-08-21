@@ -1,5 +1,8 @@
 extends ./_user_dashboard_layout
 
+block pre_bootstrap
+  link(href='/css/mdb.min.css', rel='stylesheet')
+
 block styles
   link(rel="stylesheet", href="/css/formstyle.css")
 
@@ -8,7 +11,7 @@ block main
     .container
       .row
         .col-md-12.col-md-offset-3
-          form#msform(method='POST', action='', enctype='multipart/form-data')
+          form#msform(method='POST' enctype='multipart/form-data')
             // progressbar
             ul#progressbar
               li.active(style='color: #000000 !important;') Identity and Contact Information
@@ -21,53 +24,53 @@ block main
               h3.fs-subtitle Help us identify you and be able to contact you
               .row
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm(type="text" value=form.surname id="surname" placeholder="Surname" name="surname")
+                  input.form-control.form-control-sm(type="text" id="surname" placeholder="Surname" name="surname")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm(type="text" value=form.firstName placeholder="First name" id="firstName" name="firstName")
+                  input.form-control.form-control-sm(type="text" placeholder="First name" id="firstName" name="firstName")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm(type="text" value=form.previousName placeholder="Previous name, if changed" id="previousName" name="previousName")
+                  input.form-control.form-control-sm(type="text" placeholder="Previous name, if changed" id="previousName" name="previousName")
               .row
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="date" value=form.dateOfBirth id="dateOfBirth" name="dateOfBirth")
+                  input.form-control.form-control-sm( type="date" id="dateOfBirth" name="dateOfBirth")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm(type="text" value=form.placeOfBirth id="placeOfBirth" placeholder="City of Birth" name="placeOfBirth")
+                  input.form-control.form-control-sm(type="text" id="placeOfBirth" placeholder="City of Birth" name="placeOfBirth")
                 .col-sm-12.col-lg-4.form-group
-                  select.form-control.form-control-sm(placeholder="Nationality" data-option=form.nationality id="nationality" name="nationality")
+                  select.form-control.form-control-sm(placeholder="Nationality" id="nationality" name="nationality")
                     option(value="") --Select Nationality--
               .row
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.email placeholder="Email" id="email" name="email")
+                  input.form-control.form-control-sm( type="text" placeholder="Email" id="email" name="email")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.telephoneNumber placeholder="Telephone Number" id="telephoneNumber" name="telephoneNumber")
+                  input.form-control.form-control-sm( type="text" placeholder="Telephone Number" id="telephoneNumber" name="telephoneNumber")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.residentialAddress placeholder="Residential Address" id="residentialAddress" name="residentialAddress")
+                  input.form-control.form-control-sm( type="text" placeholder="Residential Address" id="residentialAddress" name="residentialAddress")
               input.next.action-button(type='button', name='next', value='Next')
             fieldset
               h2.fs-title Passport and Work Information
               h3.fs-subtitle Tell us how we can contact you
               .row
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.passportNumber placeholder="Passport Number" id="passportNumber" name="passportNumber")
+                  input.form-control.form-control-sm( type="text" placeholder="Passport Number" id="passportNumber" name="passportNumber")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="date" value=form.passportDateOfIssue placeholder="Date of Issue" id="passportDateOfIssue" name="passportDateOfIssue")
+                  input.form-control.form-control-sm( type="date" placeholder="Date of Issue" id="passportDateOfIssue" name="passportDateOfIssue")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="date" value=form.passportDateOfExpiry placeholder="Expiry Date" id="passportDateOfExpiry" name="passportDateOfExpiry")
+                  input.form-control.form-control-sm( type="date" placeholder="Expiry Date" id="passportDateOfExpiry" name="passportDateOfExpiry")
               .row
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.passportPlaceOfIssue placeholder="Place of Issue" id="passportPlaceOfIssue" name="passportPlaceOfIssue")
+                  input.form-control.form-control-sm( type="text" placeholder="Place of Issue" id="passportPlaceOfIssue" name="passportPlaceOfIssue")
                 .col-sm-12.col-lg-4.form-group
-                  select.form-control.form-control-sm( name="formerNationality" data-option=form.formerNationality id="formerNationality")
+                  select.form-control.form-control-sm( name="formerNationality" id="formerNationality")
                     option(value="") --Former nationality, if applicable--
                 .col-sm-12.col-lg-4.form-group
-                  select.form-control.form-control-sm( name="currentCountryOfResidence" data-option=form.currentCountryOfResidence id="currentCountryOfResidence")
+                  select.form-control.form-control-sm( name="currentCountryOfResidence" id="currentCountryOfResidence")
                     option(value="") --Current country of residence--
               .row
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.profession placeholder="Profession" id="profession" name="profession")
+                  input.form-control.form-control-sm( type="text" placeholder="Profession" id="profession" name="profession")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.workPlaceAddress placeholder="Work Place Address" id="workPlaceAddress" name="workPlaceAddress")
+                  input.form-control.form-control-sm( type="text" placeholder="Work Place Address" id="workPlaceAddress" name="workPlaceAddress")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.workPlaceTelephoneNumber placeholder="Work Place Telephone" id="workPlaceTelephoneNumber" name="workPlaceTelephoneNumber")
+                  input.form-control.form-control-sm( type="text" placeholder="Work Place Telephone" id="workPlaceTelephoneNumber" name="workPlaceTelephoneNumber")
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='button', name='next', value='Next')
             fieldset
@@ -75,16 +78,16 @@ block main
               h3.fs-subtitle Please help us with some citizenship information
               .row
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="date" value=form.intendedDateOfTravel placeholder="Intended Date of Travel" id="intendedDateOfTravel" name="intendedDateOfTravel")
+                  input.form-control.form-control-sm( type="date" placeholder="Intended Date of Travel" id="intendedDateOfTravel" name="intendedDateOfTravel")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.durationOfStayInGhana placeholder="Duration of Stay in Ghana" id="durationOfStayInGhana" name="durationOfStayInGhana")
+                  input.form-control.form-control-sm( type="text" placeholder="Duration of Stay in Ghana" id="durationOfStayInGhana" name="durationOfStayInGhana")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="date" value=form.dateOfLastVisitToGhana placeholder="Date of Last Visit to Ghana" id="dateOfLastVisitToGhana" name="dateOfLastVisitToGhana")
+                  input.form-control.form-control-sm( type="date" placeholder="Date of Last Visit to Ghana" id="dateOfLastVisitToGhana" name="dateOfLastVisitToGhana")
               .row
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.purposeOfJourney placeholder="Purpose of Journey" id="purposeOfJourney" name="purposeOfJourney")
+                  input.form-control.form-control-sm( type="text" placeholder="Purpose of Journey" id="purposeOfJourney" name="purposeOfJourney")
                 .col-sm-12.col-lg-4.form-group
-                  select.form-control.form-control-sm( type="text" placeholder="Means of Travel" data-option=form.meansOfTravel id="meansOfTravel" name="meansOfTravel")
+                  select.form-control.form-control-sm( type="text" placeholder="Means of Travel" id="meansOfTravel" name="meansOfTravel")
                     option(value="") --Select means of travel--
                     option(value="Air") Air
                     option(value="Sea") Sea
@@ -93,24 +96,24 @@ block main
                   input.form-control.form-control-sm( type="text" placeholder="Financial Means" id="financialMeansOfApplicant" name="financialMeansOfApplicant")
               .row
                 .col-sm-12.col-lg-4.form-group
-                  select#visaType.form-control.form-control-sm( name="visaType" data-option=form.visaType)
+                  select#nationality.form-control.form-control-sm( name="visaType")
                     option(value="") --Select Visa type--
                     option(value="Single Entry") Single Entry Visa
                     option(value="Multiple Entry") Multiple Entry Visa
                 .col-sm-12.col-lg-8.form-group.btn-group.btn-group-toggle(data-toggle='buttons')
                   label.btn.btn-secondary.active
-                    input#yes(type='radio', name='posessionOfReturnTicket', data-posessionOfReturnTicket=form.posessionOfReturnTicket value="Yes" autocomplete='off')
+                    input#yes(type='radio', name='posessionOfReturnTicket', value="Yes" autocomplete='off', checked='')
                     |  I have a return ticket
                   label.btn.btn-secondary
-                    input#no(type='radio', name='posessionOfReturnTicket', data-posessionOfReturnTicket=form.posessionOfReturnTicket value="No" autocomplete='off')
+                    input#no(type='radio', name='posessionOfReturnTicket', value="No" autocomplete='off')
                     |  I have no return ticket
               .row
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.ticketNumber placeholder="If yes, provide ticket Number" id="ticketNumber" name="ticketNumber")
+                  input.form-control.form-control-sm( type="text" placeholder="If yes, provide ticket Number" id="ticketNumber" name="ticketNumber")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.accompaniedBy placeholder="Who are you accompanied by?" id="accompaniedBy" name="accompaniedBy")
+                  input.form-control.form-control-sm( type="text" placeholder="Who are you accompanied by?" id="accompaniedBy" name="accompaniedBy")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="date" value=form.accompaniedByDateOfBirth placeholder="His/Her Date of Birth" id="accompaniedByDateOfBirth" name="accompaniedByDateOfBirth")
+                  input.form-control.form-control-sm( type="date" placeholder="His/Her Date of Birth" id="accompaniedByDateOfBirth" name="accompaniedByDateOfBirth")
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='button', name='next', value='Next')
 
@@ -120,34 +123,37 @@ block main
               p First Reference
               .row
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.references[0].fullName placeholder="Full name" name="guarantorsName1" id="guarantorsName1")
+                  input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName1" id="guarantorsName1")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.references[0].address placeholder="Residential address" name="guarantorsAddress1" id="guarantorsAddress1")
+                  input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress1" id="guarantorsAddress1")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.references[0].telephoneNumber placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
+                  input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
               p Second Reference
               .row
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.references[1].fullName placeholder="Full name" name="guarantorsName2" id="guarantorsName2")
+                  input.form-control.form-control-sm( type="text" placeholder="Full name" name="guarantorsName2" id="guarantorsName2")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.references[1].address placeholder="Residential address" name="guarantorsAddress2" id="guarantorsAddress2")
+                  input.form-control.form-control-sm( type="text" placeholder="Residential address" name="guarantorsAddress2" id="guarantorsAddress2")
                 .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm( type="text" value=form.references[1].telephoneNumber placeholder="Telephone number" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
+                  input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.action-button(type='submit', name='next', value='Submit')
 
 block scripts
   script(src="/js/countries.js")
-  //- script(src="/js/jquery.min.js")
   script.
-    var currentCountryOfResidence = document.querySelector("#currentCountryOfResidence");
-    var formerNationality = document.querySelector("#formerNationality");
+    var countryOfBirth = document.querySelector("#countryOfBirth");
+    var countryOfResidence = document.querySelector("#countryOfResidence");
+    var fathersNationality = document.querySelector("#fathersNationality");
+    var mothersNationality = document.querySelector("#mothersNationality");
     var nationality = document.querySelector("#nationality");
 
-    if (nationality) {
+    if (countryOfBirth) {
       countries.forEach(function(country) {
-        appendOptions(currentCountryOfResidence, country.name);
-        appendOptions(formerNationality, country.name);
+        appendOptions(countryOfBirth, country.name);
+        appendOptions(countryOfResidence, country.name);
+        appendOptions(mothersNationality, country.name);
+        appendOptions(fathersNationality, country.name);
         appendOptions(nationality, country.name);
       });
     }
@@ -158,12 +164,12 @@ block scripts
       parent.appendChild(option);
     }
 
-    $("#yes").change( () => {
-      $("#ticketNumber").attr("disabled",true);
+    $("#newPassport").change( () => {
+      $("#previousPassportNumber").attr("disabled",true);
     });
 
-    $("#no").change(() => {
-      $("#ticketNumber").attr("disabled",false);
+    $("#attached").change(() => {
+      $("#previousPassportNumber").attr("disabled",false);
     });
 
     
@@ -248,29 +254,6 @@ block scripts
     $(".submit").click(function(){
       return false;
     })
-
-    function populateSelect(id){
-      const options = $(`#${id}`).children();
-      for(var i=0; i<options.length; i++) {
-        if(options[i].value === $(`#${id}`).attr("data-option")) {
-          $(options[i]).prop("selected", true);
-        }
-      }
-    }
-
-    populateSelect("nationality");
-    populateSelect("meansOfTravel");
-    populateSelect("visaType");
-    populateSelect("formerNationality");
-    populateSelect("currentCountryOfResidence");
-
-    if($("#yes").attr("data-posessionOfReturnTicket") === "Yes") {
-      $("#yes").attr("checked", true);
-    }
-
-    if($("#no").attr("data-posessionOfReturnTicket") === "No") {
-      $("#no").attr("checked", true);
-    }
 
               
               

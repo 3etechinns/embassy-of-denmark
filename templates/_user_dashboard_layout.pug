@@ -11,11 +11,11 @@ html(lang='en')
     link(rel='stylesheet', type='text/css', href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css')
     // CSS Files
-    link(href='/css/mdb.min.css', rel='stylesheet')
+    block pre_bootstrap
+    link(href='/css/bootstrap.min.css', rel='stylesheet')
     link(href='/css/material-dashboard.css?v=2.1.0', rel='stylesheet')
-    // CSS Just for demo purpose, don't include it in your project
-    //- link(href='/css/demo.css', rel='stylesheet')
     block styles
+
   body
     .wrapper
       .sidebar(data-color='purple', data-background-color='white', data-image='/img/sidebar-1.jpg')
@@ -26,31 +26,28 @@ html(lang='en')
           a.simple-text.logo-normal
             | Hi, #{fullName || email}
         .sidebar-wrapper
-          ul.nav.collapsible.collapsible-accordion
-            li.nav-item
+          ul.nav
+            li.nav-item#dashboard
               a.nav-link(href='#')
                 i.material-icons dashboard
                 p Dashboard
-            li.nav-item
+            li.nav-item#userProfile
               a.nav-link(href='/profile')
                 i.material-icons person
                 p User Profile
-            li.nav-item.active
+            li.nav-item.active#history
               a.nav-link(href='/history')
                 i.material-icons history
                 p History
-            li.nav-item
+            li.nav-item#formsDropdownMenuLink(data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
               a.nav-link(href='/forms/passport')
                 i.material-icons content_paste
-                p Passport Form
-            li.nav-item
-              a.nav-link(href='/forms/visa')
-                i.material-icons content_paste
-                p Visa Form
-            li.nav-item
-              a.nav-link(href='#')
-                i.material-icons notifications
-                p Notifications
+                p Forms
+            .dropdown-menu.dropdown-menu-right(aria-labelledby='formsDropdownMenuLink')
+              a.dropdown-item(href='/forms/passport') Passport Form
+              a.dropdown-item(href='/forms/visa') Visa Form
+              a.dropdown-item(href='#') Dual Citizenship Form
+              a.dropdown-item(href='#') Appointment Form
       .main-panel
         // Navbar
         nav.navbar.navbar-expand-lg.navbar-transparent.navbar-absolute.fixed-top
@@ -78,21 +75,38 @@ html(lang='en')
                 li.nav-item.dropdown
                   a#navbarDropdownMenuLink.nav-link(data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                     i.material-icons notifications
-                    span.notification 5
+                    span.notification 3
                     p.d-lg-none.d-md-block
-                      | Some Actions
+                      | Notifications
                   .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
-                    a.dropdown-item(href='#') Mike John responded to your email
                     a.dropdown-item(href='#') You have 5 new tasks
-                    a.dropdown-item(href='#') You're now friend with Andrew
                     a.dropdown-item(href='#') Another Notification
                     a.dropdown-item(href='#') Another One
                 li.nav-item
                   a.nav-link(href='/logout' title="sign out")
                     i.material-icons power_settings_new
                     p.d-lg-none.d-md-block
-                      | Account
+                      | Sign out
         block main
         include ./includes/_footer
+        script.
+          if(location.pathname === "/profile") {
+            $("#userProfile").addClass("active");
+            $("#history").removeClass("active");
+            $("#passportForm").removeClass("active");
+          }
+
+          if(location.pathname === "/history") {
+            $("#history").addClass("active");
+            $("#userProfile").removeClass("active");
+            $("#passportForm").removeClass("active");
+          }
+
+          if(location.pathname.includes("forms")) {
+            console.log("hey");
+            $("#userProfile").removeClass("active");
+            $("#history").removeClass("active");
+            $("#formsDropdownMenuLink").addClass("active");
+          }
         block scripts
                     

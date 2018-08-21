@@ -17,20 +17,13 @@ block main
               .table-responsive
                 table.table
                   thead.text-primary
-                    th
-                      | No.
-                    th
-                      | Type
-                    th
-                      | Created At
-                    th
-                      | Last Updated
-                    th
-                      | Processing Status
-                    th
-                      | Payment Status
-                    th
-                      | Price (₵)
+                    th No.
+                    th Type
+                    th Created At
+                    th Last Updated
+                    th Processing Status
+                    th Payment Status
+                    th Price (₵)
                     th
                     th
                     th
@@ -60,12 +53,13 @@ block main
                             img.icon.payment-status(src="/img/x.svg")
                             | Unpaid
                         td.text-primary #{200}
-                        td.edit.actions-button 
-                          a(href=`/edit/${formRecord.formId}?type=${formRecord.formType}&formRecordId=${formRecord._id}`)
-                            img.edit-icon.icon(src="/img/edit.svg" title="edit") 
-                            | Edit
-                        td.delete 
-                          img.delete-icon.icon(src="/img/trash-2.svg" title="delete" data-toggle="modal" data-target=`#${formRecord._id}`)
+                        td 
+                          button(type="button" rel="tooltip" title="Edit Form" class="btn btn-primary btn-link btn-sm")
+                            a(href=`/edit/${formRecord.formId}?type=${formRecord.formType}&formRecordId=${formRecord._id}`)
+                              i(class="material-icons") edit
+                        td
+                          button(type="button" rel="tooltip" title="Delete" class="btn btn-danger btn-link btn-sm" data-toggle="modal" data-target=`#${formRecord._id}`)
+                            i.material-icons close
                           .modal.fade(id=`${formRecord._id}` tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
                             .modal-dialog(role='document')
                               .modal-content

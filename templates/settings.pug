@@ -1,15 +1,8 @@
 extends ./layout.pug
 
-block styles
-  link(rel="stylesheet", href="/css/profile.css")
-
 block main
   .container.main-content.profile
     h5.display-5.my-4 Account Settings
-    if updateMessage
-      .alert.alert-success.text-center.alert-dismissible(role="alert" data-dismiss="alert") 
-        a(href="#" class="close" data-dismiss="alert" aria-label="close") &times;
-        | #{updateMessage}
     .settings-form
       form(method="post" action="/account" name="account-settings")
         .row.group
@@ -40,6 +33,10 @@ block main
       .alert.alert-danger.text-center.alert-dismissible(role="alert" data-dismiss="alert") 
         a(href="#" class="close" data-dismiss="alert" aria-label="close") &times;
         | #{message}
+    if updateMessage
+      .alert.alert-success.text-center.alert-dismissible(role="alert" data-dismiss="alert") 
+        a(href="#" class="close" data-dismiss="alert" aria-label="close") &times;
+        | #{updateMessage}
 block scripts
   script.
     $(".password-changer").hide();

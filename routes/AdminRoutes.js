@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const FormRecord = mongoose.model("FormRecord");
 const User = mongoose.model("User");
+const Price = mongoose.model("Price");
 const FeedBack = mongoose.model("FeedBack");
 const {
   getNewRequests,
@@ -11,6 +12,7 @@ const {
 } = require("../middleware/admin");
 const { requireLogin } = require("../middleware");
 const FORM_TYPES = require("../formsTypes");
+const util = require("../util");
 const PROCESSING_STATUS = require("../processingStatus");
 // const { formIdParamHandler } = require("../controllers/formsController");
 
@@ -133,9 +135,10 @@ module.exports = app => {
   app.get("/admin/view/:formId", (req, res, next) => {
     if (req.query.type === "Passport") {
       console.log(req.form);
-      return res.render("admin/viewPassportForm", { form: req.form._doc });
+      return res.render("admin/viewPassportForm", { form: req.form });
     } else if (req.query.type === "Visa") {
-      return res.render("admin/viewVisaForm", { form: req.form._doc });
+      console.log(req.form);
+      return res.render("admin/viewVisaForm", { form: req.form });
     } else {
       const err = new Error("invalid request type");
       return next(err);
@@ -245,6 +248,32 @@ module.exports = app => {
       error.message =
         "sorry, we are having problems locating the file, try again later";
       return next(error);
+    }
+  });
+
+  app.post("/admin/settings/prices", async (req, res, next) => {
+    try {
+      const prices = await Price.create({
+        previous: { ...req.body },
+        current: { ...req.body }
+      });
+      console.log(prices);
+      return res.json(prices);
+      // return res.redirect("/admin");
+    } catch (error) {
+      return next(error);
+    }
+  });
+
+  app.get("/admin/get_price", async (req, res, next) => {
+    try {
+      if (!req.query.type) {
+        const prices = await Price.findOne();
+        console.log(prices);
+        return res.json(prices);
+      }
+    } catch (error) {
+      return res.json(error);
     }
   });
 };

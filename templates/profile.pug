@@ -7,7 +7,11 @@ block main
       .row
         .col-md-12
           if updateMessage
-            p.text-success #{updateMessage}
+            .alert.alert-success.alert-with-icon.mb-5(data-notify="container")
+              i.material-icons(data-notify="icon") add_alert
+              button.close(data-dismiss="alert" aria-label="close")
+                i.material-icons close
+              span #{updateMessage}
       .row
         .col-md-8
           .card
@@ -58,7 +62,11 @@ block main
                 .row
                   .col-md-12
                     if message
-                      p.text-danger #{message}
+                      .alert.alert-danger.alert-with-icon(data-notify="container")
+                        i.material-icons(data-notify="icon") add_alert
+                        button.close(data-dismiss="alert" aria-label="close")
+                          i.material-icons close
+                        span #{message}
                 button.btn.btn-primary.pull-right(type='submit') Update Profile
                 .clearfix
         .col-md-4
