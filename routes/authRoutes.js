@@ -3,10 +3,6 @@ const { createUser, logIn, logout } = require("../controllers/authController");
 const util = require("../util");
 
 module.exports = app => {
-  app.get("/login", requireLogout, (req, res, next) => {
-    return res.render("login");
-  });
-
   app.post("/login", requireLogout, logIn);
 
   app.post("/create-profile", requireLogout, (req, res, next) => {
@@ -14,11 +10,12 @@ module.exports = app => {
     if (password !== confirmPassword) {
       res.locals.errorMessage = "Passwords do not match!";
     }
-    return res.render("createProfile", {
+    return res.render("profile1", {
       fullName,
       email,
       password,
-      confirmPassword
+      confirmPassword,
+      headerText: "Create Profile"
     });
   });
 

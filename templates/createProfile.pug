@@ -1,121 +1,126 @@
-extends ./layout.pug
+extends ./_user_dashboard_layout
+
+block pre_bootstrap
+  link(rel="stylesheet", href="/css/mdb.min.css")
 
 block main
-  .container.main-content.passport
-    h5.display-5.my-4 Create Profile
-    .passport-form  
-      form(name="passport" method="post" action="/register")
-        div.text-center(class="alert alert-secondary" role="alert") ONE LAST THING. Please help us get a profile of you.
-        .form-section
-          p.form-section-name Identity Information
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="fullName") Full Name
-              label.form-label.star *
-              input.form-control.form-control-sm(required type="text" id="fullName" placeholder="Full Name" value=fullName name="fullName")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="gender" id="gender") Gender
-                label.form-label.star *
-              br
-              .form-check.form-check-inline
-                input.form-check-input.form-control-sm( type="radio" id="male" name="gender" value="Male")
-                label.form-label.form-check-label.form-label Male
-              .form-check.form-check-inline
-                input.form-check-input.form-control-sm( type="radio" id="female" name="gender" value="Female")
-                label.form-label.form-check-label.form-label Female
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="dateOfBirth") Date of Birth
-              label.form-label.star *
-              input.form-control.form-control-sm(required type="date" placeholder="Date of Birth" id="dateOfBirth" name="dateOfBirth")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="nationality") Nationality
-              label.form-label.star *
-              select.form-control.form-control-sm(required name="nationality" id="nationality")
-                option(value="") Please select one....
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="idNumber") ID Number
-              label.form-label.star *
-              input.form-control.form-control-sm(required type="text" placeholder="ID Number" id="idNumber" name="idNumber")
-        .form-section
-          p.form-section-name Contact Information
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="email") Email
-              label.form-label.star *
-              input.form-control.form-control-sm(required type="text" value=email placeholder="Email" id="email" name="email")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="telephoneNumber") Telephone Number
-              label.form-label.star *
-              input.form-control.form-control-sm(required type="text" placeholder="Telephone Number" id="telephoneNumber" name="telephoneNumber")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="residentialAddress") Residential Address
-              label.form-label.star *
-              input.form-control.form-control-sm(required type="text" placeholder="Residential Address" id="residentialAddress" name="residentialAddress")
-            .col-sm-12.col-lg-5.form-group
-              label.form-label(for="password") Account Password
-              //- label.form-label.star *
-              input.form-control.form-control-sm(required type="password" value=password placeholder="Account Password" id="password" name="password")
-        .form-section
-          p.form-section-name Please provide us with 
-            strong at least 2
-            |  of the following documents
-          .row
-            .form-group.ml-3
-              label.checkbox-inline(for="cbs")
-                input#cbs(type="checkbox", name="cbs")
-                |    3 months bank statement &nbsp &nbsp &nbsp &nbsp
-              label.checkbox-inline(for="crp")
-                input#crp(type="checkbox", name="crp")
-                |    Residence Permit &nbsp &nbsp &nbsp &nbsp
-              label.checkbox-inline(for="csp")
-                input#csp(type="checkbox", name="csp")
-                |    Scanned Passport &nbsp &nbsp &nbsp &nbsp
-          .row
-            .col-sm-12.col-lg-5.form-group
-              label.form-label 3 months bank statement
-              .custom-file
-                input#bs.custom-file-input(type='file' name="bankStatement" enctype="multipart/form-data" )
-                label.form-label.custom-file-label.form-label(for='bs') Choose file
-            .col-sm-12.col-lg-5.form-group
-              label.form-label Residence Permit
-              .custom-file
-                input#rp.custom-file-input(type='file' name="residencePermit" enctype="multipart/form-data" )
-                label.form-label.custom-file-label.form-label(for='rp') Choose file
-            .col-sm-12.col-lg-5.form-group
-              label.form-label Scanned Passport
-              .custom-file
-                input#sp.custom-file-input(type='file' name="scannedPassport" enctype="multipart/form-data" )
-                label.form-label.custom-file-label.form-label(for='sp') Choose file
-        .row.submit-button.submit-passport-form.justify-content-center
-          button#customButton.col-sm-12.col-lg-5.my-2.btn.btn-primary.btn-lg.custom-button(type='submit') Submit
-          //- button#continue-later.col-sm-12.col-lg-5.my-2.btn.btn-primary.btn-lg.custom-button(type="submit" formaction="/forms/visa?type=continue-later" formmethod="post") Save and Continue Later
-  script(src="/js/countries.js")  
-  //- script(src="https://checkout.stripe.com/checkout.js")
-  script(src="/js/jquery.min.js")
+  // End Navbar
+  .content
+    .container-fluid
+      .row
+        .col-md-12
+          if updateMessage
+            .alert.alert-success.alert-with-icon.mb-5(data-notify="container")
+              i.material-icons(data-notify="icon") add_alert
+              button.close(data-dismiss="alert" aria-label="close")
+                i.material-icons close
+              span #{updateMessage}
+      .row
+        .col-md-8
+          .card
+            .card-header.card-header-primary
+              h4.card-title Continue account creation
+              p.card-category ONE LAST THING. Please help us get a profile of you.
+            .card-body
+              form(name="profile" method="POST" action="/register")
+                .row
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Full Name
+                      input.form-control(type='text' name="fullName" value=`${fullName}`)
+                  .col-md-6
+                    label.bmd-label-floating Gender &nbsp &nbsp
+                    .form-group.btn-group.btn-group-toggle(data-toggle='buttons')
+                      label.btn.btn-secondary.active
+                        input#male(type='radio', name='gender', value="Male")
+                        |  &nbsp &nbsp Male &nbsp &nbsp
+                      label.btn.btn-secondary
+                        input#female(type='radio', name='gender', value="Female")
+                        |  &nbsp Female &nbsp
+                .row
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Address
+                      input.form-control(type='text' name="residentialAddress" value=`${residentialAddress}`)
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating ID Number
+                      input.form-control(required type="text" id="idNumber" name="idNumber")
+                .row
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Date of Birth
+                      input.form-control(required type="text" onfocus="this.type='date'" id="dateOfBirth" name="dateOfBirth")
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Nationality
+                      input.form-control(required type="text" name="nationality" id="nationality")
+                .row
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Email
+                        input.form-control(required type="text" value=email placeholder="Email" id="email" name="email")
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Telephone
+                      input.form-control(type='text' name="telephoneNumber" value=`${telephoneNumber}`)
+                .row
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Residential Address
+                      input.form-control(required type="text" id="residentialAddress" name="residentialAddress")
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Account Password
+                      input.form-control(autocomplete="false" value=password type='password' name="oldPassword")
+                .form-section
+                  p.text-center.display-6.form-section-name Please provide us with 
+                    strong at least 2
+                    |  of the following documents
+                .row
+                  .col-sm-12.col-lg-4.ml-3
+                    .form-check
+                      label.form-check-label
+                        input.form-check-input(type='checkbox', name="cbs")
+                        |   3 months bank statement &nbsp &nbsp 
+                        span.form-check-sign
+                          span.check
+                  .col-sm-12.col-lg-3.ml-1
+                    .form-check
+                      label.form-check-label
+                        input.form-check-input(type='checkbox', name="crp")
+                        |   Residence Permit &nbsp &nbsp 
+                        span.form-check-sign
+                          span.check
+                  .col-sm-12.col-lg-3.ml-3
+                    .form-check
+                      label.form-check-label
+                        input.form-check-input(type='checkbox', name="csp")
+                        |   Scanned Passport &nbsp &nbsp 
+                        span.form-check-sign
+                          span.check
+                br
+                .row
+                  .col-sm-12.col-lg-4
+                    label Residence Permit
+                    input(type='file', name='bankStatement')
+                  .col-sm-12.col-lg-4
+                    label(for='rp') 3 months Bank statement
+                    input#rp(type='file' name="residencePermit")
+                  .col-sm-12.col-lg-4
+                    label Scanned Passport
+                    input#sp(type='file' name="scannedPassport" )
+                .row
+                  .col-md-12
+                    if message
+                      .alert.alert-danger.alert-with-icon(data-notify="container")
+                        i.material-icons(data-notify="icon") add_alert
+                        button.close(data-dismiss="alert" aria-label="close")
+                          i.material-icons close
+                        span #{message}
+                button.btn.btn-primary.pull-right(type='submit') Update Profile
+block scripts
   script.
-    $("#home").addClass("active");
-    $("#applications").removeClass("active");
-    $("#dashboard").removeClass("active");
-
-    var nationality = document.querySelector("#nationality");
-    //- var formerNationality = document.querySelector("#formerNationality");
-    //- var currentCountryOfResidence = document.querySelector("#currentCountryOfResidence");
-
-    if (nationality) {
-      countries.forEach(function(country) {
-        appendOptions(nationality, country.name);
-        //- appendOptions(formerNationality, country.name);
-        //- appendOptions(currentCountryOfResidence, country.name);
-      });
-    }
-
-    function appendOptions(parent, value) {
-      var option = document.createElement("option");
-      option.innerHTML = value;
-      parent.appendChild(option);
-    }
-
     $("#cbs").change(e => {
       if(e.target.checked) {
         $("#bs").attr("required",true);
