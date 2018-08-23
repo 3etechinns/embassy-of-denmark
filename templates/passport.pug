@@ -26,8 +26,10 @@ block main
               h2.fs-title Personal Information
               h3.fs-subtitle Help us identify who we're dealing with
               .row
-                .col-sm-12.col-lg-4.form-group
-                  input.form-control.form-control-sm(type="text" id="surname" placeholder="Surname" name="surname")
+                .col-sm-12.col-lg-4
+                  label(for="") Surname
+                  .form-group
+                    input.form-control.form-control-sm(type="text" id="surname" placeholder="Surname" name="surname")
                 .col-sm-12.col-lg-4.form-group
                   input.form-control.form-control-sm(type="text" placeholder="Other names" id="otherNames" name="otherNames")
                 .col-sm-12.col-lg-4.form-group
@@ -146,7 +148,7 @@ block main
                   input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
                 .col-sm-12.col-lg-4.form-group
                   .custom-file
-                    input#customFile.custom-file-input(type='file' name="guarantorsSignature1" enctype="multipart/form-data" )
+                    input#customFile.custom-file-input(type='file' name="guarantorsSignature1")
                     //- label.form-label.custom-file-label.form-label(for='customFile') Upload signature
               p Second guarantor
               .row
@@ -247,10 +249,10 @@ block main
                   .custom-file
                     input#customFile.custom-file-input(type='file' accept="image/*" name="witnessSignature" enctype="multipart/form-data" )
                     label.form-label.custom-file-label.form-label(for='customFile') Upload signature
-              .row.submit-button.submit-passport-form
-                input.col-sm-12.col-md-4.previous.action-button-previous(type='button', name='previous', value='Previous')
-                input#continue-later.col-sm-12.col-md-4.next.action-button.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post" value="Save and Continue Later") 
-                input.col-sm-12.col-md-4.next.action-button(type='submit', formaction="/forms/passport" formmethod="post" value="submit") 
+              .row.submit-button.submit-passport-form.text-center
+                input.col-sm-12.col-lg-3.previous.action-button-previous(type='button', name='previous', value='Previous')
+                input#continue-later.col-sm-12.col-lg-3.next.action-button.custom-button(type="submit" formaction="/forms/passport?type=continue-later" formmethod="post" value="Save and continue") 
+                input.col-sm-12.col-lg-3.next.action-button(type='submit', formaction="/forms/passport" formmethod="post" value="submit") 
 block scripts
   script(src="/js/countries.js")
   script(src="/js/jquery.min.js")

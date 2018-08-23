@@ -5,14 +5,15 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     link(rel="stylesheet", href="/css/bootstrap.min.css")
+    style.
     title Document
   body(style="width:50%; margin:0 auto")
     h3.display-4.text-center.my-4 Ooops, something bad happened (:
     .error-page.text-center
       div(class="alert alert-danger" role="alert") Error message: #{error.message}
     .back-link.text-center
-      button.btn.btn-primary Go back
-        //- i.materials-icon arrow
+      button.btn.btn-primary(type="button")
+        | Go back
     script.
       document.querySelector(".back-link").addEventListener("click", function(e) {
         history.back()
