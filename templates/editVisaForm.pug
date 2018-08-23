@@ -90,9 +90,9 @@ block main
                   select.form-control.form-control-sm( name="formerNationality" data-option=form.formerNationality id="formerNationality")
                     option(value="") --Former nationality, if applicable--
                 .col-sm-12.col-lg-4
-                  label(for="currentCountryOfResidence") Current country of residence :
+                  label(for="countryOfCurrentResidence") Current country of residence :
                   .form-group
-                  select.form-control.form-control-sm( name="currentCountryOfResidence" data-option=form.currentCountryOfResidence id="currentCountryOfResidence")
+                    select.form-control.form-control-sm( name="countryOfCurrentResidence" data-option=form.countryOfCurrentResidence id="countryOfCurrentResidence")
                     option(value="") --Current country of residence--
               .row
                 .col-sm-12.col-lg-4
@@ -162,7 +162,7 @@ block main
                 .col-sm-12.col-lg-4
                   label(for="ticketNumber") If yes, provide ticket number :
                   .form-group
-                    input.form-control.form-control-sm( type="text" value=form.ticketNumber placeholder="If yes, provide ticket Number" id="ticketNumber" name="ticketNumber")
+                    input.form-control.form-control-sm( type="text" value=form.ticketNumber data-ticketNumber=form.ticketNumber placeholder="If yes, provide ticket Number" id="ticketNumber" name="ticketNumber")
               .row
                 .col-sm-12.col-lg-6
                   label(for="accompaniedBy") Who are you accompanied by?
@@ -214,13 +214,13 @@ block scripts
   script(src="/js/countries.js")
   //- script(src="/js/jquery.min.js")
   script.
-    var currentCountryOfResidence = document.querySelector("#currentCountryOfResidence");
+    var countryOfCurrentResidence = document.querySelector("#countryOfCurrentResidence");
     var formerNationality = document.querySelector("#formerNationality");
     var nationality = document.querySelector("#nationality");
 
     if (nationality) {
       countries.forEach(function(country) {
-        appendOptions(currentCountryOfResidence, country.name);
+        appendOptions(countryOfCurrentResidence, country.name);
         appendOptions(formerNationality, country.name);
         appendOptions(nationality, country.name);
       });
@@ -232,12 +232,36 @@ block scripts
       parent.appendChild(option);
     }
 
+    if($("#yes").attr("data-posessionOfReturnTicket") === "Yes") {
+      $("#yes").attr("checked", true);
+      var ylabel = $("#yes").parent();
+      var nlabel = $("#no").parent();
+      $(ylabel).addClass("active");
+      $(nlabel).removeClass("active");
+      $("ticketNumber").attr("disabled", false);
+    }
+
+    if($("#no").attr("data-posessionOfReturnTicket") === "No") {
+      $("#no").attr("checked", true);
+      var ylabel = $("#yes").parent();
+      var nlabel = $("#no").parent();
+      $(ylabel).removeClass("active");
+      $(nlabel).addClass("active");
+      $("ticketNumber").val("");
+      $("ticketNumber").attr("disabled", true);
+    }
+
     $("#yes").change( () => {
-      $("#ticketNumber").attr("disabled",true);
+      var ticketN0 = $("#ticketNumber").attr("data-ticketNumber");
+      console.log("changed yes", ticketN0);
+      $("#ticketNumber").val(ticketN0);
+      $("#ticketNumber").attr("disabled",false);
     });
 
     $("#no").change(() => {
-      $("#ticketNumber").attr("disabled",false);
+      console.log("changed no");
+      $("#ticketNumber").val("");
+      $("#ticketNumber").attr("disabled",true);
     });
 
     
@@ -336,15 +360,8 @@ block scripts
     populateSelect("meansOfTravel");
     populateSelect("visaType");
     populateSelect("formerNationality");
-    populateSelect("currentCountryOfResidence");
+    populateSelect("countryOfCurrentResidence");
 
-    if($("#yes").attr("data-posessionOfReturnTicket") === "Yes") {
-      $("#yes").attr("checked", true);
-    }
-
-    if($("#no").attr("data-posessionOfReturnTicket") === "No") {
-      $("#no").attr("checked", true);
-    }
 
               
               

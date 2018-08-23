@@ -71,7 +71,7 @@ block main
                   label(for="nationality") Nationality :
                   .form-group
                   select.form-control.form-control-sm(placeholder="Nationality" data-option=form.nationality id="nationality" name="nationality")
-                    option(value="") --Nationality--
+                      option(value="") --select nationality--
               .row
                 .col-sm-12.col-lg-4
                   label(for="height") Height :
@@ -81,7 +81,7 @@ block main
                   label(for="eyeColor") Eye color :
                   .form-group
                   select.form-control(placeholder="Eye color" data-option=form.eyeColor id="eyeColor" name="eyeColor")
-                    option(value="") --Eye color--
+                      option(value="") --select eye color--
                     option(value="Black") Black
                     option(value="Brown") Brown
                     option(value="Blue") Blue
@@ -91,7 +91,7 @@ block main
                   label(for="hairColor") Hair color :
                   .form-group
                   select.form-control(placeholder="Hair color" data-option=form.hairColor id="hairColor" name="hairColor")
-                    option(value="") --Hair color--
+                      option(value="") --select hair color--
                     option(value="Black") Black
                     option(value="Brown") Brown
                     option(value="Blond") Blond
@@ -107,7 +107,7 @@ block main
                   label(for="countryOfResidence") Country of Residence :
                   .form-group
                   select.form-control.form-control-sm( name="countryOfResidence" data-option=form.countryOfResidence id="countryOfResidence")
-                    option(value="") --Country of residence--
+                      option(value="") --select country of residence--
                 .col-sm-12.col-lg-4
                   label(for="residentialAddress") Residential Address :
                   .form-group
@@ -133,7 +133,7 @@ block main
                 .col-sm-12.col-lg-4
                   label(for="lastYearOfEducation") Year of completion :
                   .form-group
-                  input.form-control.form-control-sm(type="text" value=form.lastYearOfEducation placeholder="Year attended" name="lastYearOfEducation" id="lastYearOfEducation")
+                    input.form-control.form-control-sm(type="text" value=form.lastYearOfEducation placeholder="Year completed" name="lastYearOfEducation" id="lastYearOfEducation")
                 .col-sm-12.col-lg-4
                   label(for="profession") Profession :
                   .form-group
@@ -180,11 +180,11 @@ block main
                 .col-sm-12.col-lg-4
                   label(for="evidenceOfCitizenshipNumber") Document Number :
                   .form-group
-                  input.form-control.form-control-sm( type="text" value=form.evidenceOfCitizenshipNumber placeholder="card number" name="evidenceOfCitizenshipNumber" id="evidenceOfCitizenshipNumber")
+                    input.form-control.form-control-sm( type="text" value=form.evidenceOfCitizenshipNumber placeholder="Document number" name="evidenceOfCitizenshipNumber" id="evidenceOfCitizenshipNumber")
                 .col-sm-12.col-lg-4
-                  label(for="evidenceOfCitizenshipDate") Date of isuue :
+                  label(for="evidenceOfCitizenshipDate") Date of issue :
                   .form-group
-                  input.form-control.form-control-sm( type="date" value=form.evidenceOfCitizenshipDate name="evidenceOfCitizenshipDate" id="evidenceOfCitizenshipDate")
+                    input.form-control.form-control-sm( type="date" placeholder="Date of issue" value=form.evidenceOfCitizenshipDate name="evidenceOfCitizenshipDate" id="evidenceOfCitizenshipDate")
                 .col-sm-12.col-lg-4
                   label(for="evidenceOfCitizenshipPlaceOfIssue") Place of issue :
                   .form-group
@@ -211,23 +211,7 @@ block main
                   input.form-control.form-control-sm( type="text" value=form.guarantors[0].guarantorsTelephoneNumber placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
                 .col-sm-12.col-lg-6
                   label(for="guarantorsSignature1") Guarantor's signature :
-                  .custom-file
-                    input#customFile.custom-file-input(type='file' value=form.guarantors[0].guarantorsSignature name="guarantorsSignature1" enctype="multipart/form-data" )
-                    label.form-label.custom-file-label.form-label(for='customFile') Upload signature
-                .col-sm-12.col-lg-6
-                  .form-group
-                    label.form-label View previously uploaded signature
-                    label.form-label
-                    if form.guarantors[0].guarantorsSignature
-                      .edit.actions-button 
-                        a(href=`/admin/view/${form._id}/${form.guarantors[0].guarantorsSignature}?type=Passport` target="blank")
-                          img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                          | view signature
-                    else
-                      .edit.actions-button
-                        img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                        | No picture uploaded previously
-                      .form-group
+                  input(type='file' value=form.guarantors[0].guarantorsSignature name="guarantorsSignature1")
               hr
               p Second guarantor
               .row
@@ -245,10 +229,7 @@ block main
                   input.form-control.form-control-sm( type="text" value=form.guarantors[1].guarantorsTelephoneNumber placeholder="Telephone number" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
                 .col-sm-12.col-lg-6
                   label(for="guarantorsSignature2") Guarantor's signature :
-                  .form-group
-                  .custom-file
-                    input#customFile.custom-file-input(type='file' value=form.guarantors[1].guarantorsSignature name="guarantorsSignature2" enctype="multipart/form-data" )
-                    label.form-label.custom-file-label.form-label(for='customFile') Upload signature
+                  input(type='file' value=form.guarantors[1].guarantorsSignature name="guarantorsSignature2")
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='button', name='next', value='Next')
 
@@ -277,9 +258,7 @@ block main
                   input.form-control.form-control-sm(type="text" value=form.parentTelephoneNumber placeholder="Parent's Telephone number" name="parentTelephoneNumber" id="parentTelephoneNumber")
                 .col-sm-12.col-lg-6
                   label(for="parentalConsentSignature") Parent's signature :
-                  .form-group
-                    input#customFile.custom-file-input(type='file' value=form.parentalConsentSignature name="parentalConsentSignature" enctype="multipart/form-data" )
-                      //- label.form-label.custom-file-label.form-label(for='customFile') Choose file
+                  input(type='file' value=form.parentalConsentSignature name="parentalConsentSignature")
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='button', name='next', value='Next')
 
@@ -307,10 +286,7 @@ block main
               .row
                 .col-sm-12.col-lg-6
                   label(for="interpretersSignature") Interpreter's signature :
-                  .form-group
-                  .custom-file
-                    input#customFile.custom-file-input(type='file' value=form.interpretersSignature name="interpretersSignature" enctype="multipart/form-data" )
-                    //- label.form-label.custom-file-label.form-label(for='customFile') Upload your signature
+                  input(type='file' value=form.interpretersSignature name="interpretersSignature")
                 .col-sm-12.col-lg-6
                   label(for="interpretationDate") Interpretation date :
                   .form-group
@@ -333,14 +309,11 @@ block main
                 .col-sm-12.col-lg-6
                   label(for="previousPassportNumber") If yes, provide its the passport number :
                   .form-group
-                    input.form-control.form-control-sm(type="text" name="previousPassportNumber" value=form.previousPassportNumber id="previousPassportNumber")
+                    input.form-control.form-control-sm(type="text" name="previousPassportNumber" data-number=form.previousPassportNumber value=form.previousPassportNumber id="previousPassportNumber")
               .row
                 .col-sm-12.col-lg-6
                   label(for="declarationSignature") Applicant's signature :
-                  .form-group
-                  .custom-file
-                    input#customFile.custom-file-input(type='file' value=form.declarationSignature name="declarationSignature" enctype="multipart/form-data" )
-                      //- label.form-label.custom-file-label.form-label(for='customFile') Upload Signature
+                  input(type='file' value=form.declarationSignature name="declarationSignature")
                 .col-sm-12.col-lg-6
                   label(for="declarationDate") Application Date :
                   .form-group
@@ -378,7 +351,7 @@ block main
                   label(for="witnessDate") Witness date  :
                   .form-group
                   input.form-control.form-control-sm( type="date" value=form.witnessDate placeholder="Date" name="witnessDate" id="witnessDate")
-                .col-sm-12.col-lg-16
+                .col-sm-12.col-lg-6
                   label(for="witnessSignature") Witness' signature :
                   .form-group
                   .custom-file
@@ -513,24 +486,40 @@ block scripts
       }
     }
 
-    console.log($("#male").attr("data-gender"));
     if($("#male").attr("data-gender") === "Male") {
       $("#male").attr("checked", true);
+      var mlabel = $("#male").parent();
+      var flabel = $("#female").parent();
+      $(flabel).removeClass("active");
+      $(mlabel).addClass("active");
     }
 
     if($("#female").attr("data-gender") === "Female") {
       $("#female").attr("checked", true);
+      var mlabel = $("#male").parent();
+      var flabel = $("#female").parent();
+      $(mlabel).removeClass("active");
+      $(flabel).addClass("active");
     }
 
     if($("#newPassport").attr("data-checked") === "newPassport") {
       $("#newPassport").attr("checked", true);
+      var mlabel = $("#newPassport").parent();
+      var flabel = $("#attached").parent();
+      $(flabel).removeClass("active");
+      $(mlabel).addClass("active");
       $("#previousPassportNumber").val("");
       $("#previousPassportNumber").attr("disabled",true);
     }
 
     if($("#attached").attr("data-checked") === "attached/lost") {
       $("#attached").attr("checked", true);
+      var mlabel = $("#newPassport").parent();
+      var flabel = $("#attached").parent();
+      $(mlabel).removeClass("active");
+      $(flabel).addClass("active");
     }
+
 
     var newPassport = document.getElementById("newPassport");
     if(newPassport.checked) {
@@ -547,7 +536,9 @@ block scripts
     });
 
     $("#attached").change(() => {
-      $("#previousPassportNumber").val($("#previousPassportNumber").attr("data-number"));
+      var number = $("#previousPassportNumber").attr("data-number");
+      console.log("attached",number);
+      $("#previousPassportNumber").val(number);
       $("#previousPassportNumber").attr("disabled",false);
     });
 
