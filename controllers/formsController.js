@@ -121,13 +121,14 @@ const createPassportForm = async (req, res, next) => {
       }
     }
 
+    console.log(req.files);
     const guarantors = [
       {
         guarantorsName: req.body.guarantorsName1,
         guarantorsAddress: req.body.guarantorsAddress1,
         guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber1,
         guarantorsSignature: req.files["guarantorsSignature1"]
-          ? req.files["guarantorsSignature1"][0].path
+          ? req.files["guarantorsSignature1"][0].filename
           : undefined
       },
       {
@@ -135,7 +136,7 @@ const createPassportForm = async (req, res, next) => {
         guarantorsAddress: req.body.guarantorsAddress2,
         guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber2,
         guarantorsSignature: req.files["guarantorsSignature2"]
-          ? req.files["guarantorsSignature2"][0].path
+          ? req.files["guarantorsSignature2"][0].filename
           : undefined
       }
     ];
@@ -153,16 +154,16 @@ const createPassportForm = async (req, res, next) => {
 
     const signatures = {
       interpretersSignature: req.files["interpretersSignature"]
-        ? req.files["interpretersSignature"][0].path
+        ? req.files["interpretersSignature"][0].filename
         : undefined,
       parentalConsentSignature: req.files["parentalConsentSignature"]
-        ? req.files["parentalConsentSignature"][0].path
+        ? req.files["parentalConsentSignature"][0].filename
         : undefined,
       declarationSignature: req.files["declarationSignature"]
-        ? req.files["declarationSignature"][0].path
+        ? req.files["declarationSignature"][0].filename
         : undefined,
       witnessSignature: req.files["witnessSignature"]
-        ? req.files["witnessSignature"][0].path
+        ? req.files["witnessSignature"][0].filename
         : undefined
     };
 
@@ -244,22 +245,57 @@ const createVisaForm = async (req, res, next) => {
 
     return res.redirect("/history");
   } catch (error) {
-    // error.message = "Please fill all required fields";
-    console.log(error);
-    return util.error(
-      "Please make sure all required fields have been filled",
-      next
-    );
+    let message = `${
+      error.name
+    }, please make sure all required fields are filled`;
+    return util.error(message, next);
   }
 };
 
 const updateForm = async (req, res, next) => {
   try {
-    console.log(req.files);
+    const guarantors = [
+      {
+        guarantorsName: req.body.guarantorsName1,
+        guarantorsAddress: req.body.guarantorsAddress1,
+        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber1,
+        guarantorsSignature: req.files["guarantorsSignature1"]
+          ? req.files["guarantorsSignature1"][0].filename
+          : req.body.guarantorsSignature1
+      },
+      {
+        guarantorsName: req.body.guarantorsName2,
+        guarantorsAddress: req.body.guarantorsAddress2,
+        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber2,
+        guarantorsSignature: req.files["guarantorsSignature2"]
+          ? req.files["guarantorsSignature2"][0].filename
+          : req.body.guarantorsSignature2
+      }
+    ];
+
+    const signatures = {
+      interpretersSignature: req.files["interpretersSignature"]
+        ? req.files["interpretersSignature"][0].filename
+        : req.body.interpretersSignature,
+      parentalConsentSignature: req.files["parentalConsentSignature"]
+        ? req.files["parentalConsentSignature"][0].filename
+        : req.body.parentalConsentSignature,
+      declarationSignature: req.files["declarationSignature"]
+        ? req.files["declarationSignature"][0].filename
+        : req.body.declarationSignature,
+      witnessSignature: req.files["witnessSignature"]
+        ? req.files["witnessSignature"][0].filename
+        : req.body.witnessSignature
+    };
+
     const modelName = getModelName(req.query.type);
     const updateInfo = await mongoose
       .model(modelName)
-      .updateOne({ _id: req.form._id }, { ...req.body }, { new: true });
+      .updateOne(
+        { _id: req.form._id },
+        { ...req.body, guarantors, ...signatures },
+        { new: true }
+      );
     return res.redirect("/history");
   } catch (error) {
     console.log(error);

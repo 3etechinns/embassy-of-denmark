@@ -12,7 +12,6 @@ block main
       .row
         .col-md-12.col-md-offset-3
           form#msform(method='POST' enctype='multipart/form-data')
-            input.next.action-button(type='submit', formaction=`/update/${form._id}?type=Passport&aim=continue-later&formRecordId=${formRecordId}` name='continue_later', value='continue later')
             // progressbar
             ul#progressbar
               li.long.active(style='color: #000000 !important;') Personal Information
@@ -81,7 +80,7 @@ block main
                   label(for="eyeColor") Eye color :
                   .form-group
                   select.form-control(placeholder="Eye color" data-option=form.eyeColor id="eyeColor" name="eyeColor")
-                      option(value="") --select eye color--
+                    option(value="") --select eye color--
                     option(value="Black") Black
                     option(value="Brown") Brown
                     option(value="Blue") Blue
@@ -91,7 +90,7 @@ block main
                   label(for="hairColor") Hair color :
                   .form-group
                   select.form-control(placeholder="Hair color" data-option=form.hairColor id="hairColor" name="hairColor")
-                      option(value="") --select hair color--
+                    option(value="") --select hair color--
                     option(value="Black") Black
                     option(value="Brown") Brown
                     option(value="Blond") Blond
@@ -211,7 +210,13 @@ block main
                   input.form-control.form-control-sm( type="text" value=form.guarantors[0].guarantorsTelephoneNumber placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
                 .col-sm-12.col-lg-6
                   label(for="guarantorsSignature1") Guarantor's signature :
-                  input(type='file' value=form.guarantors[0].guarantorsSignature name="guarantorsSignature1")
+                  input(type='hidden' value=form.guarantors[0].guarantorsSignature name="guarantorsSignature1")
+                  input(type='file' name="guarantorsSignature1")
+                  if form.guarantors[0].guarantorsSignature
+                    .edit.actions-button 
+                      a(href=`/view/${form._id}/${form.guarantors[0].guarantorsSignature}?type=Passport` target="blank")
+                        i.material-icons attach_file
+                        | view previously uploaded signature
               hr
               p Second guarantor
               .row
@@ -229,7 +234,13 @@ block main
                   input.form-control.form-control-sm( type="text" value=form.guarantors[1].guarantorsTelephoneNumber placeholder="Telephone number" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
                 .col-sm-12.col-lg-6
                   label(for="guarantorsSignature2") Guarantor's signature :
-                  input(type='file' value=form.guarantors[1].guarantorsSignature name="guarantorsSignature2")
+                  input(type='hidden' value=form.guarantors[1].guarantorsSignature name="guarantorsSignature2")
+                  input(type='file' name="guarantorsSignature2")
+                  if form.guarantors[1].guarantorsSignature
+                    .edit.actions-button 
+                      a(href=`/view/${form._id}/${form.guarantors[1].guarantorsSignature}?type=Passport` target="blank")
+                        i.material-icons attach_file
+                        | view previously uploaded signature
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='button', name='next', value='Next')
 
@@ -258,7 +269,13 @@ block main
                   input.form-control.form-control-sm(type="text" value=form.parentTelephoneNumber placeholder="Parent's Telephone number" name="parentTelephoneNumber" id="parentTelephoneNumber")
                 .col-sm-12.col-lg-6
                   label(for="parentalConsentSignature") Parent's signature :
-                  input(type='file' value=form.parentalConsentSignature name="parentalConsentSignature")
+                  input(type='hidden' value=form.parentalConsentSignature name="parentalConsentSignature")
+                  input(type='file' name="parentalConsentSignature")
+                  if form.parentalConsentSignature
+                    .edit.actions-button 
+                      a(href=`/view/${form._id}/${form.parentalConsentSignature}?type=Passport` target="blank")
+                        i.material-icons attach_file
+                        | view previously uploaded signature
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='button', name='next', value='Next')
 
@@ -286,7 +303,13 @@ block main
               .row
                 .col-sm-12.col-lg-6
                   label(for="interpretersSignature") Interpreter's signature :
-                  input(type='file' value=form.interpretersSignature name="interpretersSignature")
+                  input(type='hidden' value=form.interpretersSignature name="interpretersSignature")
+                  input(type='file' name="interpretersSignature")
+                  if form.interpretersSignature
+                    .edit.actions-button 
+                      a(href=`/view/${form._id}/${form.interpretersSignature}?type=Passport` target="blank")
+                        i.material-icons attach_file
+                        | view previously uploaded signature
                 .col-sm-12.col-lg-6
                   label(for="interpretationDate") Interpretation date :
                   .form-group
@@ -313,7 +336,13 @@ block main
               .row
                 .col-sm-12.col-lg-6
                   label(for="declarationSignature") Applicant's signature :
-                  input(type='file' value=form.declarationSignature name="declarationSignature")
+                  input(type='hidden' value=form.declarationSignature name="declarationSignature")
+                  input(type='file' name="declarationSignature")
+                  if form.declarationSignature
+                    .edit.actions-button 
+                      a(href=`/view/${form._id}/${form.declarationSignature}?type=Passport` target="blank")
+                        i.material-icons attach_file
+                        | view previously uploaded signature
                 .col-sm-12.col-lg-6
                   label(for="declarationDate") Application Date :
                   .form-group
@@ -353,10 +382,13 @@ block main
                   input.form-control.form-control-sm( type="date" value=form.witnessDate placeholder="Date" name="witnessDate" id="witnessDate")
                 .col-sm-12.col-lg-6
                   label(for="witnessSignature") Witness' signature :
-                  .form-group
-                  .custom-file
-                    input#customFile.custom-file-input(type='file' value=form.witnessSignature accept="image/*" name="witnessSignature" enctype="multipart/form-data" )
-                      //- label.form-label.custom-file-label.form-label(for='customFile') Upload signature
+                  input(type='hidden' value=form.witnessSignature name="witnessSignature")
+                  input(type='file' name="witnessSignature")
+                  if form.witnessSignature
+                  .edit.actions-button 
+                    a(href=`/view/${form._id}/${form.witnessSignature}?type=Passport` target="blank")
+                      i.material-icons attach_file
+                      | view previously uploaded signature
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='submit', formaction=`/update/${form._id}?type=Passport&aim=continue-later&formRecordId=${formRecordId}` name='continue_later', value='continue later')
               input.next.action-button(type='submit', formaction=`/update/${form._id}?type=Passport&formRecordId=${formRecordId}` name='submit', value='Submit')

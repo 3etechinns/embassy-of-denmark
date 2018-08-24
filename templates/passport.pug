@@ -11,7 +11,7 @@ block main
     .container
       .row
         .col-md-12.col-md-offset-3
-          form#msform(method='POST' enctype='multipart/form-data')
+          form#msform(method='POST' action="/forms/passport" enctype='multipart/form-data')
             // progressbar
             ul#progressbar
               li.long.active(style='color: #000000 !important;') Personal Information
@@ -50,12 +50,12 @@ block main
                 .col-sm-12.col-lg-4
                   label(for="gender") Gender :
                   .form-group.btn-group.btn-group-toggle(data-toggle='buttons')
-                  label.btn.btn-secondary.active
-                    input#male(type='radio', name='gender', value="male" autocomplete='off', checked='')
-                    |  &nbsp &nbsp Male &nbsp &nbsp
-                  label.btn.btn-secondary
-                    input#female(type='radio', name='gender', value="female" autocomplete='off')
-                    |  &nbsp Female &nbsp
+                    label.btn.btn-secondary.active
+                      input#male(type='radio', name='gender', value="male" autocomplete='off', checked='')
+                      |  &nbsp &nbsp Male &nbsp &nbsp
+                    label.btn.btn-secondary
+                      input#female(type='radio', name='gender', value="female" autocomplete='off')
+                      |  &nbsp Female &nbsp
               .row
                 .col-sm-12.col-lg-4
                   label(for="placeOfBirth") City/Town of birth :
@@ -80,7 +80,7 @@ block main
                   label(for="eyeColor") Eye color :
                   .form-group
                   select.form-control(placeholder="Eye color" id="eyeColor" name="eyeColor")
-                      option(value="") --select eye color--
+                    option(value="") --select eye color--
                     option(value="Black") Black
                     option(value="Brown") Brown
                     option(value="Blue") Blue
@@ -90,7 +90,7 @@ block main
                   label(for="hairColor") Hair color :
                   .form-group
                   select.form-control(placeholder="Hair color" id="hairColor" name="hairColor")
-                      option(value="") --select hair color--
+                    option(value="") --select hair color--
                     option(value="Black") Black
                     option(value="Brown") Brown
                     option(value="Blond") Blond
@@ -352,8 +352,9 @@ block main
                   input.form-control.form-control-sm( type="date" placeholder="Date" name="witnessDate" id="witnessDate")
                 .col-sm-12.col-lg-6
                   label(for="witnessSignature") Witness' signature :
-                  input(type='file' accept="image/*" name="witnessSignature")
+                  input(type='file' name="witnessSignature")
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
+              input.next.action-button(type='submit' formaction=`/forms/passport?type=continue-later` value='continue later')
               input.next.action-button(type='submit', value='Submit')
 block scripts
   script(src="/js/countries.js")
