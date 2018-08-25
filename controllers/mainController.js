@@ -29,8 +29,6 @@ const getProfile = (req, res, next) => {
           updatedAt: formRecord.updatedAt.toLocaleDateString()
         }));
 
-        console.log(formRecords[0].formType);
-
         return res.render("history", {
           formRecords,
           headerText: "History",

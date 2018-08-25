@@ -10,7 +10,7 @@ module.exports = app => {
     if (password !== confirmPassword) {
       res.locals.errorMessage = "Passwords do not match!";
     }
-    return res.render("profile1", {
+    return res.render("createProfile", {
       fullName,
       email,
       password,

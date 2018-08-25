@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const FormRecord = mongoose.model("FormRecord");
 const User = mongoose.model("User");
 const Price = mongoose.model("Price");
+const Visa = mongoose.model("VisaForm");
+const Passport = mongoose.model("PassportForm");
 const FeedBack = mongoose.model("FeedBack");
 const {
   getNewRequests,
@@ -253,16 +255,67 @@ module.exports = app => {
     }
   });
 
+  app.get("/admin/settings/pricing", async (req, res, next) => {
+    try {
+      const prices = await Price.findOne();
+      const users = await User.find({ isAdmin: false });
+      const applicants = await Promise.all([Passport.count(), Visa.count()]);
+      return res.render("admin/pricing", {
+        current: prices.current,
+        previous: prices.previous,
+        applicants,
+        users
+      });
+    } catch (error) {
+      return next(error);
+    }
+  });
+
   app.post("/admin/settings/prices", async (req, res, next) => {
     try {
       const prices = await Price.create({
         previous: { ...req.body },
         current: { ...req.body }
       });
-      console.log(prices);
-      return res.json(prices);
+      console.log(req.body);
+      return res.json(req.body);
       // return res.redirect("/admin");
     } catch (error) {
+      return next(error);
+    }
+  });
+
+  app.post("/admin/settings/pricing", async (req, res, next) => {
+    try {
+      const {
+        passportPrice,
+        visaPrice,
+        dualCitizenshipPrice,
+        appointmentPrice,
+        previousP,
+        previousV,
+        previousA,
+        previousD
+      } = req.body;
+      const previous = {
+        passportPrice: previousP,
+        visaPrice: previousV,
+        dualCitizenshipPrice: previousD,
+        appointmentPrice: previousA
+      };
+      const current = {
+        passportPrice,
+        visaPrice,
+        dualCitizenshipPrice,
+        appointmentPrice
+      };
+      const updatedPrices = await Price.update({
+        current,
+        previous
+      });
+      return res.redirect("/admin/settings/pricing");
+    } catch (error) {
+      console.log(error);
       return next(error);
     }
   });

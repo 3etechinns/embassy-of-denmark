@@ -37,7 +37,7 @@ html(lang="en")
               i.fa.fa-gear
               | Settings
             .dropdown-menu(aria-labelledby="dropdown-settings")
-              a.dropdown-item(href="" data-toggle="modal" data-target="#priceSettings") Price Settings
+              a.dropdown-item(href="/admin/settings/pricing") Price Settings
               a.dropdown-item(href="#") Access Rights
               a.dropdown-item(href="#") User Log
               a.dropdown-item(href="#") Currency
@@ -261,47 +261,6 @@ html(lang="en")
       #stopper.pb-2
     // Main layout
     // Footer
-    .modal.fade(id='priceSettings' tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
-      .modal-dialog(role='document')
-        .modal-content
-          .modal-header
-            img.header-img(src="/img/logo.png")
-            h5#exampleModalLabel.modal-title.text-center Price Settings
-            button.close(type='button', data-dismiss='modal', aria-label='Close')
-              span(aria-hidden='true') ×
-          .modal-body
-            p.text-center.text-danger.my-3 Changes made will apply to all forms filled from now!!!
-            form(action="/admin/settings/prices" method="POST")
-              .row
-                .col-md-6.text-primary
-                  |&nbsp &nbsp Passport Form
-                .col-md-6
-                  .form-group
-                    label.text-primary.bdn-label-floating Passport Form price
-                    input.form-control(type="text" name="passportPrice")
-              .row
-                .col-md-6.text-warning
-                  |&nbsp &nbsp Visa Form
-                .col-md-6
-                  .form-group
-                    label.text-warning.bdn-label-floating Visa Form price
-                    input.form-control(type="text" name="visaPrice")
-              .row
-                .col-md-6
-                  |&nbsp &nbsp Dual Citizenship Form
-                .col-md-6
-                  .form-group
-                    label.text-dark.bdn-label-floating Dual Citizenship Form price
-                    input.form-control(type="text" name="dualCitizenshipPrice")
-              .row
-                .col-md-6.text-success
-                  |&nbsp &nbsp Appointment Form
-                .col-md-6
-                  .form-group
-                    label.text-success.bdn-label-floating Appointment Form price
-                    input.form-control(type="text" name="appointmentPrice")
-              .text-center
-                button(class="btn btn-primary my-4" type="submit") Apply Changes
     footer.page-footer.center-on-small-only
       .flex-center.mb-3.mt-2
         a.px-3(href="")

@@ -1,0 +1,271 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(http-equiv="x-ua-compatible" content="ie=edge")
+    title Embassy Of Denmark
+    // Font Awesome
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    // Bootstrap core CSS
+    link(href="/css/bootstrap.min.css" rel="stylesheet")
+    // Material Design Bootstrap
+    link(href="/css/mdb.min.css" rel="stylesheet")
+    // Your custom styles (optional)
+    link(href="/css/style.css" rel="stylesheet")
+    link(href="/css/compiled.min.css" rel="stylesheet")
+  body.fixed-sn.mdb-skin
+    // Main Navigation
+    header
+      // Navbar
+      nav.navbar.navbar-expand-lg.navbar-dark.double-nav.fixed-top.scrolling-navbar
+        // SideNav slide-out button
+        .float-left
+          a.button-collapse(href="#" data-activates="slide-out")
+            i.fa.fa-bars
+        // Breadcrumb
+        .breadcrumb-dn.mr-auto
+          p(style="font-weight: 600; font-size: 13px;") ADMIN DASHBOARD
+        // Links
+        ul.nav.navbar-nav.nav-flex-icons.ml-auto
+          li.nav-item
+            a.nav-link(href="/admin/support")
+              i.fa.fa-comments-o
+              span.clearfix.d-none.d-sm-inline-block Support
+          li.nav-item.dropdown
+            a#dropdown-settings.nav-link.dropdown-toggle(href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false")
+              i.fa.fa-gear
+              | Settings
+            .dropdown-menu(aria-labelledby="dropdown-settings")
+              a.dropdown-item(href="" data-toggle="modal" data-target="#priceSettings") Price Settings
+              a.dropdown-item(href="#") Access Rights
+              a.dropdown-item(href="#") User Log
+              a.dropdown-item(href="#") Currency
+              a.dropdown-item(href="#") Bank/Card Details
+              a.dropdown-item(href="#") Embassy Profile
+              a.dropdown-item(href="#") Staff
+          li.nav-item
+            a.nav-link(href="/logout")
+              i.fa.fa-power-off
+      // /.Navbar
+      include sidebar.pug
+    // Main Navigation
+    // Main layout
+    main(style="margin: 0%;")
+      .container-fluid.row(style="margin: 0px;")
+        .col-md-9
+          section
+            h6(style="font-weight:600;") PRICING TABLE :
+          hr
+          // Section: Modals
+          // Section: Modals
+          // Section: Table
+          section
+            // Card
+            .card.card-cascade.narrower(style="width: 100%;")
+              // Card header
+              .view.py-3.gradient-card-header.blue.mx-4.d-flex.justify-content-between.align-items-center
+                a.white-text.mx-3(href="") Pricing List
+                div
+                  button.btn.btn-outline-white.btn-rounded.btn-sm.px-2(type="button" data-toggle="tooltip" data-placement="bottom" title="info")
+                    i.fa.fa-info-circle.mt-0
+              // /Card header
+              // Card content
+              .card-body
+                .table-responsive
+                  form(action="/admin/settings/pricing", method="post")
+                    table.table
+                      thead
+                        tr
+                          th 
+                            button.btn.btn-outline-blue.btn-rounded.btn-sm.px-2(type="button" data-toggle="tooltip" data-placement="bottom" title="info")
+                              i.fa.fa-info-circle.mt-0
+                          th.th-lg Form Type
+                          th.th-lg Number of Applicants
+                          th.th-lg Previous Price(GH₵)
+                          th.th-lg Current Price(GH₵)
+                      tbody#forms
+                        tr
+                          th(scope="row") 
+                            i.fa.fa-search
+                          td Passport
+                          td #{applicants[0] || 0}   Applicants
+                          td #{previous.passportPrice}
+                          td 
+                            input(type="text" name="passportPrice" value=current.passportPrice)
+                        tr
+                          th(scope="row") 
+                            i.fa.fa-file
+                          td Visa
+                          td #{applicants[1] || 0}   Applicants
+                          td #{previous.visaPrice} 
+                          td 
+                            input(type="text" name="visaPrice" value=current.visaPrice)
+                        tr
+                          th(scope="row") 
+                            i.fa.fa-bars
+                          td Dual Citizenship
+                          td #{applicants[2] || 0}   Applicants
+                          td #{previous.dualCitizenshipPrice}
+                          td 
+                            input(type="text" name="dualCitizenshipPrice" value=current.dualCitizenshipPrice)
+                        tr
+                          th(scope="row") 
+                            i.fa.fa-question
+                          td Appointment
+                          td #{applicants[3] || 0}   Applicants
+                          td #{previous.appointmentPrice}
+                          td 
+                            input(type="text" name="appointmentPrice" value=current.appointmentPrice)
+                    input(type="hidden", name="previousP" value=current.passportPrice)
+                    input(type="hidden", name="previousV" value=current.visaPrice)
+                    input(type="hidden", name="previousD" value=current.dualCitizenshipPrice)
+                    input(type="hidden", name="previousA" value=current.appointmentPrice)
+                    .text-center.m-3
+                      button.btn.btn-primary.btn-lg(type="submit") Apply Changes
+                hr.my-0
+                // Bottom Table UI
+              // /.Card content
+            // /.Card
+          // Section: Table
+        //- .col-md-6.my-2
+        //-   .sticky
+        .col-md-3
+          .sticky
+            form.my-2.md-6.form-inline
+              input#searchUser.form-control.my-0.py-0(type="text" placeholder="Search" style="max-width: 150px;")
+              button.btn.btn-sm.btn-info.ml-2.px-2
+                i.fa.fa-search
+            .list-group
+              h6.list-group-item.active.waves-effect(style="background: DodgerBlue; border:none; color: white;")
+                | User Search and Reporting
+              each user in users
+                a.user.list-group-item.list-group-item-action.waves-effect(href=`admin/users/${user._id}/profile`) #{user.fullName || user.email} 
+      #stopper.pb-2
+    // Main layout
+    // Footer
+    footer.page-footer.center-on-small-only
+      .flex-center.mb-3.mt-2
+        a.px-3(href="")
+          i.fa.fa-facebook
+        a.px-3(href="")
+          i.fa.fa-instagram
+        a.px-3(href="")
+          i.fa.fa-google
+        a.px-3(href="")
+          i.fa.fa-twitter
+        a.px-3(href="")
+          i.fa.fa-linkedin
+      // Copyright
+      .footer-copyright
+        .container-fluid
+          | © 2018 Copyright:
+          a(href="/admin")  Embassy Of Denmark 
+      // /.Copyright
+    // /.Footer
+    // SCRIPTS
+    // JQuery
+    script(type="text/javascript" src="/js/jquery.min.js")
+    // Bootstrap tooltips
+    script(type="text/javascript" src="/js/popper.min.js")
+    // Bootstrap core JavaScript
+    script(type="text/javascript" src="/js/bootstrap.min.js")
+    // MDB core JavaScript
+    script(type="text/javascript" src="/js/mdb.min.js")
+    script(type="text/javascript" src="/js/compiled.min.js")
+    script(type="text/javascript" src="/js/custom.js")
+    // Initialization
+    script.
+      // SideNav Initialization
+      $(".button-collapse").sideNav();
+      // Material Select Initialization
+      $(document).ready(function () {
+      $('.mdb-select').material_select();
+      });
+      // Data Picker Initialization
+      $('.datepicker').pickadate();
+      // Tooltip Initialization
+      $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+      })
+    // Charts
+    script.
+      // Minimalist chart
+      $(function () {
+      $('.min-chart#chart-revenue').easyPieChart({
+      barColor: "#4caf50",
+      onStep: function (from, to, percent) {
+      $(this.el).find('.percent').text(Math.round(percent));
+      }
+      });
+      });
+      // Main chart
+      var ctxL = document.getElementById("lineChart").getContext('2d');
+      var myLineChart = new Chart(ctxL, {
+      type: 'line',
+      data: {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      datasets: [{
+      label: "Revenue Graph",
+      fillColor: "#fff",
+      backgroundColor: 'rgba(255, 255, 255, .3)',
+      borderColor: 'rgba(255, 99, 132)',
+      data: [0, 10, 5, 2, 20, 30, 45],
+      }]
+      },
+      options: {
+      legend: {
+      labels: {
+      fontColor: "#fff",
+      }
+      },
+      scales: {
+      xAxes: [{
+      gridLines: {
+      display: true,
+      color: "rgba(255,255,255,.25)"
+      },
+      ticks: {
+      fontColor: "#fff",
+      },
+      }],
+      yAxes: [{
+      display: true,
+      gridLines: {
+      display: true,
+      color: "rgba(255,255,255,.25)"
+      },
+      ticks: {
+      fontColor: "#fff",
+      },
+      }],
+      }
+      }
+      });
+    // Alerts
+    script.
+      $(function () {
+      $('#folder-1').click(function () {
+      toastr.error("Folder 1 has been clicked!", "Folder 1", {
+      "positionClass": "toast-top-right",
+      });
+      });
+      $('#folder-2').click(function () {
+      // make it not dissappear
+      toastr.info("Folder 2 has been clicked!", "Folder 2", );
+      });
+      $('#folder-3').click(function () {
+      // make it not dissappear
+      toastr.info("Folder 3 has been clicked!", "Folder 3", );
+      });
+      });
+    // sticky
+    script(type="text/javascript").
+      $(function () {
+      $(".sticky").sticky({
+      topSpacing: 90
+      , zIndex: 2
+      , stopper: "#stopper"
+      });
+      });
+      //GILBERT'S JAVASCRIPT
