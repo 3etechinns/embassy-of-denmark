@@ -95,6 +95,8 @@ block main
                           td.actions-button
 
 block scripts
+  script(src="https://checkout.stripe.com/checkout.js")
+  script(src="/js/axios.min.js")
   script.
     $(".confirm-delete").click(function(e) {
       location.assign("/delete/" + this.getAttribute("data-formRecordId") + "?type=" + this.getAttribute("data-type") + "&formId=" + this.getAttribute("data-formId"))
