@@ -78,16 +78,15 @@ html(lang="en")
                       thead
                         tr
                           th 
-                            button.btn.btn-outline-blue.btn-rounded.btn-sm.px-2(type="button" data-toggle="tooltip" data-placement="bottom" title="info")
-                              i.fa.fa-info-circle.mt-0
+                            i.fa.fa-wpforms.mt-0
                           th.th-lg Form Type
                           th.th-lg Number of Applicants
-                          th.th-lg Previous Price(GH₵)
-                          th.th-lg Current Price(GH₵)
+                          th.th-lg Previous Price(USD $)
+                          th.th-lg Current Price(USD $)
                       tbody#forms
                         tr
                           th(scope="row") 
-                            i.fa.fa-search
+                            i.fa.fa-address-card
                           td Passport
                           td #{applicants[0] || 0}   Applicants
                           td #{previous.passportPrice}
@@ -103,7 +102,7 @@ html(lang="en")
                             input(type="text" name="visaPrice" value=current.visaPrice)
                         tr
                           th(scope="row") 
-                            i.fa.fa-bars
+                            i.fa.fa-users
                           td Dual Citizenship
                           td #{applicants[2] || 0}   Applicants
                           td #{previous.dualCitizenshipPrice}
@@ -111,7 +110,7 @@ html(lang="en")
                             input(type="text" name="dualCitizenshipPrice" value=current.dualCitizenshipPrice)
                         tr
                           th(scope="row") 
-                            i.fa.fa-question
+                            i.fa.fa-calendar
                           td Appointment
                           td #{applicants[3] || 0}   Applicants
                           td #{previous.appointmentPrice}

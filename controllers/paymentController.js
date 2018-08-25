@@ -24,12 +24,16 @@ const handlePayment = async (req, res, next) => {
 
     switch (formRecord.formType) {
       case "Passport":
-        return (amount = price.current.passportPrice);
+        amount = price.current.passportPrice;
+        break;
       case "Visa":
-        return (amount = price.current.visaPrice);
+        amount = price.current.visaPrice;
+        break;
       default:
-        return 2000;
+        amount = 2000;
     }
+
+    amount *= 100;
 
     const charge = await stripe.charges.create({
       amount: amount,
@@ -64,7 +68,7 @@ const handlePayment = async (req, res, next) => {
 
     return res.redirect("/profile");
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     return next(error);
   }
 };

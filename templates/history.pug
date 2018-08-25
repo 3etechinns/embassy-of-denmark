@@ -24,7 +24,7 @@ block main
                     th Last Updated
                     th Processing Status
                     th Payment Status
-                    th Price (₵)
+                    th Price (USD $)
                     th
                     th
                     th
@@ -95,7 +95,7 @@ block main
                           td.actions-button
 
 block scripts
-  script(src="https://checkout.stripe.com/checkout.js")
+  script(type="text/javascript" src="https://checkout.stripe.com/checkout.js")
   script(src="/js/axios.min.js")
   script.
     $(".confirm-delete").click(function(e) {
@@ -104,7 +104,6 @@ block scripts
 
     // stripe checkout
     var records = $("#records").val();
-    console.log(records);
     for(var i = 0; i < records; i++) {
       $(`#price${i}`).parent().attr("data-price", $(`#price${i}`).text());
     }
@@ -112,13 +111,13 @@ block scripts
       key: "pk_test_AZLJ6GOzlzvtcrxBWn8WAqLh",
       image: "/img/logo.png",
       locale: "auto",
+      name: "Embassy-of-denmark",
       allowRememberMe: false,
       token: function(token) {
         axios
           .post("/forms/payment", { token, formRecordId: document.formRecordId })
           .then(function(res) {
             location.reload();
-            console.log(res);
           })
           .catch(function(err) {
             document.body.innerHTML = "";
@@ -131,11 +130,10 @@ block scripts
     $(".customButton").click(function(e) {
       // Open Checkout with further options:
       document.formRecordId = this.id;
-      console.log(document.formRecordId)
       handler.open({
         name: "Embassy of Denmark",
         description: "Pay for your form",
-        amount: $(this).parent().attr("data-price")
+        amount: parseFloat($(this).parent().attr("data-price")) * 100
       });
       e.preventDefault();
     });
