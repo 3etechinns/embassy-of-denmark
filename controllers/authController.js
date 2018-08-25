@@ -8,19 +8,6 @@ const createUser = async (req, res, next) => {
     // const { fullName, email, password, confirmPassword } = req.body;
     const { email, password } = req.body;
 
-    // if (
-    //   !fullName.trim() ||
-    //   !email.trim() ||
-    //   !password.trim() ||
-    //   !confirmPassword.trim()
-    // ) {
-    //   return util.error("All fields required", next);
-    // }
-
-    // if (password !== confirmPassword) {
-    //   return util.error("Passwords do not match", next);
-    // }
-
     const foundUser = await User.findOne({ email });
     if (foundUser) {
       return util.error("an account with same email already exists", next);
