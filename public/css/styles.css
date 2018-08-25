@@ -1,16 +1,3 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-body {
-  background: url("/img/zachary-nelson-192289.jpg");
-  /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
-  /* background: url("/img/danes.jpg"); */
-  background-position: center;
-  background-attachment: fixed;
-  background-size: cover;
-  position: relative;
-}
 
 .error-page {
   width: 60%;
@@ -46,13 +33,6 @@ body {
   width: 50px;
 }
 
-.user-profile {
-  margin: 0 90px 0 auto;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
 .table {
   border: 1px solid rgba(0, 0, 0, .125) !important;
   box-shadow: 7px 7px 7px #44424246 !important;
@@ -60,31 +40,8 @@ body {
   background-clip: border-box !important;
 }
 
-.avatar {
-  width: 40px;
-}
-
 .navbar-brand {
   margin-right: 50px; 
-}
-
-.header {
-  width: 100%;
-  background-color: #fff;
-  /* border-bottom: 1px solid #dbe2e8; */
-  border: 1px solid rgba(0, 0, 0, .125) !important;
-  box-shadow: 7px 7px 7px #44424246 !important;
-  /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
-  position: fixed;
-  z-index: 100;
-  /* box-shadow: 2px 3px 7px 2px rgba(92,92,92,0.51);
-  -webkit-box-shadow: 2px 3px 7px 2px rgba(92,92,92,0.51);
-  -moz-box-shadow: 2px 3px 7px 2px rgba(92,92,92,0.51); */
-}
-
-form {
-  background: #fff;
-  /* box-shadow: 7px 7px 7px #44424246; */
 }
 
 .passport-form form {
@@ -117,54 +74,7 @@ form {
 }
 
 .form-section {
-  padding: 60px;
-}
-
-.tabs {
-  display: flex;
-  align-items: center;
-}
-
-.sign-in, .sign-up {
-  /* border-bottom: 1px solid #dbe2e8; */
-  /* background: #fafbfc; */
-  font-weight: 600;
-  margin-right: auto;
-  color: #7d97ad;
-  padding: 18px;
-}
-
-.sign-in {
-  border-left: 1px solid #dbe2e8;
-}
-
-.sign-up {
-  border-right: 1px solid #dbe2e8;
-}
-
-.tabbed-pane {
-  cursor: pointer;
-  /* background: #fff; */
-}
-
-.tabbed-pane .inactive {
-  background-color: #f2f2f2;
-}
-
-.tabbed-pane .active {
-  /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);; */
-  border: none;
-  color: #2e3d49;
-  cursor: auto;
-  border-bottom: #dbe2e8
-}
-
-.tabbed-pane {
-  letter-spacing: 1px;
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
-  flex-grow: 1;
-  text-transform: uppercase;
+  padding: 20px;
 }
 
 .submit-button {
@@ -210,12 +120,6 @@ form {
   font-weight: 700;
 }
 
-.passport-form .form-section {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid rgba(247, 124, 124, 0.842);
-  padding: 10px;
-}
 
 .passport-form form :first-child {
   border-top: none;
@@ -223,10 +127,6 @@ form {
 
 .form-section-name {
   color: #009cfc;
-}
-
-.star {
-  color: rgba(245, 45, 45, 0.986);
 }
 
 .form-group {
@@ -252,19 +152,7 @@ form {
   margin-right: 5px;
 }
 
-.main-footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  background: #1B1C1D;
-  padding: 10px;
-  text-align: center;
-}
-
 /* 'Source Sans Pro',sans-serif; */
-
-
-
 
 
 /* for bootstrap custom file upload */

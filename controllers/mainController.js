@@ -1,34 +1,43 @@
 const mongoose = require("mongoose");
 const FormRecord = mongoose.model("FormRecord");
 const User = mongoose.model("User");
+const Price = mongoose.model("Price");
 const bcrypt = require("bcrypt");
 const util = require("../util");
 
 const getProfile = (req, res, next) => {
   try {
-    FormRecord.find({ _owner: req.session.userId }, (error, formRecords) => {
-      if (error) {
-        return util.error(
-          "could not load your formRecords, please try again later",
-          next
-        );
+    FormRecord.find(
+      { _owner: req.session.userId },
+      async (error, formRecords) => {
+        if (error) {
+          return util.error(
+            "could not load your formRecords, please try again later",
+            next
+          );
+        }
+
+        if (!formRecords.length) {
+          res.locals.errorMessage = "You do not have any form Records yet";
+        }
+
+        const price = await Price.findOne();
+
+        formRecords = formRecords.map(formRecord => ({
+          ...formRecord,
+          createdAt: formRecord.createdAt.toLocaleDateString(),
+          updatedAt: formRecord.updatedAt.toLocaleDateString()
+        }));
+
+        console.log(formRecords[0].formType);
+
+        return res.render("history", {
+          formRecords,
+          headerText: "History",
+          ...price.current
+        });
       }
-
-      if (!formRecords.length) {
-        res.locals.errorMessage = "You do not have any form Records yet";
-      }
-
-      formRecords = formRecords.map(formRecord => ({
-        ...formRecord,
-        createdAt: formRecord.createdAt.toLocaleDateString(),
-        updatedAt: formRecord.updatedAt.toLocaleDateString()
-      }));
-
-      return res.render("history", {
-        formRecords,
-        headerText: "History"
-      });
-    })
+    )
       .lean()
       .exec();
   } catch (error) {

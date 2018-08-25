@@ -15,6 +15,7 @@ block main
               p.card-category  All forms
             .card-body
               .table-responsive
+                input#records(type="hidden", name="records" value=formRecords.length)
                 table.table
                   thead.text-primary
                     th No.
@@ -36,15 +37,22 @@ block main
                         td #{formRecord.updatedAt}
                         td
                           if formRecord.status === "New Request"
-                            img.icon.processing-status-icon(src="/img/circle-red.svg")
+                            //- img.icon.processing-status-icon(src="/img/circle-red.svg")
+                            button.btn.btn-danger.btn-link.btn-sm(type="button" rel="tooltip" title="New Request")
+                              i.material-icons cancel
                           else if formRecord.status === "Completed Request"
-                            img.icon.processing-status-icon(src="/img/circle-green.svg")
+                            //- img.icon.processing-status-icon(src="/img/circle-green.svg")
+                            button.btn.btn-primary.btn-link.btn-sm(type="button" rel="tooltip" title="Completed Request")
+                              i.material-icons done 
                           else if formRecord.status === "Dispatched Request"
-                            img.icon.processing-status-icon(src="/img/check.svg")
-                            //- i.material-icons done
+                            //- img.icon.processing-status-icon(src="/img/check.svg")
+                            button.btn.btn-success.btn-link.btn-sm(type="button" rel="tooltip" title="Dispatched Request")
+                              i.material-icons done
                           else
-                            img.icon.processing-status-icon(src="/img/circle-yellow.svg")
-                          | #{formRecord.status}
+                            //- img.icon.processing-status-icon(src="/img/circle-yellow.svg")
+                            button.btn.btn-warning.btn-link.btn-sm(type="button" rel="tooltip" title="Under Processing")
+                              i.material-icons done
+                          //- | #{formRecord.status}
                         td
                           if formRecord.paymentId
                             button.btn.btn-success.btn-link.btn-sm(type="button" rel="tooltip" title="Paid")
@@ -52,7 +60,13 @@ block main
                           else
                             button.btn.btn-danger.btn-link.btn-sm(type="button" rel="tooltip" title="Unpaid")
                               i.material-icons cancel
-                        td.text-primary #{200}
+                        td.text-primary(id=`price${index}`)
+                          if formRecord.formType === "Passport"
+                            | #{passportPrice}
+                          else if formRecord.formType === "Visa" 
+                            | #{visaPrice}
+                          else 
+                            | not known
                         td 
                           button(type="button" rel="tooltip" title="Edit Form" class="btn btn-primary btn-link btn-sm")
                             a(href=`/edit/${formRecord.formId}?type=${formRecord.formType}&formRecordId=${formRecord._id}`)
@@ -87,13 +101,17 @@ block scripts
     });
 
     // stripe checkout
+    var records = $("#records").val();
+    console.log(records);
+    for(var i = 0; i < records; i++) {
+      $(`#price${i}`).parent().attr("data-price", $(`#price${i}`).text());
+    }
     var handler = StripeCheckout.configure({
       key: "pk_test_AZLJ6GOzlzvtcrxBWn8WAqLh",
       image: "/img/logo.png",
       locale: "auto",
       allowRememberMe: false,
       token: function(token) {
-        console.log(document.formRecordId)
         axios
           .post("/forms/payment", { token, formRecordId: document.formRecordId })
           .then(function(res) {
@@ -114,8 +132,8 @@ block scripts
       console.log(document.formRecordId)
       handler.open({
         name: "Embassy of Denmark",
-        description: "Pay for Passport form",
-        amount: 2000
+        description: "Pay for your form",
+        amount: $(this).parent().attr("data-price")
       });
       e.preventDefault();
     });

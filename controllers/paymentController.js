@@ -1,13 +1,17 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const mongoose = require("mongoose");
 const Payment = mongoose.model("Payment");
+const Price = mongoose.model("Price");
 const FormRecord = mongoose.model("FormRecord");
 const uuid = require("uuid");
 const util = require("../util");
 
 const handlePayment = async (req, res, next) => {
   try {
-    const formRecord = await FormRecord.findById(req.body.formRecordId);
+    const [formRecord, price] = await Promise.all([
+      FormRecord.findById(req.body.formRecordId),
+      Price.findOne()
+    ]);
 
     if (!formRecord) {
       return util.error(
@@ -16,10 +20,21 @@ const handlePayment = async (req, res, next) => {
       );
     }
 
+    let amount;
+
+    switch (formRecord.formType) {
+      case "Passport":
+        return (amount = price.current.passportPrice);
+      case "Visa":
+        return (amount = price.current.visaPrice);
+      default:
+        return 2000;
+    }
+
     const charge = await stripe.charges.create({
-      amount: 2000,
+      amount: amount,
       currency: "usd",
-      description: "pay for passport form",
+      description: "Pay for your form",
       source: req.body.token.id
     });
 
@@ -27,7 +42,7 @@ const handlePayment = async (req, res, next) => {
 
     if (charge.status !== "succeeded") {
       return util.error(
-        "sorry, there was an error with your payment process, try again",
+        "sorry, there was an error with your payment process, try again later",
         next
       );
     }

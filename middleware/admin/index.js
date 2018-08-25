@@ -10,7 +10,8 @@ const {
 const requireLogin = (req, res, next) => {
   if (!req.session.userId || !req.session.isAdmin) {
     // return res.redirect("/admin/sign-in");
-    return res.send("You must login as admin to access this page");
+    const error = new Error("You do not have permission to access this page");
+    return next(error);
   }
   return next();
 };

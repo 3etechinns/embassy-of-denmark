@@ -54,14 +54,14 @@ const { requireLogin } = require("./middleware/admin");
 /**
  * MUST NEVER BE COMMENTED OUT IN PRODUCTION
  */
-app.use("/admin", requireLogin);
+// app.use("/admin", requireLogin);
 
 // route Handler
 require("./routes")(app);
 
 // 404 handler
 app.use((req, res, next) => {
-  const error = new Error("Page not found");
+  const error = new Error("Sorry, the page you requested for can't be found");
   error.status = 404;
   return next(error);
 });

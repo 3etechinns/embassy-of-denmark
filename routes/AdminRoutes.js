@@ -133,13 +133,14 @@ module.exports = app => {
     }
   });
 
-  app.get("/admin/view/:formId", (req, res, next) => {
+  app.get("/admin/view/:formId", async (req, res, next) => {
+    // Do not include admins
+    const users = await User.find({ isAdmin: false });
+
     if (req.query.type === "Passport") {
-      console.log(req.form);
-      return res.render("admin/viewPassportForm", { form: req.form });
+      return res.render("admin/viewPassportForm", { form: req.form, users });
     } else if (req.query.type === "Visa") {
-      console.log(req.form);
-      return res.render("admin/viewVisaForm", { form: req.form });
+      return res.render("admin/viewVisaForm", { form: req.form, users });
     } else {
       const err = new Error("invalid request type");
       return next(err);
@@ -238,13 +239,13 @@ module.exports = app => {
 
   app.get("/admin/view/:formId/:imageId", requireLogin, (req, res, next) => {
     try {
-      const signature = path.resolve(
+      const signatureFile = path.resolve(
         __dirname,
         "..",
         "store",
         req.params.imageId
       );
-      return res.sendFile(signature);
+      return res.sendFile(signatureFile);
     } catch (error) {
       error.message =
         "sorry, we are having problems locating the file, try again later";
