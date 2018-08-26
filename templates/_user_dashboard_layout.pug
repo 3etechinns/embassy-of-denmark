@@ -24,7 +24,7 @@ html(lang='en')
           Tip 2: you can also add an image using data-image tag
         .logo
           a.simple-text.logo-normal
-            | Hi, #{fullName || email}
+            | Hi, #{email || fullName}
         .sidebar-wrapper
           ul.nav
             li.nav-item#dashboard
