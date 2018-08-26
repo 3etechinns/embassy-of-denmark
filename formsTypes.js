@@ -1,4 +1,6 @@
 module.exports = {
   passportForm: "Passport",
-  VisaForm: "Visa"
+  VisaForm: "Visa",
+  appointment: "Appointment",
+  dualCitizenship: "Dual-Citizenship"
 };

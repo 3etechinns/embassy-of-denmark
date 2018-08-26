@@ -12,69 +12,70 @@ block main
               button.close(data-dismiss="alert" aria-label="close")
                 i.material-icons close
               span #{updateMessage}
-      .row
-        .col-md-8
-          .card
-            .card-header.card-header-primary
-              h4.card-title Edit Profile
-              p.card-category Update your profile
-            .card-body
-              form(action="/profile" method="POST")
-                .row
-                  .col-md-6
-                    .form-group
-                      label.bmd-label-floating Full Name
-                      input.form-control(type='text' name="fullName" value=`${fullName}`)
-                  .col-md-6
-                    .form-group
-                      label.bmd-label-floating Email
-                      input.form-control(type='email' name="email" value=`${email}`)
-                .row
-                  .col-md-6
-                    .form-group
-                      label.bmd-label-floating Address
-                      input.form-control(type='text' name="residentialAddress" value=`${residentialAddress}`)
-                  .col-md-6
-                    .form-group
-                      label.bmd-label-floating Telephone
-                      input.form-control(type='text' name="telephoneNumber" value=`${telephoneNumber}`)
-                .row
-                  .col-md-12
-                    .form-group
-                      label About Me
+      form(action="/profile" method="POST")
+        .row
+          .col-md-8
+            .card
+              .card-header.card-header-primary
+                h4.card-title Edit Profile
+                p.card-category Update your profile
+              .card-body
+                form(action="/profile" method="POST")
+                  .row
+                    .col-md-6
                       .form-group
-                        textarea.form-control(rows='5' name="bio")
-                          | #{bio || "lorem ipsum"}
-                p.text-warning Fill the fields below only if you wish to change your password 
-                .row
-                  .col-md-4
-                    .form-group
-                      label.bmd-label-floating Old Password
-                      input.form-control(type='password' name="oldPassword")
-                  .col-md-4
-                    .form-group
-                      label.bmd-label-floating New Password
-                      input.form-control(type='password' name="newPassword")
-                  .col-md-4
-                    .form-group
-                      label.bmd-label-floating Confirm Password
-                      input.form-control(type='password' name="confirmPassword")
-                .row
-                  .col-md-12
-                    if message
-                      .alert.alert-danger.alert-with-icon(data-notify="container")
-                        i.material-icons(data-notify="icon") add_alert
-                        button.close(data-dismiss="alert" aria-label="close")
-                          i.material-icons close
-                        span #{message}
-                button.btn.btn-primary.pull-right(type='submit') Update Profile
-                .clearfix
-        .col-md-4
-          .card.card-profile
-            .card-avatar
-              a(href='#')
-                img.img(src='/img/marc.jpg')
-            .card-body
-              h6.card-category.text-gray CEO / Co-Founder
-              h4.card-title #{fullName || email}
-              a.btn.btn-primary.btn-round(href='#pablo') Follow
+                        label.bmd-label-floating Full Name
+                        input.form-control(type='text' name="fullName" value=`${fullName}`)
+                    .col-md-6
+                      .form-group
+                        label.bmd-label-floating Email
+                        input.form-control(type='email' name="email" value=`${email}`)
+                  .row
+                    .col-md-6
+                      .form-group
+                        label.bmd-label-floating Address
+                        input.form-control(type='text' name="residentialAddress" value=`${residentialAddress}`)
+                    .col-md-6
+                      .form-group
+                        label.bmd-label-floating Telephone
+                        input.form-control(type='text' name="telephoneNumber" value=`${telephoneNumber}`)
+                  .row
+                    .col-md-12
+                      .form-group
+                        label About Me
+                        .form-group
+                          textarea.form-control(rows='5' name="bio")
+                            | #{bio || "lorem ipsum"}
+                  p.text-warning Fill the fields below only if you wish to change your password 
+                  .row
+                    .col-md-4
+                      .form-group
+                        label.bmd-label-floating Old Password
+                        input.form-control(type='password' name="oldPassword")
+                    .col-md-4
+                      .form-group
+                        label.bmd-label-floating New Password
+                        input.form-control(type='password' name="newPassword")
+                    .col-md-4
+                      .form-group
+                        label.bmd-label-floating Confirm Password
+                        input.form-control(type='password' name="confirmPassword")
+                  .row
+                    .col-md-12
+                      if message
+                        .alert.alert-danger.alert-with-icon(data-notify="container")
+                          i.material-icons(data-notify="icon") add_alert
+                          button.close(data-dismiss="alert" aria-label="close")
+                            i.material-icons close
+                          span #{message}
+                  button.btn.btn-primary.pull-right(type='submit') Update Profile
+                  .clearfix
+          .col-md-4
+            .card.card-profile
+              .card-avatar
+                a(href='#')
+                  img.img(src='/img/marc.jpg')
+              .card-body
+                h6.card-category.text-gray CEO / Co-Founder
+                h4.card-title #{fullName || email}
+                input.btn.btn-primary.btn-round(type="text" name="profilePic" value="change image" onclick="this.type='file'")

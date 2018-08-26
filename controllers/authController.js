@@ -43,6 +43,7 @@ const logIn = async (req, res, next) => {
     req.session.userId = user._id;
     req.session.isAdmin = user.isAdmin;
     req.session.userEmail = user.email;
+    console.log("history");
     return user.isAdmin ? res.redirect("/admin") : res.redirect("/history");
   } catch (error) {
     return next(error);

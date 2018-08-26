@@ -8,7 +8,8 @@ const {
   formIdParamHandler,
   editForm,
   updateForm,
-  deleteForm
+  deleteForm,
+  createAppointmentForm
 } = require("../controllers/formsController");
 
 const storage = multer.diskStorage({
@@ -66,8 +67,10 @@ module.exports = app => {
     return res.json({ message: "work in progress..." });
   });
 
+  app.post("/forms/appointment", requireLogin, createAppointmentForm);
+
   app.get("/forms/appointment", requireLogin, (req, res, next) => {
-    return res.json({ message: "work in progress..." });
+    return res.render("appointmentForm");
   });
 
   app.get("/view/:formId/:fileId", requireLogin, (req, res, next) => {

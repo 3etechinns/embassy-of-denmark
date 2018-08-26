@@ -3,6 +3,7 @@ const PassportForm = mongoose.model("PassportForm");
 const FormRecord = mongoose.model("FormRecord");
 const Payment = mongoose.model("Payment");
 const VisaForm = mongoose.model("VisaForm");
+const AppointmentForm = mongoose.model("AppointmentForm");
 const FORM_TYPES = require("../formsTypes");
 const util = require("../util");
 
@@ -12,6 +13,8 @@ const getModelName = type => {
       return "PassportForm";
     case FORM_TYPES.VisaForm:
       return "VisaForm";
+    case FORM_TYPES.appointment:
+      return "AppointmentForm";
     default:
       return "";
   }
@@ -340,6 +343,11 @@ const editForm = (req, res, next) => {
           form: req.form,
           formRecordId: req.query.formRecordId
         });
+      case "Appointment":
+        return res.render("editAppointmentForm", {
+          form: req.form,
+          formRecord: req.query.formRecordId
+        });
       default:
         return res.redirect("/history");
     }
@@ -363,11 +371,33 @@ const deleteForm = async (req, res, next) => {
   }
 };
 
+const createAppointmentForm = async (req, res, next) => {
+  try {
+    const appointmentForm = await AppointmentForm.create({ ...req.body });
+
+    const formRecord = await FormRecord.create({
+      _owner: req.session.userId,
+      formId: appointmentForm._id,
+      formType: FORM_TYPES.appointment
+    });
+
+    return res.redirect("/history");
+  } catch (error) {
+    console.log(error);
+    const message = `${
+      error.name
+    }, please make sure all required fields are filled`;
+    error.message = message;
+    return next(error);
+  }
+};
+
 module.exports = {
   createPassportForm,
   createVisaForm,
   formIdParamHandler,
   editForm,
   updateForm,
-  deleteForm
+  deleteForm,
+  createAppointmentForm
 };
