@@ -12,70 +12,163 @@ block main
               button.close(data-dismiss="alert" aria-label="close")
                 i.material-icons close
               span #{updateMessage}
-      form(action="/profile" method="POST")
-        .row
-          .col-md-8
-            .card
-              .card-header.card-header-primary
-                h4.card-title Edit Profile
-                p.card-category Update your profile
-              .card-body
-                form(action="/profile" method="POST")
-                  .row
-                    .col-md-6
+      .row
+        .col-md-8
+          .card
+            .card-header.card-header-primary
+              h4.card-title Edit Profile
+              p.card-category Update your profile
+            .card-body
+              form(action="/profile" enctype="multipart/form-data" method="POST")
+                p.text-center Identity and Contact Details
+                .row
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Full Name
+                      input.form-control(type='text' name="fullName" value=`${fullName}`)
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Email
+                      input.form-control(type='email' name="email" value=`${email}`)
+                .row
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating ID Number
+                      input.form-control(required type="text" value=idNumber id="idNumber" name="idNumber")
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Gender : &nbsp &nbsp
+                      .form-check.form-check-inline
+                        label.form-check-label
+                          input#male.form-check-input(type="radio", data-gender=gender value="Male" name="gender")
+                          | Male
+                          span.circle
+                            span.check
+                      .form-check.form-check-inline
+                        label.form-check-label
+                          input#female.form-check-input(type="radio", data-gender=gender value="Female" name="gender")
+                          | Female
+                          span.circle
+                            span.check
+                .row
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Address
+                      input.form-control(type='text' name="residentialAddress" value=`${residentialAddress}`)
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Telephone
+                      input.form-control(type='text' name="telephoneNumber" value=`${telephoneNumber}`)
+                .row
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Date of birth
+                      input.form-control(type="date" value=dateOfBirth name="dateOfBirth")
+                  .col-md-6
+                    .form-group
+                      label.bmd-label-floating Nationality
+                      input.form-control(type="text" value=nationality name="nationality")
+                .row
+                  .col-md-12
+                    .form-group
+                      label About Me
                       .form-group
-                        label.bmd-label-floating Full Name
-                        input.form-control(type='text' name="fullName" value=`${fullName}`)
-                    .col-md-6
-                      .form-group
-                        label.bmd-label-floating Email
-                        input.form-control(type='email' name="email" value=`${email}`)
-                  .row
-                    .col-md-6
-                      .form-group
-                        label.bmd-label-floating Address
-                        input.form-control(type='text' name="residentialAddress" value=`${residentialAddress}`)
-                    .col-md-6
-                      .form-group
-                        label.bmd-label-floating Telephone
-                        input.form-control(type='text' name="telephoneNumber" value=`${telephoneNumber}`)
-                  .row
-                    .col-md-12
-                      .form-group
-                        label About Me
-                        .form-group
-                          textarea.form-control(rows='5' name="bio")
-                            | #{bio || "lorem ipsum"}
-                  p.text-warning Fill the fields below only if you wish to change your password 
-                  .row
-                    .col-md-4
-                      .form-group
-                        label.bmd-label-floating Old Password
-                        input.form-control(type='password' name="oldPassword")
-                    .col-md-4
-                      .form-group
-                        label.bmd-label-floating New Password
-                        input.form-control(type='password' name="newPassword")
-                    .col-md-4
-                      .form-group
-                        label.bmd-label-floating Confirm Password
-                        input.form-control(type='password' name="confirmPassword")
-                  .row
-                    .col-md-12
-                      if message
-                        .alert.alert-danger.alert-with-icon(data-notify="container")
-                          i.material-icons(data-notify="icon") add_alert
-                          button.close(data-dismiss="alert" aria-label="close")
-                            i.material-icons close
-                          span #{message}
-                  button.btn.btn-primary.pull-right(type='submit') Update Profile
-                  .clearfix
-          .col-md-4
-            .card.card-profile
-              .card-avatar
-                a(href='#')
-                  img.img(src='/img/marc.jpg')
-              .card-body
-                h6.card-category.text-gray CEO / Co-Founder
-                h4.card-title #{fullName || email}
-                input.btn.btn-primary.btn-round(type="text" name="profilePic" value="change image" onclick="this.type='file'")
+                        textarea.form-control(rows='3' name="bio")
+                          | #{bio || "lorem ipsum"}
+                p.text-center Verification Documents
+                br
+                .row
+                  .col-md-4
+                      label Bank Statement
+                      input.form-control(type="hidden" value=bankStatement name="bankStatement")
+                      input(type="file" name="bankStatement")
+                  .col-md-4
+                      label Residence Permit
+                      input.form-control(type="hidden" value=residencePermit name="residencePermit")
+                      input(type="file" name="residencePermit")
+                  .col-md-4
+                      label Scanned Passport
+                      input.form-control(type="hidden" value=scannedPassport name="scannedPassport")
+                      input(type="file" name="scannedPassport")
+                .row.mt-3
+                  .col-md-4
+                    if bankStatement
+                      .edit.actions-button 
+                        a(href=`/me/view/files/${bankStatement}` target="blank")
+                          i.material-icons attach_file
+                          | view previously uploaded file
+                    else
+                      a
+                        i.material-icons attach_file
+                        | No previously uploaded file
+                  .col-md-4
+                    if residencePermit
+                      .edit.actions-button 
+                        a(href=`/me/view/files/${residencePermit}` target="blank")
+                          i.material-icons attach_file
+                          | view previously uploaded file
+                    else
+                      a
+                        i.material-icons attach_file
+                        | No previously uploaded file
+                  .col-md-4
+                    if scannedPassport
+                      .edit.actions-button 
+                        a(href=`/me/view/files/${scannedPassport}` target="blank")
+                          i.material-icons attach_file
+                          | view previously uploaded file
+                    else
+                      a
+                        i.material-icons attach_file
+                        | No previously uploaded file
+
+                br
+                hr
+                p.text-center Password Settings
+                p.text-warning Fill the fields below only if you wish to change your password 
+                .row
+                  .col-md-4
+                    .form-group
+                      label.bmd-label-floating Old Password
+                      input.form-control(type='password' name="oldPassword")
+                  .col-md-4
+                    .form-group
+                      label.bmd-label-floating New Password
+                      input.form-control(type='password' name="newPassword")
+                  .col-md-4
+                    .form-group
+                      label.bmd-label-floating Confirm New Password
+                      input.form-control(type='password' name="confirmPassword")
+                .row
+                  .col-md-12
+                    if message
+                      .alert.alert-danger.alert-with-icon(data-notify="container")
+                        i.material-icons(data-notify="icon") add_alert
+                        button.close(data-dismiss="alert" aria-label="close")
+                          i.material-icons close
+                        span #{message}
+                button.btn.btn-primary.pull-right(type='submit') Update Profile
+                .clearfix
+        .col-md-4
+          .card.card-profile
+            .card-avatar
+              a(href='#')
+                img.img(src='/img/marc.jpg')
+            .card-body
+              h6.card-category.text-gray CEO / Co-Founder
+              h4.card-title #{fullName || email}
+              a.btn.btn-primary.btn-round(href='#pablo') Follow
+block scripts
+  script.
+    var male = $("#male");
+    var female = $("#female");
+
+    if($(male).attr("data-gender") === "Male") {
+      console.log("male");
+      $(male).attr("checked", true);
+    }
+
+    if($(female).attr("data-gender") === "Female") {
+      console.log("female");
+      $(female).attr("checked", true);
+    }

@@ -152,13 +152,19 @@ block main
                     option(value="Multiple Entry") Multiple Entry Visa
                 .col-sm-12.col-lg-4
                   label(for="posessionOfReturnTicket") Do you possess a return ticket?
-                  .form-group.btn-group.btn-group-toggle(data-toggle='buttons')
-                  label.btn.btn-secondary.active
-                    input#yes(type='radio', name='posessionOfReturnTicket', data-posessionOfReturnTicket=form.posessionOfReturnTicket value="Yes" autocomplete='off')
-                      |  Yes
-                  label.btn.btn-secondary
-                    input#no(type='radio', name='posessionOfReturnTicket', data-posessionOfReturnTicket=form.posessionOfReturnTicket value="No" autocomplete='off')
-                      |  No
+                  .form-group
+                    .form-check.form-check-inline
+                      label.form-check-label
+                        input#yes.form-check-input(type="radio", value="Yes" data-possessionOfReturnTicket=form.possessionOfReturnTicket name="possessionOfReturnTicket")
+                        | Yes
+                        span.circle
+                          span.check
+                    .form-check.form-check-inline
+                      label.form-check-label
+                        input#no.form-check-input(type="radio", value="No" data-possessionOfReturnTicket=form.possessionOfReturnTicket name="possessionOfReturnTicket")
+                        | No
+                        span.circle
+                          span.check
                 .col-sm-12.col-lg-4
                   label(for="ticketNumber") If yes, provide ticket number :
                   .form-group
@@ -233,16 +239,22 @@ block scripts
       parent.appendChild(option);
     }
 
-    if($("#yes").attr("data-posessionOfReturnTicket") === "Yes") {
+    //- console.log($("#yes"));
+
+    if($("#yes").attr("data-possessionOfReturnTicket") == "Yes") {
+      console.log("yes");
       $("#yes").attr("checked", true);
       var ylabel = $("#yes").parent();
       var nlabel = $("#no").parent();
       $(ylabel).addClass("active");
       $(nlabel).removeClass("active");
       $("ticketNumber").attr("disabled", false);
+    } else {
+      console.log("not yes");
     }
 
     if($("#no").attr("data-posessionOfReturnTicket") === "No") {
+      console.log("no");
       $("#no").attr("checked", true);
       var ylabel = $("#yes").parent();
       var nlabel = $("#no").parent();

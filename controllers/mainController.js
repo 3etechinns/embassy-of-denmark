@@ -1,3 +1,4 @@
+const path = require("path");
 const mongoose = require("mongoose");
 const FormRecord = mongoose.model("FormRecord");
 const User = mongoose.model("User");
@@ -61,13 +62,20 @@ const accountSettings = async (req, res, next) => {
 const updateAccountDetails = async (req, res, next) => {
   let {
     email,
+    gender,
+    idNumber,
     oldPassword,
     newPassword,
     confirmPassword,
     bio,
     fullName,
     telephoneNumber,
-    residentialAddress
+    residentialAddress,
+    dateOfBirth,
+    nationality,
+    bankStatement,
+    residencePermit,
+    scannedPassport
   } = req.body;
 
   const user = await User.findById(req.session.userId, {
@@ -119,10 +127,23 @@ const updateAccountDetails = async (req, res, next) => {
   }
 
   updates.email = email;
+  updates.gender = gender;
+  updates.idNumber = idNumber;
   updates.bio = bio;
   updates.residentialAddress = residentialAddress;
   updates.telephoneNumber = telephoneNumber;
   updates.fullName = fullName;
+  updates.dateOfBirth = dateOfBirth;
+  updates.nationality = nationality;
+  updates.bankStatement = req.files["bankStatement"]
+    ? req.files["bankStatement"][0].filename
+    : bankStatement;
+  updates.residencePermit = req.files["residencePermit"]
+    ? req.files["residencePermit"][0].filename
+    : residencePermit;
+  updates.scannedPassport = req.files["scannedPassport"]
+    ? req.files["scannedPassport"][0].filename
+    : scannedPassport;
 
   const updatedUser = await User.findByIdAndUpdate(
     req.session.userId,
@@ -141,8 +162,20 @@ const updateAccountDetails = async (req, res, next) => {
   });
 };
 
+const viewFile = (req, res, next) => {
+  try {
+    const signature = path.resolve(__dirname, "..", "store", req.params.fileId);
+    return res.sendFile(signature);
+  } catch (error) {
+    error.message =
+      "sorry, we are having problems locating the file, try again later";
+    return next(error);
+  }
+};
+
 module.exports = {
   getProfile,
   accountSettings,
-  updateAccountDetails
+  updateAccountDetails,
+  viewFile
 };
