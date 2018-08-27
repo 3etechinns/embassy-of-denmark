@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const PassportForm = mongoose.model("PassportForm");
+const Notification = mongoose.model("Notification");
 const FormRecord = mongoose.model("FormRecord");
 const Payment = mongoose.model("Payment");
 const VisaForm = mongoose.model("VisaForm");
@@ -124,7 +125,6 @@ const createPassportForm = async (req, res, next) => {
       }
     }
 
-    console.log(req.files);
     const guarantors = [
       {
         guarantorsName: req.body.guarantorsName1,
@@ -180,7 +180,16 @@ const createPassportForm = async (req, res, next) => {
       _owner: req.session.userId,
       formId: passportForm._id,
       formType: FORM_TYPES.passportForm,
-      isComplete: req.query.type === "continue-later" ? false : true
+      isComplete: req.query.type === "continue-later" ? false : true,
+      formCode: `P${Date.now()}`
+    });
+
+    const notification = await Notification.create({
+      recipient: req.session.userId,
+      title: "New Passport form created",
+      message: `${formRecord.formType} ${
+        formRecord.formCode
+      } successfully created`
     });
 
     if (!passportForm || !formRecord) {
@@ -236,7 +245,16 @@ const createVisaForm = async (req, res, next) => {
       _owner: req.session.userId,
       formId: visaForm._id,
       formType: FORM_TYPES.VisaForm,
-      isComplete: req.query.type === "continue-later" ? false : true
+      isComplete: req.query.type === "continue-later" ? false : true,
+      formCode: `V${Date.now()}`
+    });
+
+    const notification = await Notification.create({
+      recipient: req.session.userId,
+      title: "New Visa form created",
+      message: `${formRecord.formType} ${
+        formRecord.formCode
+      } successfully created`
     });
 
     if (!visaForm || !formRecord) {
@@ -292,13 +310,21 @@ const updateForm = async (req, res, next) => {
     };
 
     const modelName = getModelName(req.query.type);
-    const updateInfo = await mongoose
+    const updated = await mongoose
       .model(modelName)
-      .updateOne(
+      .findOneAndUpdate(
         { _id: req.form._id },
         { ...req.body, guarantors, ...signatures },
         { new: true }
       );
+
+    const notification = await Notification.create({
+      title: `Form successfully updated`,
+      message: `${req.query.type} form ${
+        updated.formCode
+      } updated successfully`,
+      recipient: req.session.userId
+    });
     return res.redirect("/history");
   } catch (error) {
     console.log(error);
@@ -361,9 +387,17 @@ const deleteForm = async (req, res, next) => {
     const model = mongoose.model(getModelName(req.query.type));
 
     const resp = await Promise.all([
-      FormRecord.remove({ _id: req.params.formRecordId }),
+      FormRecord.findOneAndRemove({ _id: req.params.formRecordId }),
       model.remove({ _id: req.query.formId })
     ]);
+
+    const notification = await Notification.create({
+      title: `Form successfully deleted`,
+      message: `${req.query.type} form ${
+        resp[0].formCode
+      } deleted successfully`,
+      recipient: req.session.userId
+    });
 
     return res.redirect("/history");
   } catch (error) {
@@ -378,7 +412,16 @@ const createAppointmentForm = async (req, res, next) => {
     const formRecord = await FormRecord.create({
       _owner: req.session.userId,
       formId: appointmentForm._id,
-      formType: FORM_TYPES.appointment
+      formType: FORM_TYPES.appointment,
+      formCode: `A${Date.now()}`
+    });
+
+    const notification = await Notification.create({
+      title: `New Appointment form created`,
+      message: `${req.query.type} form ${
+        resp[0].formCode
+      } created successfully`,
+      recipient: req.session.userId
     });
 
     return res.redirect("/history");

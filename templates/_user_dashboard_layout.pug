@@ -75,13 +75,14 @@ html(lang='en')
                 li.nav-item.dropdown
                   a#navbarDropdownMenuLink.nav-link(data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                     i.material-icons notifications
-                    span.notification 3
+                    span.notification #{unViewedNotifications}
                     p.d-lg-none.d-md-block
                       | Notifications
                   .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
-                    a.dropdown-item(href='#') You have 5 new tasks
-                    a.dropdown-item(href='#') Another Notification
-                    a.dropdown-item(href='#') Another One
+                    each notification in notifications
+                      if !notification.viewed
+                        a.dropdown-item(onclick="demo.showNotification('top','center')") #{notification.title}
+                          .ripple-container
                 li.nav-item
                   a.nav-link(href='/logout' title="sign out")
                     i.material-icons power_settings_new

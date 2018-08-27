@@ -1,10 +1,11 @@
+const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
-const path = require("path");
+require("./models");
 const pug = require("pug");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-require("./models");
+const Notification = mongoose.model("Notification");
 
 // Only used in development mode to set environment variables
 if (process.env.NODE_ENV !== "production") {
@@ -39,12 +40,27 @@ mongoose.connect(
   }
 );
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   if (req.session.userId) {
-    res.locals = {
-      userId: req.session.userId,
-      email: req.session.userEmail
-    };
+    try {
+      const notifications = await Notification.find({
+        recipient: req.session.userId
+      }).lean();
+
+      let unViewedNotifications = 0;
+      notifications.forEach(notification => {
+        if (!notification.viewed) unViewedNotifications++;
+      });
+
+      res.locals = {
+        userId: req.session.userId,
+        email: req.session.userEmail,
+        notifications,
+        unViewedNotifications
+      };
+    } catch (error) {
+      return next(error);
+    }
   }
   return next();
 });

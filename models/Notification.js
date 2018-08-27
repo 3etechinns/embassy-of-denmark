@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const NotificationSchema = new Schema(
   {
+    title: { type: String },
     message: { type: String, required: true },
     recipient: { type: Schema.Types.ObjectId, required: true },
     viewed: { type: Boolean, default: false }

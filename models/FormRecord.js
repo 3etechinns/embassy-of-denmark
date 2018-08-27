@@ -22,7 +22,8 @@ const FormRecordSchema = new Schema(
     paymentId: {
       type: Schema.Types.ObjectId,
       ref: "Payment"
-    }
+    },
+    formCode: { type: String, required: true }
   },
   { timestamps: true }
 );
