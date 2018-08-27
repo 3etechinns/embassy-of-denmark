@@ -81,7 +81,7 @@ html(lang='en')
                   .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
                     each notification in notifications
                       if !notification.viewed
-                        a.dropdown-item(onclick="demo.showNotification('top','center')") #{notification.title}
+                        a.dropdown-item(onclick=`demo.showNotification('top','center',${notification.message})`) #{notification.title}
                           .ripple-container
                 li.nav-item
                   a.nav-link(href='/logout' title="sign out")

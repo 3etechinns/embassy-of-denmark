@@ -275,46 +275,67 @@ const createVisaForm = async (req, res, next) => {
 
 const updateForm = async (req, res, next) => {
   try {
-    const guarantors = [
-      {
-        guarantorsName: req.body.guarantorsName1,
-        guarantorsAddress: req.body.guarantorsAddress1,
-        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber1,
-        guarantorsSignature: req.files["guarantorsSignature1"]
-          ? req.files["guarantorsSignature1"][0].filename
-          : req.body.guarantorsSignature1
-      },
-      {
-        guarantorsName: req.body.guarantorsName2,
-        guarantorsAddress: req.body.guarantorsAddress2,
-        guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber2,
-        guarantorsSignature: req.files["guarantorsSignature2"]
-          ? req.files["guarantorsSignature2"][0].filename
-          : req.body.guarantorsSignature2
-      }
-    ];
+    let guarantors,
+      signatures,
+      references = [];
 
-    const signatures = {
-      interpretersSignature: req.files["interpretersSignature"]
-        ? req.files["interpretersSignature"][0].filename
-        : req.body.interpretersSignature,
-      parentalConsentSignature: req.files["parentalConsentSignature"]
-        ? req.files["parentalConsentSignature"][0].filename
-        : req.body.parentalConsentSignature,
-      declarationSignature: req.files["declarationSignature"]
-        ? req.files["declarationSignature"][0].filename
-        : req.body.declarationSignature,
-      witnessSignature: req.files["witnessSignature"]
-        ? req.files["witnessSignature"][0].filename
-        : req.body.witnessSignature
-    };
+    if (req.query.type === "Passport") {
+      guarantors = [
+        {
+          guarantorsName: req.body.guarantorsName1,
+          guarantorsAddress: req.body.guarantorsAddress1,
+          guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber1,
+          guarantorsSignature: req.files["guarantorsSignature1"]
+            ? req.files["guarantorsSignature1"][0].filename
+            : req.body.guarantorsSignature1
+        },
+        {
+          guarantorsName: req.body.guarantorsName2,
+          guarantorsAddress: req.body.guarantorsAddress2,
+          guarantorsTelephoneNumber: req.body.guarantorsTelephoneNumber2,
+          guarantorsSignature: req.files["guarantorsSignature2"]
+            ? req.files["guarantorsSignature2"][0].filename
+            : req.body.guarantorsSignature2
+        }
+      ];
+
+      signatures = {
+        interpretersSignature: req.files["interpretersSignature"]
+          ? req.files["interpretersSignature"][0].filename
+          : req.body.interpretersSignature,
+        parentalConsentSignature: req.files["parentalConsentSignature"]
+          ? req.files["parentalConsentSignature"][0].filename
+          : req.body.parentalConsentSignature,
+        declarationSignature: req.files["declarationSignature"]
+          ? req.files["declarationSignature"][0].filename
+          : req.body.declarationSignature,
+        witnessSignature: req.files["witnessSignature"]
+          ? req.files["witnessSignature"][0].filename
+          : req.body.witnessSignature
+      };
+    }
+
+    if (req.query.type === "Visa") {
+      references = [
+        {
+          fullName: req.body.guarantorsName1,
+          address: req.body.guarantorsAddress1,
+          telephoneNumber: req.body.guarantorsTelephoneNumber1
+        },
+        {
+          fullName: req.body.guarantorsName2,
+          address: req.body.guarantorsAddress2,
+          telephoneNumber: req.body.guarantorsTelephoneNumber2
+        }
+      ];
+    }
 
     const modelName = getModelName(req.query.type);
     const updated = await mongoose
       .model(modelName)
       .findOneAndUpdate(
         { _id: req.form._id },
-        { ...req.body, guarantors, ...signatures },
+        { ...req.body, guarantors, ...signatures, references },
         { new: true }
       );
 

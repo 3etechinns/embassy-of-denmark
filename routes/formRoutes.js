@@ -1,6 +1,8 @@
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
+const mongoose = require("mongoose");
+const Notification = mongoose.model("Notification");
 const { requireLogin, handlePayment } = require("../middleware");
 const {
   createPassportForm,
@@ -72,6 +74,20 @@ module.exports = app => {
   app.get("/forms/appointment", requireLogin, (req, res, next) => {
     return res.render("appointmentForm");
   });
+
+  app.get(
+    "/notifications/:notificationId/mark_as_viewed",
+    requireLogin,
+    async (req, res, next) => {
+      await Notification.updateOne(
+        { _id: req.params.notificationId },
+        { viewed: true },
+        { new: true }
+      );
+
+      return res.json({ message: "ok" });
+    }
+  );
 
   app.get("/view/:formId/:fileId", requireLogin, (req, res, next) => {
     try {

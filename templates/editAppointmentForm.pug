@@ -68,7 +68,7 @@ block main
                   label(for="preferredDateOfAppointment") Preferred Date of Appointment :
                   .form-group
                     input.form-control.form-control-sm(required type="date" id="preferredDateOfAppointment" value=form.preferredDateOfAppointment name="preferredDateOfAppointment")
-              input.action-button(type='submit', formaction=`/forms/appointment` formmethod="POST" value='Submit')
+              input.action-button(type='submit', formaction=`/update/${form._id}?type=Appointment&formRecordId=${formRecordId}` formmethod="POST" value='Submit')
 
 block scripts
   script(src="/js/countries.js")
