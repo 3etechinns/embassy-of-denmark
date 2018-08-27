@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Payment = mongoose.model("Payment");
 const Price = mongoose.model("Price");
 const FormRecord = mongoose.model("FormRecord");
+const Notification = mongoose.model("Notification");
 const uuid = require("uuid");
 const util = require("../util");
 
@@ -62,6 +63,14 @@ const handlePayment = async (req, res, next) => {
 
     formRecord.paymentId = payment._id;
     const updatedFormRecord = await formRecord.save();
+
+    await Notification.create({
+      recipient: req.session.userId,
+      title: "Payment process successful",
+      message: `Payment for form ${
+        formRecord.formCode
+      } was successful, Your form will now be under processing`
+    });
 
     console.log(payment);
     console.log(updatedFormRecord);

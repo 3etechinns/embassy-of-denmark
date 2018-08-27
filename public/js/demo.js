@@ -297,8 +297,11 @@ demo = {
     marker.setMap(map);
   },
 
-  showNotification: function(from, align, message) {
+  showNotification: function(from, align, message, notificationId) {
     type = ["", "info", "danger", "success", "warning", "rose", "primary"];
+
+    $.post(`/notifications/${notificationId}/mark_as_viewed`);
+    console.log("w");
 
     color = Math.floor(Math.random() * 6 + 1);
 
@@ -316,5 +319,9 @@ demo = {
         }
       }
     );
+
+    setInterval(() => {
+      location.reload();
+    }, 5000);
   }
 };

@@ -1,5 +1,6 @@
 const path = require("path");
 const mongoose = require("mongoose");
+const Notification = mongoose.model("Notification");
 const FormRecord = mongoose.model("FormRecord");
 const User = mongoose.model("User");
 const Price = mongoose.model("Price");
@@ -108,10 +109,36 @@ module.exports = app => {
       const status = getStatus(req.query.as);
 
       // update where formId === formId and to a status of status
-      const updateMessage = await FormRecord.update(
+      const updatedDoc = await FormRecord.findOneAndUpdate(
         { formId: req.params.formId },
         { status }
       );
+
+      let message = "";
+
+      switch (status) {
+        case "Under Processing":
+          message = `Your ${updatedDoc.formType} form, ${
+            updatedDoc.formCode
+          } is under processing. you will be notified upon completion`;
+          break;
+        case "Completed":
+          message = `Your ${updatedDoc.formType} form, ${
+            updatedDoc.formCode
+          } has been completed and is awaiting dispatch`;
+          break;
+        case "Dispatched":
+          message = `Your ${updatedDoc.formType} form, ${
+            updatedDoc.formCode
+          } has been dispatched and will be delivered soon`;
+          break;
+      }
+
+      await Notification.create({
+        recipient: updatedDoc._owner,
+        title: "Application form status changed",
+        message
+      });
 
       return res.redirect("/admin");
     } catch (error) {
@@ -128,6 +155,29 @@ module.exports = app => {
         { _id: req.params.userId },
         { verificationStatus: status }
       );
+
+      let message = "";
+
+      switch (status) {
+        case "Verified":
+          message =
+            "Profile information and attached documents have been verified";
+          break;
+        case "Under Verification":
+          message =
+            "Profile information and attached documents are under verification";
+          break;
+        case "Not Verified":
+          message =
+            "Profile information and attached documents cannot be verified, please make sure you have provided valid information and documents";
+          break;
+      }
+
+      await Notification.create({
+        recipient: req.params.userId,
+        title: "Identity verification",
+        message
+      });
 
       return res.redirect("/admin");
     } catch (error) {

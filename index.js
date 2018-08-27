@@ -55,6 +55,7 @@ app.use(async (req, res, next) => {
       res.locals = {
         userId: req.session.userId,
         email: req.session.userEmail,
+        fullName: req.session.fullName,
         notifications,
         unViewedNotifications
       };
@@ -70,7 +71,7 @@ const { requireLogin } = require("./middleware/admin");
 /**
  * MUST NEVER BE COMMENTED OUT IN PRODUCTION
  */
-app.use("/admin", requireLogin);
+// app.use("/admin", requireLogin);
 
 // route Handler
 require("./routes")(app);

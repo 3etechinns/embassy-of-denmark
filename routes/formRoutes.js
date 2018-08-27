@@ -75,7 +75,7 @@ module.exports = app => {
     return res.render("appointmentForm");
   });
 
-  app.get(
+  app.post(
     "/notifications/:notificationId/mark_as_viewed",
     requireLogin,
     async (req, res, next) => {

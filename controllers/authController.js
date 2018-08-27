@@ -20,7 +20,7 @@ const createUser = async (req, res, next) => {
     });
     req.session.userId = user._id;
     req.session.userEmail = user.email;
-    res.locals.currentUser = user.email;
+    res.session.fullName = user.fullName;
     return res.redirect("/history");
   } catch (error) {
     return next(error);
@@ -43,6 +43,7 @@ const logIn = async (req, res, next) => {
     req.session.userId = user._id;
     req.session.isAdmin = user.isAdmin;
     req.session.userEmail = user.email;
+    req.session.fullName = user.fullName;
     console.log("history");
     return user.isAdmin ? res.redirect("/admin") : res.redirect("/history");
   } catch (error) {
