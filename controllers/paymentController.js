@@ -61,8 +61,12 @@ const handlePayment = async (req, res, next) => {
       _formRecordId: req.body.formRecordId
     });
 
-    formRecord.paymentId = payment._id;
-    const updatedFormRecord = await formRecord.save();
+    // formRecord.paymentId = payment._id;
+    const updatedFormRecord = await FormRecord.updateOne(
+      { _id: req.body.formRecordId },
+      { paymentId: payment._id },
+      { new: true }
+    );
 
     await Notification.create({
       recipient: req.session.userId,
