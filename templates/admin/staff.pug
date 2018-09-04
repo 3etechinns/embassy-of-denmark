@@ -1,0 +1,249 @@
+extends ./layout.pug
+
+block main
+  main(style="margin: 0%;")
+    .container-fluid.row(style="margin: 0px;")
+      // Section: Table
+      section
+        // Card
+        .card.card-cascade.narrower(style="width: 100%;")
+          // Card header
+          .view.py-3.gradient-card-header.blue.mx-4.d-flex.justify-content-between.align-items-center
+            a.white-text.mx-3(href="") #{title}
+            div
+              button.btn.btn-outline-white.btn-rounded.btn-sm.px-2(type="button" data-toggle="tooltip" data-placement="bottom" title="info")
+                i.fa.fa-info-circle.mt-0
+          // /Card header
+          // Card content
+          .card-body
+            .row
+              .col-md-10.my-3
+                form.form-inline
+                  input.form-control.my-0.py-0(type="text" placeholder="Search" style="max-width: 150px;")
+                  button.btn.btn-sm.btn-info.ml-2.px-2
+                    i.fa.fa-search
+            .table-responsive
+              table.table
+                thead
+                  tr
+                    th
+                    th.th-lg Name
+                    th.th-lg Email
+                    th.th-lg Telephone
+                    th.th-lg Role
+                    th.th-lg Assignments
+                    th.th-lg Actions
+                tbody#staff(data-forms=formRecords)
+                  for staff, index in allStaff
+                    tr
+                      th(scope="row")
+                        input(type="checkbox" id=`checkbox${index}`)
+                        label.label-table(for=`checkbox${index}`)
+                      td #{staff.fullName.last + " " + staff.fullName.first}
+                      td #{staff.email}
+                      td #{staff.telephoneNumber}
+                      td #{staff.role}
+                      td #{staff.assignments.length}
+                      td.actions-button
+                        a(href=`/admin/view/${staff._id}` title="View Staff")
+                          img.icon(src="/img/eye.svg")
+                        a(href=`/admin/assign/${staff._id}` title="Add Assignment")
+                          img.icon(src="/img/eye.svg")
+              if !allStaff.length
+                .alert.alert-danger.text-center(role="alert") No staff recorded in our Database yet
+            hr.my-0
+            // Bottom Table UI
+            div
+              // Name
+              .row
+                .col-md-4.custom-select.my-4.mx-3(style="width: 100%;")
+                  select#numberOfRows.my-4
+                    option(value="5") 5 rows
+                    option(value="10") 10 rows
+                    option(value="20") 20 rows
+                    option(value="50") 50 rows
+                    option(value="100") 100 rows
+                    option(value=allStaff.length) All rows
+                .col-md-5
+                  // Pagination
+                  nav.my-4
+                    ul.pagination.pagination-circle.pg-blue.mb-0
+                      // First
+                      li.page-item
+                        a#first.page-link First
+                      // Arrow left
+                      li.page-item
+                        a#previous.page-link(aria-label="Previous")
+                          span(aria-hidden="true") «
+                          span.sr-only Previous
+                      // Numbers
+                      li#0.page-item.active
+                        a.page-link 1
+                      li#1.page-item
+                        a.page-link 2
+                      li#2.page-item
+                        a.page-link 3
+                      // Arrow right
+                      li.page-item
+                        a#next.page-link(aria-label="Next")
+                          span(aria-hidden="true") »
+                          span.sr-only Next
+                      // Last
+                      li.page-item
+                        a#last.page-link Last
+                  // /Pagination
+            // Bottom Table UI
+          // /.Card content
+        // /.Card
+
+block scripts
+  //GILBERT'S JAVASCRIPT
+  script.
+    var currentPage = 0;
+    var numberOfPages = 0;
+    var $numberOfRows = $("#numberOfRows").val();
+
+    function partition(dataSource, dataLimit) {
+      var partitionedData = [];
+      var dataLength = dataSource.length;
+      for (var i = 0; i < dataSource.length; i += dataLimit) {
+        var nArray = [];
+        if (dataLength < dataLimit) {
+          for (var j = dataLength; j > 0; j--) {
+            nArray.push(dataSource[dataSource.length - j]);
+            dataLength--;
+          }
+          partitionedData.push(nArray);
+          break;
+        } else {
+          for (var k = i; k < i + dataLimit; k++) {
+            nArray.push(dataSource[k]);
+            dataLength--;
+          }
+        }
+        partitionedData.push(nArray);
+      }
+      numberOfPages = partitionedData.length ;
+      return partitionedData;
+    }
+
+    function populateForms(arr) {
+      $("#forms").html("");
+      for(var i = 0; i < arr.length; i++) {
+        var $row = $("<tr></tr>");
+        var $thead = $('<th scope="row"></th>');
+        var $input = $("<input type='checkbox'></input>");
+        $($input).attr("id",`checkbox${i}`);
+        var $label = $('<label class="label-tabel"></label>');
+        $($label).attr("for",`checkbox${i}`);
+        $($thead).append($input);
+        $($thead).append($label);
+        var $formType = $(`<td>${arr[i].formType}</td>`);
+        var $email = $(`<td>${arr[i]._owner.email}</td>`);
+        var $createdAt = $(`<td>${arr[i].createdAt}</td>`);
+        var $status = $(`<td>${arr[i].status}</td>`);
+        var $actions = $("<td class='actions-button'></td>");
+        var $link = $("<a title='View Form'></a>");
+        $($link).attr("href",`/admin/view/${arr[i].formId}?type=${arr[i].formType}`);
+        var $img = $("<img class='icon' src='/img/eye.svg'>");
+        $($link).append($img);
+        $($actions).append($link);
+        $($row).append([$thead,$formType,$email,$createdAt,$status,$actions]);
+        $("#forms").append($row);
+      }
+    }
+
+    function runPartitioning(id,limit,formStatus) {
+      $.get(`/api/${formStatus}`,(data) => {
+        var partitionedData = partition(data,limit);
+        $(".page-item").removeClass("active");
+        $(".page-item").removeClass("disabled");
+        $(`#${id}`).addClass("active");
+        currentPage = id;
+        populateForms(partitionedData[id]);
+      });
+    }
+
+    function run(id,formStatus) {
+      $("#last").removeClass("disabled");
+      $("#next").removeClass("disabled");
+      $("#1").removeClass("disabled");
+      $("#2").removeClass("disabled");
+      runPartitioning(id,$numberOfRows,formStatus);
+      console.log(numberOfPages);
+      if(numberOfPages < 2) {
+        $("#1").addClass("disabled");
+        $("#2").addClass("disabled");
+      }
+      if(numberOfPages < 3) {
+        $("#2").addClass("disabled");
+      }
+      if(id === 0) {
+        $("#first").addClass("disabled");
+        $("#previous").addClass("disabled");
+      }
+      else if(id > 0 && id < numberOfPages-1) {
+        $("#first").removeClass("disabled");
+        $("#previous").removeClass("disabled");
+      }
+      else if(id >= numberOfPages-1) {
+        $("#first").removeClass("disabled");
+        $("#previous").removeClass("disabled");
+        $("#last").addClass("disabled");
+        $("#next").addClass("disabled");
+      }
+    }
+
+    function final(id) {
+      if(location.pathname === "/admin/transaction/all_requests") {
+        run(id,"allForms");
+      }
+      if(location.pathname === "/admin/transaction/new_requests") {
+        run(id,"newRequests");
+      }
+      if(location.pathname === "/admin/transaction/under_processing_requests") {
+        run(id,"underProcessingRequests");
+      }
+      if(location.pathname === "/admin/transaction/completed_requests") {
+        run(id,"completedRequests");
+      }
+      if(location.pathname === "/admin/transaction/dispatched_requests") {
+        run(id,"dispatchedRequests");
+      }
+    }
+
+    final(0);
+
+    $("#numberOfRows").change(() => {
+      console.log("changed");
+    });
+
+    $("#next").click(e => {
+      var id = currentPage + 1;
+      final(id);
+    });
+
+    $("#first").click(e => {
+      final(0);
+    });
+
+    $("#last").click(e => {
+      final(numberOfPages-1);
+    });
+
+    $("#previous").click(e => {
+      var id = currentPage - 1;
+      final(id);
+    });
+    
+    $("#1").click(e => {
+      final(1);
+    });
+
+    $("#0").click(e => {
+      final(0);
+    });
+
+    $("#2").click(e => {
+      final(2);
+    });

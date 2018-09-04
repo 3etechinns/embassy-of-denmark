@@ -1,0 +1,83 @@
+extends ./layout.pug
+
+block styles
+  link(href="/css/styles.css" rel="stylesheet")
+
+block main
+  main(style="margin: 0%;")
+    .container-fluid.row(style="margin: 0px;")
+      .col-md-9
+        section
+          // Card
+          .card.card-cascade.narrower(style="width: 100%;")
+            // Card header
+            .view.py-3.gradient-card-header.blue.mx-4.d-flex.justify-content-between.align-items-center
+              a.white-text.mx-3(href="") Review Appointment Form
+              div
+                button.btn.btn-outline-white.btn-rounded.btn-sm.px-2(type="button" data-toggle="tooltip" data-placement="bottom" title="info")
+                  i.fa.fa-info-circle.mt-0
+            // /Card header
+            // Card content
+            .card-body
+              form(name="passport")
+                .form-section
+                  p.form-section-name Personal Information
+                  .row
+                    .col-sm-12.col-lg-3.form-group
+                      label.form-label(for="surname") Surname
+                      label.form-label.star *
+                      input.form-control.form-control-sm(type="text" value=form.surname id="surname" placeholder="Surname" name="surname")
+                    .col-sm-12.col-lg-7.form-group
+                      label.form-label(for="otherNames") Other names
+                      label.form-label.star *
+                      input.form-control.form-control-sm( type="text" value=form.otherNames placeholder="Other names" id="otherNames" name="otherNames")
+                  .row
+                    .col-sm-12.col-lg-3.form-group
+                      label.form-label(for="nationality") Nationality
+                      label.form-label.star *
+                      input.form-control.form-control-sm( type="text" value=form.nationality name="nationality" id="nationality")
+                    .col-sm-12.col-lg-3.form-group
+                      label.form-label(for="formerNationality") Former Nationality
+                      input.form-control.form-control-sm( type="text" value=form.formerNationality placeholder="Former nationality" id="formerNationality" name="formerNationality")
+                    .col-sm-12.col-lg-4.form-group
+                      label.form-label(for="countryOfResidence") Country of Residence
+                      label.form-label.star *
+                      input.form-control.form-control-sm(type="text" value=form.countryOfResidence id="countryOfResidence" name="countryOfResidence") 
+                .form-section
+                  p.form-section-name Contact Information
+                  .row
+                    .col-sm-12.col-lg-3.form-group
+                      label.form-label(for="email") Email
+                      label.form-label.star *
+                      input.form-control.form-control-sm( type="text" value=form.email placeholder="Email" id="email" name="email")
+                    .col-sm-12.col-lg-3.form-group
+                      label.form-label(for="telephoneNumber") Telephone Number
+                      label.form-label.star *
+                      input.form-control.form-control-sm( type="text" value=form.telephoneNumber placeholder="Telephone Number" id="telephoneNumber" name="telephoneNumber")
+                    .col-sm-12.col-lg-4.form-group
+                      label.form-label(for="residentialAddress") Residential Address
+                      label.form-label.star *
+                      input.form-control.form-control-sm( type="text" value=form.residentialAddress placeholder="Residential Address" id="residentialAddress" name="residentialAddress")
+                .form-section
+                  p.form-section-name Appointment Details
+                  .row
+                    .col-sm-12.col-lg-3.form-group
+                      label.form-label(for="occupation") Occupation
+                      label.form-label.star *
+                      input.form-control.form-control-sm( type="text" value=form.occupation placeholder="Occupation" id="occupation" name="occupation")
+                    .col-sm-12.col-lg-3.form-group
+                      label.form-label(for="reasonOfAppointment") Reason of Appointment
+                      label.form-label.star *
+                      input.form-control.form-control-sm( type="text" value=form.reasonOfAppointment placeholder="Reason for Appointment" id="reasonOfAppointment" name="reasonOfAppointment")
+                    .col-sm-12.col-lg-4.form-group
+                      label.form-label(for="preferredDateOfAppointment") Preferred Date of Appointment
+                      label.form-label.star *
+                      input.form-control.form-control-sm( type="text" value=form.preferredDateOfAppointment placeholder="Preferred Date of Appointment" id="preferredDateOfAppointment" name="preferredDateOfAppointment")
+                  .submit-button.submit-passport-form
+                    button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/admin/update/${form._id}?type=Appointment&as=Under Processing` formmethod="post") Under Processing
+                    button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/admin/update/${form._id}?type=Appointment&as=Completed` formmethod="post") Complete
+                    button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction=`/admin/update/${form._id}?type=Appointment&as=Dispatched` formmethod="post") Dispatch
+            // /.Card content
+          // /.Card
+        // Section: Table
+      include includes/userlog.pug  

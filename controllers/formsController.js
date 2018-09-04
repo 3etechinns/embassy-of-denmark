@@ -434,13 +434,14 @@ const createAppointmentForm = async (req, res, next) => {
       _owner: req.session.userId,
       formId: appointmentForm._id,
       formType: FORM_TYPES.appointment,
-      formCode: `A${Date.now()}`
+      formCode: `A${Date.now()}`,
+      isComplete: true
     });
 
     const notification = await Notification.create({
       title: `New Appointment form created`,
       message: `${req.query.type} form ${
-        resp[0].formCode
+        formRecord.formCode
       } created successfully`,
       recipient: req.session.userId
     });

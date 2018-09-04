@@ -31,7 +31,7 @@ block main
                   tbody
                     each formRecord, index in formRecords
                       tr
-                        th(scope='row') #{index + 1}
+                        th(scope='row') #{formRecord.formCode }
                         td #{formRecord.formType}
                         td #{formRecord.createdAt}
                         td #{formRecord.updatedAt}

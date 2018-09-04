@@ -1,0 +1,55 @@
+doctype html
+head
+	title Login V2
+	meta(charset='UTF-8')
+	meta(name='viewport', content='width=device-width, initial-scale=1')
+	link(rel='icon', type='image/png', href='/assets/images/icons/favicon.ico')
+	link(rel='stylesheet', type='text/css', href='/assets/vendor/bootstrap/css/bootstrap.min.css')
+	link(rel='stylesheet', type='text/css', href='/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css')
+	link(rel='stylesheet', type='text/css', href='/assets/fonts/iconic/css/material-design-iconic-font.min.css')
+	link(rel='stylesheet', type='text/css', href='/assets/vendor/animate/animate.css')
+	link(rel='stylesheet', type='text/css', href='/assets/vendor/css-hamburgers/hamburgers.min.css')
+	link(rel='stylesheet', type='text/css', href='/assets/vendor/animsition/css/animsition.min.css')
+	link(rel='stylesheet', type='text/css', href='/assets/vendor/select2/select2.min.css')
+	// <link rel="stylesheet" type="text/css" href="/assets/vendor/daterangepicker/daterangepicker.css">
+	link(rel='stylesheet', type='text/css', href='/assets/css/util.css')
+	link(rel='stylesheet', type='text/css', href='/assets/css/main.css')
+.limiter
+	.container-login100
+		.wrap-login100
+			form.login100-form.validate-form(method="POST" action="/admin/signup")
+				span.login100-form-title.p-b-26
+				span.login100-form-title.p-b-48
+					i.zmdi.zmdi-font
+				.wrap-input100.validate-input(data-validate='Valid first name: abcd')
+					input.input100(type='text', name='first')
+					span.focus-input100(data-placeholder='First Name')
+				.wrap-input100.validate-input(data-validate='Valid last name is: abcd')
+					input.input100(type='text', name='last')
+					span.focus-input100(data-placeholder='Last Name')
+				.wrap-input100.validate-input(data-validate='Valid email is: a@b.c')
+					input.input100(type='text', name='email')
+					span.focus-input100(data-placeholder='Email')
+				.wrap-input100.validate-input(data-validate='Valid password is: adbc&$jign5')
+					span.btn-show-pass
+						i.zmdi.zmdi-eye
+					input.input100(type='password', name='password')
+					span.focus-input100(data-placeholder='Password')
+				.container-login100-form-btn
+					.wrap-login100-form-btn
+						.login100-form-bgbtn
+						button.login100-form-btn(type="submit") Sign Up
+				.text-center.p-t-115
+					span.txt1
+					a.txt2(href='#')
+#dropDownSelect1
+script(src='/assets/vendor/jquery/jquery-3.2.1.min.js')
+script(src='/assets/vendor/animsition/js/animsition.min.js')
+script(src='/assets/vendor/bootstrap/js/popper.js')
+script(src='/assets/vendor/bootstrap/js/bootstrap.min.js')
+script(src='/assets/vendor/select2/select2.min.js')
+//
+	<script src="/assets/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/assets/vendor/daterangepicker/daterangepicker.js"></script>
+script(src='/assets/vendor/countdowntime/countdowntime.js')
+script(src='/assets/js/main.js')

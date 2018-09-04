@@ -1,9 +1,11 @@
 const path = require("path");
+const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const Notification = mongoose.model("Notification");
 const FormRecord = mongoose.model("FormRecord");
 const User = mongoose.model("User");
 const Price = mongoose.model("Price");
+const Personnel = mongoose.model("Personnel");
 const Visa = mongoose.model("VisaForm");
 const Passport = mongoose.model("PassportForm");
 const FeedBack = mongoose.model("FeedBack");
@@ -14,7 +16,7 @@ const {
   getCompletedRequests,
   getDispatchedRequests
 } = require("../middleware/admin");
-const { requireLogin } = require("../middleware");
+const { requireLogin, requireLogout } = require("../middleware/admin");
 const FORM_TYPES = require("../formsTypes");
 const util = require("../util");
 const PROCESSING_STATUS = require("../processingStatus");
@@ -26,6 +28,8 @@ const getModelName = type => {
       return "PassportForm";
     case FORM_TYPES.VisaForm:
       return "VisaForm";
+    case FORM_TYPES.appointment:
+      return "AppointmentForm";
     default:
       return "";
   }
@@ -49,36 +53,144 @@ module.exports = app => {
    * Make sure these api routes are preceded with a /admin and are wired up with the
    * requireLogin middleware
    */
-  app.get("/api/allForms", getAllRequests, (req, res, next) => {
+
+  app.get("/admin/signup", requireLogout, (req, res, next) => {
+    return res.render("admin/adminSignup");
+  });
+
+  app.post("/admin/signup", async (req, res, next) => {
+    try {
+      const { last, first, email, password } = req.body;
+      const hash = await bcrypt.hash(password, 10);
+      const admin = await Personnel.create({
+        email,
+        fullName: { last, first },
+        password: hash,
+        isAdmin: true
+      });
+
+      return res.redirect("/admin");
+
+      req.session.userId = admin._id;
+      req.session.isAdmin = admin.isAdmin;
+      req.session.isStaff = true;
+    } catch (error) {
+      return next(error);
+    }
+  });
+
+  app.get("/admin/add-staff", requireLogin, (req, res, next) => {
+    return res.render("admin/addStaff");
+  });
+
+  app.post("/admin/add-staff", async (req, res, next) => {
+    try {
+      const { first, last, email, password } = req.body;
+
+      const existingStaff = await Personnel.findOne({ email });
+
+      if (existingStaff) {
+        return util.error(
+          "The email you provided has already been registered",
+          next,
+          403
+        );
+      }
+
+      const staff = await Personnel.create({
+        email,
+        fullName: { last, first },
+        password
+      });
+
+      return res.redirect("/admin");
+    } catch (error) {
+      return next(error);
+    }
+  });
+
+  app.get("/staff/signin", requireLogout, (req, res, next) => {
+    return res.render("admin/staffSignin");
+  });
+
+  app.post("/staff/signin", requireLogout, async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+
+      const staff = await Personnel.findOne({ email });
+
+      if (!staff) {
+        return util.error("No account exists with this email", next, 403);
+      }
+
+      const matching = await bcrypt.compare(password, staff.password);
+
+      if (!matching) {
+        return util.error("Incorrect Password", next, 403);
+      }
+
+      req.session.userId = staff._id;
+      req.session.isStaff = true;
+      req.session.isAdmin = staff.isAdmin;
+      return res.redirect("/admin");
+    } catch (error) {
+      return next(error);
+    }
+  });
+
+  app.get("/admin/staff", requireLogin, async (req, res, next) => {
+    try {
+      const allStaff = await Personnel.find();
+
+      return res.render("admin/staff", { allStaff, title: "Staff Log" });
+    } catch (error) {
+      return next(error);
+    }
+  });
+
+  app.get("/api/allForms", requireLogin, getAllRequests, (req, res, next) => {
     return res.json(req.allFormRecords);
   });
-  app.get("/api/newRequests", getNewRequests, (req, res, next) => {
-    return res.json(req.newRequests);
-  });
+  app.get(
+    "/api/newRequests",
+    requireLogin,
+    getNewRequests,
+    (req, res, next) => {
+      return res.json(req.newRequests);
+    }
+  );
   app.get(
     "/api/underProcessingRequests",
+    requireLogin,
     getProcessingRequests,
     (req, res, next) => {
       return res.json(req.underProcessing);
     }
   );
-  app.get("/api/completedRequests", getCompletedRequests, (req, res, next) => {
-    return res.json(req.completedRequests);
-  });
+  app.get(
+    "/api/completedRequests",
+    requireLogin,
+    getCompletedRequests,
+    (req, res, next) => {
+      return res.json(req.completedRequests);
+    }
+  );
   app.get(
     "/api/dispatchedRequests",
+    requireLogin,
     getDispatchedRequests,
     (req, res, next) => {
       return res.json(req.dispatchedRequests);
     }
   );
 
-  app.get("/admin", getAllRequests, async (req, res, next) => {
+  app.get("/admin", requireLogin, getAllRequests, async (req, res, next) => {
     let newRequestsCount = 0;
     let underProcessingRequestsCount = 0;
     let completedRequestsCount = 0;
     let dispatchedRequestsCount = 0;
 
+    console.log(req.allFormRecords);
     req.allFormRecords.forEach(form => {
       if (form.status === PROCESSING_STATUS.newRequests) {
         newRequestsCount++;
@@ -93,9 +205,11 @@ module.exports = app => {
 
     // Do not include admins
     const users = await User.find({ isAdmin: false });
+    const allStaff = await Personnel.find();
 
     return res.render("admin/home", {
       users,
+      allStaff,
       formRecords: req.allFormRecords,
       newRequestsCount,
       underProcessingRequestsCount,
@@ -104,7 +218,7 @@ module.exports = app => {
     });
   });
 
-  app.post("/admin/update/:formId", async (req, res, next) => {
+  app.post("/admin/update/:formId", requireLogin, async (req, res, next) => {
     try {
       const status = getStatus(req.query.as);
 
@@ -122,12 +236,12 @@ module.exports = app => {
             updatedDoc.formCode
           } is under processing. you will be notified upon completion`;
           break;
-        case "Completed":
+        case "Completed Request":
           message = `Your ${updatedDoc.formType} form, ${
             updatedDoc.formCode
           } has been completed and is awaiting dispatch`;
           break;
-        case "Dispatched":
+        case "Dispatched Request":
           message = `Your ${updatedDoc.formType} form, ${
             updatedDoc.formCode
           } has been dispatched and will be delivered soon`;
@@ -146,7 +260,7 @@ module.exports = app => {
     }
   });
 
-  app.post("/admin/verify/:userId", async (req, res, next) => {
+  app.post("/admin/verify/:userId", requireLogin, async (req, res, next) => {
     try {
       const status = req.query.verification;
 
@@ -185,7 +299,7 @@ module.exports = app => {
     }
   });
 
-  app.get("/admin/view/:formId", async (req, res, next) => {
+  app.get("/admin/view/:formId", requireLogin, async (req, res, next) => {
     // Do not include admins
     const users = await User.find({ isAdmin: false });
 
@@ -193,30 +307,37 @@ module.exports = app => {
       return res.render("admin/viewPassportForm", { form: req.form, users });
     } else if (req.query.type === "Visa") {
       return res.render("admin/viewVisaForm", { form: req.form, users });
+    } else if (req.query.type === "Appointment") {
+      return res.render("admin/viewAppointmentForm", { form: req.form, users });
     } else {
       const err = new Error("invalid request type");
       return next(err);
     }
   });
 
-  app.get("/admin/users/:userId/profile", async (req, res, next) => {
-    try {
-      const user = await User.findById(req.params.userId);
-      if (!user) {
-        return util.error("User not found");
+  app.get(
+    "/admin/users/:userId/profile",
+    requireLogin,
+    async (req, res, next) => {
+      try {
+        const user = await User.findById(req.params.userId);
+        if (!user) {
+          return util.error("User not found");
+        }
+        return res.render("admin/userProfile", { user });
+      } catch (error) {
+        return next(error);
       }
-      return res.render("admin/userProfile", { user });
-    } catch (error) {
-      return next(error);
     }
-  });
+  );
 
-  app.get("/admin/embassy_requests", (req, res, next) => {
+  app.get("/admin/embassy_requests", requireLogin, (req, res, next) => {
     return res.redirect("/admin");
   });
 
   app.get(
     "/admin/transaction/all_requests",
+    requireLogin,
     getAllRequests,
     (req, res, next) => {
       return res.render("admin/transaction", {
@@ -228,6 +349,7 @@ module.exports = app => {
 
   app.get(
     "/admin/transaction/new_requests",
+    requireLogin,
     getNewRequests,
     (req, res, next) => {
       return res.render("admin/transaction", {
@@ -239,6 +361,7 @@ module.exports = app => {
 
   app.get(
     "/admin/transaction/under_processing_requests",
+    requireLogin,
     getProcessingRequests,
     (req, res, next) => {
       return res.render("admin/transaction", {
@@ -250,6 +373,7 @@ module.exports = app => {
 
   app.get(
     "/admin/transaction/completed_requests",
+    requireLogin,
     getCompletedRequests,
     (req, res, next) => {
       return res.render("admin/transaction", {
@@ -261,6 +385,7 @@ module.exports = app => {
 
   app.get(
     "/admin/transaction/dispatched_requests",
+    requireLogin,
     getDispatchedRequests,
     (req, res, next) => {
       return res.render("admin/transaction", {
@@ -270,15 +395,15 @@ module.exports = app => {
     }
   );
 
-  app.get("/admin/settings", (req, res, next) => {
+  app.get("/admin/settings", requireLogin, (req, res, next) => {
     return res.redirect("/admin");
   });
 
-  app.get("/admin/support", (req, res, next) => {
+  app.get("/admin/support", requireLogin, (req, res, next) => {
     return res.render("admin/support");
   });
 
-  app.post("/admin/support", async (req, res, next) => {
+  app.post("/admin/support", requireLogin, async (req, res, next) => {
     try {
       const feedBack = await FeedBack.create({ ...req.body });
       return res.render("admin/support", {
@@ -305,7 +430,7 @@ module.exports = app => {
     }
   });
 
-  app.get("/admin/settings/pricing", async (req, res, next) => {
+  app.get("/admin/settings/pricing", requireLogin, async (req, res, next) => {
     try {
       const prices = await Price.findOne();
       const users = await User.find({ isAdmin: false });
@@ -335,7 +460,7 @@ module.exports = app => {
     }
   });
 
-  app.post("/admin/settings/pricing", async (req, res, next) => {
+  app.post("/admin/settings/pricing", requireLogin, async (req, res, next) => {
     try {
       const {
         passportPrice,
@@ -370,7 +495,7 @@ module.exports = app => {
     }
   });
 
-  app.get("/admin/get_price", async (req, res, next) => {
+  app.get("/admin/get_price", requireLogin, async (req, res, next) => {
     try {
       if (!req.query.type) {
         const prices = await Price.findOne();

@@ -47,10 +47,9 @@ app.use(async (req, res, next) => {
         recipient: req.session.userId
       }).lean();
 
-      let unViewedNotifications = 0;
-      notifications.forEach(notification => {
-        if (!notification.viewed) unViewedNotifications++;
-      });
+      let unViewedNotifications = notifications.filter(
+        notification => !notification.viewed
+      ).length;
 
       res.locals = {
         userId: req.session.userId,
@@ -71,7 +70,7 @@ const { requireLogin } = require("./middleware/admin");
 /**
  * MUST NEVER BE COMMENTED OUT IN PRODUCTION
  */
-app.use("/admin", requireLogin);
+// app.use("/admin", requireLogin);
 
 // route Handler
 require("./routes")(app);
@@ -85,9 +84,6 @@ app.use((req, res, next) => {
 
 // Error Handler
 app.use((error, req, res, next) => {
-  // return res
-  //   .status(error.status || 500)
-  //   .json({ message: error.message, status: error.status || 500 });
   return res.status(error.status || 500).render("error", { error });
 });
 

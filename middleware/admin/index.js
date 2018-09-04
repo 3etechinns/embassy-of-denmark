@@ -9,9 +9,14 @@ const {
 
 const requireLogin = (req, res, next) => {
   if (!req.session.userId || !req.session.isAdmin) {
-    // return res.redirect("/admin/sign-in");
-    const error = new Error("You do not have permission to access this page");
-    return next(error);
+    return res.redirect("/staff/signin");
+  }
+  return next();
+};
+
+const requireLogout = (req, res, next) => {
+  if (req.session.userId && req.session.isAdmin) {
+    return res.redirect("/admin");
   }
   return next();
 };
@@ -141,5 +146,6 @@ module.exports = {
   getProcessingRequests,
   getCompletedRequests,
   getDispatchedRequests,
-  requireLogin
+  requireLogin,
+  requireLogout
 };

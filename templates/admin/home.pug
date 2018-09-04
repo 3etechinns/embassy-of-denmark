@@ -1,549 +1,372 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="utf-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
-    meta(http-equiv="x-ua-compatible" content="ie=edge")
-    title Embassy Of Denmark
-    // Font Awesome
-    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
-    // Bootstrap core CSS
-    link(href="/css/bootstrap.min.css" rel="stylesheet")
-    // Material Design Bootstrap
-    link(href="/css/mdb.min.css" rel="stylesheet")
-    // Your custom styles (optional)
-    link(href="/css/style.css" rel="stylesheet")
-    link(href="/css/compiled.min.css" rel="stylesheet")
-  body.fixed-sn.mdb-skin
-    // Main Navigation
-    header
-      // Navbar
-      nav.navbar.navbar-expand-lg.navbar-dark.double-nav.fixed-top.scrolling-navbar
-        // SideNav slide-out button
-        .float-left
-          a.button-collapse(href="#" data-activates="slide-out")
-            i.fa.fa-bars
-        // Breadcrumb
-        .breadcrumb-dn.mr-auto
-          p(style="font-weight: 600; font-size: 13px;") ADMIN DASHBOARD
-        // Links
-        ul.nav.navbar-nav.nav-flex-icons.ml-auto
-          li.nav-item
-            a.nav-link(href="/admin/support")
-              i.fa.fa-comments-o
-              span.clearfix.d-none.d-sm-inline-block Support
-          li.nav-item.dropdown
-            a#dropdown-settings.nav-link.dropdown-toggle(href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false")
-              i.fa.fa-gear
-              | Settings
-            .dropdown-menu(aria-labelledby="dropdown-settings")
-              a.dropdown-item(href="/admin/settings/pricing") Price Settings
-              a.dropdown-item(href="#") Access Rights
-              a.dropdown-item(href="#") User Log
-              a.dropdown-item(href="#") Currency
-              a.dropdown-item(href="#") Bank/Card Details
-              a.dropdown-item(href="#") Embassy Profile
-              a.dropdown-item(href="#") Staff
-          li.nav-item
-            a.nav-link(href="/logout")
-              i.fa.fa-power-off
-      // /.Navbar
-      include sidebar.pug
-    // Main Navigation
-    // Main layout
-    main(style="margin: 0%;")
-      .container-fluid.row(style="margin: 0px;")
-        .col-md-9
-          section
-            h6(style="font-weight:600;") TRANSACTION SUMMARY:
-            .row.mt-2.mb-2
-              .col-md-3
-                h6 New Requests
-                h1 #{newRequestsCount}
-              .col-md-3
-                h6 Under Processing
-                h1 #{underProcessingRequestsCount}
-              .col-md-3
-                h6 Completed Requests
-                h1 #{completedRequestsCount}
-              .col-md-3
-                h6 Dispatched Requests
-                h1 #{dispatchedRequestsCount}
-          hr
-          // Section: Modals
-          // Section: Modals
-          // Section: Main panel
-          section.card.card-cascade.narrower.mb-2
-            // Grid row
-            .row
-              // Grid column
-              .col-md-5
-                // Panel Header
-                .view.py-3.px-3(style="background: DodgerBlue; color: white;")
-                  h6.mb-0
-                    strong Revenue
-                // /Panel Header
-                // Panel content
-                .card-body
-                  // Grid row
-                  .row
-                    // Grid column
-                    .col-md-6.mb-4
-                      // Date select
-                      p.lead(style="font-size: 15px; font-weight: 600;")
-                        | DATE RANGE
-                      .custom-select
-                        select
-                          option(value="" disabled="" selected="") time period
-                          option(value="1") Today
-                          option(value="2") Yesterday
-                          option(value="3") Last 7 days
-                          option(value="3") Last 30 days
-                          option(value="3") Last week
-                          option(value="3") Last month
-                      // Date pickers
-                      p.lead.my-4.mt-3(style="font-size: 15px; font-weight: 600;")
-                        | CUSTOM DATE
-                      .md-form
-                        input#from.form-control.datepicker(placeholder="Selected date" type="text")
-                        label(for="date-picker-example") From
-                      .md-form
-                        input#to.form-control.datepicker(placeholder="Selected date" type="text")
-                        label(for="date-picker-example") To
-                    // Grid column
-                    // Grid column
-                    .col-md-6.mb-4.text-center
-                      // Summary
-                      p
-                        | Total revenue:
-                        strong 2000GHC
-                        button.btn.btn-sm.btn-info.p-2(style="background-color: grey;" data-toggle="tooltip" data-placement="top" title="Total revenue in the given period")
-                          i.fa.fa-question
-                      p
-                        | Average revenue:
-                        strong 100GHC
-                        button.btn.btn-sm.btn-info.p-2(style="background-color: grey;" data-toggle="tooltip" data-placement="top" title="Average daily revenue in the given period")
-                          i.fa.fa-question
-                      // Change chart
-                      span#chart-revenue.min-chart.my-4(data-percent="76")
-                        span.percent
-                      h5
-                        span.badge.green.p-2
-                          | % Change
-                          i.fa.fa-arrow-circle-up.ml-1
-                        button.btn.btn-sm.btn-info.p-2(style="background-color: grey;" data-toggle="tooltip" data-placement="top" title="Percentage change compared to the same period in the past")
-                          i.fa.fa-question
-                    // Grid column
-                  // Grid row
-                // Panel content
-              // Grid column
-              // Grid column
-              .col-md-7
-                // Panel Header
-                .view.py-1.px-1.gradient-card-header.mb-4(style="background-color: dodgerblue;")
-                  canvas#lineChart
-                // /Card image
-              // Grid column
-            // Grid row
-          // Section: Main panel
-          // Section: Table
-          section
-            // Card
-            .card.card-cascade.narrower(style="width: 100%;")
-              // Card header
-              .view.py-3.gradient-card-header.blue.mx-4.d-flex.justify-content-between.align-items-center
-                a.white-text.mx-3(href="") All Form Records
-                div
-                  button.btn.btn-outline-white.btn-rounded.btn-sm.px-2(type="button" data-toggle="tooltip" data-placement="bottom" title="info")
-                    i.fa.fa-info-circle.mt-0
-              // /Card header
-              // Card content
-              .card-body
-                .row
-                  .col-md-6.my-2
-                    .custom-select(style="width: 50%;")
-                      select
-                        option(value="" disabled="" selected="") show all
-                        option(value="0") Show All
-                        option(value="1") Processed
-                        option(value="2") Pending
-                        option(value="3") Last 7 days
-                  .col-md-6.my-2
-                    form.form-inline
-                      input#searchForm.form-control.my-0.py-0(type="text" placeholder="Search" style="max-width: 150px;")
-                      button.btn.btn-sm.btn-info.ml-2.px-2
-                        i.fa.fa-search
-                .table-responsive
-                  table.table
-                    thead
-                      tr
-                        th
-                          //- input#checkbox(type="checkbox")
-                          //- label.label-table(for="checkbox")
-                        th.th-lg Form Type
-                        th.th-lg Applicant
-                        th.th-lg Date Applied
-                        th.th-lg Status
-                        th.th-lg 
-                    tbody#forms(data-forms=formRecords)
-                      //- for formRecord, index in formRecords
-                      //-   tr
-                      //-     th(scope="row")
-                      //-       input(type="checkbox" id=`checkbox${index}`)
-                      //-       label.label-table(for=`checkbox${index}`)
-                      //-     td #{formRecord.formType}
-                      //-     td #{formRecord._owner.email}
-                      //-     td #{formRecord.createdAt}
-                      //-     td #{formRecord.status}
-                      //-     td.actions-button
-                      //-       a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
-                      //-         img.icon(src="/img/eye.svg")
-                  if !formRecords.length
-                    .alert.alert-danger.text-center(role="alert") No Form records yet in our Database
-                hr.my-0
-                // Bottom Table UI
-                div
-                  // Name
-                  .row
-                    .col-md-4.custom-select.my-4.mx-3(style="width: 100%;")
-                      select#numberOfRows.my-4
-                        option(value="5") 5 rows
-                        option(value="10") 10 rows
-                        option(value="20") 20 rows
-                        option(value="50") 50 rows
-                        option(value="100") 100 rows
-                        option(value=formRecords.length) All rows
-                    .col-md-5
-                      // Pagination
-                      nav.my-4
-                        ul.pagination.pagination-circle.pg-blue.mb-0
-                          // First
-                          li.page-item
-                            a#first.page-link First
-                          // Arrow left
-                          li.page-item
-                            a#previous.page-link(aria-label="Previous")
-                              span(aria-hidden="true") «
-                              span.sr-only Previous
-                          // Numbers
-                          li#0.page-item.active
-                            a.page-link 1
-                          li#1.page-item
-                            a.page-link 2
-                          li#2.page-item
-                            a.page-link 3
-                          // Arrow right
-                          li.page-item
-                            a#next.page-link(aria-label="Next")
-                              span(aria-hidden="true") »
-                              span.sr-only Next
-                          // Last
-                          li.page-item
-                            a#last.page-link Last
-                      // /Pagination
-                // Bottom Table UI
-              // /.Card content
-            // /.Card
-          // Section: Table
-        //- .col-md-6.my-2
-        //-   .sticky
-        .col-md-3
-          .sticky
-            form.my-2.md-6.form-inline
-              input#searchUser.form-control.my-0.py-0(type="text" placeholder="Search" style="max-width: 150px;")
-              button.btn.btn-sm.btn-info.ml-2.px-2
-                i.fa.fa-search
-            .list-group
-              h6.list-group-item.active.waves-effect(style="background: DodgerBlue; border:none; color: white;")
-                | User Search and Reporting
-              each user in users
-                a.user.list-group-item.list-group-item-action.waves-effect(href=`admin/users/${user._id}/profile`) #{user.fullName || user.email} 
-      #stopper.pb-2
-    // Main layout
-    // Footer
-    footer.page-footer.center-on-small-only
-      .flex-center.mb-3.mt-2
-        a.px-3(href="")
-          i.fa.fa-facebook
-        a.px-3(href="")
-          i.fa.fa-instagram
-        a.px-3(href="")
-          i.fa.fa-google
-        a.px-3(href="")
-          i.fa.fa-twitter
-        a.px-3(href="")
-          i.fa.fa-linkedin
-      // Copyright
-      .footer-copyright
-        .container-fluid
-          | © 2018 Copyright:
-          a(href="/admin")  Embassy Of Denmark 
-      // /.Copyright
-    // /.Footer
-    // SCRIPTS
-    // JQuery
-    script(type="text/javascript" src="/js/jquery.min.js")
-    // Bootstrap tooltips
-    script(type="text/javascript" src="/js/popper.min.js")
-    // Bootstrap core JavaScript
-    script(type="text/javascript" src="/js/bootstrap.min.js")
-    // MDB core JavaScript
-    script(type="text/javascript" src="/js/mdb.min.js")
-    script(type="text/javascript" src="/js/compiled.min.js")
-    script(type="text/javascript" src="/js/custom.js")
-    // Initialization
-    script.
-      // SideNav Initialization
-      $(".button-collapse").sideNav();
-      // Material Select Initialization
-      $(document).ready(function () {
-      $('.mdb-select').material_select();
-      });
-      // Data Picker Initialization
-      $('.datepicker').pickadate();
-      // Tooltip Initialization
-      $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-      })
-    // Charts
-    script.
-      // Minimalist chart
-      $(function () {
-      $('.min-chart#chart-revenue').easyPieChart({
-      barColor: "#4caf50",
-      onStep: function (from, to, percent) {
-      $(this.el).find('.percent').text(Math.round(percent));
-      }
-      });
-      });
-      // Main chart
-      var ctxL = document.getElementById("lineChart").getContext('2d');
-      var myLineChart = new Chart(ctxL, {
-      type: 'line',
-      data: {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      datasets: [{
-      label: "Revenue Graph",
-      fillColor: "#fff",
-      backgroundColor: 'rgba(255, 255, 255, .3)',
-      borderColor: 'rgba(255, 99, 132)',
-      data: [0, 10, 5, 2, 20, 30, 45],
-      }]
-      },
-      options: {
-      legend: {
-      labels: {
-      fontColor: "#fff",
-      }
-      },
-      scales: {
-      xAxes: [{
-      gridLines: {
-      display: true,
-      color: "rgba(255,255,255,.25)"
-      },
-      ticks: {
-      fontColor: "#fff",
-      },
-      }],
-      yAxes: [{
-      display: true,
-      gridLines: {
-      display: true,
-      color: "rgba(255,255,255,.25)"
-      },
-      ticks: {
-      fontColor: "#fff",
-      },
-      }],
-      }
-      }
-      });
-    // Alerts
-    script.
-      $(function () {
-      $('#folder-1').click(function () {
-      toastr.error("Folder 1 has been clicked!", "Folder 1", {
-      "positionClass": "toast-top-right",
-      });
-      });
-      $('#folder-2').click(function () {
-      // make it not dissappear
-      toastr.info("Folder 2 has been clicked!", "Folder 2", );
-      });
-      $('#folder-3').click(function () {
-      // make it not dissappear
-      toastr.info("Folder 3 has been clicked!", "Folder 3", );
-      });
-      });
-    // sticky
-    script(type="text/javascript").
-      $(function () {
-      $(".sticky").sticky({
-      topSpacing: 90
-      , zIndex: 2
-      , stopper: "#stopper"
-      });
-      });
-      //GILBERT'S JAVASCRIPT
-    script.
-      var currentPage = 0;
-      var numberOfPages = 0;
-      var $numberOfRows = $("#numberOfRows").val();
+extends ./layout
 
-      function partition(dataSource, dataLimit) {
-        var partitionedData = [];
-        var dataLength = dataSource.length;
-        for (var i = 0; i < dataSource.length; i += dataLimit) {
-          var nArray = [];
-          if (dataLength < dataLimit) {
-            for (var j = dataLength; j > 0; j--) {
-              nArray.push(dataSource[dataSource.length - j]);
-              dataLength--;
-            }
-            partitionedData.push(nArray);
-            break;
-          } else {
-            for (var k = i; k < i + dataLimit; k++) {
-              nArray.push(dataSource[k]);
-              dataLength--;
-            }
+block main
+  // Main Navigation
+  // Main layout
+  main(style="margin: 0%;")
+    .container-fluid.row(style="margin: 0px;")
+      .col-md-9
+        section
+          h6(style="font-weight:600;") TRANSACTION SUMMARY:
+          .row.mt-2.mb-2
+            .col-md-3
+              h6 New Requests
+              h1 #{newRequestsCount}
+            .col-md-3
+              h6 Under Processing
+              h1 #{underProcessingRequestsCount}
+            .col-md-3
+              h6 Completed Requests
+              h1 #{completedRequestsCount}
+            .col-md-3
+              h6 Dispatched Requests
+              h1 #{dispatchedRequestsCount}
+        hr
+        // Section: Modals
+        // Section: Modals
+        // Section: Main panel
+        section.card.card-cascade.narrower.mb-2
+          // Grid row
+          .row
+            // Grid column
+            .col-md-5
+              // Panel Header
+              .view.py-3.px-3(style="background: DodgerBlue; color: white;")
+                h6.mb-0
+                  strong Revenue
+              // /Panel Header
+              // Panel content
+              .card-body
+                // Grid row
+                .row
+                  // Grid column
+                  .col-md-6.mb-4
+                    // Date select
+                    p.lead(style="font-size: 15px; font-weight: 600;")
+                      | DATE RANGE
+                    .custom-select
+                      select
+                        option(value="" disabled="" selected="") time period
+                        option(value="1") Today
+                        option(value="2") Yesterday
+                        option(value="3") Last 7 days
+                        option(value="3") Last 30 days
+                        option(value="3") Last week
+                        option(value="3") Last month
+                    // Date pickers
+                    p.lead.my-4.mt-3(style="font-size: 15px; font-weight: 600;")
+                      | CUSTOM DATE
+                    .md-form
+                      input#from.form-control.datepicker(placeholder="Selected date" type="text")
+                      label(for="date-picker-example") From
+                    .md-form
+                      input#to.form-control.datepicker(placeholder="Selected date" type="text")
+                      label(for="date-picker-example") To
+                  // Grid column
+                  // Grid column
+                  .col-md-6.mb-4.text-center
+                    // Summary
+                    p
+                      | Total revenue:
+                      strong 2000GHC
+                      button.btn.btn-sm.btn-info.p-2(style="background-color: grey;" data-toggle="tooltip" data-placement="top" title="Total revenue in the given period")
+                        i.fa.fa-question
+                    p
+                      | Average revenue:
+                      strong 100GHC
+                      button.btn.btn-sm.btn-info.p-2(style="background-color: grey;" data-toggle="tooltip" data-placement="top" title="Average daily revenue in the given period")
+                        i.fa.fa-question
+                    // Change chart
+                    span#chart-revenue.min-chart.my-4(data-percent="76")
+                      span.percent
+                    h5
+                      span.badge.green.p-2
+                        | % Change
+                        i.fa.fa-arrow-circle-up.ml-1
+                      button.btn.btn-sm.btn-info.p-2(style="background-color: grey;" data-toggle="tooltip" data-placement="top" title="Percentage change compared to the same period in the past")
+                        i.fa.fa-question
+                  // Grid column
+                // Grid row
+              // Panel content
+            // Grid column
+            // Grid column
+            .col-md-7
+              // Panel Header
+              .view.py-1.px-1.gradient-card-header.mb-4(style="background-color: dodgerblue;")
+                canvas#lineChart
+              // /Card image
+            // Grid column
+          // Grid row
+        // Section: Main panel
+        // Section: Table
+        section
+          // Card
+          .card.card-cascade.narrower(style="width: 100%;")
+            // Card header
+            .view.py-3.gradient-card-header.blue.mx-4.d-flex.justify-content-between.align-items-center
+              a.white-text.mx-3(href="") All Form Records
+              div
+                button.dropdown.btn.btn-outline-white.btn-rounded.btn-sm.px-2
+                  i.fa.fa-info-circle.mt-0.dropdown-toggle#staff( data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="info")
+                  .dropdown-menu
+                    h6.dropdown-header Staff
+                    each staff in allStaff
+                      a.dropdown-item Asamoah Gyan
+                      a.dropdown-item.active(href="") #{staff.fullName.first}
+            // /Card header
+            // Card content
+            .card-body
+              .row
+                .col-md-6.my-2
+                  .custom-select(style="width: 50%;")
+                    select
+                      option(value="" disabled="" selected="") show all
+                      option(value="0") Show All
+                      option(value="1") Processed
+                      option(value="2") Pending
+                      option(value="3") Last 7 days
+                .col-md-6.my-2
+                  form.form-inline
+                    input#searchForm.form-control.my-0.py-0(type="text" placeholder="Search" style="max-width: 150px;")
+                    button.btn.btn-sm.btn-info.ml-2.px-2
+                      i.fa.fa-search
+              .table-responsive
+                table.table
+                  thead
+                    tr
+                      th
+                        //- input#checkbox(type="checkbox")
+                        //- label.label-table(for="checkbox")
+                      th.th-lg Form Type
+                      th.th-lg Applicant
+                      th.th-lg Date Applied
+                      th.th-lg Status
+                      th.th-lg 
+                  tbody#forms(data-forms=formRecords)
+                    //- for formRecord, index in formRecords
+                    //-   tr
+                    //-     th(scope="row")
+                    //-       input(type="checkbox" id=`checkbox${index}`)
+                    //-       label.label-table(for=`checkbox${index}`)
+                    //-     td #{formRecord.formType}
+                    //-     td #{formRecord._owner.email}
+                    //-     td #{formRecord.createdAt}
+                    //-     td #{formRecord.status}
+                    //-     td.actions-button
+                    //-       a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
+                    //-         img.icon(src="/img/eye.svg")
+                if !formRecords.length
+                  .alert.alert-danger.text-center(role="alert") No Form records yet in our Database
+              hr.my-0
+              // Bottom Table UI
+              div
+                // Name
+                .row
+                  .col-md-4.custom-select.my-4.mx-3(style="width: 100%;")
+                    select#numberOfRows.my-4
+                      option(value="5") 5 rows
+                      option(value="10") 10 rows
+                      option(value="20") 20 rows
+                      option(value="50") 50 rows
+                      option(value="100") 100 rows
+                      option(value=formRecords.length) All rows
+                  .col-md-5
+                    // Pagination
+                    nav.my-4
+                      ul.pagination.pagination-circle.pg-blue.mb-0
+                        // First
+                        li.page-item
+                          a#first.page-link First
+                        // Arrow left
+                        li.page-item
+                          a#previous.page-link(aria-label="Previous")
+                            span(aria-hidden="true") «
+                            span.sr-only Previous
+                        // Numbers
+                        li#0.page-item.active
+                          a.page-link 1
+                        li#1.page-item
+                          a.page-link 2
+                        li#2.page-item
+                          a.page-link 3
+                        // Arrow right
+                        li.page-item
+                          a#next.page-link(aria-label="Next")
+                            span(aria-hidden="true") »
+                            span.sr-only Next
+                        // Last
+                        li.page-item
+                          a#last.page-link Last
+                  // /Pagination
+              // Bottom Table UI
+            // /.Card content
+          // /.Card
+      include ./includes/userlog.pug
+
+block scripts
+  //GILBERT'S JAVASCRIPT
+  script.
+    $("#staff").click(e => {
+      console.log("clicked");
+    });
+    var currentPage = 0;
+    var numberOfPages = 0;
+    var $numberOfRows = $("#numberOfRows").val();
+
+    function partition(dataSource, dataLimit) {
+      var partitionedData = [];
+      var dataLength = dataSource.length;
+      for (var i = 0; i < dataSource.length; i += dataLimit) {
+        var nArray = [];
+        if (dataLength < dataLimit) {
+          for (var j = dataLength; j > 0; j--) {
+            nArray.push(dataSource[dataSource.length - j]);
+            dataLength--;
           }
           partitionedData.push(nArray);
+          break;
+        } else {
+          for (var k = i; k < i + dataLimit; k++) {
+            nArray.push(dataSource[k]);
+            dataLength--;
+          }
         }
-        numberOfPages = partitionedData.length ;
-        return partitionedData;
+        partitionedData.push(nArray);
       }
+      numberOfPages = partitionedData.length ;
+      return partitionedData;
+    }
 
-      function populateForms(arr) {
-        $("#forms").html("");
-        for(var i = 0; i < arr.length; i++) {
-          var $row = $("<tr></tr>");
-          var $thead = $('<th scope="row"></th>');
-          var $input = $("<input type='checkbox'></input>");
-          $($input).attr("id",`checkbox${i}`);
-          var $label = $('<label class="label-tabel"></label>');
-          $($label).attr("for",`checkbox${i}`);
-          $($thead).append($input);
-          $($thead).append($label);
-          var $formType = $(`<td>${arr[i].formType}</td>`);
-          var $email = $(`<td>${arr[i]._owner.email}</td>`);
-          var $createdAt = $(`<td>${arr[i].createdAt}</td>`);
-          var $status = $(`<td>${arr[i].status}</td>`);
-          var $actions = $("<td class='actions-button'></td>");
-          var $link = $("<a title='View Form'></a>");
-          $($link).attr("href",`/admin/view/${arr[i].formId}?type=${arr[i].formType}`);
-          var $img = $("<img class='icon' src='/img/eye.svg'>");
-          $($link).append($img);
-          $($actions).append($link);
-          $($row).append([$thead,$formType,$email,$createdAt,$status,$actions]);
-          $("#forms").append($row);
-        }
+    function populateForms(arr) {
+      console.log(arr);
+      $("#forms").html("");
+      for(var i = 0; i < arr.length; i++) {
+        var $row = $("<tr></tr>");
+        var $thead = $('<th scope="row"></th>');
+        var $input = $("<input type='checkbox'></input>");
+        $($input).attr("id",`checkbox${i}`);
+        var $label = $('<label class="label-tabel"></label>');
+        $($label).attr("for",`checkbox${i}`);
+        $($thead).append($input);
+        $($thead).append($label);
+        var $formType = $(`<td>${arr[i].formType}</td>`);
+        var $email = $(`<td>${arr[i]._owner.email}</td>`);
+        var $createdAt = $(`<td>${arr[i].createdAt}</td>`);
+        var $status = $(`<td>${arr[i].status}</td>`);
+        var $actions = $("<td class='actions-button'></td>");
+        var $link = $("<a title='View Form'></a>");
+        $($link).attr("href",`/admin/view/${arr[i].formId}?type=${arr[i].formType}`);
+        var $img = $("<img class='icon' src='/img/eye.svg'>");
+        $($link).append($img);
+        $($actions).append($link);
+        $($row).append([$thead,$formType,$email,$createdAt,$status,$actions]);
+        $("#forms").append($row);
       }
+    }
 
-      function runPartitioning(id,limit) {
-        $.get("/api/allForms",(data) => {
-          var partitionedData = partition(data,limit);
-          $(".page-item").removeClass("active");
-          $(".page-item").removeClass("disabled");
-          $(`#${id}`).addClass("active");
-          currentPage = id;
-          populateForms(partitionedData[id]);
-        });
+    function runPartitioning(id,limit) {
+      $.get("/api/allForms",(data) => {
+        var partitionedData = partition(data,limit);
+        $(".page-item").removeClass("active");
+        $(".page-item").removeClass("disabled");
+        $(`#${id}`).addClass("active");
+        currentPage = id;
+        populateForms(partitionedData[id]);
+      });
+    }
+
+    function run(id) {
+      $("#last").removeClass("disabled");
+      $("#next").removeClass("disabled");
+      runPartitioning(id,$numberOfRows);
+      if(id === 0) {
+        $("#first").addClass("disabled");
+        $("#previous").addClass("disabled");
       }
-
-      function run(id) {
-        $("#last").removeClass("disabled");
-        $("#next").removeClass("disabled");
-        runPartitioning(id,$numberOfRows);
-        if(id === 0) {
-          $("#first").addClass("disabled");
-          $("#previous").addClass("disabled");
-        }
-        else if(id > 0 && id < numberOfPages-1) {
-          $("#first").removeClass("disabled");
-          $("#previous").removeClass("disabled");
-        }
-        else if(id >= numberOfPages-1) {
-          $("#first").removeClass("disabled");
-          $("#previous").removeClass("disabled");
-          $("#last").addClass("disabled");
-          $("#next").addClass("disabled");
-        }
+      else if(id > 0 && id < numberOfPages-1) {
+        $("#first").removeClass("disabled");
+        $("#previous").removeClass("disabled");
       }
+      else if(id >= numberOfPages-1) {
+        $("#first").removeClass("disabled");
+        $("#previous").removeClass("disabled");
+        $("#last").addClass("disabled");
+        $("#next").addClass("disabled");
+      }
+    }
 
+    run(0);
+
+    $("#numberOfRows").change(() => {
+      console.log("changed");
+    });
+
+    $("#next").click(e => {
+      var id = currentPage + 1;
+      run(id);
+    });
+
+    $("#first").click(e => {
       run(0);
+    });
 
-      $("#numberOfRows").change(() => {
-        console.log("changed");
-      });
+    $("#last").click(e => {
+      run(numberOfPages-1);
+    });
 
-      $("#next").click(e => {
-        var id = currentPage + 1;
-        run(id);
-      });
+    $("#previous").click(e => {
+      var id = currentPage - 1;
+      run(id);
+    });
+    
+    $("#1").click(e => {
+      run(1);
+    });
 
-      $("#first").click(e => {
-        run(0);
-      });
+    $("#0").click(e => {
+      run(0);
+    });
 
-      $("#last").click(e => {
-        run(numberOfPages-1);
-      });
+    $("#2").click(e => {
+      run(2);
+    });
 
-      $("#previous").click(e => {
-        var id = currentPage - 1;
-        run(id);
+    var tableRows = $("#forms > tr");
+    function searchUser(rows,input,searchPosition) {
+      $(rows).each((index,row) => {
+        console.log(row);
+        var tdName = $($(row).children()[searchPosition]).text();
+        //- var tdEmail = $($(row).children()[5]).text();
+        var name = tdName.toLowerCase();
+        //- var email = tdEmail.toLowerCase();
+        $(row).css({"background-color":"#fff"});
+        if(input !== "" && (name.includes(input.toLowerCase()))) {
+          $(row).css({"background-color":"#efefef"});
+          row.scrollIntoView();
+        }
       });
-      
-      $("#1").click(e => {
-        run(1);
-      });
+    }
 
-      $("#0").click(e => {
-        run(0);
-      });
+    $("#searchForm").keyup(e => {
+      searchUser(tableRows,$("searchForm").val(),2);
+    });
+    
+    //- var searchData = $("#searchBox").val();
+    $("#searchUser").keyup(e => {
+      e.preventDefault();
+      $(".user").each((index,user) => {
+        var name = $(user).text().toLowerCase();
+        var input = $("#searchUser").val().toLowerCase();
+        $(user).css({"background-color":"#fff"});
+        if(input !== "" && name.includes(input)) {
+          console.log("searching for a member");
+          $(user).css({"background-color":"#efefef"});
+          user.scrollIntoView();
+        }
+      })
+    });
 
-      $("#2").click(e => {
-        run(2);
-      });
-
-      var tableRows = $("#forms > tr");
-      function searchUser(rows,input,searchPosition) {
-        $(rows).each((index,row) => {
-          console.log(row);
-          var tdName = $($(row).children()[searchPosition]).text();
-          //- var tdEmail = $($(row).children()[5]).text();
-          var name = tdName.toLowerCase();
-          //- var email = tdEmail.toLowerCase();
-          $(row).css({"background-color":"#fff"});
-          if(input !== "" && (name.includes(input.toLowerCase()))) {
-            $(row).css({"background-color":"#efefef"});
-            row.scrollIntoView();
-          }
-        });
-      }
-
-      $("#searchForm").keyup(e => {
-        searchUser(tableRows,$("searchForm").val(),2);
-      });
-      
-      //- var searchData = $("#searchBox").val();
-      $("#searchUser").keyup(e => {
-        e.preventDefault();
-        $(".user").each((index,user) => {
-          var name = $(user).text().toLowerCase();
-          var input = $("#searchUser").val().toLowerCase();
-          $(user).css({"background-color":"#fff"});
-          if(input !== "" && name.includes(input)) {
-            console.log("searching for a member");
-            $(user).css({"background-color":"#efefef"});
-            user.scrollIntoView();
-          }
-        })
-      });
-
-      $("#dropdown-settings").click(e => {
-        e.preventDefault();
-        console.log(e.target);
-      });
+    $("#dropdown-settings").click(e => {
+      e.preventDefault();
+      console.log(e.target);
+    });

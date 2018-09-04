@@ -1,0 +1,175 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(http-equiv="x-ua-compatible" content="ie=edge")
+    title Embassy Of Denmark
+    // Font Awesome
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    // Bootstrap core CSS
+    link(href="/css/bootstrap.min.css" rel="stylesheet")
+    // Material Design Bootstrap
+    link(href="/css/mdb.min.css" rel="stylesheet")
+    // Your custom styles (optional)
+    link(href="/css/style.css" rel="stylesheet")
+    link(href="/css/compiled.min.css" rel="stylesheet")
+    block styles
+  body.fixed-sn.mdb-skin
+    // Main Navigation
+    header
+      // Navbar
+      nav.navbar.navbar-expand-lg.navbar-dark.double-nav.fixed-top.scrolling-navbar
+        // SideNav slide-out button
+        .float-left
+          a.button-collapse(href="#" data-activates="slide-out")
+            i.fa.fa-bars
+        // Breadcrumb
+        .breadcrumb-dn.mr-auto
+          p(style="font-weight: 600; font-size: 13px;") ADMIN DASHBOARD
+        // Links
+        ul.nav.navbar-nav.nav-flex-icons.ml-auto
+          li.nav-item
+            a.nav-link(href="/admin/support")
+              i.fa.fa-comments-o
+              span.clearfix.d-none.d-sm-inline-block Support
+          li.nav-item
+            a.nav-link(href="/admin/add-staff")
+              i.fa.fa-gear
+              | Staff
+            .modal.fade
+          li.nav-item
+            a.nav-link(href="/logout")
+              i.fa.fa-power-off
+      // /.Navbar
+      include ./includes/sidebar.pug
+    block main
+    #stopper.pb-2
+    // Main layout
+    // Footer
+    footer.page-footer.center-on-small-only
+      .flex-center.mb-3.mt-2
+        a.px-3(href="")
+          i.fa.fa-facebook
+        a.px-3(href="")
+          i.fa.fa-instagram
+        a.px-3(href="")
+          i.fa.fa-google
+        a.px-3(href="")
+          i.fa.fa-twitter
+        a.px-3(href="")
+          i.fa.fa-linkedin
+      // Copyright
+      .footer-copyright
+        .container-fluid
+          | © 2018 Copyright:
+          a(href="/admin")  Embassy Of Denmark 
+      // /.Copyright
+    // /.Footer
+    // SCRIPTS
+    // JQuery
+    script(type="text/javascript" src="/js/jquery.min.js")
+    // Bootstrap tooltips
+    script(type="text/javascript" src="/js/popper.min.js")
+    // Bootstrap core JavaScript
+    script(type="text/javascript" src="/js/bootstrap.min.js")
+    // MDB core JavaScript
+    script(type="text/javascript" src="/js/mdb.min.js")
+    script(type="text/javascript" src="/js/compiled.min.js")
+    script(type="text/javascript" src="/js/custom.js")
+    // Initialization
+    script.
+      // SideNav Initialization
+      $(".button-collapse").sideNav();
+      // Material Select Initialization
+      $(document).ready(function () {
+      $('.mdb-select').material_select();
+      });
+      // Data Picker Initialization
+      $('.datepicker').pickadate();
+      // Tooltip Initialization
+      $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+      })
+    // Charts
+    script.
+      // Minimalist chart
+      $(function () {
+      $('.min-chart#chart-revenue').easyPieChart({
+      barColor: "#4caf50",
+      onStep: function (from, to, percent) {
+      $(this.el).find('.percent').text(Math.round(percent));
+      }
+      });
+      });
+      // Main chart
+      var ctxL = document.getElementById("lineChart").getContext('2d');
+      var myLineChart = new Chart(ctxL, {
+      type: 'line',
+      data: {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      datasets: [{
+      label: "Revenue Graph",
+      fillColor: "#fff",
+      backgroundColor: 'rgba(255, 255, 255, .3)',
+      borderColor: 'rgba(255, 99, 132)',
+      data: [0, 10, 5, 2, 20, 30, 45],
+      }]
+      },
+      options: {
+      legend: {
+      labels: {
+      fontColor: "#fff",
+      }
+      },
+      scales: {
+      xAxes: [{
+      gridLines: {
+      display: true,
+      color: "rgba(255,255,255,.25)"
+      },
+      ticks: {
+      fontColor: "#fff",
+      },
+      }],
+      yAxes: [{
+      display: true,
+      gridLines: {
+      display: true,
+      color: "rgba(255,255,255,.25)"
+      },
+      ticks: {
+      fontColor: "#fff",
+      },
+      }],
+      }
+      }
+      });
+    // Alerts
+    script.
+      $(function () {
+      $('#folder-1').click(function () {
+      toastr.error("Folder 1 has been clicked!", "Folder 1", {
+      "positionClass": "toast-top-right",
+      });
+      });
+      $('#folder-2').click(function () {
+      // make it not dissappear
+      toastr.info("Folder 2 has been clicked!", "Folder 2", );
+      });
+      $('#folder-3').click(function () {
+      // make it not dissappear
+      toastr.info("Folder 3 has been clicked!", "Folder 3", );
+      });
+      });
+    // sticky
+    script(type="text/javascript").
+      $(function () {
+      $(".sticky").sticky({
+      topSpacing: 90
+      , zIndex: 2
+      , stopper: "#stopper"
+      });
+      });
+    block scripts
+    

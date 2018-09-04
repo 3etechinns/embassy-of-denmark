@@ -1,443 +1,350 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="utf-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
-    meta(http-equiv="x-ua-compatible" content="ie=edge")
-    title Embassy Of Denmark
-    // Font Awesome
-    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
-    link(href="/css/compiled.min.css" rel="stylesheet")
-    link(href="/css/mdb.min.css" rel="stylesheet")
-    link(href="/css/bootstrap.min.css" rel="stylesheet")
-    link(href="/css/style.css" rel="stylesheet")
-    link(href="/css/styles.css" rel="stylesheet")
-  body.fixed-sn.mdb-skin
-    // Main Navigation
-    header
-      // Navbar
-      nav.navbar.navbar-expand-lg.navbar-dark.double-nav.fixed-top.scrolling-navbar
-        // SideNav slide-out button
-        .float-left
-          a.button-collapse(href="#" data-activates="slide-out")
-            i.fa.fa-bars
-        // Breadcrumb
-        .breadcrumb-dn.mr-auto
-          p(style="font-weight: 600; font-size: 13px;") ADMIN DASHBOARD
-        // Links
-        ul.nav.navbar-nav.nav-flex-icons.ml-auto
-          li.nav-item
-            a.nav-link(href="/admin/support")
-              i.fa.fa-comments-o
-              span.clearfix.d-none.d-sm-inline-block support
-          li.nav-item
-            a.nav-link(href="/admin/settings")
-              i.fa.fa-gear
-              span.clearfix.d-none.d-sm-inline-block Settings
-          li.nav-item.dropdown
-            a.nav-link(href="/logout")
-              i.fa.fa-power-off
-      // /.Navbar
-      include sidebar.pug
-    // Main Navigation
-    .main-content.passport
-      h5.display-5.my-4 Review Passport Form
-      .passport-form  
-                form(name="passport")
-                  .form-section
-                    .top-form-group
-                      .form-group
-                        label.form-label(for="surname") Surname
+extends ./layout.pug
+
+block styles
+  link(href="/css/styles.css" rel="stylesheet")
+  
+block main
+  main(style="margin: 0%;")
+    .container-fluid.row(style="margin: 0px;")
+      .col-md-9
+        section
+          // Card
+          .card.card-cascade.narrower(style="width: 100%;")
+            // Card header
+            .view.py-3.gradient-card-header.blue.mx-4.d-flex.justify-content-between.align-items-center
+              a.white-text.mx-3(href="") Review Passport Form
+              div
+                button.btn.btn-outline-white.btn-rounded.btn-sm.px-2(type="button" data-toggle="tooltip" data-placement="bottom" title="info")
+                  i.fa.fa-info-circle.mt-0
+            // /Card header
+            // Card content
+            .card-body
+              form(name="passport")
+                .form-section
+                  .top-form-group
+                    .form-group
+                      label.form-label(for="surname") Surname
+                      label.form-label
+                      input.form-control.form-control-sm(type="text" value=form.surname id="surname" name="surname")
+                    .form-group
+                      label.form-label(for="otherNames") Other names
+                      input.form-control.form-control-sm(type="text" value=form.otherNames id="otherNames" name="otherNames")
+                  .bottom-form-group
+                    .form-group
+                      label.form-label(for="maidenName") Maiden name(s)
+                      input.form-control.form-control-sm(type="text" value=form.maidenName id="maidenName" name="maidenName")
+                    .form-group#affidavit
+                      label.form-label(for="previousName") If name has changed by Affidavit or Gazette Publication, provide previous name
+                      input.form-control.form-control-sm(type="text" value=form.previousName id="previousName" name="previousName")
+                .form-section
+                  .top-form-group
+                    .form-group
+                      label.form-label(for="dateOfBirth") Date of birth
+                      label.form-label
+                      input.form-control.form-control-sm( type="date" value=form.dateOfBirth id="dateOfBirth" name="dateOfBirth")
+                    .form-group
+                      label.form-label(for="gender" id="gender") Gender
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" value=form.gender id="gender" name="gender")
+                  .bottom-form-group
+                    .form-group
+                      label.form-label(for="countryOfBirth") Country of birth
                         label.form-label
-                        input.form-control.form-control-sm(type="text" value=form.surname id="surname" name="surname")
-                      .form-group
-                        label.form-label(for="otherNames") Other names
-                        input.form-control.form-control-sm(type="text" value=form.otherNames id="otherNames" name="otherNames")
-                    .bottom-form-group
-                      .form-group
-                        label.form-label(for="maidenName") Maiden name(s)
-                        input.form-control.form-control-sm(type="text" value=form.maidenName id="maidenName" name="maidenName")
-                      .form-group#affidavit
-                        label.form-label(for="previousName") If name has changed by Affidavit or Gazette Publication, provide previous name
-                        input.form-control.form-control-sm(type="text" value=form.previousName id="previousName" name="previousName")
-                  .form-section
-                    .top-form-group
-                      .form-group
-                        label.form-label(for="dateOfBirth") Date of birth
+                      input.form-control.form-control-sm(value=form.countryOfBirth type="text" id="countryOfBirth" name="countryOfBirth")
+                    .form-group
+                      label.form-label(for="placeOfBirth") City or town of birth
                         label.form-label
-                        input.form-control.form-control-sm( type="date" value=form.dateOfBirth id="dateOfBirth" name="dateOfBirth")
-                      .form-group
-                        label.form-label(for="gender" id="gender") Gender
+                      input.form-control.form-control-sm( type="text" value=form.placeOfBirth id="placeOfBirth" name="placeOfBirth")
+                .form-section
+                  .top-form-group
+                    .form-group
+                      label.form-label(for="height") Height(in meters)
                         label.form-label
-                        input.form-control.form-control-sm( type="text" value=form.gender id="gender" name="gender")
-                    .bottom-form-group
-                      .form-group
-                        label.form-label(for="countryOfBirth") Country of birth
-                          label.form-label
-                        input.form-control.form-control-sm(value=form.countryOfBirth type="text" id="countryOfBirth" name="countryOfBirth")
-                      .form-group
-                        label.form-label(for="placeOfBirth") City or town of birth
-                          label.form-label
-                        input.form-control.form-control-sm( type="text" value=form.placeOfBirth id="placeOfBirth" name="placeOfBirth")
-                  .form-section
-                    .top-form-group
-                      .form-group
-                        label.form-label(for="height") Height(in meters)
-                          label.form-label
-                        input.form-control.form-control-sm( type="text" value=form.height id="height" name="height")
-                      .form-group
-                        label.form-label(for="eyeColor") Eye color
-                          label.form-label
-                        input.form-control.form-control-sm(value=form.eyeColor type="text" id="eyeColor" name="eyeColor")
-                      .form-group
-                        label.form-label(for="hairColor") Hair color
+                      input.form-control.form-control-sm( type="text" value=form.height id="height" name="height")
+                    .form-group
+                      label.form-label(for="eyeColor") Eye color
                         label.form-label
-                        input.form-control.form-control-sm(value=form.hairColor id="hairColor" name="hairColor")
-                  .form-section
-                    .top-form-group
-                      .form-group
-                        label.form-label(for="nationality") Nationality
+                      input.form-control.form-control-sm(value=form.eyeColor type="text" id="eyeColor" name="eyeColor")
+                    .form-group
+                      label.form-label(for="hairColor") Hair color
+                      label.form-label
+                      input.form-control.form-control-sm(value=form.hairColor id="hairColor" name="hairColor")
+                .form-section
+                  .top-form-group
+                    .form-group
+                      label.form-label(for="nationality") Nationality
+                      label.form-label
+                      input#nationality.form-control.form-control-sm(value=form.nationality name="nationality")
+                    .form-group
+                      label.form-label(for="profession") Profession
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" value=form.profession id="profession" name="profession")
+                .form-section
+                  .top-form-group
+                    .form-group
+                      label.form-label(for="countryOfResidence") Country of residence
+                      label.form-label
+                      input.form-control.form-control-sm(value=form.countryOfResidence name="countryOfResidence" id="countryOfResidence")
+                    .form-group
+                      label.form-label(for="residentialAddress") Residential address
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" value=form.residentialAddress name="residentialAddress" id="residentialAddress")
+                    .form-group
+                      label.form-label(for="telephoneNumber") Telephone
+                      label.form-label
+                      input.form-control.form-control-sm(type="number" value=form.telephoneNumber name="telephoneNumber" id="telephoneNumber")
+                    .form-group
+                      label.form-label(for="email") Email
+                      label.form-label
+                      input.form-control.form-control-sm( type="email" value=form.email name="email" id="email")
+                .form-section
+                  p.form-section-name Current/Last Educational Institution attended
+                  .top-form-group
+                    .form-group
+                      label.form-label(for="institution") Institution
+                      input.form-control.form-control-sm(type="text" value=form.institution name="institution" id="institution")
+                    .form-group
+                      label.form-label(for="placeOfInstitution") Place
+                      input.form-control.form-control-sm(type="text" value=form.placeOfInstitution name="placeOfInstitution" id="placeOfInstitution")
+                    .form-group
+                      label.form-label(for="lastYearOfEducation") Year
+                      input.form-control.form-control-sm(type="text" value=form.lastYearOfEducation name="lastYearOfEducation" id="lastYearOfEducation")
+                .form-section
+                  p.form-section-name Evidence of citizenship
+                  .top-form-group
+                    .form-group
+                      label.form-label(for="fathersName") Father's name
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" value=form.fathersName name="fathersName" id="fathersName")
+                    .form-group
+                      label.form-label(for="fathersNationality") Father's nationality
+                      label.form-label
+                      input.form-control.form-control-sm(value=form.fathersNationality name="fathersNationality" id="fathersNationality")
+                    .form-group
+                      label.form-label(for="fathersAddress") Father's address
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" value=form.fathersAddress name="fathersAddress" id="fathersAddress")
+                  .bottom-form-group
+                    .form-group
+                      label.form-label(for="mothersName") Mother's name
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" value=form.mothersName name="mothersName" id="mothersName")
+                    .form-group
+                      label.form-label(for="mothersNationality") Mother's nationality
+                      label.form-label
+                      input.form-control.form-control-sm(value=form.mothersNationality name="mothersNationality" id="mothersNationality")
+                    .form-group
+                      label.form-label(for="mothersAddress") Mother's address
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" value=form.mothersAddress name="mothersAddress" id="mothersAddress")
+                  .top-form-group
+                    .form-group
+                      label.form-label Birth or Baptism Certificate / Citizenship Identity Card / Old Passport  
                         label.form-label
-                        input#nationality.form-control.form-control-sm(value=form.nationality name="nationality")
-                      .form-group
-                        label.form-label(for="profession") Profession
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" value=form.profession id="profession" name="profession")
-                  .form-section
-                    .top-form-group
-                      .form-group
-                        label.form-label(for="countryOfResidence") Country of residence
-                        label.form-label
-                        input.form-control.form-control-sm(value=form.countryOfResidence name="countryOfResidence" id="countryOfResidence")
-                      .form-group
-                        label.form-label(for="residentialAddress") Residential address
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" value=form.residentialAddress name="residentialAddress" id="residentialAddress")
-                      .form-group
-                        label.form-label(for="telephoneNumber") Telephone
-                        label.form-label
-                        input.form-control.form-control-sm(type="number" value=form.telephoneNumber name="telephoneNumber" id="telephoneNumber")
-                      .form-group
-                        label.form-label(for="email") Email
-                        label.form-label
-                        input.form-control.form-control-sm( type="email" value=form.email name="email" id="email")
-                  .form-section
-                    p.form-section-name Current/Last Educational Institution attended
-                    .top-form-group
-                      .form-group
-                        label.form-label(for="institution") Institution
-                        input.form-control.form-control-sm(type="text" value=form.institution name="institution" id="institution")
-                      .form-group
-                        label.form-label(for="placeOfInstitution") Place
-                        input.form-control.form-control-sm(type="text" value=form.placeOfInstitution name="placeOfInstitution" id="placeOfInstitution")
-                      .form-group
-                        label.form-label(for="lastYearOfEducation") Year
-                        input.form-control.form-control-sm(type="text" value=form.lastYearOfEducation name="lastYearOfEducation" id="lastYearOfEducation")
-                  .form-section
-                    p.form-section-name Evidence of citizenship
-                    .top-form-group
-                      .form-group
-                        label.form-label(for="fathersName") Father's name
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" value=form.fathersName name="fathersName" id="fathersName")
-                      .form-group
-                        label.form-label(for="fathersNationality") Father's nationality
-                        label.form-label
-                        input.form-control.form-control-sm(value=form.fathersNationality name="fathersNationality" id="fathersNationality")
-                      .form-group
-                        label.form-label(for="fathersAddress") Father's address
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" value=form.fathersAddress name="fathersAddress" id="fathersAddress")
-                    .bottom-form-group
-                      .form-group
-                        label.form-label(for="mothersName") Mother's name
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" value=form.mothersName name="mothersName" id="mothersName")
-                      .form-group
-                        label.form-label(for="mothersNationality") Mother's nationality
-                        label.form-label
-                        input.form-control.form-control-sm(value=form.mothersNationality name="mothersNationality" id="mothersNationality")
-                      .form-group
-                        label.form-label(for="mothersAddress") Mother's address
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" value=form.mothersAddress name="mothersAddress" id="mothersAddress")
-                    .top-form-group
-                      .form-group
-                        label.form-label Birth or Baptism Certificate / Citizenship Identity Card / Old Passport  
-                          label.form-label
-                    .top-form-group
-                      .form-group
-                        label.form-label Number 
-                        input.form-control.form-control-sm( type="text" value=form.evidenceOfCitizenshipNumber name="evidenceOfCitizenshipNumber" id="evidenceOfCitizenshipNumber")
-                      .form-group
-                        label.form-label Date of issue  
-                        input.form-control.form-control-sm( type="date" name="evidenceOfCitizenshipDate" value=form.evidenceOfCitizenshipDate id="evidenceOfCitizenshipDate")
-                      .form-group
-                        label.form-label Place of issue  
-                        input.form-control.form-control-sm( type="text" value=form.evidenceOfCitizenshipPlaceOfIssue name="evidenceOfCitizenshipPlaceOfIssue" id="evidenceOfCitizenshipPlaceOfIssue")
-                  .form-section
-                    p.form-section-name Any 2 Danes living in your country who will act as guarantors and be contacted in case of emergency
-                    .top-form-group
-                      .form-group
-                        label.form-label(for="guarantorsName1") Full name
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" name="guarantorsName1" value=form.guarantors[0].guarantorsName id="guarantorsName1")
-                      .form-group
-                        label.form-label(for="guarantorsAddress1") Residential address
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" name="guarantorsAddress1" value=form.guarantors[0].guarantorsAddress id="guarantorsAddress1")
-                      .form-group
-                        label.form-label(for="guarantorsTelephoneNumber1") Telephone number
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" name="guarantorsTelephoneNumber1" value=form.guarantors[0].guarantorsTelephoneNumber id="guarantorsTelephoneNumber1")
-                      .form-group
-                        label.form-label View uploaded signature
-                        label.form-label 
-                        if form.guarantors[0].guarantorsSignature
-                          .edit.actions-button 
-                            a(href=`/admin/view/${form._id}/${form.guarantors[0].guarantorsSignature}?type=Passport` target="blank")
-                              img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                              | view signature
-                        else
-                          .edit.actions-button
+                  .top-form-group
+                    .form-group
+                      label.form-label Number 
+                      input.form-control.form-control-sm( type="text" value=form.evidenceOfCitizenshipNumber name="evidenceOfCitizenshipNumber" id="evidenceOfCitizenshipNumber")
+                    .form-group
+                      label.form-label Date of issue  
+                      input.form-control.form-control-sm( type="date" name="evidenceOfCitizenshipDate" value=form.evidenceOfCitizenshipDate id="evidenceOfCitizenshipDate")
+                    .form-group
+                      label.form-label Place of issue  
+                      input.form-control.form-control-sm( type="text" value=form.evidenceOfCitizenshipPlaceOfIssue name="evidenceOfCitizenshipPlaceOfIssue" id="evidenceOfCitizenshipPlaceOfIssue")
+                .form-section
+                  p.form-section-name Any 2 Danes living in your country who will act as guarantors and be contacted in case of emergency
+                  .top-form-group
+                    .form-group
+                      label.form-label(for="guarantorsName1") Full name
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" name="guarantorsName1" value=form.guarantors[0].guarantorsName id="guarantorsName1")
+                    .form-group
+                      label.form-label(for="guarantorsAddress1") Residential address
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" name="guarantorsAddress1" value=form.guarantors[0].guarantorsAddress id="guarantorsAddress1")
+                    .form-group
+                      label.form-label(for="guarantorsTelephoneNumber1") Telephone number
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" name="guarantorsTelephoneNumber1" value=form.guarantors[0].guarantorsTelephoneNumber id="guarantorsTelephoneNumber1")
+                    .form-group
+                      label.form-label View uploaded signature
+                      label.form-label 
+                      if form.guarantors[0].guarantorsSignature
+                        .edit.actions-button 
+                          a(href=`/admin/view/${form._id}/${form.guarantors[0].guarantorsSignature}?type=Passport` target="blank")
                             img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                            | No picture uploaded
-                    .bottom-form-group
-                      .form-group
-                        label.form-label(for="guarantorsName2") Full name
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" name="guarantorsName2" value=form.guarantors[1].guarantorsName id="guarantorsName2")
-                      .form-group
-                        label.form-label(for="guarantorsAddress2") Residential address
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" name="guarantorsAddress2" value=form.guarantors[1].guarantorsAddress id="guarantorsAddress2")
-                      .form-group
-                        label.form-label(for="guarantorsTelephoneNumber2") Telephone number
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" name="guarantorsTelephoneNumber2" value=form.guarantors[1].guarantorsTelephoneNumber id="guarantorsTelephoneNumber2")
-                      .form-group
-                        label.form-label View uploaded signature
-                        label.form-label
-                        if form.guarantorsSignature2
-                          .edit.actions-button 
-                            a(href=`/admin/view/${form._id}/${form.guarantorsSignature2}?type=Passport` target="blank")
-                              img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                              | view signature
-                        else
-                          .edit.actions-button
+                            | view signature
+                      else
+                        .edit.actions-button
+                          img.edit-icon.icon(src="/img/file.svg" title="edit") 
+                          | No picture uploaded
+                  .bottom-form-group
+                    .form-group
+                      label.form-label(for="guarantorsName2") Full name
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" name="guarantorsName2" value=form.guarantors[1].guarantorsName id="guarantorsName2")
+                    .form-group
+                      label.form-label(for="guarantorsAddress2") Residential address
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" name="guarantorsAddress2" value=form.guarantors[1].guarantorsAddress id="guarantorsAddress2")
+                    .form-group
+                      label.form-label(for="guarantorsTelephoneNumber2") Telephone number
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" name="guarantorsTelephoneNumber2" value=form.guarantors[1].guarantorsTelephoneNumber id="guarantorsTelephoneNumber2")
+                    .form-group
+                      label.form-label View uploaded signature
+                      label.form-label
+                      if form.guarantorsSignature2
+                        .edit.actions-button 
+                          a(href=`/admin/view/${form._id}/${form.guarantorsSignature2}?type=Passport` target="blank")
                             img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                            | No picture uploaded
-                  .form-section
-                    p.form-section-name PARENTAL/LEGAL GUARDIAN CONSENT FOR APPLICANT 
-                      b UNDER 18 YEARS OF AGE
-                    p I hereby give consent for applicant who is my 
-                      input(type="text" name="parentalConsentMetaData" value=form.parentalConsentMetaData) 
-                      |  to hold a passport
-                    .top-form-group
-                      .form-group
-                        label.form-label(for="parentName") Full name
-                        label.form-label
-                        input.form-control.form-control-sm(type="text" name="parentName" value=form.parentName id="parentName")
-                      .form-group
-                        label.form-label(for="parentAddress") Residential address
-                        label.form-label
-                        input.form-control.form-control-sm(type="text" name="parentAddress" value=form.parentAddress id="parentAddress")
-                    .bottom-form-group
-                      .form-group
-                        label.form-label View uploaded signature
-                        label.form-label
-                        if form.parentalConsentSignature
-                          .edit.actions-button 
-                            a(href=`/admin/view/${form._id}/${form.parentalConsentSignature}?type=Passport` target="blank")
-                              img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                              | view signature
-                        else
-                          .edit.actions-button
+                            | view signature
+                      else
+                        .edit.actions-button
+                          img.edit-icon.icon(src="/img/file.svg" title="edit") 
+                          | No picture uploaded
+                .form-section
+                  p.form-section-name PARENTAL/LEGAL GUARDIAN CONSENT FOR APPLICANT 
+                    b UNDER 18 YEARS OF AGE
+                  p I hereby give consent for applicant who is my 
+                    input(type="text" name="parentalConsentMetaData" value=form.parentalConsentMetaData) 
+                    |  to hold a passport
+                  .top-form-group
+                    .form-group
+                      label.form-label(for="parentName") Full name
+                      label.form-label
+                      input.form-control.form-control-sm(type="text" name="parentName" value=form.parentName id="parentName")
+                    .form-group
+                      label.form-label(for="parentAddress") Residential address
+                      label.form-label
+                      input.form-control.form-control-sm(type="text" name="parentAddress" value=form.parentAddress id="parentAddress")
+                  .bottom-form-group
+                    .form-group
+                      label.form-label View uploaded signature
+                      label.form-label
+                      if form.parentalConsentSignature
+                        .edit.actions-button 
+                          a(href=`/admin/view/${form._id}/${form.parentalConsentSignature}?type=Passport` target="blank")
                             img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                            | No picture uploaded
-                      .form-group
-                        label.form-label(for="parentTelephoneNumber") Telephone number
-                        label.form-label
-                        input.form-control.form-control-sm(type="text" name="parentTelephoneNumber" value=form.parentTelephoneNumber id="parentTelephoneNumber")
-                  .form-section
-                    p.form-section-name FOR PERSONS COMPLETING THIS FORM ON BEHALF OF APPLICANTS WHO CANNOT READ OR WRITE ENGLISH
-                    p The above declaration has been read and interpreted by me in 
-                      input(type="text" name="languageInterpretedIn" value=form.languageInterpretedIn)
-                      |  language to the applicant and he/she understands and accepts
-                    .top-form-group
-                      .form-group
-                        label.form-label(for="interpreterName") Full name
-                        label.form-label
-                        input.form-control.form-control-sm(type="text" name="interpreterName" value=form.interpreterName id="interpreterName")
-                      .form-group
-                        label.form-label(for="interpreterAddress") Residential address
-                        label.form-label
-                        input.form-control.form-control-sm(type="text" name="interpreterAddress" value=form.interpreterAddress id="interpreterAddress")
-                      .form-group
-                        label.form-label(for="interpreterTelephoneNumber") Telephone number
-                        label.form-label
-                        input.form-control.form-control-sm(type="text" name="interpreterTelephoneNumber" value=form.interpreterTelephoneNumber id="interpreterTelephoneNumber")
-                    .bottom-form-group
-                      .form-group
-                        label.form-label View uploaded signature
-                        label.form-label
-                        if form.interpretersSignature
-                          .edit.actions-button 
-                            a(href=`/admin/view/${form._id}/${form.interpretersSignature}?type=Passport` target="blank")
-                              img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                              | view signature
-                        else
-                          .edit.actions-button
+                            | view signature
+                      else
+                        .edit.actions-button
+                          img.edit-icon.icon(src="/img/file.svg" title="edit") 
+                          | No picture uploaded
+                    .form-group
+                      label.form-label(for="parentTelephoneNumber") Telephone number
+                      label.form-label
+                      input.form-control.form-control-sm(type="text" name="parentTelephoneNumber" value=form.parentTelephoneNumber id="parentTelephoneNumber")
+                .form-section
+                  p.form-section-name FOR PERSONS COMPLETING THIS FORM ON BEHALF OF APPLICANTS WHO CANNOT READ OR WRITE ENGLISH
+                  p The above declaration has been read and interpreted by me in 
+                    input(type="text" name="languageInterpretedIn" value=form.languageInterpretedIn)
+                    |  language to the applicant and he/she understands and accepts
+                  .top-form-group
+                    .form-group
+                      label.form-label(for="interpreterName") Full name
+                      label.form-label
+                      input.form-control.form-control-sm(type="text" name="interpreterName" value=form.interpreterName id="interpreterName")
+                    .form-group
+                      label.form-label(for="interpreterAddress") Residential address
+                      label.form-label
+                      input.form-control.form-control-sm(type="text" name="interpreterAddress" value=form.interpreterAddress id="interpreterAddress")
+                    .form-group
+                      label.form-label(for="interpreterTelephoneNumber") Telephone number
+                      label.form-label
+                      input.form-control.form-control-sm(type="text" name="interpreterTelephoneNumber" value=form.interpreterTelephoneNumber id="interpreterTelephoneNumber")
+                  .bottom-form-group
+                    .form-group
+                      label.form-label View uploaded signature
+                      label.form-label
+                      if form.interpretersSignature
+                        .edit.actions-button 
+                          a(href=`/admin/view/${form._id}/${form.interpretersSignature}?type=Passport` target="blank")
                             img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                            | No picture uploaded
-                      .form-group
-                          label.form-label(for="interpretationDate") Date
-                          label.form-label
-                          input.form-control.form-control-sm( type="date" name="interpretationDate" value=form.interpretationDate id="interpretationDate")
-                  .form-section
-                    p.form-section-name 
-                      span DECLARATION BY APPLICANT
-                      span
-                    p I the undersigned, hereby apply for a Ghana Passport and declare: (choose one)
-                    p
-                      input(type="radio", name="declarationOption" value="newPassport") 
-                      |  That I have not previously held or applied for a passport of any description.
-                    p
-                      input(type="radio", name="declarationOption" value="attached/lost") 
-                      |  That the previous passport with number 
-                      input(type="text" name="previousPassportNumber" value=form.previousPassportNumber) 
-                      |   granted me is Attached/lost
-                    .bottom-form-group
-                      .form-group
-                        label.form-label View uploaded signature
+                            | view signature
+                      else
+                        .edit.actions-button
+                          img.edit-icon.icon(src="/img/file.svg" title="edit") 
+                          | No picture uploaded
+                    .form-group
+                        label.form-label(for="interpretationDate") Date
                         label.form-label
-                        if form.declarationSignature
-                          .edit.actions-button 
-                            a(href=`/admin/view/${form._id}/${form.declarationSignature}?type=Passport` target="blank")
-                              img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                              | view signature
-                        else
-                          .edit.actions-button
+                        input.form-control.form-control-sm( type="date" name="interpretationDate" value=form.interpretationDate id="interpretationDate")
+                .form-section
+                  p.form-section-name 
+                    span DECLARATION BY APPLICANT
+                    span
+                  p I the undersigned, hereby apply for a Ghana Passport and declare: (choose one)
+                  p
+                    input(type="radio", name="declarationOption" value="newPassport") 
+                    |  That I have not previously held or applied for a passport of any description.
+                  p
+                    input(type="radio", name="declarationOption" value="attached/lost") 
+                    |  That the previous passport with number 
+                    input(type="text" name="previousPassportNumber" value=form.previousPassportNumber) 
+                    |   granted me is Attached/lost
+                  .bottom-form-group
+                    .form-group
+                      label.form-label View uploaded signature
+                      label.form-label
+                      if form.declarationSignature
+                        .edit.actions-button 
+                          a(href=`/admin/view/${form._id}/${form.declarationSignature}?type=Passport` target="blank")
                             img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                            | No picture uploaded
-                      .form-group
-                          label.form-label(for="declarationDate") Date
-                          label.form-label
-                          input.form-control.form-control-sm( type="date" name="declarationDate" value=form.declarationDate id="declarationDate")
-                  .form-section
-                    p.form-section-name WITNESS
-                    .top-form-group
-                      .form-group
-                        label.form-label(for="witnessName") Full name
+                            | view signature
+                      else
+                        .edit.actions-button
+                          img.edit-icon.icon(src="/img/file.svg" title="edit") 
+                          | No picture uploaded
+                    .form-group
+                        label.form-label(for="declarationDate") Date
                         label.form-label
-                        input.form-control.form-control-sm( type="text" name="witnessName" value=form.witnessName id="witnessName")
-                      .form-group
-                        label.form-label(for="witnessOccupation") Occupation
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" name="witnessOccupation" value=form.witnessOccupation id="witnessOccupation")
-                      .form-group
-                        label.form-label(for="witnessWorkPlaceAddress") Workplace Address
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" name="witnessWorkPlaceAddress" value=form.witnessWorkPlaceAddress id="witnessWorkPlaceAddress")
-                    .bottom-form-group
-                      .form-group
-                        label.form-label(for="witnessResidentialAddress") Residential address
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" name="witnessResidentialAddress" value=form.witnessResidentialAddress id="witnessResidentialAddress")
-                      .form-group
-                        label.form-label(for="witnessTelephoneNumber") Telephone number
-                        label.form-label
-                        input.form-control.form-control-sm( type="text" name="witnessTelephoneNumber" value=form.witnessTelephoneNumber id="witnessTelephoneNumber")
-                      .form-group
-                        label.form-label View uploaded signature
-                        label.form-label
-                        if form.witnessSignature
-                          .edit.actions-button 
-                            a(href=`/admin/view/${form._id}/${form.witnessSignature}?type=Passport` target="blank")
-                              img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                              | view signature
-                        else
-                          .edit.actions-button
+                        input.form-control.form-control-sm( type="date" name="declarationDate" value=form.declarationDate id="declarationDate")
+                .form-section
+                  p.form-section-name WITNESS
+                  .top-form-group
+                    .form-group
+                      label.form-label(for="witnessName") Full name
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" name="witnessName" value=form.witnessName id="witnessName")
+                    .form-group
+                      label.form-label(for="witnessOccupation") Occupation
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" name="witnessOccupation" value=form.witnessOccupation id="witnessOccupation")
+                    .form-group
+                      label.form-label(for="witnessWorkPlaceAddress") Workplace Address
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" name="witnessWorkPlaceAddress" value=form.witnessWorkPlaceAddress id="witnessWorkPlaceAddress")
+                  .bottom-form-group
+                    .form-group
+                      label.form-label(for="witnessResidentialAddress") Residential address
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" name="witnessResidentialAddress" value=form.witnessResidentialAddress id="witnessResidentialAddress")
+                    .form-group
+                      label.form-label(for="witnessTelephoneNumber") Telephone number
+                      label.form-label
+                      input.form-control.form-control-sm( type="text" name="witnessTelephoneNumber" value=form.witnessTelephoneNumber id="witnessTelephoneNumber")
+                    .form-group
+                      label.form-label View uploaded signature
+                      label.form-label
+                      if form.witnessSignature
+                        .edit.actions-button 
+                          a(href=`/admin/view/${form._id}/${form.witnessSignature}?type=Passport` target="blank")
                             img.edit-icon.icon(src="/img/file.svg" title="edit") 
-                            | No picture uploaded
-                      .form-group
-                        label.form-label(for="witnessDate") Date
-                        label.form-label
-                        input.form-control.form-control-sm( type="date" name="witnessDate" value=form.witnessDate id="witnessDate")
-                  .submit-button.submit-passport-form
-                    button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/admin/update/${form._id}?type=Passport&as=Under Processing` formmethod="post") Under Processing
-                    button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/admin/update/${form._id}?type=Passport&as=Completed` formmethod="post") Complete
-                    button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction=`/admin/update/${form._id}?type=Passport&as=Dispatched` formmethod="post") Dispatch
-    // Footer
-    footer.page-footer.center-on-small-only
-      .flex-center.mb-3.mt-2
-        a.px-3(href="")
-          i.fa.fa-facebook
-        a.px-3(href="")
-          i.fa.fa-instagram
-        a.px-3(href="")
-          i.fa.fa-google
-        a.px-3(href="")
-          i.fa.fa-twitter
-        a.px-3(href="")
-          i.fa.fa-linkedin
-      // Copyright
-      .footer-copyright
-        .container-fluid
-          | © 2018 Copyright:
-          a(href="/admin")  Embassy Of Denmark 
-      // /.Copyright
-    // /.Footer
-    // SCRIPTS
-    // JQuery
-    script(type="text/javascript" src="/js/jquery.min.js")
-    // Bootstrap tooltips
-    script(type="text/javascript" src="/js/popper.min.js")
-    // Bootstrap core JavaScript
-    script(type="text/javascript" src="/js/bootstrap.min.js")
-    // MDB core JavaScript
-    script(type="text/javascript" src="/js/mdb.min.js")
-    script(type="text/javascript" src="/js/compiled.min.js")
-    script(type="text/javascript" src="/js/custom.js")
-    // Initialization
-    script.
-      $("input").prop("disabled", true);
-      $("input:disabled").css("cursor", "not-allowed");
-      // SideNav Initialization
-      $(".button-collapse").sideNav();
-      // Material Select Initialization
-      $(document).ready(function () {
-      $('.mdb-select').material_select();
-      });
-      // Data Picker Initialization
-      $('.datepicker').pickadate();
-      // Tooltip Initialization
-      $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-      })
-    // Alerts
-    script.
-      $(function () {
-      $('#folder-1').click(function () {
-      toastr.error("Folder 1 has been clicked!", "Folder 1", {
-      "positionClass": "toast-top-right",
-      });
-      });
-      $('#folder-2').click(function () {
-      // make it not dissappear
-      toastr.info("Folder 2 has been clicked!", "Folder 2", );
-      });
-      $('#folder-3').click(function () {
-      // make it not dissappear
-      toastr.info("Folder 3 has been clicked!", "Folder 3", );
-      });
-      });
-    // sticky
-    script(type="text/javascript").
-      $(function () {
-      $(".sticky").sticky({
-      topSpacing: 90
-      , zIndex: 2
-      , stopper: "#stopper"
-      });
-      });
+                            | view signature
+                      else
+                        .edit.actions-button
+                          img.edit-icon.icon(src="/img/file.svg" title="edit") 
+                          | No picture uploaded
+                    .form-group
+                      label.form-label(for="witnessDate") Date
+                      label.form-label
+                      input.form-control.form-control-sm( type="date" name="witnessDate" value=form.witnessDate id="witnessDate")
+                .submit-button.submit-passport-form
+                  button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/admin/update/${form._id}?type=Passport&as=Under Processing` formmethod="post") Under Processing
+                  button.btn.btn-primary.btn-lg.custom-button(type='submit' formaction=`/admin/update/${form._id}?type=Passport&as=Completed` formmethod="post") Complete
+                  button#continue-later.btn.btn-primary.btn-lg.custom-button(type="submit" formaction=`/admin/update/${form._id}?type=Passport&as=Dispatched` formmethod="post") Dispatch
+            // /.Card content
+          // /.Card
+        // Section:
+      include includes/userlog.pug

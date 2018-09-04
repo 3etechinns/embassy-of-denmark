@@ -1,0 +1,11 @@
+.col-md-3
+  .sticky
+    form.my-2.md-6.form-inline
+      input#searchUser.form-control.my-0.py-0(type="text" placeholder="Search" style="max-width: 150px;")
+      button.btn.btn-sm.btn-info.ml-2.px-2
+        i.fa.fa-search
+    .list-group
+      a.list-group-item.active.waves-effect(style="background: DodgerBlue; border:none; color: white;")
+        | User Search and Reporting
+      each user in users
+        a.user.list-group-item.list-group-item-action.waves-effect(href=`admin/users/${user._id}/profile`) #{user.fullName || user.email} 
