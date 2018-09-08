@@ -36,7 +36,7 @@ module.exports = app => {
   ]);
 
   app.get("/", (req, res, next) => {
-    return res.render("landing");
+    return res.render("landingpage");
   });
 
   app.get("/history", requireLogin, getProfile);

@@ -3,6 +3,14 @@ const { createUser, logIn, logout } = require("../controllers/authController");
 const util = require("../util");
 
 module.exports = app => {
+  app.get("/signup", (req, res, next) => {
+    return res.render("signup");
+  });
+
+  app.get("/login", (req, res, next) => {
+    return res.render("login");
+  });
+
   app.post("/login", requireLogout, logIn);
 
   app.post("/create-profile", requireLogout, (req, res, next) => {

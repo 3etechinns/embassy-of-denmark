@@ -190,7 +190,6 @@ module.exports = app => {
     let completedRequestsCount = 0;
     let dispatchedRequestsCount = 0;
 
-    console.log(req.allFormRecords);
     req.allFormRecords.forEach(form => {
       if (form.status === PROCESSING_STATUS.newRequests) {
         newRequestsCount++;
@@ -205,11 +204,9 @@ module.exports = app => {
 
     // Do not include admins
     const users = await User.find({ isAdmin: false });
-    const allStaff = await Personnel.find();
 
     return res.render("admin/home", {
       users,
-      allStaff,
       formRecords: req.allFormRecords,
       newRequestsCount,
       underProcessingRequestsCount,
@@ -339,11 +336,19 @@ module.exports = app => {
     "/admin/transaction/all_requests",
     requireLogin,
     getAllRequests,
-    (req, res, next) => {
-      return res.render("admin/transaction", {
-        formRecords: req.allFormRecords,
-        title: "All Form Records"
-      });
+    async (req, res, next) => {
+      try {
+        const allStaff = await Personnel.find({}, { fullName: true });
+
+        console.log(req.allFormRecords);
+        return res.render("admin/transaction", {
+          formRecords: req.allFormRecords,
+          allStaff,
+          title: "All Form Records"
+        });
+      } catch (error) {
+        return next(error);
+      }
     }
   );
 
@@ -452,7 +457,6 @@ module.exports = app => {
         previous: { ...req.body },
         current: { ...req.body }
       });
-      console.log(req.body);
       return res.json(req.body);
       // return res.redirect("/admin");
     } catch (error) {
@@ -490,7 +494,6 @@ module.exports = app => {
       });
       return res.redirect("/admin/settings/pricing");
     } catch (error) {
-      console.log(error);
       return next(error);
     }
   });
@@ -499,11 +502,21 @@ module.exports = app => {
     try {
       if (!req.query.type) {
         const prices = await Price.findOne();
-        console.log(prices);
         return res.json(prices);
       }
     } catch (error) {
       return res.json(error);
     }
+  });
+
+  app.post("/admin/forms/assign", requireLogin, async (req, res, next) => {
+    const { assignedStaff, forms } = req.body;
+    console.log(req.body);
+
+    await Promise.all([
+      Personnel.updateOne({ _id: assignedStaff }, { assignments: forms }),
+      FormRecord.updateMany({ _id: { $in: forms } }, { assignedStaff })
+    ]);
+    return res.redirect("/admin/transaction/all_requests");
   });
 };

@@ -106,13 +106,8 @@ block main
             .view.py-3.gradient-card-header.blue.mx-4.d-flex.justify-content-between.align-items-center
               a.white-text.mx-3(href="") All Form Records
               div
-                button.dropdown.btn.btn-outline-white.btn-rounded.btn-sm.px-2
-                  i.fa.fa-info-circle.mt-0.dropdown-toggle#staff( data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="info")
-                  .dropdown-menu
-                    h6.dropdown-header Staff
-                    each staff in allStaff
-                      a.dropdown-item Asamoah Gyan
-                      a.dropdown-item.active(href="") #{staff.fullName.first}
+                button.btn.btn-outline-white.btn-rounded.btn-sm.px-2
+                  i.fa.fa-info-circle.mt-0(role="button" aria-haspopup="true" aria-expanded="false" title="info")
             // /Card header
             // Card content
             .card-body
@@ -135,26 +130,12 @@ block main
                   thead
                     tr
                       th
-                        //- input#checkbox(type="checkbox")
-                        //- label.label-table(for="checkbox")
                       th.th-lg Form Type
                       th.th-lg Applicant
                       th.th-lg Date Applied
                       th.th-lg Status
                       th.th-lg 
                   tbody#forms(data-forms=formRecords)
-                    //- for formRecord, index in formRecords
-                    //-   tr
-                    //-     th(scope="row")
-                    //-       input(type="checkbox" id=`checkbox${index}`)
-                    //-       label.label-table(for=`checkbox${index}`)
-                    //-     td #{formRecord.formType}
-                    //-     td #{formRecord._owner.email}
-                    //-     td #{formRecord.createdAt}
-                    //-     td #{formRecord.status}
-                    //-     td.actions-button
-                    //-       a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
-                    //-         img.icon(src="/img/eye.svg")
                 if !formRecords.length
                   .alert.alert-danger.text-center(role="alert") No Form records yet in our Database
               hr.my-0

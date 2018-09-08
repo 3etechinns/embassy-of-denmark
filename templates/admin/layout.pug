@@ -29,6 +29,7 @@ html(lang="en")
           p(style="font-weight: 600; font-size: 13px;") ADMIN DASHBOARD
         // Links
         ul.nav.navbar-nav.nav-flex-icons.ml-auto
+          block navs
           li.nav-item
             a.nav-link(href="/admin/support")
               i.fa.fa-comments-o
@@ -69,6 +70,8 @@ html(lang="en")
     // SCRIPTS
     // JQuery
     script(type="text/javascript" src="/js/jquery.min.js")
+    // Axios
+    script(type="text/javascript" src="/js/axios.min.js")
     // Bootstrap tooltips
     script(type="text/javascript" src="/js/popper.min.js")
     // Bootstrap core JavaScript

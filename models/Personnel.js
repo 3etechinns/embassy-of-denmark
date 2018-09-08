@@ -8,7 +8,7 @@ const PersonnelSchema = new Schema({
   },
   email: { type: String, required: true, trim: true, unique: true },
   password: { type: String, required: true },
-  assignments: [Schema.Types.ObjectId],
+  assignments: { type: [Schema.Types.ObjectId], ref: "FormRecord" },
   isAdmin: { type: Boolean, default: false }
 });
 

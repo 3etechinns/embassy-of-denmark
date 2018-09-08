@@ -29,14 +29,20 @@ block main
                       label.bmd-label-floating Full Name
                       input.form-control(type='text' name="fullName" value=`${fullName}`)
                   .col-md-6
-                    label.bmd-label-floating Gender &nbsp &nbsp
-                    .form-group.btn-group.btn-group-toggle(data-toggle='buttons')
-                      label.btn.btn-secondary.active
-                        input#male(type='radio', name='gender', value="Male")
-                        |  &nbsp &nbsp Male &nbsp &nbsp
-                      label.btn.btn-secondary
-                        input#female(type='radio', name='gender', value="Female")
-                        |  &nbsp Female &nbsp
+                    .form-group
+                      label.bmd-label-floating Gender : &nbsp &nbsp
+                      .form-check.form-check-inline
+                        label.form-check-label
+                          input#male.form-check-input(type="radio", data-gender=gender value="Male" name="gender")
+                          | Male
+                          span.circle
+                            span.check
+                      .form-check.form-check-inline
+                        label.form-check-label
+                          input#female.form-check-input(type="radio", data-gender=gender value="Female" name="gender")
+                          | Female
+                          span.circle
+                            span.check
                 .row
                   .col-md-6
                     .form-group
@@ -103,13 +109,16 @@ block main
                 .row
                   .col-sm-12.col-lg-4
                     label Residence Permit
-                    input(type='file', name='bankStatement')
+                    input.file#bs(type='file', name='bankStatement')
+                    button.fileButton.btn.btn-secondary(type="button") Choose File
                   .col-sm-12.col-lg-4
                     label(for='rp') 3 months Bank statement
-                    input#rp(type='file' name="residencePermit")
+                    input.file#rp(type='file' name="residencePermit")
+                    button.fileButton.btn.btn-secondary(type="button") Choose File
                   .col-sm-12.col-lg-4
                     label Scanned Passport
-                    input#sp(type='file' name="scannedPassport" )
+                    input.file#sp(type='file' name="scannedPassport" )
+                    button.fileButton.btn.btn-secondary(type="button") Choose File
                 .row
                   .col-md-12
                     if message
@@ -118,9 +127,18 @@ block main
                         button.close(data-dismiss="alert" aria-label="close")
                           i.material-icons close
                         span #{message}
-                button.btn.btn-primary.pull-right(type='submit') Update Profile
+                br
+                br
+                .text-center
+                  button.btn.btn-primary(type='submit') Update Profile
 block scripts
   script.
+    $(".file").hide();
+    $(".fileButton").click(e => {
+      console.log($(e.target).prev());
+      $(e.target).prev().click();
+    });
+
     $("#cbs").change(e => {
       if(e.target.checked) {
         $("#bs").attr("required",true);

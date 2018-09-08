@@ -103,6 +103,7 @@ block main
                       option(value="Ginger") Ginger
                       option(value="Grey") Grey
                       option(value="Red") Red
+              br
               input.next.action-button(type='button', name='next', value='Next')
             fieldset
               h2.fs-title Contact Information
@@ -143,6 +144,7 @@ block main
                   label(for="profession") Profession :
                   .form-group
                     input.form-control.form-control-sm(type="text" placeholder="Profession" name="profession" id="profession")
+              br
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='button', name='next', value='Next')
 
@@ -194,6 +196,7 @@ block main
                   label(for="evidenceOfCitizenshipPlaceOfIssue") Place of Issue :
                   .form-group
                     input.form-control.form-control-sm( type="text" placeholder="Place of issue" name="evidenceOfCitizenshipPlaceOfIssue" id="evidenceOfCitizenshipPlaceOfIssue")
+              br
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='button', name='next', value='Next')
 
@@ -216,7 +219,9 @@ block main
                     input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber1" id="guarantorsTelephoneNumber1")
                 .col-sm-12.col-lg-6
                   label(for="guarantorsSignature1") Guarantor's signature :
-                  input(type='file' name="guarantorsSignature1" enctype="multipart/form-data" )
+                  .form-group
+                    input.file(type='file' name="guarantorsSignature1" enctype="multipart/form-data" )
+                    button.fileButton.btn.btn-secondary.btn-round(type="button" title="Scan and upload signature") Choose File
               hr
               p Second guarantor
               .row
@@ -234,7 +239,10 @@ block main
                     input.form-control.form-control-sm( type="text" placeholder="Telephone number" name="guarantorsTelephoneNumber2" id="guarantorsTelephoneNumber2")
                 .col-sm-12.col-lg-6
                   label(for="guarantorsSignature2") Guarantor's signature :
-                  input(type='file' name="guarantorsSignature2")
+                  .form-group
+                    input.file(type='file' title="Scan and upload signature" name="guarantorsSignature2")
+                    button.fileButton.btn.btn-secondary.btn-round(type="button" title="Scan and upload signature") Choose File
+              br
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='button', name='next', value='Next')
 
@@ -263,7 +271,10 @@ block main
                     input.form-control.form-control-sm(type="text" placeholder="Parent's Telephone number" name="parentTelephoneNumber" id="parentTelephoneNumber")
                 .col-sm-12.col-lg-6
                   label(for="parentalConsentSignature") Parent's signature :
-                  input(type='file' name="parentalConsentSignature")
+                  .form-group
+                    input.file(type='file' name="parentalConsentSignature")
+                    button.fileButton.btn.btn-secondary.btn-round(type="button" title="Scan and upload signature") Choose File
+              br
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='button', name='next', value='Next')
 
@@ -291,7 +302,9 @@ block main
               .row
                 .col-sm-12.col-lg-6
                   label(for="interpretersSignature") Interpreter's signature :
-                  input(type='file' name="interpretersSignature")
+                  .form-group
+                    input.file(type='file' name="interpretersSignature")
+                    button.fileButton.btn.btn-secondary.btn-round(type="button" title="Scan and upload signature") Choose File
                 .col-sm-12.col-lg-6
                   label(for="interpretationDate") Interpretation date :
                   .form-group
@@ -303,14 +316,20 @@ block main
               br
               .row
                 .col-sm-12.col-lg-6
-                  label Have you held a passport of any description?
-                  .form-group.btn-group.btn-group-toggle(data-toggle='buttons')
-                    label.btn.btn-secondary.active
-                      input#attached(type='radio', name='declarationOption', value="attached/lost" autocomplete='off')
-                      |  &nbsp &nbsp &nbsp &nbsp Yes, I have &nbsp &nbsp &nbsp &nbsp 
-                    label.btn.btn-secondary
-                      input#newPassport(type='radio', name='declarationOption', value="newPassport" autocomplete='off')
-                      |  &nbsp &nbsp &nbsp &nbsp No, I haven't &nbsp &nbsp &nbsp &nbsp
+                  label(for="gender") Have you held a passport of any kind in the past?
+                  .form-group
+                    .form-check.form-check-inline
+                      label.form-check-label
+                        input#yes.form-check-input(type="radio", value="Yes" name="declarationOption")
+                        | Yes
+                        span.circle
+                          span.check
+                    .form-check.form-check-inline
+                      label.form-check-label
+                        input#no.form-check-input(type="radio", value="No" name="declarationOption")
+                        | No
+                        span.circle
+                          span.check
                 .col-sm-12.col-lg-6
                   label(for="previousPassportNumber") If yes, provide the passport number :
                   .form-group
@@ -318,11 +337,14 @@ block main
               .row
                 .col-sm-12.col-lg-6
                   label(for="declarationSignature") Applicant's signature :
-                  input(type='file' name="declarationSignature")
+                  .form-group
+                    input.file(type='file' name="declarationSignature")
+                    button.fileButton.btn.btn-secondary.btn-round(type="button" title="Scan and upload signature") Choose File
                 .col-sm-12.col-lg-6
                   label(for="declarationDate") Application Date :
                   .form-group
                     input.form-control.form-control-sm( type="date" name="declarationDate" id="declarationDate")
+              br
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='button', name='next', value='Next')
 
@@ -358,13 +380,22 @@ block main
                     input.form-control.form-control-sm( type="date" placeholder="Date" name="witnessDate" id="witnessDate")
                 .col-sm-12.col-lg-6
                   label(for="witnessSignature") Witness' signature :
-                  input(type='file' name="witnessSignature")
+                  .form-group
+                    input.file(type='file' name="witnessSignature")
+                    button.fileButton.btn.btn-secondary.btn-round(type="button" title="Scan and upload signature") Choose File
+              br
               input.previous.action-button-previous(type='button', name='previous', value='Previous')
               input.next.action-button(type='submit' formaction=`/forms/passport?type=continue-later` value='continue later')
               input.next.action-button(type='submit', value='Submit')
 block scripts
   script(src="/js/countries.js")
   script.
+    $(".file").hide();
+    $(".fileButton").click(e => {
+      console.log($(e.target).prev());
+      $(e.target).prev().click();
+    });
+
     var countryOfBirth = document.querySelector("#countryOfBirth");
     var countryOfResidence = document.querySelector("#countryOfResidence");
     var fathersNationality = document.querySelector("#fathersNationality");

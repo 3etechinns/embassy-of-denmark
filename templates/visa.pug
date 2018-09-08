@@ -220,18 +220,14 @@ block scripts
   script(src="/js/countries.js")
   //- script(src="/js/jquery.min.js")
   script.
-    var countryOfBirth = document.querySelector("#countryOfBirth");
-    var countryOfResidence = document.querySelector("#countryOfResidence");
-    var fathersNationality = document.querySelector("#fathersNationality");
-    var mothersNationality = document.querySelector("#mothersNationality");
+    var currentCountryOfResidence = document.querySelector("#currentCountryOfResidence");
+    var formerNationality = document.querySelector("#formerNationality");
     var nationality = document.querySelector("#nationality");
 
-    if (countryOfBirth) {
+    if (nationality) {
       countries.forEach(function(country) {
-        appendOptions(countryOfBirth, country.name);
-        appendOptions(countryOfResidence, country.name);
-        appendOptions(mothersNationality, country.name);
-        appendOptions(fathersNationality, country.name);
+        appendOptions(currentCountryOfResidence, country.name);
+        appendOptions(formerNationality, country.name);
         appendOptions(nationality, country.name);
       });
     }

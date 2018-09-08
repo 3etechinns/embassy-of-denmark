@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const mongoose = require("mongoose");
 const PassportForm = mongoose.model("PassportForm");
 const Notification = mongoose.model("Notification");
@@ -330,6 +332,22 @@ const updateForm = async (req, res, next) => {
       ];
     }
 
+    let file = "";
+    for (prop in req.files) {
+      if (typeof prop === "object") {
+        for (p in req.body[prop]) {
+          file = path.resolve(__dirname, "..", "store", req.body[prop][p]);
+          if (fs.existsSync(file)) {
+            fs.unlinkSync(file);
+          }
+        }
+      }
+      file = path.resolve(__dirname, "..", "store", req.body[prop]);
+      if (fs.existsSync(file)) {
+        fs.unlinkSync(file);
+      }
+    }
+
     const modelName = getModelName(req.query.type);
     const updated = await mongoose
       .model(modelName)
@@ -407,21 +425,50 @@ const deleteForm = async (req, res, next) => {
   try {
     const model = mongoose.model(getModelName(req.query.type));
 
-    const resp = await Promise.all([
-      FormRecord.findOneAndRemove({ _id: req.params.formRecordId }),
-      model.remove({ _id: req.query.formId })
+    const [formRecord, form] = await Promise.all([
+      FormRecord.findOneAndRemove({ _id: req.params.formRecordId }).lean(),
+      model.findOneAndRemove({ _id: req.query.formId }).lean()
     ]);
+
+    // console.log(formRecord, form);
+
+    let file = "";
+    for (prop in form) {
+      if (typeof prop === "object") {
+        for (p in form[prop]) {
+          if (form[prop][p]) {
+            file = path.resolve(__dirname, "..", "store", form[prop][p]);
+            if (fs.existsSync(file)) {
+              fs.unlinkSync(file);
+            }
+          }
+        }
+      } else {
+        console.log(typeof form[prop], prop, form[prop]);
+        if (prop === "references") {
+          console.log("type of references " + typeof form[prop]);
+          console.log("testing" + typeof prop === "object");
+        }
+        if (form[prop] && prop !== "_id") {
+          file = path.resolve(__dirname, "..", "store", form[prop]);
+          if (fs.existsSync(file)) {
+            fs.unlinkSync(file);
+          }
+        }
+      }
+    }
 
     const notification = await Notification.create({
       title: `Form successfully deleted`,
       message: `${req.query.type} form ${
-        resp[0].formCode
+        formRecord.formCode
       } deleted successfully`,
       recipient: req.session.userId
     });
 
     return res.redirect("/history");
   } catch (error) {
+    console.log(error);
     return next(error);
   }
 };

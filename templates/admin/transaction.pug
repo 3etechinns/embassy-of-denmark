@@ -1,8 +1,23 @@
 extends ./layout.pug
 
+block navs
+  li.nav-item
+    a.nav-link(href="/admin/support" data-toggle="modal" data-target="#assign-staff")
+      i.fa.fa-comments-o
+      span.clearfix.d-none.d-sm-inline-block Assign Staff
+
 block main
   main(style="margin: 0%;")
     .container-fluid.row(style="margin: 0px;")
+      .modal.fade.login(id='assign-staff' tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.login(role='document')
+          .modal-content
+            .modal-header
+              //- img.header-img(src="/img/logo.png")
+              h5#exampleModalLabel.modal-title.ml-3 Assign Staff
+            .modal-body.list-group
+              each staff in allStaff
+                a.staff.list-group-item.list-group-item-action.waves-effect( data-staffId=staff._id) #{staff.fullName.first + " " + staff.fullName.last}
       // Section: Table
       section
         // Card
@@ -31,17 +46,22 @@ block main
                     th.th-lg Applicant
                     th.th-lg Date Applied
                     th.th-lg Status
+                    th.th-lg Assigned Staff
                     th.th-lg 
                 tbody#forms(data-forms=formRecords)
                   for formRecord, index in formRecords
                     tr
                       th(scope="row")
-                        input(type="checkbox" id=`checkbox${index}`)
+                        input(type="checkbox" title="Assigned" id=`checkbox${index}` data-assignedStaff=formRecord.assignedStaff data-formRecordId=formRecord._id)
                         label.label-table(for=`checkbox${index}`)
                       td #{formRecord.formType}
                       td #{formRecord._owner.email}
                       td #{formRecord.createdAt}
                       td #{formRecord.status}
+                      if formRecord.assignedStaff
+                        td #{formRecord.assignedStaff.fullName.first + " " + formRecord.assignedStaff.fullName.last}
+                      else
+                        td
                       td.actions-button
                         a(href=`/admin/view/${formRecord.formId}?type=${formRecord.formType}` title="View Form")
                           img.icon(src="/img/eye.svg")
@@ -51,7 +71,35 @@ block main
             // Bottom Table UI
             div
               // Name
-              .row
+              .row.text-center
+              
+
             // Bottom Table UI
           // /.Card content
         // /.Card
+
+block scripts
+  script.
+    $(document).ready(() => {
+      $(":checkbox").each((index,one) => {
+        if($(one).attr("data-assignedStaff")) {
+          $(one).attr("checked", true);
+        }
+      });
+    });
+    
+    let forms = [];
+
+    $(".staff").click(e => {
+      $(":checkbox").each((index,one) => {
+        if(one.checked && !$(one).attr("data-assignedStaff")) {
+          console.log("true");
+          forms.push($(one).attr("data-formRecordId"));
+        }
+      });
+      let assignedStaff = $(e.target).attr("data-staffId");
+      console.log("forms: " + "---" + forms + "\n " + "staff : " + assignedStaff)
+      axios.post("/admin/forms/assign", {assignedStaff,forms}).then(() => {
+        location.reload();
+      });
+    });

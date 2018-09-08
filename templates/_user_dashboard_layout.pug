@@ -68,7 +68,7 @@ html(lang='en')
                     .ripple-container
               ul.navbar-nav
                 li.nav-item
-                  a.nav-link(href='#pablo')
+                  a.nav-link(href='#')
                     i.material-icons dashboard
                     p.d-lg-none.d-md-block
                       | Stats
@@ -80,10 +80,11 @@ html(lang='en')
                     p.d-lg-none.d-md-block
                       | Notifications
                   .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
-                    each notification in notifications
-                      if !notification.viewed
-                        a.dropdown-item(onclick=`demo.showNotification('top','center','${notification.message}', '${notification._id}')`) #{notification.title}
-                          .ripple-container
+                    if notifications
+                      each notification in notifications
+                        if !notification.viewed
+                          a.dropdown-item(onclick=`demo.showNotification('top','center','${notification.message}', '${notification._id}')`) #{notification.title}
+                            .ripple-container
                 li.nav-item
                   a.nav-link(href='/logout' title="sign out")
                     i.material-icons power_settings_new

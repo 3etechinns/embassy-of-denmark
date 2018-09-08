@@ -81,15 +81,18 @@ block main
                   .col-md-4
                       label Bank Statement
                       input.form-control(type="hidden" value=bankStatement name="bankStatement")
-                      input(type="file" name="bankStatement")
+                      input.file(type="file" name="bankStatement")
+                      button.fileButton.btn.btn-primary.btn-round(type="button") Choose File
                   .col-md-4
                       label Residence Permit
                       input.form-control(type="hidden" value=residencePermit name="residencePermit")
-                      input(type="file" name="residencePermit")
+                      input.file(type="file" name="residencePermit")
+                      button.fileButton.btn.btn-primary.btn-round(type="button") Choose File
                   .col-md-4
                       label Scanned Passport
                       input.form-control(type="hidden" value=scannedPassport name="scannedPassport")
-                      input(type="file" name="scannedPassport")
+                      input.file(type="file" name="scannedPassport")
+                      button.fileButton.btn.btn-primary.btn-round(type="button") Choose File
                 .row.mt-3
                   .col-md-4
                     if bankStatement
@@ -139,6 +142,8 @@ block main
                     .form-group
                       label.bmd-label-floating Confirm New Password
                       input.form-control(type='password' name="confirmPassword")
+                br
+                br
                 .row
                   .col-md-12
                     if message
@@ -147,19 +152,27 @@ block main
                         button.close(data-dismiss="alert" aria-label="close")
                           i.material-icons close
                         span #{message}
-                button.btn.btn-primary.pull-right(type='submit') Update Profile
+                .text-center
+                  button.btn.btn-primary.pull-right(type='submit') Update Profile
                 .clearfix
         .col-md-4
           .card.card-profile
             .card-avatar
               a(href='#')
-                img.img(src='/img/marc.jpg')
+                img.img(src='/img/default-avatar.png')
             .card-body
               h6.card-category.text-gray CEO / Co-Founder
               h4.card-title #{fullName || email}
-              a.btn.btn-primary.btn-round(href='#pablo') Follow
+              input#profilePic.file(type="file", name="profilePic")
+              a.btn.btn-primary.btn-round.fileButton(href='') Change Photo
 block scripts
   script.
+    $(".file").hide();
+    $(".fileButton").click(e => {
+      console.log($(e.target).prev());
+      $(e.target).prev().click();
+    });
+
     var male = $("#male");
     var female = $("#female");
 

@@ -23,7 +23,8 @@ const FormRecordSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Payment"
     },
-    formCode: { type: String, required: true }
+    formCode: { type: String, required: true },
+    assignedStaff: { type: Schema.Types.ObjectId, ref: "Personnel" }
   },
   { timestamps: true }
 );

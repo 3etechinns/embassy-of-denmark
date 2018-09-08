@@ -40,6 +40,7 @@ const getAllRequests = async (req, res, next) => {
       .skip(skipValue || 0)
       .limit(limitValue || 8)
       .populate("_owner", "email")
+      .populate("assignedStaff", "fullName")
       .lean()
       .exec();
 
