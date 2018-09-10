@@ -21,12 +21,8 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const dir = path.resolve(__dirname, "..", "store");
 
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
-      console.log("created directory store");
-    } else {
-      console.log("directory already exists");
-    }
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+
     cb(null, path.resolve(__dirname, "..", "store"));
   }
 });

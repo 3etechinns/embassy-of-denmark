@@ -333,8 +333,12 @@ const updateForm = async (req, res, next) => {
     }
 
     let file = "";
+    // console.log(req.files);
     for (prop in req.files) {
-      if (typeof prop === "object") {
+      console.log(req.files);
+      // if (req.body[prop]) {
+      // }
+      if (typeof req.files[prop] === "object") {
         for (p in req.body[prop]) {
           file = path.resolve(__dirname, "..", "store", req.body[prop][p]);
           if (fs.existsSync(file)) {
@@ -434,7 +438,7 @@ const deleteForm = async (req, res, next) => {
 
     let file = "";
     for (prop in form) {
-      if (typeof prop === "object") {
+      if (typeof form[prop] === "object") {
         for (p in form[prop]) {
           if (form[prop][p]) {
             file = path.resolve(__dirname, "..", "store", form[prop][p]);
@@ -458,7 +462,7 @@ const deleteForm = async (req, res, next) => {
       }
     }
 
-    const notification = await Notification.create({
+    await Notification.create({
       title: `Form successfully deleted`,
       message: `${req.query.type} form ${
         formRecord.formCode
