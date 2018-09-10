@@ -6,7 +6,8 @@ const {
   getProfile,
   accountSettings,
   updateAccountDetails,
-  viewFile
+  viewFile,
+  createSuggestion
 } = require("../controllers/mainController");
 
 const storage = multer.diskStorage({
@@ -46,4 +47,6 @@ module.exports = app => {
   app.get("/me/view/files/:fileId", requireLogin, viewFile);
 
   app.post("/profile", requireLogin, cpUpload, updateAccountDetails);
+
+  app.post("/users/suggestion", createSuggestion);
 };

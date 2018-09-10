@@ -5,7 +5,6 @@ const User = mongoose.model("User");
 
 const createUser = async (req, res, next) => {
   try {
-    // const { fullName, email, password, confirmPassword } = req.body;
     const { email, password } = req.body;
 
     const foundUser = await User.findOne({ email });
@@ -33,18 +32,22 @@ const logIn = async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return util.error("No user exists with the provided email", next);
+      return res.render("login", {
+        errorMessage: "No user exists with the provided email"
+      });
     }
 
     const matching = await bcrypt.compare(password, user.password);
     if (!matching) {
-      return util.error("Incorrect password", next, 403);
+      return res.render("login", {
+        errorMessage: "Incorrect password"
+      });
     }
     req.session.userId = user._id;
-    req.session.isAdmin = user.isAdmin;
     req.session.userEmail = user.email;
+    req.session.successMessage = "Welcome back!";
     req.session.fullName = user.fullName;
-    return user.isAdmin ? res.redirect("/admin") : res.redirect("/history");
+    return res.redirect("/history");
   } catch (error) {
     return next(error);
   }

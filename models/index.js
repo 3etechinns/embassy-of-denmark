@@ -10,6 +10,7 @@ const FeedBackSchema = require("./Feedback");
 const PriceSchema = require("./Price");
 const AppointmentFormSchema = require("./AppointmentForm");
 const NotificationSchema = require("./Notification");
+const SuggestionSchema = require("./Suggestion");
 
 const PassportForm = mongoose.model("PassportForm", PassportFormSchema);
 const VisaForm = mongoose.model("VisaForm", visaFormSchema);
@@ -24,3 +25,4 @@ const AppointmentForm = mongoose.model(
 );
 const Personnel = mongoose.model("Personnel", PersonnelSchema);
 const Notification = mongoose.model("Notification", NotificationSchema);
+const Suggestion = mongoose.model("Suggestion", SuggestionSchema);

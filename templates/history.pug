@@ -1,10 +1,20 @@
 extends ./_user_dashboard_layout
 
 block styles
+  script(src='/js/sweetalert.min.js')
   link(rel="stylesheet", href="/css/profile.css")
 
 block main
   // End Navbar
+  if successMessage
+    p#successMessage(data-successMessage=successMessage) 
+    script.
+      swal({
+        title: "Good to go!",
+        text: document.getElementById("successMessage").getAttribute("data-successMessage"),
+        icon: "success",
+        button: "ok",
+      });
   .content
     .container-fluid
       .row

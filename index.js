@@ -55,6 +55,7 @@ app.use(async (req, res, next) => {
         userId: req.session.userId,
         email: req.session.userEmail,
         fullName: req.session.fullName,
+        successMessage: req.session.successMessage,
         notifications,
         unViewedNotifications
       };

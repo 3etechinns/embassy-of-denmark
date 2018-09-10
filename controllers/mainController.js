@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const FormRecord = mongoose.model("FormRecord");
 const User = mongoose.model("User");
 const Price = mongoose.model("Price");
+const Suggestion = mongoose.model("Suggestion");
 const bcrypt = require("bcrypt");
 const util = require("../util");
 
@@ -30,11 +31,14 @@ const getProfile = (req, res, next) => {
           updatedAt: formRecord.updatedAt.toLocaleDateString()
         }));
 
-        return res.render("history", {
+        res.render("history", {
           formRecords,
           headerText: "History",
           ...price.current
         });
+
+        req.session.successMessage = "";
+        await req.session.save();
       }
     )
       .lean()
@@ -173,9 +177,15 @@ const viewFile = (req, res, next) => {
   }
 };
 
+const createSuggestion = async (req, res, next) => {
+  await Suggestion.create({ ...req.body });
+  return res.redirect("/");
+};
+
 module.exports = {
   getProfile,
   accountSettings,
   updateAccountDetails,
-  viewFile
+  viewFile,
+  createSuggestion
 };

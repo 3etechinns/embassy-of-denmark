@@ -39,10 +39,10 @@
           items: 1
         },
         480: {
-          items: 3
+          items: 1
         },
         992: {
-          items: 5
+          items: 2
         }
       }
     });

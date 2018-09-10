@@ -28,7 +28,7 @@ html(lang='en')
               nav.navbar.navbar-expand-lg.navbar-light
                 // Logo
                 a.navbar-brand(href='/') 
-                  img(src="/img/logo.png", alt="eD" style="width:50px")
+                  img(src="/img/logo.png", alt="eD" style="width:40px")
                 button.navbar-toggler(type='button', data-toggle='collapse', data-target='#ca-navbar', aria-controls='ca-navbar', aria-expanded='false', aria-label='Toggle navigation')
                   span.navbar-toggler-icon
                 // Menu Area
@@ -57,7 +57,7 @@ html(lang='en')
             .sing-up-button.d-none.d-lg-block
               a(href='/signup') Create Account
     // ***** Header Area End *****
-    // ***** Wellcome Area Start *****
+    // ***** Welcome Area Start *****
     section#home.wellcome_area.clearfix
       .container.h-100
         .row.h-100.align-items-center
@@ -76,68 +76,6 @@ html(lang='en')
       .welcome-thumb.wow.fadeInDown(data-wow-delay='0.5s')
         img(src='img/bg-img/welcome-img.png', alt='')
     // ***** Wellcome Area End *****
-    // ***** Special Area Start *****
-    //- section#about.special-area.bg-white.section_padding_100
-    //-   .container
-    //-     .row
-    //-       .col-12
-    //-         // Section Heading Area
-    //-         .section-heading.text-center
-    //-           h2 Why Is It Special
-    //-           .line-shape
-    //-     .row
-    //-       // Single Special Area
-    //-       .col-12.col-md-4
-    //-         .single-special.text-center.wow.fadeInUp(data-wow-delay='0.2s')
-    //-           .single-icon
-    //-             i.ti-mobile(aria-hidden='true')
-    //-           h4 Easy to use
-    //-           p
-    //-             | We build pretty complex tools and this allows us to take designs and turn them into functional quickly and easily
-    //-       // Single Special Area
-    //-       .col-12.col-md-4
-    //-         .single-special.text-center.wow.fadeInUp(data-wow-delay='0.4s')
-    //-           .single-icon
-    //-             i.ti-ruler-pencil(aria-hidden='true')
-    //-           h4 Powerful Design
-    //-           p
-    //-             | We build pretty complex tools and this allows us to take designs and turn them into functional quickly and easily
-    //-       // Single Special Area
-    //-       .col-12.col-md-4
-    //-         .single-special.text-center.wow.fadeInUp(data-wow-delay='0.6s')
-    //-           .single-icon
-    //-             i.ti-settings(aria-hidden='true')
-    //-           h4 Customizability
-    //-           p
-    //-             | We build pretty complex tools and this allows us to take designs and turn them into functional quickly and easily
-      // Special Description Area
-      .special_description_area.mt-150
-        .container
-          .row
-            .col-lg-6
-              .special_description_img
-                img(src='img/bg-img/special.png', alt='')
-            .col-lg-6.col-xl-5.ml-xl-auto
-              .special_description_content
-                h2 Our Best Propositions for You!
-                p
-                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                .app-download-area
-                  .app-download-btn.wow.fadeInUp(data-wow-delay='0.2s')
-                    // Google Store Btn
-                    a(href='#')
-                      i.fa.fa-android
-                      p.mb-0
-                        span available on
-                        |  Google Store
-                  .app-download-btn.wow.fadeInDown(data-wow-delay='0.4s')
-                    // Apple Store Btn
-                    a(href='#')
-                      i.fa.fa-apple
-                      p.mb-0
-                        span available on
-                        |  Apple Store
-    // ***** Special Area End *****
     // ***** Awesome Features Start *****
     section#features.awesome-feature-area.bg-white.section_padding_0_50.clearfix
       .container
@@ -269,16 +207,12 @@ html(lang='en')
           .col-12
             // App Screenshots Slides
             .app_screenshots_slides.owl-carousel
-              //- .single-shot
-              //-   img(src='img/scr-img/app-1.jpg', alt='')
-              //- .single-shot
-              //-   img(src='img/scr-img/app-2.jpg', alt='')
               .single-shot
-                img(src='img/scr-img/app-3.jpg', alt='')
+                img(src='/img/Screenshot (42).png', alt='screenshots')
               .single-shot
-                img(src='img/scr-img/app-4.jpg', alt='')
+                img(src='/img/Screenshot (43).png', alt='screenshots')
               .single-shot
-                img(src='img/scr-img/app-5.jpg', alt='')
+                img(src='/img/Screenshot (44).png', alt='screenshots')
               //- .single-shot
                 //- img(src='img/scr-img/app-3.jpg', alt='')
     // ***** App Screenshots Area End *****======
@@ -447,97 +381,6 @@ html(lang='en')
               .client-thumbnail
                 img(src='img/bg-img/client-2.jpg', alt='')
     // ***** Client Feedback Area End *****
-    // ***** CTA Area Start *****
-    //- section.our-monthly-membership.section_padding_50.clearfix
-    //-   .container
-    //-     .row.align-items-center
-    //-       .col-md-8
-    //-         .membership-description
-    //-           h2 Join our Monthly Membership
-    //-           p Find the perfect plan for you — 100% satisfaction guaranteed.
-    //-       .col-md-4
-    //-         .get-started-button.wow.bounceInDown(data-wow-delay='0.5s')
-    //-           a(href='#') Get Started
-    // ***** CTA Area End *****
-    //- // ***** Our Team Area Start *****
-    //- section#team.our-Team-area.bg-white.section_padding_100_50.clearfix
-    //-   .container
-    //-     .row
-    //-       .col-12.text-center
-    //-         // Heading Text
-    //-         .section-heading
-    //-           h2 Our Team
-    //-           .line-shape
-    //-     .row
-    //-       .col-12.col-md-6.col-lg-3
-    //-         .single-team-member
-    //-           .member-image
-    //-             img(src='img/team-img/team-1.jpg', alt='')
-    //-             .team-hover-effects
-    //-               .team-social-icon
-    //-                 a(href='#')
-    //-                   i.fa.fa-facebook(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-twitter(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-google-plus(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-instagram(aria-hidden='true')
-    //-           .member-text
-    //-             h4 Augustine
-    //-             p CEO-Founder
-    //-       .col-12.col-md-6.col-lg-3
-    //-         .single-team-member
-    //-           .member-image
-    //-             img(src='img/team-img/team-2.jpg', alt='')
-    //-             .team-hover-effects
-    //-               .team-social-icon
-    //-                 a(href='#')
-    //-                   i.fa.fa-facebook(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-twitter(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-google-plus(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-instagram(aria-hidden='true')
-    //-           .member-text
-    //-             h4 Lawrence Ansah-Addo
-    //-             p Business Planner
-    //-       .col-12.col-md-6.col-lg-3
-    //-         .single-team-member
-    //-           .member-image
-    //-             img(src='img/team-img/team-3.jpg', alt='')
-    //-             .team-hover-effects
-    //-               .team-social-icon
-    //-                 a(href='#')
-    //-                   i.fa.fa-facebook(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-twitter(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-google-plus(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-instagram(aria-hidden='true')
-    //-           .member-text
-    //-             h4 David Kwame Appoh
-    //-             p Software Engineer
-    //-       .col-12.col-md-6.col-lg-3
-    //-         .single-team-member
-    //-           .member-image
-    //-             img(src='img/team-img/team-4.jpg', alt='')
-    //-             .team-hover-effects
-    //-               .team-social-icon
-    //-                 a(href='#')
-    //-                   i.fa.fa-facebook(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-twitter(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-google-plus(aria-hidden='true')
-    //-                 a(href='#')
-    //-                   i.fa.fa-instagram(aria-hidden='true')
-    //-           .member-text
-    //-             h4 Gilbert Laud Yaw Akakpo
-    //-             p Software Developer
-    //- // ***** Our Team Area End *****
     // ***** Contact Us Area Start *****
     section#contact.footer-contact-area.section_padding_100.clearfix
       .container
@@ -553,19 +396,19 @@ html(lang='en')
             .address-text
               p
                 span Address:
-                |  40 Baria Sreet 133/2 NewYork City, US
+                | &nbsp &nbsp Egebjerg Alle 13, DK - 2900 Hellerup, Denmark.
             .phone-text
               p
                 span Phone:
-                |  +11-225-888-888-66
+                | &nbsp &nbsp +45 3962 8222
             .email-text
               p
                 span Email:
-                |  info.embassyofdenmark@gmail.com
+                | &nbsp &nbsp ghana@mail.dk / copenhagen@mfa.gov.gh
           .col-md-6
             // Form Start
             .contact_from
-              form(action='#', method='post')
+              form(action='/users/suggestion', method='post')
                 // Message Input Area Start
                 .contact_input_area
                   .row

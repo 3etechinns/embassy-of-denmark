@@ -7,6 +7,8 @@ html(lang='en')
     // ===============================================================================================
     link(rel='icon', type='image/png', href='img/logo.png')
     // ===============================================================================================
+    script(src='/js/sweetalert.min.js')
+    // ===============================================================================================
     link(rel='stylesheet', type='text/css', href='vendor/bootstrap/css/bootstrap.min.css')
     // ===============================================================================================
     link(rel='stylesheet', type='text/css', href='fonts/font-awesome-4.7.0/css/font-awesome.min.css')
@@ -27,6 +29,15 @@ html(lang='en')
           .login100-pic.js-tilt(data-tilt='')
             img(src='img/img-01.png', alt='IMG')
           form.login100-form.validate-form(method="post" action="/login")
+            if errorMessage
+              p#errorMessage(data-errorMessage=errorMessage)  
+              script.
+                swal({
+                  title: "Authentication error",
+                  text: document.getElementById("errorMessage").getAttribute("data-errorMessage"),
+                  icon: "error",
+                  button: "ok",
+                });
             .text-center.p-b-30
               a.txt2(href='/')
                 i.fa.fa-long-arrow-left.m-l-5(aria-hidden='true')
