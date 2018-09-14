@@ -14,9 +14,19 @@ head
 	// <link rel="stylesheet" type="text/css" href="/assets/vendor/daterangepicker/daterangepicker.css">
 	link(rel='stylesheet', type='text/css', href='/assets/css/util.css')
 	link(rel='stylesheet', type='text/css', href='/assets/css/main.css')
+	script(src="/js/sweetalert.min.js")
 .limiter
 	.container-login100
 		.wrap-login100
+			if errorMessage
+				p#errorMessage(data-errorMessage=errorMessage)  
+				script.
+					swal({
+						title: "Validation error",
+						text: document.getElementById("errorMessage").getAttribute("data-errorMessage"),
+						icon: "error",
+						button: "ok",
+					});
 			form.login100-form.validate-form(method="POST" action="/admin/signup")
 				span.login100-form-title.p-b-26
 				span.login100-form-title.p-b-48
@@ -35,6 +45,11 @@ head
 						i.zmdi.zmdi-eye
 					input.input100(type='password', name='password')
 					span.focus-input100(data-placeholder='Password')
+				.wrap-input100.validate-input(data-validate='Valid password is: adbc&$jign5')
+					span.btn-show-pass
+						i.zmdi.zmdi-eye
+					input.input100(type='password', name='confirmPassword')
+					span.focus-input100(data-placeholder='Repeat Password')
 				.container-login100-form-btn
 					.wrap-login100-form-btn
 						.login100-form-bgbtn

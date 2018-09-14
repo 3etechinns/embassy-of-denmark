@@ -60,7 +60,23 @@ module.exports = app => {
 
   app.post("/admin/signup", async (req, res, next) => {
     try {
-      const { last, first, email, password } = req.body;
+      const { last, first, email, password, confirmPassword } = req.body;
+
+      if (
+        (!last.trim() || !first.trim() || !email.trim() || !password.trim(),
+        !confirmPassword.trim())
+      ) {
+        return res.render("admin/adminSignup", {
+          errorMessage: "All fields are required"
+        });
+      }
+
+      if (password !== confirmPassword) {
+        return res.render("admin/adminSignup", {
+          errorMessage: "Passwords do not match"
+        });
+      }
+
       const hash = await bcrypt.hash(password, 10);
       const admin = await Personnel.create({
         email,
@@ -69,11 +85,11 @@ module.exports = app => {
         isAdmin: true
       });
 
-      return res.redirect("/admin");
-
       req.session.userId = admin._id;
       req.session.isAdmin = admin.isAdmin;
       req.session.isStaff = true;
+
+      return res.redirect("/admin");
     } catch (error) {
       return next(error);
     }
@@ -90,14 +106,12 @@ module.exports = app => {
       const existingStaff = await Personnel.findOne({ email });
 
       if (existingStaff) {
-        return util.error(
-          "The email you provided has already been registered",
-          next,
-          403
-        );
+        return res.render("admin/addStaff", {
+          errorMessage: "A staff exists with same email"
+        });
       }
 
-      const staff = await Personnel.create({
+      await Personnel.create({
         email,
         fullName: { last, first },
         password
@@ -120,7 +134,9 @@ module.exports = app => {
       const staff = await Personnel.findOne({ email });
 
       if (!staff) {
-        return util.error("No account exists with this email", next, 403);
+        return res.render("admin/staffSignin", {
+          errorMessage: "No account exists with this email"
+        });
       }
 
       const matching = await bcrypt.compare(password, staff.password);

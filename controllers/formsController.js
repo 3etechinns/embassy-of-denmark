@@ -434,32 +434,13 @@ const deleteForm = async (req, res, next) => {
       model.findOneAndRemove({ _id: req.query.formId }).lean()
     ]);
 
-    // console.log(formRecord, form);
-
-    let file = "";
+    let files = "";
     for (prop in form) {
       if (typeof form[prop] === "object") {
         for (p in form[prop]) {
-          if (form[prop][p]) {
-            file = path.resolve(__dirname, "..", "store", form[prop][p]);
-            if (fs.existsSync(file)) {
-              fs.unlinkSync(file);
-            }
-          }
+
         }
-      } else {
-        console.log(typeof form[prop], prop, form[prop]);
-        if (prop === "references") {
-          console.log("type of references " + typeof form[prop]);
-          console.log("testing" + typeof prop === "object");
-        }
-        if (form[prop] && prop !== "_id") {
-          file = path.resolve(__dirname, "..", "store", form[prop]);
-          if (fs.existsSync(file)) {
-            fs.unlinkSync(file);
-          }
-        }
-      }
+      } 
     }
 
     await Notification.create({

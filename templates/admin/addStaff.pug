@@ -11,12 +11,21 @@ head
 	link(rel='stylesheet', type='text/css', href='/assets/vendor/css-hamburgers/hamburgers.min.css')
 	link(rel='stylesheet', type='text/css', href='/assets/vendor/animsition/css/animsition.min.css')
 	link(rel='stylesheet', type='text/css', href='/assets/vendor/select2/select2.min.css')
-	// <link rel="stylesheet" type="text/css" href="/assets/vendor/daterangepicker/daterangepicker.css">
 	link(rel='stylesheet', type='text/css', href='/assets/css/util.css')
 	link(rel='stylesheet', type='text/css', href='/assets/css/main.css')
+	script(src="/js/sweetalert.min.js")
 .limiter
 	.container-login100
 		.wrap-login100
+			if errorMessage
+				p#errorMessage(data-errorMessage=errorMessage)  
+				script.
+					swal({
+						title: "Validation Error",
+						text: document.getElementById("errorMessage").getAttribute("data-errorMessage"),
+						icon: "error",
+						button: "ok",
+					});
 			form.login100-form.validate-form(method="POST" action="/admin/add-staff")
 				span.login100-form-title.p-b-26
 				span.login100-form-title.p-b-48
