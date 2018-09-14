@@ -142,12 +142,15 @@ module.exports = app => {
       const matching = await bcrypt.compare(password, staff.password);
 
       if (!matching) {
-        return util.error("Incorrect Password", next, 403);
+        return res.render("admin/staffSignin", {
+          errorMessage: "Password Incorrect"
+        });
       }
 
       req.session.userId = staff._id;
       req.session.isStaff = true;
       req.session.isAdmin = staff.isAdmin;
+
       return res.redirect("/admin");
     } catch (error) {
       return next(error);

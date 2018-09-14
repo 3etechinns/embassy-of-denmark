@@ -14,9 +14,60 @@ html(lang='en')
     block pre_bootstrap
     link(href='/css/bootstrap.min.css', rel='stylesheet')
     link(href='/css/material-dashboard.css?v=2.1.0', rel='stylesheet')
+    style.
+      #preloader {
+        overflow: hidden;
+        background-color: #fff;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999999;
+      }
+
+      .colorlib-load {
+        -webkit-animation: 2000ms linear 0s normal none infinite running colorlib-load;
+        animation: 2000ms linear 0s normal none infinite running colorlib-load;
+        background: transparent none repeat scroll 0 0;
+        border-color: #dddddd #dddddd #fb397d;
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 2px;
+        height: 40px;
+        left: calc(50% - 20px);
+        position: relative;
+        top: calc(50% - 20px);
+        width: 40px;
+        z-index: 9;
+      }
+
+      @-webkit-keyframes colorlib-load {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+      }
+
+      @keyframes colorlib-load {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+      }
     block styles
 
   body
+    #preloader
+      .colorlib-load
     .wrapper
       .sidebar(data-color='purple', data-background-color='white', data-image='/img/sidebar-1.jpg')
         //
@@ -93,6 +144,13 @@ html(lang='en')
         block main
         include ./includes/_footer
         script.
+          $(window).on("load", function() {
+            console.log("you");
+            $("#preloader").fadeOut("slow", function() {
+              $(this).remove();
+            });
+          });
+
           if(location.pathname === "/profile") {
             $("#userProfile").addClass("active");
             $("#history").removeClass("active");

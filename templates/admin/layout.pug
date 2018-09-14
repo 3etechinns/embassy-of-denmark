@@ -14,8 +14,59 @@ html(lang="en")
     // Your custom styles (optional)
     link(href="/css/style.css" rel="stylesheet")
     link(href="/css/compiled.min.css" rel="stylesheet")
+    style.
+      #preloader {
+        overflow: hidden;
+        background-color: #fff;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999999;
+      }
+
+      .colorlib-load {
+        -webkit-animation: 2000ms linear 0s normal none infinite running colorlib-load;
+        animation: 2000ms linear 0s normal none infinite running colorlib-load;
+        background: transparent none repeat scroll 0 0;
+        border-color: #dddddd #dddddd #fb397d;
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 2px;
+        height: 40px;
+        left: calc(50% - 20px);
+        position: relative;
+        top: calc(50% - 20px);
+        width: 40px;
+        z-index: 9;
+      }
+
+      @-webkit-keyframes colorlib-load {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+      }
+
+      @keyframes colorlib-load {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+      }
     block styles
   body.fixed-sn.mdb-skin
+    #preloader
+      .colorlib-load
     // Main Navigation
     header
       // Navbar
@@ -26,19 +77,23 @@ html(lang="en")
             i.fa.fa-bars
         // Breadcrumb
         .breadcrumb-dn.mr-auto
-          p(style="font-weight: 600; font-size: 13px;") ADMIN DASHBOARD
+          p(style="font-weight: 600; font-size: 13px;")
+            a(href="/admin") ADMIN DASHBOARD
         // Links
         ul.nav.navbar-nav.nav-flex-icons.ml-auto
           block navs
           li.nav-item
+            a.nav-link(href="/admin/transaction/all_requests")
+              i.fa.fa-share-alt
+              span.clearfix.d-none.d-sm-inline-block Assign Forms 
+          li.nav-item
+            a.nav-link(href="/admin/add-staff")
+              i.fa.fa-plus-circle
+              | Add Staff
+          li.nav-item
             a.nav-link(href="/admin/support")
               i.fa.fa-comments-o
               span.clearfix.d-none.d-sm-inline-block Support
-          li.nav-item
-            a.nav-link(href="/admin/add-staff")
-              i.fa.fa-gear
-              | Staff
-            .modal.fade
           li.nav-item
             a.nav-link(href="/logout")
               i.fa.fa-power-off
@@ -82,6 +137,14 @@ html(lang="en")
     script(type="text/javascript" src="/js/custom.js")
     // Initialization
     script.
+      //- for the loader
+      $(window).on("load", function() {
+        console.log("you");
+        $("#preloader").fadeOut("slow", function() {
+          $(this).remove();
+        });
+      });
+      
       // SideNav Initialization
       $(".button-collapse").sideNav();
       // Material Select Initialization
